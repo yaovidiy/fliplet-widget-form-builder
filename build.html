@@ -1,4 +1,4 @@
-<div id="build">
+<div data-form-builder-id="{{ id }}">
   <form v-on:submit.prevent="onSubmit">
     <ul>
       <li class="well" v-for="field in fields">
@@ -8,5 +8,3 @@
     <input type="submit" value="Submit"/>
   </form>
 </div>
-
-<div data-form-builder-id="{{ id }}"></div>
