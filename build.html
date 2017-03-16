@@ -1,0 +1,12 @@
+<div id="build">
+  <form v-on:submit.prevent="onSubmit">
+    <ul>
+      <li class="well" v-for="field in fields">
+        <component :is="field.type" v-bind="field"></component>
+      </li>
+    </ul>
+    <input type="submit" value="Submit"/>
+  </form>
+</div>
+
+<div data-form-builder-id="{{ id }}"></div>

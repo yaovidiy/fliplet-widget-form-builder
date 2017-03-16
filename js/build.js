@@ -1,5 +1,6 @@
-// this data will come from the JSON configuration
-var fields = [
+var data = Fliplet.Widget.getData() || {};
+
+var fields = data.fields || [
   {
     type: 'flFormInput',
     value: 'Foo'
@@ -31,13 +32,31 @@ var build = new Vue({
       fields: fields
     };
   },
+  props: {
+    editable: {
+      type: Boolean,
+      default: false
+    }
+  },
   methods: {
     onSubmit: function () {
       console.log(JSON.stringify(this.fields, null, 2))
     },
     onSort: function (event) {
       // this.fields.splice(event.newIndex, 0, this.fields.splice(event.oldIndex, 1)[0])
+    },
+    deleteField: function (index) {
+      this.fields.splice(index, 1);
     }
+  },
+  mounted: function () {
+    var $vm = this;
+
+    Fliplet.Widget.onSaveRequest(function () {
+      Fliplet.Widget.save({ fields: $vm.fields }).then(function () {
+        Fliplet.Widget.complete();
+      });
+    });
   }
 });
 

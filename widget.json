@@ -25,7 +25,17 @@
     ]
   },
   "build": {
-    "dependencies": [],
-    "assets": []
+    "dependencies": [
+      "vue.js",
+      "bootstrap",
+      "fliplet-core",
+      "fliplet-datasources"
+    ],
+    "assets": [
+      "js/core.js",
+      "js/components/input.js",
+      "js/components/select.js",
+      "js/form.js"
+    ]
   }
 }

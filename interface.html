@@ -8,17 +8,16 @@
 
   <hr />
   <h2>Sample output</h2>
-  <build></build>
+  <build :editable="true"></build>
 </div>
 
-<!-- this is gonna be moved to a shared place -->
 <div id="build">
   <form v-on:submit.prevent="onSubmit">
     <ul v-sortable="{ group: { name: 'fields', pull: false }, onUpdate: onSort }">
-      <li class="well" v-for="field in fields">
-        <component :is="field.type" v-bind="field"></component>
+      <li class="well" v-for="(field, index) in fields">
+        <component :is="field.type" v-bind="field" :editable="editable"></component>
+        <a href="#" v-on:click.prevent="deleteField(index)">Delete</a>
       </li>
     </ul>
-    <input type="submit" />
   </form>
 </div>
