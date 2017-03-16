@@ -1,0 +1,24 @@
+<div id="app">
+  <h2>Components list</h2>
+  <ul v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
+    <li class="well" v-for="field in fields">
+      <component :is="field"></component>
+    </li>
+  </ul>
+
+  <hr />
+  <h2>Sample output</h2>
+  <build></build>
+</div>
+
+<!-- this is gonna be moved to a shared place -->
+<div id="build">
+  <form v-on:submit.prevent="onSubmit">
+    <ul v-sortable="{ group: { name: 'fields', pull: false }, onUpdate: onSort }">
+      <li class="well" v-for="field in fields">
+        <component :is="field.type" v-bind="field"></component>
+      </li>
+    </ul>
+    <input type="submit" />
+  </form>
+</div>
