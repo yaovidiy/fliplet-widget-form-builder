@@ -46,6 +46,11 @@ var app = new Vue({
       this.activeFieldConfigType = field.type.toString() + 'Config';
       this.activeField = field;
       this.$forceUpdate();
+    },
+    closeEdit: function () {
+      this.activeFieldId = null;
+      this.activeFieldConfigType = null;
+      this.activeField = {};
     }
   },
   mounted: function () {

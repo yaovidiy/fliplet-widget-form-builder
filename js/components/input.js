@@ -1,6 +1,6 @@
 Fliplet.FormBuilder.field('input', {
   name: 'Text field',
-  template: '<input class="form-control" type="text" v-model="value" v-bind:placeholder="placeholder" />',
+  template: Fliplet.Widget.Templates['templates.components.input'](),
   props: {
     placeholder: {
       type: String,

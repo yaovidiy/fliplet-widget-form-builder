@@ -9,6 +9,7 @@
   "html_tag": "div",
   "interface": {
     "dependencies": [
+      "handlebars",
       "lodash",
       "vue.js",
       "fliplet-studio-ui",
@@ -17,6 +18,7 @@
     "assets": [
       "vendor/sortable.js",
       "vendor/vue-sortable.js",
+      "js/build.templates.js",
       "js/core.js",
       "js/components/input.js",
       "js/components/select.js",
@@ -28,11 +30,13 @@
   },
   "build": {
     "dependencies": [
+      "handlebars",
       "vue.js",
       "bootstrap",
       "fliplet-datasources"
     ],
     "assets": [
+      "js/build.templates.js",
       "js/core.js",
       "js/components/input.js",
       "js/components/select.js",

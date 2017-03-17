@@ -10,7 +10,8 @@
   background-color: rgba(255, 251, 206, 0.9);
 }
 
-.components-list .form-group > * {
+.components-list .form-group > *,
+.form-preview .form-group > * {
   pointer-events: none;
 }
 
@@ -21,4 +22,9 @@
 
 .form-preview .form-html {
   min-height: 200px;
+}
+
+.modal.active {
+  background-color: rgba(0,0,0,0.3);
+  display: block;
 }
