@@ -8,6 +8,10 @@ Fliplet.FormBuilder = (function () {
 
   return {
     field: function (componentName, component) {
+      component.template = Fliplet.Widget.Templates['templates.components.field']({
+        template: Fliplet.Widget.Templates['templates.components.' + componentName]()
+      });
+
       componentName = name(componentName);
       components[componentName] = component;
 
@@ -22,25 +26,16 @@ Fliplet.FormBuilder = (function () {
         }
       });
 
-      component.template = [
-        '<div class="form-group">',
-          '<label class="col-sm-12 control-label" v-bind:for="name">{{ label }}</label>',
-          '<div class="col-sm-12">',
-            component.template,
-          '</div>',
-        '</div>'
-      ].join('');
-
       Vue.component(componentName, component);
     },
     fields: function () {
       return Object.keys(components);
     },
     configuration: function (componentName, configurationComponent) {
+      component.template = Fliplet.Widget.Templates['templates.configurations.' + componentName];
       componentName = name(componentName);
-      var component = components[componentName];
 
-      Vue.component(componentName + 'Config', _.assign({}, _.pick(component, [
+      Vue.component(componentName + 'Config', _.assign({}, _.pick(components[componentName], [
         'props'
       ]), configurationComponent));
     }
