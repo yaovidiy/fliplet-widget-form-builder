@@ -1,21 +1,21 @@
 <div id="app">
   <main>
-    <section>
-      <h2>Components list</h2>
-      <div v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
-        <div class="well" v-for="field in formFields">
+    <section class="components-list col-sm-6">
+      <h2>Drag &amp; Drop components</h2>
+      <div class="form-html form-horizontal" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
+        <div class="component" v-for="field in formFields">
           <component :is="field"></component>
         </div>
       </div>
     </section>
 
-    <section>
-      <h2>Sample output</h2>
-      <div class="form-preview" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
-        <div :data-id="field.id" class="well" v-for="(field, index) in fields" v-on:click="onFieldClick(field)">
+    <section class="col-sm-6 form-preview">
+      <h2>Your form</h2>
+      <div class="form-html form-horizontal" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
+        <div class="component" :data-id="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)">
           <component :is="field.type" v-bind="field"></component>
           <a href="#" v-on:click.prevent="deleteField(index)">Delete</a>
-          <div v-if="field.id === activeFieldId">
+          <div v-if="field.name === activeFieldId">
             <p> is editing \{{activeFieldConfigType}}</p>
           </div>
         </div>

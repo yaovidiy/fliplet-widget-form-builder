@@ -1,12 +1,24 @@
-main {
-  display: flex;
+.component {
+  border: 1px dotted #AAA;
+  cursor: move;
+  padding: 10px 20px 0;
+  margin-bottom: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
-main section {
-  width: 50%;
+.component[draggable="true"] {
+  background-color: rgba(255, 251, 206, 0.9);
+}
+
+.components-list .form-group > * {
+  pointer-events: none;
 }
 
 .form-preview {
-  padding: 30px;
+  border-left: 1px solid #EEE;
   background-color: #EEE;
+}
+
+.form-preview .form-html {
+  min-height: 200px;
 }

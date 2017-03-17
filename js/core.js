@@ -12,14 +12,24 @@ Fliplet.FormBuilder = (function () {
       components[componentName] = component;
 
       _.extend(component.props, {
-        id: {
-          type: Number,
-          required: true,
-        },
         name: {
-          type: String
+          type: String,
+          required: true
+        },
+        label: {
+          type: String,
+          default: component.name || 'Label text'
         }
       });
+
+      component.template = [
+        '<div class="form-group">',
+          '<label class="col-sm-12 control-label" v-bind:for="name">{{ label }}</label>',
+          '<div class="col-sm-12">',
+            component.template,
+          '</div>',
+        '</div>'
+      ].join('');
 
       Vue.component(componentName, component);
     },

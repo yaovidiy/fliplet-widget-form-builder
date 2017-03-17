@@ -1,9 +1,10 @@
 Fliplet.FormBuilder.field('select', {
+  name: 'Select field',
   template: [
-    '<select v-model="value">',
-    '<option v-for="option in options" v-bind:value="option.id" v-bind:disabled="option.disabled">',
-    '{{ option.name }}',
-    '</option>',
+    '<select class="form-control" v-bind:name="name" v-model="value">',
+      '<option v-for="option in options" v-bind:value="option.id" v-bind:disabled="option.disabled">',
+        '{{ option.name }}',
+      '</option>',
     '</select>'
   ].join(''),
   props: {

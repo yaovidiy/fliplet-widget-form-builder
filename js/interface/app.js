@@ -32,7 +32,7 @@ var app = new Vue({
     onAdd: function (event) {
       event.item.remove();
       this.fields.splice(event.newIndex, 0, {
-        id: Date.now(),
+        name: 'field-' + (this.fields.length + 1),
         type: Fliplet.FormBuilder.fields()[event.oldIndex]
       });
       this.$forceUpdate();
@@ -42,7 +42,7 @@ var app = new Vue({
       this.activeFieldConfigType = null;
     },
     onFieldClick: function (field) {
-      this.activeFieldId = field.id;
+      this.activeFieldId = field.name;
       this.activeFieldConfigType = field.type.toString() + 'Config';
       this.activeField = field;
       this.$forceUpdate();

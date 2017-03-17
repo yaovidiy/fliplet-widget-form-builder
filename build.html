@@ -1,9 +1,15 @@
-<div data-form-builder-id="{{ id }}">
-  <form class="well" v-on:submit.prevent="onSubmit">
-    <h1>Form</h1>
-    <div class="well" v-for="field in fields">
+<div class="fl-form" data-form-builder-id="{{ id }}">
+  <form v-on:submit.prevent="onSubmit">
+    <div class="col-sm-12">
+      <h2>Your form</h2>
+      <hr />
+    </div>
+    <div v-for="field in fields">
       <component :is="field.type" v-bind="field"></component>
     </div>
-    <input type="submit" value="Submit" class="btn btn-primary"/>
+    <div class="form-group col-sm-12">
+      <hr />
+      <input class="form-control" type="submit" value="Submit" class="btn btn-primary"/>
+    </div>
   </form>
 </div>

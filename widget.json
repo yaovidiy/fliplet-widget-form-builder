@@ -22,7 +22,8 @@
       "js/components/select.js",
       "js/configurations/input.js",
       "js/interface/app.js",
-      "css/builder.css"
+      "css/builder.css",
+      "css/form.css"
     ]
   },
   "build": {
@@ -35,7 +36,8 @@
       "js/core.js",
       "js/components/input.js",
       "js/components/select.js",
-      "js/form.js"
+      "js/form.js",
+      "css/form.css"
     ]
   }
 }
