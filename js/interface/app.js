@@ -1,21 +1,6 @@
 var data = Fliplet.Widget.getData() || {};
 
-var fields = data.fields || [
-  {
-    type: 'flFormInput',
-    value: 'Foo'
-  },
-  {
-    type: 'flFormSelect',
-    source: 'dataSources',
-    value: 1
-  },
-  {
-    type: 'flFormSelect',
-    options: [{id: 1, name: 'foo'}, {id: 2, name: 'bar'}],
-    value: 2
-  }
-];
+var fields = data.fields || [];
 
 Vue.directive('sortable', {
   inserted: function (el, binding) {
@@ -30,7 +15,10 @@ var app = new Vue({
   data: function () {
     return {
       formFields: Fliplet.FormBuilder.fields(),
-      fields: fields
+      fields: fields,
+      activeFieldId: null,
+      activeFieldConfigType: null,
+      activeField: {}
     }
   },
   methods: {
@@ -44,12 +32,20 @@ var app = new Vue({
     onAdd: function (event) {
       event.item.remove();
       this.fields.splice(event.newIndex, 0, {
+        id: Date.now(),
         type: Fliplet.FormBuilder.fields()[event.oldIndex]
       });
       this.$forceUpdate();
     },
     deleteField: function (index) {
       this.fields.splice(index, 1);
+      this.activeFieldConfigType = null;
+    },
+    onFieldClick: function (field) {
+      this.activeFieldId = field.id;
+      this.activeFieldConfigType = field.type.toString() + 'Config';
+      this.activeField = field;
+      this.$forceUpdate();
     }
   },
   mounted: function () {

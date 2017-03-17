@@ -12,10 +12,21 @@
     <section>
       <h2>Sample output</h2>
       <div class="form-preview" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
-        <div class="well" v-for="(field, index) in fields">
-          <component :is="field.type" v-bind="field" :editable="true"></component>
+        <div :data-id="field.id" class="well" v-for="(field, index) in fields" v-on:click="onFieldClick(field)">
+          <component :is="field.type" v-bind="field"></component>
           <a href="#" v-on:click.prevent="deleteField(index)">Delete</a>
+          <div v-if="field.id === activeFieldId">
+            <p> is editing \{{activeFieldConfigType}}</p>
+          </div>
         </div>
+      </div>
+      <hr />
+
+      <div v-if="activeFieldConfigType">
+        <form>
+          <p>Configure this field</p>
+          <component :is="activeFieldConfigType" v-bind="activeField"></component>
+        </form>
       </div>
     </section>
   </main>

@@ -9,8 +9,8 @@
   "html_tag": "div",
   "interface": {
     "dependencies": [
+      "lodash",
       "vue.js",
-      "fliplet-core",
       "fliplet-studio-ui",
       "fliplet-datasources"
     ],
@@ -20,6 +20,7 @@
       "js/core.js",
       "js/components/input.js",
       "js/components/select.js",
+      "js/configurations/input.js",
       "js/interface/app.js",
       "css/builder.css"
     ]
@@ -28,7 +29,6 @@
     "dependencies": [
       "vue.js",
       "bootstrap",
-      "fliplet-core",
       "fliplet-datasources"
     ],
     "assets": [
