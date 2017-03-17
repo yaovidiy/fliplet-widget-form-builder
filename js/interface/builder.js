@@ -43,7 +43,15 @@ var build = new Vue({
       console.log(JSON.stringify(this.fields, null, 2))
     },
     onSort: function (event) {
-      // this.fields.splice(event.newIndex, 0, this.fields.splice(event.oldIndex, 1)[0])
+      this.fields.splice(event.newIndex, 0, this.fields.splice(event.oldIndex, 1)[0]);
+      this.$forceUpdate();
+    },
+    onAdd: function (event) {
+      event.item.remove();
+      this.fields.splice(event.newIndex, 0, {
+        type: Fliplet.FormBuilder.fields()[event.oldIndex]
+      });
+      this.$forceUpdate();
     },
     deleteField: function (index) {
       this.fields.splice(index, 1);

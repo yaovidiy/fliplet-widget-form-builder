@@ -1,0 +1,12 @@
+main {
+  display: flex;
+}
+
+main section {
+  width: 50%;
+}
+
+.form-preview {
+  padding: 30px;
+  background-color: #EEE;
+}

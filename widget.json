@@ -20,8 +20,8 @@
       "js/core.js",
       "js/components/input.js",
       "js/components/select.js",
-      "js/build.js",
-      "js/interface.js"
+      "js/interface/app.js",
+      "css/builder.css"
     ]
   },
   "build": {

@@ -1,7 +1,7 @@
 Fliplet.FormBuilder.field('select', {
   template: [
     '<select v-model="value">',
-    '<option v-for="option in options" v-bind:value="option.id">',
+    '<option v-for="option in options" v-bind:value="option.id" v-bind:disabled="option.disabled">',
     '{{ option.name }}',
     '</option>',
     '</select>'
@@ -9,7 +9,7 @@ Fliplet.FormBuilder.field('select', {
   props: {
     options: {
       type: Array,
-      default: [{ id: '', name: 'Sample 1' }, { id: '', name: 'Sample 2' }]
+      default: [{ id: '', name: 'Sample value', disabled: true }]
     },
     source: {
       type: String
@@ -23,8 +23,9 @@ Fliplet.FormBuilder.field('select', {
     var $vm = this;
 
     if ($vm.source === 'dataSources') {
+      $vm.options = [{id: '', name: 'Please wait...', disabled: true }];
       Fliplet.DataSources.get().then(function (dataSources) {
-        dataSources.unshift({ name: 'Select a data source', value: '' });
+        dataSources.unshift({ name: 'Select a data source', value: '', disabled: true });
         $vm.options = dataSources;
       })
     }

@@ -1,23 +1,22 @@
 <div id="app">
-  <h2>Components list</h2>
-  <ul v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
-    <li class="well" v-for="field in fields">
-      <component :is="field"></component>
-    </li>
-  </ul>
+  <main>
+    <section>
+      <h2>Components list</h2>
+      <div v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
+        <div class="well" v-for="field in formFields">
+          <component :is="field"></component>
+        </div>
+      </div>
+    </section>
 
-  <hr />
-  <h2>Sample output</h2>
-  <build :editable="true"></build>
-</div>
-
-<div id="build">
-  <form v-on:submit.prevent="onSubmit">
-    <ul v-sortable="{ group: { name: 'fields', pull: false }, onUpdate: onSort }">
-      <li class="well" v-for="(field, index) in fields">
-        <component :is="field.type" v-bind="field" :editable="editable"></component>
-        <a href="#" v-on:click.prevent="deleteField(index)">Delete</a>
-      </li>
-    </ul>
-  </form>
+    <section>
+      <h2>Sample output</h2>
+      <div class="form-preview" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
+        <div class="well" v-for="(field, index) in fields">
+          <component :is="field.type" v-bind="field" :editable="true"></component>
+          <a href="#" v-on:click.prevent="deleteField(index)">Delete</a>
+        </div>
+      </div>
+    </section>
+  </main>
 </div>
