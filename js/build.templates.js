@@ -11,7 +11,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebar
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<input class=\"form-control\" type=\"text\" v-model=\"value\" v-bind:placeholder=\"placeholder\" />";
+    return "<input v-bind:name=\"name\" v-bind:id=\"name\" class=\"form-control\" type=\"text\" v-model=\"value\" v-bind:placeholder=\"placeholder\" />";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.radio"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -19,5 +19,5 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.radio"] = Handlebar
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<select class=\"form-control\" v-bind:name=\"name\" v-model=\"value\">\n  <option v-for=\"option in options\" v-bind:value=\"option.id\" v-bind:disabled=\"option.disabled\">\n    {{ option.name }}\n  </option>\n</select>";
+    return "<select class=\"form-control\" v-bind:name=\"name\" v-bind:id=\"name\" v-model=\"value\">\n  <option v-for=\"option in options\" v-bind:value=\"option.id\" v-bind:disabled=\"option.disabled\">\n    {{ option.name }}\n  </option>\n</select>";
 },"useData":true});

@@ -1,4 +1,4 @@
-<select class="form-control" v-bind:name="name" v-model="value">
+<select class="form-control" v-bind:name="name" v-bind:id="name" v-model="value">
   <option v-for="option in options" v-bind:value="option.id" v-bind:disabled="option.disabled">
     \{{ option.name }}
   </option>

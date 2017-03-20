@@ -3,7 +3,7 @@ Fliplet.FormBuilder.field('select', {
   props: {
     options: {
       type: Array,
-      default: [{ id: '', name: 'Sample value', disabled: true }]
+      default: [{ id: '', name: 'Please select one', disabled: true }]
     },
     source: {
       type: String
