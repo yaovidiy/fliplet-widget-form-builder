@@ -1,5 +1,5 @@
-<template v-for="option in options">
-  <label v-bind:for="name">
-    <input type="radio" v-bind:id="name" v-bind:name="name" v-model="value" v-bind:value="option.id"/> \{{ option.id }}&nbsp;&nbsp;&nbsp;
+<template v-for="(option, index) in options">
+  <label v-bind:for="name + '-' + index">
+    <input type="radio" v-bind:id="name + '-' + index" v-bind:name="name" v-model="value" v-bind:value="option.id"/> \{{ option.id }}&nbsp;&nbsp;&nbsp;
   </label>
 </template>

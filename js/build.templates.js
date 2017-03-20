@@ -2,6 +2,10 @@ this["Fliplet"] = this["Fliplet"] || {};
 this["Fliplet"]["Widget"] = this["Fliplet"]["Widget"] || {};
 this["Fliplet"]["Widget"]["Templates"] = this["Fliplet"]["Widget"]["Templates"] || {};
 
+this["Fliplet"]["Widget"]["Templates"]["templates.components.checkbox"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<template v-for=\"(option, index) in options\">\n  <label v-bind:for=\"name + '-' + index\">\n    <input type=\"checkbox\" v-bind:id=\"name + '-' + index\" v-bind:name=\"name\" v-model=\"value\" v-bind:value=\"option.id\"/> {{ option.id }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>\n<span>Checked names: {{ value }}</span>";
+},"useData":true});
+
 this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
 
@@ -15,7 +19,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebar
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.radio"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<template v-for=\"option in options\">\n  <label v-bind:for=\"name\">\n    <input type=\"radio\" v-bind:id=\"name\" v-bind:name=\"name\" v-model=\"value\" v-bind:value=\"option.id\"/> {{ option.id }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>";
+    return "<template v-for=\"(option, index) in options\">\n  <label v-bind:for=\"name + '-' + index\">\n    <input type=\"radio\" v-bind:id=\"name + '-' + index\" v-bind:name=\"name\" v-model=\"value\" v-bind:value=\"option.id\"/> {{ option.id }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
