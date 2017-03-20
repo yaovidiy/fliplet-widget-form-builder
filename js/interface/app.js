@@ -22,9 +22,6 @@ var app = new Vue({
     }
   },
   methods: {
-    onSubmit: function () {
-      console.log(JSON.stringify(this.fields, null, 2))
-    },
     onSort: function (event) {
       this.fields.splice(event.newIndex, 0, this.fields.splice(event.oldIndex, 1)[0]);
       this.$forceUpdate();
@@ -33,6 +30,8 @@ var app = new Vue({
       event.item.remove();
       this.fields.splice(event.newIndex, 0, {
         name: 'field-' + (this.fields.length + 1),
+        type: Fliplet.FormBuilder.fields()[event.oldIndex],
+        value: ''
       });
       this.$forceUpdate();
     },
@@ -51,8 +50,19 @@ var app = new Vue({
       this.activeFieldConfigType = null;
       this.activeField = {};
     },
-    saveEdit: function () {
+    onFieldSettingChanged: function (fieldData) {
+      var $vm = this;
+      Object.keys(fieldData).forEach(function (prop) {
+        $vm.activeField[prop] = fieldData[prop];
+      });
+      this.closeEdit();
     }
+  },
+  created: function () {
+    Fliplet.FormBuilder.on('field-settings-changed', this.onFieldSettingChanged);
+  },
+  beforeDestroy: function () {
+    Fliplet.FormBuilder.off('field-settings-changed', this.onFieldSettingChanged);
   },
   mounted: function () {
     var $vm = this;
