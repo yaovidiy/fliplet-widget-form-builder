@@ -17,8 +17,18 @@ Fliplet.FormBuilder = (function () {
       eventHub.$off(eventName, fn);
     },
     field: function (componentName, component) {
+      if (!component.name) {
+        throw new Error('The component name is required');
+      }
+
+      var template = templates['templates.components.' + componentName];
+
+      if (!template) {
+        throw new Error('A template for the ' + componentName + ' component has not been found');
+      }
+
       component.template = templates['templates.components.field']({
-        template: templates['templates.components.' + componentName]()
+        template: template()
       });
 
       componentName = name(componentName);
@@ -38,8 +48,6 @@ Fliplet.FormBuilder = (function () {
         }
       });
 
-      console.log(component.props)
-
       Vue.component(componentName, component);
     },
     fields: function () {
@@ -50,8 +58,10 @@ Fliplet.FormBuilder = (function () {
         component = {};
       }
 
+      var template = templates['templates.configurations.' + componentName];
+
       component.template = templates['templates.configurations.form']({
-        template: templates['templates.configurations.' + componentName]()
+        template: template && template() || ''
       });
 
       componentName = name(componentName);

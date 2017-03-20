@@ -1,7 +1,7 @@
 <div class="fl-form" data-form-builder-id="{{ id }}">
   <form v-if="fields.length" v-on:submit.prevent="onSubmit">
     <div class="col-sm-12">
-      <h2>Your form</h2>
+      <h2>{{ name }}</h2>
       <hr />
     </div>
     <div v-for="field in fields">

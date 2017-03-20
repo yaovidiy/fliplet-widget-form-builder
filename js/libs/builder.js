@@ -10,6 +10,10 @@ Vue.directive('sortable', {
   }
 });
 
+var formSettings = _.assign({
+  name: 'New form'
+}, _.omit(data, 'fields'));
+
 var app = new Vue({
   el: '#app',
   data: function () {
@@ -18,7 +22,8 @@ var app = new Vue({
       fields: fields,
       activeFieldId: null,
       activeFieldConfigType: null,
-      activeField: {}
+      activeField: {},
+      settings: formSettings
     }
   },
   methods: {
@@ -68,7 +73,9 @@ var app = new Vue({
     var $vm = this;
 
     Fliplet.Widget.onSaveRequest(function () {
-      Fliplet.Widget.save({ fields: $vm.fields }).then(function () {
+      formSettings.fields = $vm.fields;
+
+      Fliplet.Widget.save(formSettings).then(function () {
         Fliplet.Widget.complete();
       });
     });

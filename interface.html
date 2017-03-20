@@ -1,7 +1,16 @@
 <div id="app">
   <main>
-    <section class="components-list col-sm-6">
-      <h2>Drag &amp; Drop components</h2>
+    <section class="col-sm-2">
+      <h3>Configure form</h3>
+      <form>
+        <div class="form-group">
+          <label for="formName" class="control-label">Form name</label>
+          <input id="formName" name="name" type="text" v-model="settings.name" class="form-control" />
+        </div>
+      </form>
+    </section>
+    <section class="components-list col-sm-5">
+      <h3>Drag &amp; Drop components</h3>
       <div class="form-html form-horizontal" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
         <div class="component" v-for="field in formFields">
           <component :is="field"></component>
@@ -9,8 +18,8 @@
       </div>
     </section>
 
-    <section class="col-sm-6 form-preview">
-      <h2>Your form</h2>
+    <section class="col-sm-5 form-preview">
+      <h3>Your form</h3>
       <div class="form-html form-horizontal" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
         <div class="component" :data-id="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: field.name === activeFieldId }">
           <component :is="field.type" v-bind="field"></component>

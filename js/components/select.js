@@ -1,5 +1,5 @@
 Fliplet.FormBuilder.field('select', {
-  name: 'Select field',
+  name: 'Select one',
   props: {
     options: {
       type: Array,
