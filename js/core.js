@@ -31,13 +31,17 @@ Fliplet.FormBuilder = (function () {
     fields: function () {
       return Object.keys(components);
     },
-    configuration: function (componentName, configurationComponent) {
+    configuration: function (componentName, component) {
+      if (!component) {
+        component = {};
+      }
+
       component.template = Fliplet.Widget.Templates['templates.configurations.' + componentName];
       componentName = name(componentName);
 
       Vue.component(componentName + 'Config', _.assign({}, _.pick(components[componentName], [
         'props'
-      ]), configurationComponent));
+      ]), component));
     }
   };
 })();

@@ -14,6 +14,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebar
     return "<input class=\"form-control\" type=\"text\" v-model=\"value\" v-bind:placeholder=\"placeholder\" />";
 },"useData":true});
 
+this["Fliplet"]["Widget"]["Templates"]["templates.components.radio"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<template v-for=\"option in options\">\n  <label v-bind:for=\"name\">\n    <input type=\"radio\" v-bind:id=\"name\" v-bind:name=\"name\" v-model=\"value\" v-bind:value=\"option.id\"/> {{ option.name }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>";
+},"useData":true});
+
 this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<select class=\"form-control\" v-bind:name=\"name\" v-model=\"value\">\n  <option v-for=\"option in options\" v-bind:value=\"option.id\" v-bind:disabled=\"option.disabled\">\n    {{ option.name }}\n  </option>\n</select>";
 },"useData":true});

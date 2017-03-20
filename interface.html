@@ -12,12 +12,9 @@
     <section class="col-sm-6 form-preview">
       <h2>Your form</h2>
       <div class="form-html form-horizontal" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
-        <div class="component" :data-id="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)">
+        <div class="component" :data-id="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: field.name === activeFieldId }">
           <component :is="field.type" v-bind="field"></component>
-          <a href="#" v-on:click.prevent="deleteField(index)">Delete</a>
-          <div v-if="field.name === activeFieldId">
-            <p> is editing \{{activeFieldConfigType}}</p>
-          </div>
+          <a href="#" v-on:click.prevent.stop="deleteField(index)">Delete</a>
         </div>
       </div>
     </section>
@@ -26,7 +23,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" v-on:click="closeEdit" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" v-on:click.prevent="closeEdit" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Configure form field</h4>
           </div>
           <div class="modal-body">
@@ -35,7 +32,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" v-on:click="closeEdit">Close</button>
+            <button type="button" class="btn btn-default" v-on:click.prevent="closeEdit">Close</button>
             <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>

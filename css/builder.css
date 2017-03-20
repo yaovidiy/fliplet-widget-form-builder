@@ -10,6 +10,10 @@
   background-color: rgba(255, 251, 206, 0.9);
 }
 
+.component.editing {
+  background-color: rgba(199, 241, 255, 0.9);
+}
+
 .components-list .form-group > *,
 .form-preview .form-group > * {
   pointer-events: none;
