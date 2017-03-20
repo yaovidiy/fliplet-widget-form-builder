@@ -51,6 +51,8 @@ var app = new Vue({
       this.activeFieldId = null;
       this.activeFieldConfigType = null;
       this.activeField = {};
+    },
+    saveEdit: function () {
     }
   },
   mounted: function () {

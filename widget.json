@@ -19,6 +19,7 @@
       "vendor/sortable.js",
       "vendor/vue-sortable.js",
       "js/build.templates.js",
+      "js/interface.templates.js",
       "js/core.js",
 
       "js/components/input.js",

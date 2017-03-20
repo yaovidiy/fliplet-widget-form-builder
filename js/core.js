@@ -2,14 +2,16 @@ Fliplet.FormBuilder = (function () {
   var fields = [];
   var components = {};
 
+  var templates = Fliplet.Widget.Templates;
+
   function name(component) {
     return 'fl' + component.charAt(0).toUpperCase() + component.slice(1);
   }
 
   return {
     field: function (componentName, component) {
-      component.template = Fliplet.Widget.Templates['templates.components.field']({
-        template: Fliplet.Widget.Templates['templates.components.' + componentName]()
+      component.template = templates['templates.components.field']({
+        template: templates['templates.components.' + componentName]()
       });
 
       componentName = name(componentName);
@@ -36,12 +38,15 @@ Fliplet.FormBuilder = (function () {
         component = {};
       }
 
-      component.template = Fliplet.Widget.Templates['templates.configurations.' + componentName];
+      component.template = templates['templates.configurations.' + componentName]();
       componentName = name(componentName);
 
-      Vue.component(componentName + 'Config', _.assign({}, _.pick(components[componentName], [
+      // Extend from base component
+      component = _.assign({}, _.pick(components[componentName], [
         'props'
-      ]), component));
+      ]), component);
+
+      Vue.component(componentName + 'Config', component);
     }
   };
 })();
