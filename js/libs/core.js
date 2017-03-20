@@ -32,8 +32,13 @@ Fliplet.FormBuilder = (function () {
         label: {
           type: String,
           default: component.name || 'Label text'
+        },
+        value: {
+          type: String
         }
       });
+
+      console.log(component.props)
 
       Vue.component(componentName, component);
     },
@@ -58,7 +63,7 @@ Fliplet.FormBuilder = (function () {
         'props'
       ]), component);
 
-      component.methods.__onSubmit = function () {
+      component.methods._onSubmit = function () {
         var $vm = this;
         var data = {};
 
@@ -67,6 +72,10 @@ Fliplet.FormBuilder = (function () {
         });
 
         eventHub.$emit('field-settings-changed', data);
+      }
+
+      if (!component.methods.onSubmit) {
+        component.methods.onSubmit = component.methods._onSubmit;
       }
 
       Vue.component(componentName + 'Config', component);

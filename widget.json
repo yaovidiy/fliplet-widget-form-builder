@@ -20,15 +20,16 @@
       "vendor/vue-sortable.js",
       "js/build.templates.js",
       "js/interface.templates.js",
-      "js/core.js",
+      "js/libs/core.js",
 
       "js/components/input.js",
       "js/components/select.js",
       "js/components/radio.js",
 
       "js/configurations/input.js",
+      "js/configurations/select.js",
 
-      "js/interface/app.js",
+      "js/libs/builder.js",
       "css/builder.css",
       "css/form.css"
     ]
@@ -42,13 +43,13 @@
     ],
     "assets": [
       "js/build.templates.js",
-      "js/core.js",
+      "js/libs/core.js",
 
       "js/components/input.js",
       "js/components/select.js",
       "js/components/radio.js",
 
-      "js/form.js",
+      "js/libs/form.js",
       "css/form.css"
     ]
   }

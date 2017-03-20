@@ -19,11 +19,6 @@
   pointer-events: none;
 }
 
-.form-preview {
-  border-left: 1px solid #EEE;
-  background-color: #EEE;
-}
-
 .form-preview .form-html {
   min-height: 200px;
 }

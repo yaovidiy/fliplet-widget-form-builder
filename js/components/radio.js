@@ -7,10 +7,6 @@ Fliplet.FormBuilder.field('radio', {
         { id: '1', name: 'Option 1', disabled: true },
         { id: '2', name: 'Option 2', disabled: true }
       ]
-    },
-    value: {
-      type: String,
-      default: ''
     }
   }
 });

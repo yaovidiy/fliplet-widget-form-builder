@@ -3,23 +3,21 @@ Fliplet.FormBuilder.field('select', {
   props: {
     options: {
       type: Array,
-      default: [{ id: '', name: 'Please select one', disabled: true }]
+      default: []
     },
     source: {
       type: String
     },
-    value: {
+    placeholder: {
       type: String,
-      default: ''
+      default: 'Select one'
     }
   },
   mounted: function () {
     var $vm = this;
 
     if ($vm.source === 'dataSources') {
-      $vm.options = [{id: '', name: 'Please wait...', disabled: true }];
       Fliplet.DataSources.get().then(function (dataSources) {
-        dataSources.unshift({ name: 'Select a data source', value: '', disabled: true });
         $vm.options = dataSources;
       })
     }
