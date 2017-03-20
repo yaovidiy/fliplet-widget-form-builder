@@ -28,6 +28,7 @@
 
       "js/configurations/input.js",
       "js/configurations/select.js",
+      "js/configurations/radio.js",
 
       "js/libs/builder.js",
       "css/builder.css",

@@ -60,19 +60,17 @@ Fliplet.FormBuilder = (function () {
 
       var template = templates['templates.configurations.' + componentName];
 
-      component.template = templates['templates.configurations.form']({
-        template: template && template() || ''
-      });
-
       componentName = name(componentName);
 
       // Extend from base component
       component = _.assign({
+        computed: {},
         methods: {}
       }, _.pick(components[componentName], [
         'props'
       ]), component);
 
+      // On submit event
       component.methods._onSubmit = function () {
         var $vm = this;
         var data = {};
@@ -87,6 +85,28 @@ Fliplet.FormBuilder = (function () {
       if (!component.methods.onSubmit) {
         component.methods.onSubmit = component.methods._onSubmit;
       }
+
+      var hasOptions = component.props.options && Array.isArray(component.props.options.type());
+
+      // If options is an array, automatically deal with options
+      if (hasOptions) {
+        component.computed._options = function generateOptions () {
+          return this.options.map(function (option) {
+            return option.id;
+          }).join('\r\n');
+        };
+
+        component.methods._setOptions = function setOptions (str) {
+          this.options = _.compact(str.split(/\r?\n/).map(function (s) {
+            return { id: s.trim() };
+          }));
+        };
+      }
+
+      component.template = templates['templates.configurations.form']({
+        template: template && template() || '',
+        hasOptions: hasOptions
+      });
 
       Vue.component(componentName + 'Config', component);
     }

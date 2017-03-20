@@ -9,6 +9,13 @@
     <input class="form-control" type="text" v-model.trim="label" placeholder="Field description" />
   </div>
 
+  {{#hasOptions}}
+    <div class="form-group">
+      <label>Options (one per line)</label>
+      <textarea v-on:input="_setOptions($event.target.value)" class="form-control" v-model="_options"></textarea>
+    </div>
+  {{/hasOptions}}
+
   {{{ template }}}
 
   <button type="submit" class="btn btn-primary">Save changes</button>

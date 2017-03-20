@@ -4,8 +4,8 @@ Fliplet.FormBuilder.field('radio', {
     options: {
       type: Array,
       default: [
-        { id: '1', name: 'Option 1', disabled: true },
-        { id: '2', name: 'Option 2', disabled: true }
+        { id: 'Option 1' },
+        { id: 'Option 2' }
       ]
     }
   }
