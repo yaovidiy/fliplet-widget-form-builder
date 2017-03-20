@@ -1,6 +1,7 @@
 Fliplet.FormBuilder = (function () {
   var fields = [];
   var components = {};
+  var eventHub = new Vue();
 
   var templates = Fliplet.Widget.Templates;
 
@@ -9,6 +10,12 @@ Fliplet.FormBuilder = (function () {
   }
 
   return {
+    on: function (eventName, fn) {
+      eventHub.$on(eventName, fn);
+    },
+    off: function (eventName, fn) {
+      eventHub.$off(eventName, fn);
+    },
     field: function (componentName, component) {
       component.template = templates['templates.components.field']({
         template: templates['templates.components.' + componentName]()
@@ -38,13 +45,29 @@ Fliplet.FormBuilder = (function () {
         component = {};
       }
 
-      component.template = templates['templates.configurations.' + componentName]();
+      component.template = templates['templates.configurations.form']({
+        template: templates['templates.configurations.' + componentName]()
+      });
+
       componentName = name(componentName);
 
       // Extend from base component
-      component = _.assign({}, _.pick(components[componentName], [
+      component = _.assign({
+        methods: {}
+      }, _.pick(components[componentName], [
         'props'
       ]), component);
+
+      component.methods.__onSubmit = function () {
+        var $vm = this;
+        var data = {};
+
+        Object.keys($vm.$props).forEach(function (prop) {
+          data[prop] = $vm[prop];
+        });
+
+        eventHub.$emit('field-settings-changed', data);
+      }
 
       Vue.component(componentName + 'Config', component);
     }
