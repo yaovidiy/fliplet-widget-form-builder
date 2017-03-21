@@ -15,11 +15,11 @@
     </div>
     <div v-else>{{{ resultHtml }}}</div>
   </form>
-  <div v-else class="col-sm-12">
+  <div v-else>
     <p class="alert alert-warning">
       <span v-if="!fields.length">Please add at least one input to your form.</span>
       <span v-else>Please select a target data source where this form should submit to.</span>
-      <span v-if="error">{{ error }}</span>
     </p>
   </div>
+  <p class="alert alert-warning" v-if="error">\{{ error }}</p>
 </div>

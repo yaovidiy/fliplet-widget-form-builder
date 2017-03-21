@@ -3,7 +3,7 @@ this["Fliplet"]["Widget"] = this["Fliplet"]["Widget"] || {};
 this["Fliplet"]["Widget"]["Templates"] = this["Fliplet"]["Widget"]["Templates"] || {};
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form-result"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<h2>Thanks for sending the form!</h2>\n<hr />\n<a href=\"#\" class=\"btn btn-primary\" @click=\"start()\">Start over</a>";
+    return "<h2>Thanks for sending the form!</h2>\n<hr />\n<a href=\"#\" class=\"btn btn-primary\" @click.prevent=\"start()\">Start over</a>";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
