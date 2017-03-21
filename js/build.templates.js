@@ -15,7 +15,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebar
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<input :name=\"name\" :id=\"name\" class=\"form-control\" type=\"text\" v-model.trim=\"value\" :placeholder=\"placeholder\" :required=\"required\" v-on:input=\"updateValue($event.target.value)\" />";
+    return "<input\n  class=\"form-control\"\n  type=\"text\"\n  v-model.trim=\"value\"\n  v-on:input=\"updateValue($event.target.value)\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n  :required=\"required\"\n/>";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.radio"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
