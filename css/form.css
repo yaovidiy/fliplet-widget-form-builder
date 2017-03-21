@@ -2,6 +2,11 @@
   position: relative;
 }
 
+.fl-form.is-loading {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .fl-form .form-result,
 .fl-form .form-error {
     display: none;

@@ -27,6 +27,17 @@ Fliplet.FormBuilder = (function () {
         throw new Error('A template for the ' + componentName + ' component has not been found');
       }
 
+      if (!component.methods) {
+        component.methods = {};
+      }
+
+      // Define method to emit the new input value on change
+      if (!component.methods.updateValue) {
+        component.methods.updateValue = function (value) {
+          this.$emit('input', value);
+        }
+      }
+
       component.template = templates['templates.components.field']({
         template: template()
       });

@@ -1,4 +1,4 @@
-<select class="form-control" :name="name" :id="name" v-model="value" :required="required">
+<select class="form-control" :name="name" :id="name" v-model="value" :required="required" v-on:input="updateValue($event.target.value)">
   <option v-if="placeholder" value="" disabled="disabled">\{{ placeholder }}</option>
   <option v-for="option in options" :value="option.id" :disabled="option.disabled">
     \{{ option.id }}

@@ -1,11 +1,11 @@
-<div class="row fl-form" data-form-builder-id="{{ id }}">
-  <form v-if="fields.length" v-on:submit.prevent="onSubmit">
+<div class="row fl-form is-loading" data-form-builder-id="{{ id }}">
+  <form v-if="isConfigured" v-on:submit.prevent="onSubmit">
     <div class="col-sm-12">
       <h2>{{ name }}</h2>
       <hr />
     </div>
     <div v-for="field in fields">
-      <component :is="field.type" v-bind="field"></component>
+      <component :is="field.type" v-bind="field" v-on:input="value => { field.value = value }"></component>
     </div>
     <div class="form-group col-sm-12">
       <hr />
@@ -13,6 +13,9 @@
     </div>
   </form>
   <div v-else class="col-sm-12">
-    <p class="alert alert-warning">Please add at least one input to your form.</p>
+    <p class="alert alert-warning">
+      <span v-if="!fields.length">Please add at least one input to your form.</span>
+      <span v-else>Please select a target data source where this form should submit to.</span>
+    </p>
   </div>
 </div>
