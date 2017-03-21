@@ -6,7 +6,9 @@
     </div>
     <div v-for="field in fields">
       <component :is="field.type" v-bind="field" v-on:input="value => { field.value = value }"></component>
-      <hr />
+      <div class="form-group col-sm-12">
+        <hr />
+      </div>
     </div>
     <div class="form-group col-sm-12">
       <input class="form-control" type="submit" value="Submit" class="btn btn-primary"/>
