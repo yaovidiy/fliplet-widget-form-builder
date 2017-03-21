@@ -46,7 +46,7 @@ Fliplet.FormBuilder = (function () {
       components[componentName] = component;
 
       // All fields have these properties
-      _.extend(component.props, {
+      component.props = _.assign({
         name: {
           type: String,
           required: true
@@ -62,7 +62,7 @@ Fliplet.FormBuilder = (function () {
           type: Boolean,
           default: false
         }
-      });
+      }, component.props);
 
       Vue.component(componentName, component);
     },

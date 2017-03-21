@@ -3,7 +3,10 @@ Fliplet.FormBuilder.field('select', {
   props: {
     options: {
       type: Array,
-      default: []
+      default: [
+        { id: 'Option 1' },
+        { id: 'Option 2' }
+      ]
     },
     source: {
       type: String

@@ -38,8 +38,7 @@ var app = new Vue({
       event.item.remove();
       this.fields.splice(event.newIndex, 0, {
         name: 'field-' + (this.fields.length + 1),
-        type: Fliplet.FormBuilder.fields()[event.oldIndex],
-        value: ''
+        type: Fliplet.FormBuilder.fields()[event.oldIndex]
       });
       this.$forceUpdate();
     },
