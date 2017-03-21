@@ -1,6 +1,6 @@
-<select class="form-control" :name="name" :id="name" v-model="value">
+<select class="form-control" :name="name" :id="name" v-model="value" :required="required">
   <option v-if="placeholder" value="" disabled="disabled">\{{ placeholder }}</option>
   <option v-for="option in options" :value="option.id" :disabled="option.disabled">
-    \{{ option.name }}
+    \{{ option.id }}
   </option>
 </select>
