@@ -2,6 +2,10 @@ this["Fliplet"] = this["Fliplet"] || {};
 this["Fliplet"]["Widget"] = this["Fliplet"]["Widget"] || {};
 this["Fliplet"]["Widget"]["Templates"] = this["Fliplet"]["Widget"]["Templates"] || {};
 
+this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form-result"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<h2>Thanks for sending the form!</h2>\n<hr />\n<a href=\"#\" class=\"btn btn-primary\" @click=\"start()\">Start over</a>";
+},"useData":true});
+
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return "    <div class=\"form-group\">\n      <label>Options (one per line)</label>\n      <textarea v-on:input=\"_setOptions($event.target.value)\" class=\"form-control\" v-model=\"_options\"></textarea>\n    </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

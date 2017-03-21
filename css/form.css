@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.fl-form.is-loading {
+[data-form-builder-id].is-loading {
   opacity: 0;
   pointer-events: none;
 }

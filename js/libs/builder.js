@@ -12,7 +12,8 @@ Vue.directive('sortable', {
 
 var formSettings = _.assign({
   name: 'New form',
-  dataSourceId: ''
+  dataSourceId: '',
+  resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
 }, _.omit(data, 'fields'));
 
 var app = new Vue({
