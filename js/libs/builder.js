@@ -36,9 +36,13 @@ var app = new Vue({
     },
     onAdd: function (event) {
       event.item.remove();
+
+      var componentName = Fliplet.FormBuilder.fields()[event.oldIndex];
+
       this.fields.splice(event.newIndex, 0, {
         name: 'field-' + (this.fields.length + 1),
-        type: Fliplet.FormBuilder.fields()[event.oldIndex]
+        type: componentName,
+        value: Fliplet.FormBuilder.components()[componentName].props.value.type()
       });
       this.$forceUpdate();
     },

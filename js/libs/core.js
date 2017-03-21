@@ -16,6 +16,9 @@ Fliplet.FormBuilder = (function () {
     off: function (eventName, fn) {
       eventHub.$off(eventName, fn);
     },
+    components() {
+      return components;
+    },
     field: function (componentName, component) {
       if (!component.name) {
         throw new Error('The component name is required');
