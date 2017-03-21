@@ -9,6 +9,14 @@
     <input class="form-control" type="text" v-model.trim="label" placeholder="Field description" />
   </div>
 
+  <div class="form-group">
+    <label>Is this field required?</label>
+    <select v-model="required">
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+  </div>
+
   {{#hasOptions}}
     <div class="form-group">
       <label>Options (one per line)</label>

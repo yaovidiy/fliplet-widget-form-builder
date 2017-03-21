@@ -1,5 +1,5 @@
 <template v-for="(option, index) in options">
-  <label v-bind:for="name + '-' + index">
-    <input type="checkbox" v-bind:id="name + '-' + index" v-bind:name="name" v-model="value" v-bind:value="option.id"/> \{{ option.id }}&nbsp;&nbsp;&nbsp;
+  <label :for="name + '-' + index">
+    <input type="checkbox" :id="name + '-' + index" :name="name" v-model="value" :value="option.id"/> \{{ option.id }}&nbsp;&nbsp;&nbsp;
   </label>
 </template>

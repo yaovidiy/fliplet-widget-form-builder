@@ -34,6 +34,7 @@ Fliplet.FormBuilder = (function () {
       componentName = name(componentName);
       components[componentName] = component;
 
+      // All fields have these properties
       _.extend(component.props, {
         name: {
           type: String,
@@ -45,6 +46,10 @@ Fliplet.FormBuilder = (function () {
         },
         value: {
           type: String
+        },
+        required: {
+          type: Boolean,
+          default: false
         }
       });
 
