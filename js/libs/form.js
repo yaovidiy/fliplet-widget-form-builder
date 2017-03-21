@@ -17,6 +17,13 @@ Fliplet.Navigator.onReady().then(function () {
           error: null
         };
       },
+      computed: {
+        hasRequiredFields: function () {
+          return this.fields.some(function(el) {
+            return !!el.required;
+          });
+        }
+      },
       methods: {
         start: function () {
           this.isSent = false;
