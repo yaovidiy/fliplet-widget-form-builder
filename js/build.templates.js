@@ -3,7 +3,7 @@ this["Fliplet"]["Widget"] = this["Fliplet"]["Widget"] || {};
 this["Fliplet"]["Widget"]["Templates"] = this["Fliplet"]["Widget"]["Templates"] || {};
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.checkbox"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<template v-for=\"(option, index) in options\">\n  <label :for=\"name + '-' + index\">\n    <input type=\"checkbox\" :id=\"name + '-' + index\" :name=\"name\" v-model=\"value\" :value=\"option.id\"/> {{ option.id }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>";
+    return "<template v-for=\"(option, index) in options\">\n  <label :for=\"name + '-' + index\">\n    <input type=\"checkbox\" :id=\"name + '-' + index\" :name=\"name\" v-model=\"value\" :value=\"option.id\" :required=\"required\" /> {{ option.id }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -15,11 +15,11 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebar
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<input :name=\"name\" :id=\"name\" class=\"form-control\" type=\"text\" v-model=\"value\" :placeholder=\"placeholder\" :required=\"required\" />";
+    return "<input :name=\"name\" :id=\"name\" class=\"form-control\" type=\"text\" v-model.trim=\"value\" :placeholder=\"placeholder\" :required=\"required\" />";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.radio"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<template v-for=\"(option, index) in options\">\n  <label :for=\"name + '-' + index\">\n    <input type=\"radio\" :id=\"name + '-' + index\" :name=\"name\" v-model=\"value\" :value=\"option.id\"/> {{ option.id }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>";
+    return "<template v-for=\"(option, index) in options\">\n  <label :for=\"name + '-' + index\">\n    <input type=\"radio\" :id=\"name + '-' + index\" :name=\"name\" v-model=\"value\" :required=\"required\" :value=\"option.id\" /> {{ option.id }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
