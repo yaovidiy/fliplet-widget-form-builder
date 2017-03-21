@@ -1,18 +1,19 @@
-<div class="row fl-form is-loading" data-form-builder-id="{{ id }}">
-  <form v-if="isConfigured" v-on:submit.prevent="onSubmit">
-    <div class="col-sm-12">
+<div class="is-loading" data-form-builder-id="{{ id }}">
+  <form v-if="isConfigured" v-on:submit.prevent="onSubmit" class="fl-form">
+    <div v-if="!isSending && !isSent" class="form-html form-horizontal">
       <h2>{{ name }}</h2>
       <hr />
-    </div>
-    <div v-for="field in fields">
-      <component :is="field.type" v-bind="field" v-on:input="value => { field.value = value }"></component>
+      <div v-for="field in fields">
+        <component :is="field.type" v-bind="field" v-on:input="value => { field.value = value }"></component>
+        <div class="form-group col-sm-12">
+          <hr />
+        </div>
+      </div>
       <div class="form-group col-sm-12">
-        <hr />
+        <input class="form-control" type="submit" value="Submit" class="btn btn-primary"/>
       </div>
     </div>
-    <div class="form-group col-sm-12">
-      <input class="form-control" type="submit" value="Submit" class="btn btn-primary"/>
-    </div>
+    <div else>Result</div>
   </form>
   <div v-else class="col-sm-12">
     <p class="alert alert-warning">
