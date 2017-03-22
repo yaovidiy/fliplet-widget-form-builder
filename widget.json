@@ -23,11 +23,13 @@
       "js/libs/core.js",
 
       "js/components/input.js",
+      "js/components/textarea.js",
       "js/components/select.js",
       "js/components/radio.js",
       "js/components/checkbox.js",
 
       "js/configurations/input.js",
+      "js/configurations/textarea.js",
       "js/configurations/select.js",
       "js/configurations/radio.js",
       "js/configurations/checkbox.js",
@@ -49,6 +51,7 @@
       "js/libs/core.js",
 
       "js/components/input.js",
+      "js/components/textarea.js",
       "js/components/select.js",
       "js/components/radio.js",
       "js/components/checkbox.js",

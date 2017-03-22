@@ -1,5 +1,5 @@
 Fliplet.FormBuilder.field('input', {
-  name: 'Text field',
+  name: 'Single-line text',
   props: {
     type: {
       type: String,
