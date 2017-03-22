@@ -4,9 +4,6 @@ Fliplet.FormBuilder.field('file', {
     accept: {
       type: String,
       default: ''
-    },
-    value: {
-      type: FileList
     }
   },
   methods: {
