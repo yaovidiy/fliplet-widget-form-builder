@@ -1,4 +1,12 @@
-#app.is-loading {
+.loading-message {
+  display: none;
+}
+
+.is-loading .loading-message {
+  display: block;
+}
+
+.is-loading main {
   opacity: 0;
   pointer-events: none;
 }
