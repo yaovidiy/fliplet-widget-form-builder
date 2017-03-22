@@ -3,7 +3,7 @@ this["Fliplet"]["Widget"] = this["Fliplet"]["Widget"] || {};
 this["Fliplet"]["Widget"]["Templates"] = this["Fliplet"]["Widget"]["Templates"] || {};
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.checkbox"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<template v-for=\"(option, index) in options\">\n  <label :for=\"name + '-' + index\">\n    <input type=\"checkbox\" :id=\"name + '-' + index\" :name=\"name\" v-model=\"value\" :value=\"option.id\" :required=\"required\" v-on:input=\"updateValue($event.target.value)\" /> {{ option.id }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>";
+    return "<template v-for=\"(option, index) in options\">\n  <label :for=\"name + '-' + index\">\n    <input type=\"checkbox\" :id=\"name + '-' + index\" :name=\"name\" v-model=\"value\" :value=\"option.id\" :required=\"required\" v-on:change=\"updateValue()\" /> {{ option.id }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -15,13 +15,13 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebar
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<input\n  class=\"form-control\"\n  type=\"text\"\n  v-model.trim=\"value\"\n  v-on:input=\"updateValue($event.target.value)\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n  :required=\"required\"\n/>";
+    return "<input\n  class=\"form-control\"\n  type=\"text\"\n  v-model.trim=\"value\"\n  v-on:input=\"updateValue()\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n  :required=\"required\"\n/>";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.radio"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<template v-for=\"(option, index) in options\">\n  <label :for=\"name + '-' + index\">\n    <input type=\"radio\" :id=\"name + '-' + index\" :name=\"name\" v-model=\"value\" :required=\"required\" :value=\"option.id\" v-on:input=\"updateValue($event.target.value)\" /> {{ option.id }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>";
+    return "<template v-for=\"(option, index) in options\">\n  <label :for=\"name + '-' + index\">\n    <input type=\"radio\" :id=\"name + '-' + index\" :name=\"name\" v-model=\"value\" :required=\"required\" :value=\"option.id\" v-on:input=\"updateValue()\" /> {{ option.id }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<select class=\"form-control\" :name=\"name\" :id=\"name\" v-model=\"value\" :required=\"required\" v-on:input=\"updateValue($event.target.value)\">\n  <option v-if=\"placeholder\" value=\"\" disabled=\"disabled\">{{ placeholder }}</option>\n  <option v-for=\"option in options\" :value=\"option.id\" :disabled=\"option.disabled\">\n    {{ option.id }}\n  </option>\n</select>";
+    return "<select class=\"form-control\" :name=\"name\" :id=\"name\" v-model=\"value\" :required=\"required\" v-on:input=\"updateValue()\">\n  <option v-if=\"placeholder\" value=\"\" disabled=\"disabled\">{{ placeholder }}</option>\n  <option v-for=\"option in options\" :value=\"option.id\" :disabled=\"option.disabled\">\n    {{ option.id }}\n  </option>\n</select>";
 },"useData":true});

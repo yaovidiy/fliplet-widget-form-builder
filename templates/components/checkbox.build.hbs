@@ -1,5 +1,5 @@
 <template v-for="(option, index) in options">
   <label :for="name + '-' + index">
-    <input type="checkbox" :id="name + '-' + index" :name="name" v-model="value" :value="option.id" :required="required" v-on:input="updateValue($event.target.value)" /> \{{ option.id }}&nbsp;&nbsp;&nbsp;
+    <input type="checkbox" :id="name + '-' + index" :name="name" v-model="value" :value="option.id" :required="required" v-on:change="updateValue()" /> \{{ option.id }}&nbsp;&nbsp;&nbsp;
   </label>
 </template>

@@ -36,8 +36,8 @@ Fliplet.FormBuilder = (function () {
 
       // Define method to emit the new input value on change
       if (!component.methods.updateValue) {
-        component.methods.updateValue = function (value) {
-          this.$emit('input', value);
+        component.methods.updateValue = function () {
+          this.$emit('input', this.value);
         }
       }
 

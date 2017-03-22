@@ -1,5 +1,5 @@
 <template v-for="(option, index) in options">
   <label :for="name + '-' + index">
-    <input type="radio" :id="name + '-' + index" :name="name" v-model="value" :required="required" :value="option.id" v-on:input="updateValue($event.target.value)" /> \{{ option.id }}&nbsp;&nbsp;&nbsp;
+    <input type="radio" :id="name + '-' + index" :name="name" v-model="value" :required="required" :value="option.id" v-on:input="updateValue()" /> \{{ option.id }}&nbsp;&nbsp;&nbsp;
   </label>
 </template>
