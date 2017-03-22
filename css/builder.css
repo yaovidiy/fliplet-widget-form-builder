@@ -11,6 +11,10 @@
   pointer-events: none;
 }
 
+main {
+  margin-bottom: 20px;
+}
+
 .component {
   position: relative;
   border: 1px dotted #AAA;
