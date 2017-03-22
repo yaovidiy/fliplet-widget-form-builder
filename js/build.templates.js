@@ -14,6 +14,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebar
     + "\n  </div>\n</div>";
 },"useData":true});
 
+this["Fliplet"]["Widget"]["Templates"]["templates.components.file"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<input\n  class=\"form-control\"\n  type=\"file\"\n  ref=\"fileInput\"\n  v-on:change=\"updateValue()\"\n  :name=\"name\"\n  :id=\"name\"\n  :accept=\"accept\"\n  :required=\"required\"\n/>";
+},"useData":true});
+
 this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<input\n  class=\"form-control\"\n  v-model.trim=\"value\"\n  v-on:input=\"updateValue()\"\n  :type=\"type\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n  :maxlength=\"maxlength\"\n  :required=\"required\"\n/>";
 },"useData":true});

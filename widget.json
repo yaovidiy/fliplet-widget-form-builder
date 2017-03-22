@@ -27,12 +27,14 @@
       "js/components/select.js",
       "js/components/radio.js",
       "js/components/checkbox.js",
+      "js/components/file.js",
 
       "js/configurations/input.js",
       "js/configurations/textarea.js",
       "js/configurations/select.js",
       "js/configurations/radio.js",
       "js/configurations/checkbox.js",
+      "js/configurations/file.js",
 
       "js/libs/builder.js",
       "css/builder.css",
@@ -55,6 +57,7 @@
       "js/components/select.js",
       "js/components/radio.js",
       "js/components/checkbox.js",
+      "js/components/file.js",
 
       "js/libs/form.js",
       "css/form.css"

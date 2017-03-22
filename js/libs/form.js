@@ -6,6 +6,10 @@ Fliplet.Navigator.onReady().then(function () {
       return JSON.parse(JSON.stringify(data.fields || []));
     }
 
+    function isFile(value) {
+      return value && typeof value.item === 'function';
+    }
+
     new Vue({
       el: $(selector)[0],
       data: function () {
@@ -35,13 +39,34 @@ Fliplet.Navigator.onReady().then(function () {
         },
         onSubmit: function () {
           var $vm = this;
-          var formData = new FormData();
+          var hasFileInputs = this.fields.some(function(field) {
+            return isFile(field.value);
+          });
+          var formData = hasFileInputs ? (new FormData()) : {};
 
-          $vm.fields.forEach(function (field) {
-            formData.append(field.name, field.value);
+          function appendField(name, value) {
+            if (hasFileInputs) {
+              formData.append(name, value);
+            } else {
+              formData[name] = value;
+            }
+          }
+
+          this.fields.forEach(function (field) {
+            var value = field.value;
+
+            if (isFile(value)) {
+              // File input
+              for (var i = 0; i < value.length; i++) {
+                appendField(field.name, value.item(i));
+              }
+            } else {
+              // Other inputs
+              appendField(field.name, value);
+            }
           });
 
-          $vm.isSending = true;
+          this.isSending = true;
 
           Fliplet.DataSources.connect(data.dataSourceId).then(function (connection) {
             return connection.insert(formData);

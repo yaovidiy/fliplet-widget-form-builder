@@ -84,7 +84,8 @@ Fliplet.FormBuilder = (function () {
       // Extend from base component
       component = _.assign({
         computed: {},
-        methods: {}
+        methods: {},
+        props: {}
       }, _.pick(components[componentName], [
         'props'
       ]), component);

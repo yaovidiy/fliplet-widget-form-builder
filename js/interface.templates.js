@@ -2,6 +2,10 @@ this["Fliplet"] = this["Fliplet"] || {};
 this["Fliplet"]["Widget"] = this["Fliplet"]["Widget"] || {};
 this["Fliplet"]["Widget"]["Templates"] = this["Fliplet"]["Widget"]["Templates"] || {};
 
+this["Fliplet"]["Widget"]["Templates"]["templates.configurations.file"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"form-group\">\n  <label>Allowed files</label>\n  <select v-model=\"accept\" class=\"form-control\">\n    <option value=\"\">All files</option>\n    <option value=\"image/gif, image/jpg, image/jpeg, image/tiff, image/png\">Images only</option>\n  </select>\n</div>";
+},"useData":true});
+
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form-result"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<h2>Thanks for sending the form!</h2>\n<hr />\n<a href=\"#\" class=\"btn btn-primary\" @click.prevent=\"start()\">Start over</a>";
 },"useData":true});
