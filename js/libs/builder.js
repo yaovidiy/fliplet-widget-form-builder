@@ -10,9 +10,11 @@ Vue.directive('sortable', {
   }
 });
 
+// Default settings go here
 var formSettings = _.assign({
   name: 'New form',
   dataSourceId: '',
+  submitLabel: 'Submit',
   resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
 }, _.omit(data, 'fields'));
 

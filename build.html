@@ -1,16 +1,17 @@
 <div class="is-loading" data-form-builder-id="{{ id }}">
   <form v-if="isConfigured" v-on:submit.prevent="onSubmit" class="fl-form">
     <div v-if="!isSending && !isSent" class="form-html form-horizontal">
-      <h2>{{ name }}</h2>
-      <hr />
+      {{#if name}}
+        <h2>{{ name }}</h2>
+        <hr />
+      {{/if}}
       <div v-for="field in fields">
         <component :is="field._type" v-bind="field" v-on:input="value => { field.value = value }"></component>
-        <div class="form-group col-sm-12">
-          <hr />
-        </div>
       </div>
       <div class="form-group col-sm-12">
-        <input class="form-control" type="submit" value="Submit" class="btn btn-primary"/>
+        {{#if submitLabel}}
+          <input class="form-control" type="submit" value="{{ submitLabel }}" class="btn btn-primary"/>
+        {{/if}}
         <span v-if="hasRequiredFields" class="label label-info">* marks required fields</span>
       </div>
     </div>
