@@ -25,7 +25,8 @@
     <section class="components-list col-sm-5">
       <h3>Drag &amp; Drop components</h3>
       <div class="form-html form-horizontal" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
-        <div class="component" v-for="field in formFields">
+        <div class="component" v-for="(field, index) in formFields">
+          <a href="#" class="add" v-on:click.prevent.stop="addField(fields.length, index)">+</a>
           <component :is="field"></component>
         </div>
       </div>

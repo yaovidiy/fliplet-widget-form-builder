@@ -1,4 +1,5 @@
 .component {
+  position: relative;
   border: 1px dotted #AAA;
   cursor: move;
   padding: 10px 20px 0;
@@ -19,9 +20,28 @@
   pointer-events: none;
 }
 
+.components-list .add {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background: #EEE;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+}
+
+.components-list .add:hover {
+  background-color: rgba(199, 241, 255, 0.9);
+}
+
 .form-preview .form-html {
   min-height: 200px;
 }
+
+/* temporary code for the modal */
 
 .modal.active {
   background-color: rgba(0,0,0,0.3);

@@ -36,10 +36,12 @@ var app = new Vue({
     },
     onAdd: function (event) {
       event.item.remove();
+      this.addField(event.newIndex, event.oldIndex);
+    },
+    addField: function (insertAtIndex, componentIndex) {
+      var componentName = Fliplet.FormBuilder.fields()[componentIndex];
 
-      var componentName = Fliplet.FormBuilder.fields()[event.oldIndex];
-
-      this.fields.splice(event.newIndex, 0, {
+      this.fields.splice(insertAtIndex, 0, {
         _type: componentName,
         name: 'field-' + (this.fields.length + 1),
         value: Fliplet.FormBuilder.components()[componentName].props.value.type()
