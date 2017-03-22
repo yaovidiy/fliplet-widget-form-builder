@@ -7,6 +7,9 @@ Fliplet.FormBuilder.field('input', {
     },
     placeholder: {
       type: String
+    },
+    maxlength: {
+      type: Number
     }
   }
 });
