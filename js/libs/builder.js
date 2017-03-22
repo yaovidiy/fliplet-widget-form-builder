@@ -18,8 +18,10 @@ var formSettings = _.assign({
   resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
 }, _.omit(data, 'fields'));
 
+var selector = '#app';
+
 var app = new Vue({
-  el: '#app',
+  el: selector,
   data: function () {
     return {
       formFields: Fliplet.FormBuilder.fields(),
@@ -80,6 +82,7 @@ var app = new Vue({
 
     Fliplet.DataSources.get().then(function (results) {
       $vm.dataSources = results;
+      $(selector).removeClass('is-loading');
     })
   },
   beforeDestroy: function () {
