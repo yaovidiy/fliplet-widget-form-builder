@@ -40,8 +40,8 @@ var app = new Vue({
       var componentName = Fliplet.FormBuilder.fields()[event.oldIndex];
 
       this.fields.splice(event.newIndex, 0, {
+        _type: componentName,
         name: 'field-' + (this.fields.length + 1),
-        type: componentName,
         value: Fliplet.FormBuilder.components()[componentName].props.value.type()
       });
       this.$forceUpdate();
@@ -52,7 +52,7 @@ var app = new Vue({
     },
     onFieldClick: function (field) {
       this.activeFieldId = field.name;
-      this.activeFieldConfigType = field.type.toString() + 'Config';
+      this.activeFieldConfigType = field._type.toString() + 'Config';
       this.activeField = field;
       this.$forceUpdate();
     },

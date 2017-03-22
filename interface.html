@@ -35,7 +35,7 @@
       <h3>Your form</h3>
       <div class="form-html form-horizontal" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
         <div class="component" :data-id="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: field.name === activeFieldId }">
-          <component :is="field.type" v-bind="field"></component>
+          <component :is="field._type" v-bind="field"></component>
           <i>Click to edit</i> - <a class="text-danger" href="#" v-on:click.prevent.stop="deleteField(index)">Delete field</a>
         </div>
       </div>

@@ -4,7 +4,7 @@
       <h2>{{ name }}</h2>
       <hr />
       <div v-for="field in fields">
-        <component :is="field.type" v-bind="field" v-on:input="value => { field.value = value }"></component>
+        <component :is="field._type" v-bind="field" v-on:input="value => { field.value = value }"></component>
         <div class="form-group col-sm-12">
           <hr />
         </div>
