@@ -39,5 +39,5 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.textarea"] = Handle
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.title"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<h3 v-if=\"value\">{{ value }}</h3>\n<p v-else>The title text is empty</p>";
+    return "<h2>{{ value }}</h2>";
 },"useData":true});

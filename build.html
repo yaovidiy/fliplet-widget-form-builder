@@ -1,10 +1,6 @@
 <div class="is-loading" data-form-builder-id="{{ id }}">
   <form v-if="isConfigured" v-on:submit.prevent="onSubmit" class="fl-form">
     <div v-if="!isSending && !isSent" class="form-html form-horizontal">
-      {{#if name}}
-        <h2>{{ name }}</h2>
-        <hr />
-      {{/if}}
       <div v-for="field in fields">
         <component :is="field._type" v-bind="field" v-on:input="value => { field.value = value }"></component>
       </div>

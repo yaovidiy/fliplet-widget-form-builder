@@ -45,10 +45,12 @@ var app = new Vue({
     addField: function (insertAtIndex, componentIndex) {
       var componentName = Fliplet.FormBuilder.fields()[componentIndex];
 
+      var value = Fliplet.FormBuilder.components()[componentName].props.value;
+
       this.fields.splice(insertAtIndex, 0, {
         _type: componentName,
         name: 'field-' + (this.fields.length + 1),
-        value: Fliplet.FormBuilder.components()[componentName].props.value.type()
+        value: value.default || value.type()
       });
       this.$forceUpdate();
     },
