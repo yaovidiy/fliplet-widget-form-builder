@@ -41,6 +41,14 @@ Fliplet.FormBuilder = (function () {
         }
       }
 
+      if (!component.computed) {
+        component.computed = {};
+      }
+
+      component.computed._isFormField = function () {
+        return this.label !== undefined;
+      };
+
       component.template = templates['templates.components.field']({
         template: template()
       });
@@ -87,7 +95,7 @@ Fliplet.FormBuilder = (function () {
         methods: {},
         props: {}
       }, _.pick(components[componentName], [
-        'props'
+        'props', 'computed'
       ]), component);
 
       // On submit event

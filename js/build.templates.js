@@ -9,7 +9,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.checkbox"] = Handle
 this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
 
-  return "<div class=\"form-group\">\n  <label class=\"col-sm-12 control-label\" :for=\"name\">{{ label }} <template v-if=\"required\">*</template></label>\n  <div class=\"col-sm-12\">\n    "
+  return "<div class=\"form-group\">\n  <label v-if=\"_isFormField\" class=\"col-sm-12 control-label\" :for=\"name\">{{ label }} <template v-if=\"required\">*</template></label>\n  <div class=\"col-sm-12\">\n    "
     + ((stack1 = ((helper = (helper = helpers.template || (depth0 != null ? depth0.template : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"template","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\n  </div>\n</div>";
 },"useData":true});
@@ -22,6 +22,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebar
     return "<input\n  class=\"form-control\"\n  v-model.trim=\"value\"\n  v-on:input=\"updateValue()\"\n  :type=\"type\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n  :maxlength=\"maxlength\"\n  :required=\"required\"\n/>";
 },"useData":true});
 
+this["Fliplet"]["Widget"]["Templates"]["templates.components.paragraph"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<p v-html=\"htmlValue\"></p>";
+},"useData":true});
+
 this["Fliplet"]["Widget"]["Templates"]["templates.components.radio"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<template v-for=\"(option, index) in options\">\n  <label :for=\"name + '-' + index\">\n    <input type=\"radio\" :id=\"name + '-' + index\" :name=\"name\" v-model=\"value\" :required=\"required\" :value=\"option.id\" v-on:input=\"updateValue()\" /> {{ option.id }}&nbsp;&nbsp;&nbsp;\n  </label>\n</template>";
 },"useData":true});
@@ -32,4 +36,8 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handleba
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.textarea"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<textarea\n  class=\"form-control\"\n  v-model.trim=\"value\"\n  v-on:input=\"updateValue()\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n  :rows=\"rows\"\n  :required=\"required\"\n></textarea>";
+},"useData":true});
+
+this["Fliplet"]["Widget"]["Templates"]["templates.components.title"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<h3 v-if=\"value\">{{ value }}</h3>\n<p v-else>The title text is empty</p>";
 },"useData":true});

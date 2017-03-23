@@ -28,6 +28,8 @@
       "js/components/radio.js",
       "js/components/checkbox.js",
       "js/components/file.js",
+      "js/components/title.js",
+      "js/components/paragraph.js",
 
       "js/configurations/input.js",
       "js/configurations/textarea.js",
@@ -35,6 +37,8 @@
       "js/configurations/radio.js",
       "js/configurations/checkbox.js",
       "js/configurations/file.js",
+      "js/configurations/title.js",
+      "js/configurations/paragraph.js",
 
       "js/libs/builder.js",
       "css/builder.css",
@@ -58,6 +62,8 @@
       "js/components/radio.js",
       "js/components/checkbox.js",
       "js/components/file.js",
+      "js/components/title.js",
+      "js/components/paragraph.js",
 
       "js/libs/form.js",
       "css/form.css"
