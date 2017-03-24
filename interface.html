@@ -9,12 +9,20 @@
     </div>
   </div>
   <main>
-    <section v-if="chooseTemplate">
-      <label class="control-label">Select a form template</label>
+    <section v-if="chooseTemplate" class="col-sm-12">
+      <br />
+      <label class="control-label">Step 1. Choose your form template</label>
+      <p>Cras mattis consectetur purus sit amet fermentum. Vestibulum id ligula porta felis euismod semper.</p>
       <select class="form-control" v-model="settings.templateId">
         <option value="" disabled>-- Select a template</option>
         <option v-for="template in templates" :value="template.id">\{{ template.settings.name }}</option>
       </select>
+
+      <hr />
+
+      <label class="control-label">Step 2. Give your form a name</label>
+      <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+      <input class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId"/>
     </section>
     <div class="builder" v-else>
 

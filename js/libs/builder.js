@@ -10,7 +10,7 @@ Vue.directive('sortable', {
 
 function generateFormDefaults(data) {
   return _.assign({
-    name: 'New form',
+    name: '',
     dataSourceId: '',
     templateId: '',
     submitLabel: 'Submit',
@@ -97,7 +97,7 @@ var app = new Vue({
       var settings = formTemplate.settings;
       settings.templateId = formTemplate.id;
 
-      Fliplet.Studio.emit('widget-info-label-update', { text: 'Selected template: ' + settings.name });
+      Fliplet.Studio.emit('widget-info-label-update', { text: 'Previewing ' + settings.name });
 
       this.settings = generateFormDefaults(settings);
 
