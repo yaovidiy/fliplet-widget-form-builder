@@ -15,7 +15,7 @@ Fliplet.Widget.instance('form-builder', function (data) {
       return {
         isSent: false,
         isSending: false,
-        isConfigured: !!data.dataSourceId && data.fields.length,
+        isConfigured: !!data.templateId,
         fields: getFields(),
         error: null
       };

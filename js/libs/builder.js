@@ -1,7 +1,5 @@
 var data = Fliplet.Widget.getData() || {};
 
-var fields = data.fields || [];
-
 Vue.directive('sortable', {
   inserted: function (el, binding) {
     if (Sortable) {
@@ -10,27 +8,34 @@ Vue.directive('sortable', {
   }
 });
 
-// Default settings go here
-var formSettings = _.assign({
-  name: 'New form',
-  dataSourceId: '',
-  submitLabel: 'Submit',
-  resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
-}, _.omit(data, 'fields'));
+function generateFormDefaults(data) {
+  return _.assign({
+    name: 'New form',
+    dataSourceId: '',
+    templateId: '',
+    submitLabel: 'Submit',
+    fields: [],
+    resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
+  }, data);
+}
 
 var selector = '#app';
 
 var app = new Vue({
   el: selector,
   data: function () {
+    var formSettings = generateFormDefaults(data);
+
     return {
       formFields: Fliplet.FormBuilder.fields(),
-      fields: fields,
+      fields: formSettings.fields,
       activeFieldId: null,
       activeFieldConfigType: null,
       activeField: {},
       dataSources: [],
-      settings: formSettings
+      settings: formSettings,
+      templates: [],
+      chooseTemplate: !formSettings.templateId
     }
   },
   methods: {
@@ -75,6 +80,27 @@ var app = new Vue({
         $vm.activeField[prop] = fieldData[prop];
       });
       this.closeEdit();
+    },
+    save: function () {
+      return Fliplet.Widget.save(this.settings);
+    }
+  },
+  watch: {
+    'settings.templateId': function (newId) {
+      Fliplet.Widget.toggleSaveButton(!!newId);
+
+      var formTemplate = _.find(this.templates, function (template) {
+        return template.id === newId;
+      });
+
+      var settings = formTemplate.settings;
+      settings.templateId = formTemplate.id;
+
+      this.settings = generateFormDefaults(settings);
+
+      this.save().then(function () {
+        Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+      });
     }
   },
   created: function () {
@@ -85,7 +111,11 @@ var app = new Vue({
     Fliplet.DataSources.get().then(function (results) {
       $vm.dataSources = results;
       $(selector).removeClass('is-loading');
-    })
+    });
+
+    Fliplet.FormBuilder.templates().then(function (templates) {
+      $vm.templates = templates;
+    });
   },
   beforeDestroy: function () {
     Fliplet.FormBuilder.off('field-settings-changed', this.onFieldSettingChanged);
@@ -93,10 +123,26 @@ var app = new Vue({
   mounted: function () {
     var $vm = this;
 
-    Fliplet.Widget.onSaveRequest(function () {
-      formSettings.fields = $vm.fields;
+    if (this.chooseTemplate) {
+      Fliplet.Studio.emit('widget-save-label-update', { text: 'Next' });
+      Fliplet.Widget.toggleSaveButton(false);
+    } else {
+      // wide mode
+    }
 
-      Fliplet.Widget.save(formSettings).then(function () {
+    Fliplet.Widget.onSaveRequest(function () {
+      if ($vm.chooseTemplate) {
+        if ($vm.settings.templateId) {
+          $vm.chooseTemplate = false;
+          Fliplet.Widget.toggleSaveButton(true);
+          Fliplet.Studio.emit('widget-save-label-reset');
+        }
+
+        return;
+      }
+
+      // Save and close
+      $vm.save().then(function () {
         Fliplet.Widget.complete();
       });
     });

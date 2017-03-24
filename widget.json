@@ -21,6 +21,7 @@
       "js/build.templates.js",
       "js/interface.templates.js",
       "js/libs/core.js",
+      "js/libs/templates.js",
 
       "js/components/input.js",
       "js/components/textarea.js",

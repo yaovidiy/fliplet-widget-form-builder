@@ -1,6 +1,7 @@
 <div class="is-loading" data-form-builder-id="{{ id }}">
   <form v-if="isConfigured" v-on:submit.prevent="onSubmit" class="fl-form">
     <div v-if="!isSending && !isSent" class="form-html form-horizontal">
+      <span v-if="hasRequiredFields" class="label label-info">* marks required fields</span>
       <div v-for="field in fields">
         <component :is="field._type" v-bind="field" v-on:input="value => { field.value = value }"></component>
       </div>
@@ -8,15 +9,13 @@
         {{#if submitLabel}}
           <input class="form-control" type="submit" value="{{ submitLabel }}" class="btn btn-primary"/>
         {{/if}}
-        <span v-if="hasRequiredFields" class="label label-info">* marks required fields</span>
       </div>
     </div>
     <div v-else>{{{ resultHtml }}}</div>
   </form>
   <div v-else>
     <p class="alert alert-warning">
-      <span v-if="!fields.length">Please add at least one input to your form.</span>
-      <span v-else>Please select a target data source where this form should submit to.</span>
+      <span v-if="!fields.length">Please select a form template to start building your form.</span>
     </p>
   </div>
   <p class="alert alert-warning" v-if="error">\{{ error }}</p>
