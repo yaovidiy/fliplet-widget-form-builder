@@ -32,8 +32,9 @@ var app = new Vue({
       activeFieldId: null,
       activeFieldConfigType: null,
       activeField: {},
+      isAddingFields: false,
       dataSources: [],
-      section: 'fields', // fields or settings
+      section: 'form', // form or settings
       settings: formSettings,
       templates: [],
       chooseTemplate: !formSettings.templateId
@@ -82,13 +83,25 @@ var app = new Vue({
       });
       this.closeEdit();
     },
+    changeTemplate: function () {
+      this.chooseTemplate = true;
+    },
     save: function () {
       return Fliplet.Widget.save(this.settings);
     }
   },
   watch: {
+    'isAddingFields': function (newVal) {
+      if (newVal) {
+        Fliplet.Studio.emit('widget-mode-wide');
+      }
+    },
     'settings.templateId': function (newId) {
       Fliplet.Widget.toggleSaveButton(!!newId);
+
+      if (!newId) {
+        return;
+      }
 
       var formTemplate = _.find(this.templates, function (template) {
         return template.id === newId;
@@ -129,8 +142,6 @@ var app = new Vue({
     if (this.chooseTemplate) {
       Fliplet.Studio.emit('widget-save-label-update', { text: 'Next' });
       Fliplet.Widget.toggleSaveButton(false);
-    } else {
-      Fliplet.Studio.emit('widget-mode-wide');
     }
 
     Fliplet.Widget.onSaveRequest(function () {
@@ -140,7 +151,6 @@ var app = new Vue({
           Fliplet.Widget.toggleSaveButton(true);
           Fliplet.Studio.emit('widget-save-label-reset');
           Fliplet.Studio.emit('widget-info-label-update');
-          Fliplet.Studio.emit('widget-mode-wide');
         }
 
         return;

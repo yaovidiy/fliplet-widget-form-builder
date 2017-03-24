@@ -21,7 +21,7 @@ main {
   padding-top: 45px;
 }
 
-.builder > .nav {
+nav {
   position: fixed;
   z-index: 1;
   background-color: #FFF;
@@ -31,8 +31,16 @@ main {
   height: 45px;
 }
 
-.builder > .nav a {
+nav a {
   text-decoration: none;
+}
+
+nav > .btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 12px;
+  padding: 3px 10px;
 }
 
 .component {

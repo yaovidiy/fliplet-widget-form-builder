@@ -1,5 +1,5 @@
 <div id="app" class="is-loading">
-  <div class="col-sm-2 loading-message">
+  <div class="col-sm-12 loading-message">
     <br />
     <p class="alert alert-warning">
       Loading the form builder... Please wait
@@ -26,14 +26,17 @@
     </section>
     <div class="builder" v-else>
 
-      <ul class="nav nav-tabs">
-        <li v-bind:class="{ active: section === 'form' }">
-          <a href="#" v-on:click.prevent="section = 'form'">Edit form</a>
-        </li>
-        <li v-bind:class="{ active: section === 'settings' }">
-          <a href="#" v-on:click.prevent="section = 'settings'">Settings</a>
-        </li>
-      </ul>
+      <nav>
+        <ul class="nav nav-tabs">
+          <li v-bind:class="{ active: section === 'form' }">
+            <a href="#" v-on:click.prevent="section = 'form'">Edit form</a>
+          </li>
+          <li v-bind:class="{ active: section === 'settings' }">
+            <a href="#" v-on:click.prevent="section = 'settings'">Settings</a>
+          </li>
+        </ul>
+        <a href="#" class="btn btn-xs btn-primary" v-on:click.prevent="changeTemplate()">Change template</a>
+      </nav>
 
       <div class="content">
         <section class="col-sm-12" v-show="section === 'settings'">
