@@ -67,7 +67,9 @@ Fliplet.Widget.instance('form-builder', function (data) {
 
         this.isSending = true;
 
-        Fliplet.DataSources.connect(data.dataSourceId).then(function (connection) {
+        Fliplet.Hooks.run('beforeFormSubmit', formData).then(function () {
+          return Fliplet.DataSources.connect(data.dataSourceId);
+        }).then(function (connection) {
           return connection.insert(formData);
         }).then(function () {
           $vm.reset();
@@ -80,6 +82,10 @@ Fliplet.Widget.instance('form-builder', function (data) {
     },
     mounted: function () {
       $(selector).removeClass('is-loading');
+
+      Fliplet.Hooks.on('beforeFormSubmit', function (data) {
+        console.log('[Hook] beforeFormSubmit', data);
+      });
     }
   });
 });
