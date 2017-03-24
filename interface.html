@@ -27,8 +27,8 @@
     <div class="builder" v-else>
 
       <ul class="nav nav-tabs">
-        <li v-bind:class="{ active: section === 'fields' }">
-          <a href="#" v-on:click.prevent="section = 'fields'">Edit fields</a>
+        <li v-bind:class="{ active: section === 'form' }">
+          <a href="#" v-on:click.prevent="section = 'form'">Edit form</a>
         </li>
         <li v-bind:class="{ active: section === 'settings' }">
           <a href="#" v-on:click.prevent="section = 'settings'">Settings</a>
@@ -63,7 +63,7 @@
           </form>
         </section>
 
-        <div v-show="section === 'fields'">
+        <div v-show="section === 'form'">
           <section class="components-list col-sm-6">
             <h3>Drag &amp; Drop components</h3>
             <div class="form-html form-horizontal" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
