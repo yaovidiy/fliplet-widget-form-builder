@@ -67,25 +67,31 @@
         </section>
 
         <div v-show="section === 'form'">
-          <section class="col-sm-6 form-preview">
-            <br />
-            <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId"/>
-            <br />
-
-            <div class="form-html form-horizontal" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
-              <div class="component" :data-id="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: field.name === activeFieldId }">
-                <component :is="field._type" v-bind="field"></component>
-                <i>Click to edit</i> - <a class="text-danger" href="#" v-on:click.prevent.stop="deleteField(index)">Delete field</a>
-              </div>
-            </div>
-          </section>
-
-          <section class="components-list col-sm-6">
+          <section v-if="isAddingFields" class="components-list col-sm-6">
             <h3>Components</h3>
             <div class="form-html form-horizontal" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
               <div class="component" v-for="(field, index) in formFields">
                 <a href="#" class="add" v-on:click.prevent.stop="addField(fields.length, index)">+</a>
                 <component :is="field"></component>
+              </div>
+            </div>
+          </section>
+
+          <section class="col-sm-6 form-preview">
+            <br />
+            <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId"/>
+            <br />
+            <div class="row" v-if="!isAddingFields">
+              <div class="col-sm-2">
+                <a href="#" v-on:click.prevent="isAddingFields = true" class="btn btn-primary add-field pull-right">Add field</a>
+                <br /><br />
+              </div>
+            </div>
+
+            <div class="form-html form-horizontal" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
+              <div class="component" :data-id="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: field.name === activeFieldId }">
+                <component :is="field._type" v-bind="field"></component>
+                <i>Click to edit</i> - <a class="text-danger" href="#" v-on:click.prevent.stop="deleteField(index)">Delete field</a>
               </div>
             </div>
           </section>

@@ -44,6 +44,13 @@ nav > .btn {
   width: auto;
 }
 
+.btn-primary.add-field {
+  width: 100px;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 5px;
+}
+
 .component {
   position: relative;
   border: 1px dotted #AAA;
