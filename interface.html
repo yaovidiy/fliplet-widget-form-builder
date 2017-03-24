@@ -22,7 +22,7 @@
 
       <label class="control-label">Step 2. Give your form a name</label>
       <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-      <input class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId"/>
+      <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId"/>
     </section>
     <div class="builder" v-else>
 
@@ -67,22 +67,25 @@
         </section>
 
         <div v-show="section === 'form'">
-          <section class="components-list col-sm-6">
-            <h3>Drag &amp; Drop components</h3>
-            <div class="form-html form-horizontal" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
-              <div class="component" v-for="(field, index) in formFields">
-                <a href="#" class="add" v-on:click.prevent.stop="addField(fields.length, index)">+</a>
-                <component :is="field"></component>
-              </div>
-            </div>
-          </section>
-
           <section class="col-sm-6 form-preview">
-            <h3>Your form</h3>
+            <br />
+            <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId"/>
+            <br />
+
             <div class="form-html form-horizontal" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
               <div class="component" :data-id="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: field.name === activeFieldId }">
                 <component :is="field._type" v-bind="field"></component>
                 <i>Click to edit</i> - <a class="text-danger" href="#" v-on:click.prevent.stop="deleteField(index)">Delete field</a>
+              </div>
+            </div>
+          </section>
+
+          <section class="components-list col-sm-6">
+            <h3>Components</h3>
+            <div class="form-html form-horizontal" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
+              <div class="component" v-for="(field, index) in formFields">
+                <a href="#" class="add" v-on:click.prevent.stop="addField(fields.length, index)">+</a>
+                <component :is="field"></component>
               </div>
             </div>
           </section>
