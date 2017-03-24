@@ -33,6 +33,7 @@ var app = new Vue({
       activeFieldConfigType: null,
       activeField: {},
       dataSources: [],
+      section: 'fields', // fields or settings
       settings: formSettings,
       templates: [],
       chooseTemplate: !formSettings.templateId
@@ -139,6 +140,7 @@ var app = new Vue({
           Fliplet.Widget.toggleSaveButton(true);
           Fliplet.Studio.emit('widget-save-label-reset');
           Fliplet.Studio.emit('widget-info-label-update');
+          Fliplet.Studio.emit('widget-mode-wide');
         }
 
         return;

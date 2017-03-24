@@ -13,6 +13,26 @@
 
 main {
   margin-bottom: 20px;
+  height: 100%;
+}
+
+.builder {
+  position: relative;
+  padding-top: 45px;
+}
+
+.builder > .nav {
+  position: fixed;
+  z-index: 1;
+  background-color: #FFF;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 45px;
+}
+
+.builder > .nav a {
+  text-decoration: none;
 }
 
 .component {
