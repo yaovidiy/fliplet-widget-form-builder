@@ -127,7 +127,7 @@ var app = new Vue({
       Fliplet.Studio.emit('widget-save-label-update', { text: 'Next' });
       Fliplet.Widget.toggleSaveButton(false);
     } else {
-      // wide mode
+      Fliplet.Studio.emit('widget-mode-wide');
     }
 
     Fliplet.Widget.onSaveRequest(function () {
