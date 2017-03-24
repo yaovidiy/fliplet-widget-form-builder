@@ -96,6 +96,8 @@ var app = new Vue({
       var settings = formTemplate.settings;
       settings.templateId = formTemplate.id;
 
+      Fliplet.Studio.emit('widget-info-label-update', { text: 'Selected template: ' + settings.name });
+
       this.settings = generateFormDefaults(settings);
 
       this.save().then(function () {
@@ -136,6 +138,7 @@ var app = new Vue({
           $vm.chooseTemplate = false;
           Fliplet.Widget.toggleSaveButton(true);
           Fliplet.Studio.emit('widget-save-label-reset');
+          Fliplet.Studio.emit('widget-info-label-update');
         }
 
         return;
