@@ -73,7 +73,7 @@ nav > .btn {
   pointer-events: none;
 }
 
-.components-list .add {
+.component .add {
   position: absolute;
   top: 0;
   right: 0;
@@ -86,7 +86,7 @@ nav > .btn {
   color: #000;
 }
 
-.components-list .add:hover {
+.component .add:hover {
   background-color: rgba(199, 241, 255, 0.9);
 }
 
