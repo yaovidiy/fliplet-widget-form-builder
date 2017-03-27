@@ -2,7 +2,7 @@ var systemTemplates = [
   {
     id: 1,
     settings: {
-      name: 'Sample form 1',
+      displayName: 'Sample form 1',
       fields: [
         {
           _type: 'flInput',
@@ -14,7 +14,7 @@ var systemTemplates = [
   {
     id: 2,
     settings: {
-      name: 'Sample form 2',
+      displayName: 'Sample form 2',
       fields: [
         {
           _type: 'flInput',
@@ -33,5 +33,26 @@ var systemTemplates = [
 ];
 
 Fliplet.FormBuilder.templates = function () {
-  return Promise.resolve(systemTemplates);
+  var operation = Fliplet.Env.get('development')
+    ? Promise.resolve([])
+    : Fliplet.API.request({
+        url: [
+          'v1/widget-instances',
+          '?organizationId=' + Fliplet.Env.get('organizationId'),
+          '&package=com.fliplet.form-builder',
+          '&where=' + encodeURIComponent(JSON.stringify({
+            $contains: { template: true },
+            name: { $ne: null }
+          }))
+        ].join('')
+      }).then(function (response) {
+        response.widgetInstances.forEach(function (instance) {
+          instance.settings.displayName = instance.settings.name + ' (Organization template)'
+        });
+        return Promise.resolve(response.widgetInstances);
+      });
+
+  return operation.then(function (organizationTemplates) {
+    return Promise.resolve(systemTemplates.concat(organizationTemplates));
+  })
 };
