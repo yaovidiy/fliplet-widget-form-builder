@@ -14,6 +14,7 @@ function generateFormDefaults(data) {
     dataSourceId: '',
     templateId: '',
     submitLabel: 'Submit',
+    clearLabel: 'Clear',
     fields: [],
     resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
   }, data);

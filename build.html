@@ -5,9 +5,12 @@
       <div v-for="field in fields">
         <component :is="field._type" v-bind="field" v-on:input="value => { field.value = value }"></component>
       </div>
-      <div class="form-group col-sm-12">
+      <div class="form-btns clearfix">
         {{#if submitLabel}}
-          <input class="form-control" type="submit" value="{{ submitLabel }}" class="btn btn-primary"/>
+          <button type="submit" class="btn btn-primary pull-right">{{ submitLabel }}</button>
+        {{/if}}
+        {{#if clearLabel}}
+          <button type="reset" class="btn btn-secondary pull-right">{{ clearLabel }}</button>
         {{/if}}
       </div>
     </div>
