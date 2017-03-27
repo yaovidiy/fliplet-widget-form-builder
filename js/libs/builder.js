@@ -44,7 +44,6 @@ var app = new Vue({
   methods: {
     onSort: function (event) {
       this.fields.splice(event.newIndex, 0, this.fields.splice(event.oldIndex, 1)[0]);
-      this.$forceUpdate();
     },
     onAdd: function (event) {
       event.item.remove();
@@ -60,7 +59,6 @@ var app = new Vue({
         name: 'field-' + (this.fields.length + 1),
         value: value.default || value.type()
       });
-      this.$forceUpdate();
     },
     deleteField: function (index) {
       this.fields.splice(index, 1);

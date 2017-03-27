@@ -74,7 +74,7 @@
           <section v-if="isAddingFields" class="components-list col-sm-6">
             <h3>Components</h3>
             <div class="form-html form-horizontal" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
-              <div class="component" v-for="(field, index) in formFields">
+              <div :key="field.name" class="component" v-for="(field, index) in formFields">
                 <a href="#" class="add" v-on:click.prevent.stop="addField(fields.length, index)">+</a>
                 <component :is="field"></component>
               </div>
@@ -93,7 +93,7 @@
             </div>
 
             <div class="form-html form-horizontal" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
-              <div class="component" :data-id="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: field.name === activeFieldId }">
+              <div class="component" :key="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: field.name === activeFieldId }">
                 <component :is="field._type" v-bind="field"></component>
                 <i>Click to edit</i> - <a class="text-danger" href="#" v-on:click.prevent.stop="deleteField(index)">Delete field</a>
               </div>
