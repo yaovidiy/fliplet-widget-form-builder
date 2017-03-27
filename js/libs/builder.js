@@ -113,6 +113,7 @@ var app = new Vue({
       Fliplet.Studio.emit('widget-info-label-update', { text: 'Previewing ' + settings.name });
 
       this.settings = generateFormDefaults(settings);
+      this.fields = this.settings.fields;
 
       this.save().then(function () {
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());

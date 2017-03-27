@@ -15,7 +15,7 @@
       <p>Cras mattis consectetur purus sit amet fermentum. Vestibulum id ligula porta felis euismod semper.</p>
       <select class="form-control" v-model="settings.templateId">
         <option value="" disabled>-- Select a template</option>
-        <option v-for="template in templates" :value="template.id">\{{ template.settings.name }}</option>
+        <option v-for="template in templates" :value="template.id">\{{ template.settings.displayName }}</option>
       </select>
 
       <hr />
