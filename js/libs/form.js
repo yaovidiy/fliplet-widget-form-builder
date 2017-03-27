@@ -78,6 +78,13 @@ Fliplet.Widget.instance('form-builder', function (data) {
           $vm.error = err.message || err.description || err;
           $vm.isSending = false;
         });
+
+        // We might use this code to save the form data locally when going away from the page
+        // $(window).unload(function onWindowUnload() {
+        //   localStorage.setItem('fl-form-data-' + data.id, this.fields.map(function (field) {
+        //     return { name: field.name, value: field.value };
+        //   }));
+        // });
       }
     },
     mounted: function () {
