@@ -84,6 +84,7 @@ var app = new Vue({
     },
     changeTemplate: function () {
       this.chooseTemplate = true;
+      Fliplet.Studio.emit('widget-mode', 'normal');
     },
     save: function () {
       return Fliplet.Widget.save(this.settings);
@@ -92,7 +93,7 @@ var app = new Vue({
   watch: {
     'isAddingFields': function (newVal) {
       if (newVal) {
-        Fliplet.Studio.emit('widget-mode-wide');
+        Fliplet.Studio.emit('widget-mode', 'wide');
       }
     },
     'settings.templateId': function (newId) {
