@@ -1,61 +1,62 @@
 .fl-form {
-  position: relative;
+    position: relative;
 }
 
 [data-form-builder-id].is-loading {
-  opacity: 0;
-  pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .fl-form .form-error {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .fl-form .form-submitting {
-  padding: 15px;
-  position: absolute;
-  width: 80%;
-  text-align: center;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate3d(-50%,-50%,0);
-  transform: translate3d(-50%,-50%,0);
-  -webkit-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-  opacity: 0;
-  pointer-events: none;
+    padding: 15px;
+    position: absolute;
+    width: 80%;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%,-50%,0);
+    transform: translate3d(-50%,-50%,0);
+    -webkit-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    opacity: 0;
+    pointer-events: none;
 }
-
 @-webkit-keyframes pulse {
-  0%, 100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-}
+    0%,
+    100% {
+        opacity: 0.5;
+    }
 
+    50% {
+        opacity: 1;
+    }
+}
 @keyframes pulse {
-  0%, 100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
 
 .fl-form.submitting .form-submitting {
-  opacity: 1;
-  pointer-events: all;
-  -webkit-animation: pulse 3s infinite;
-  animation: pulse 3s infinite;
+    opacity: 1;
+    pointer-events: all;
+    -webkit-animation: pulse 3s infinite;
+    animation: pulse 3s infinite;
 }
 
 .fl-form.submitting .form-html {
-  opacity: 0.3;
-  pointer-events: none;
+    opacity: 0.3;
+    pointer-events: none;
 }
-
 /* Buttons */
 .btn-primary {
     display: block;
@@ -132,27 +133,25 @@ a {
 .form-horizontal .control-label {
     text-align: left !important;
     margin-bottom: 0.8em;
+    font-size: 1.1em;
 }
 
 .form-group .control-label label {
-    font-weight: 600;
     margin-bottom: 0;
     padding-top: 5px;
 }
 
 .form-control {
     border: 1px solid #e5e5e5;
-    border-radius: 6px;
+    border-radius: 4px;
     -webkit-box-shadow: none;
+    -webkit-appearance: none;
     box-shadow: none;
+    min-height: 44px;
 }
 
 .form-control.has-error {
     border: 1px solid #a94442;
-}
-
-input.form-control {
-    -webkit-appearance: none;
 }
 
 .form-control:focus {
@@ -165,7 +164,6 @@ textarea.form-control {
     line-height: 16px;
     padding: 15px;
     max-width: 100%;
-    -webkit-appearance: none;
 }
 
 .form-group .input-group {
@@ -195,8 +193,8 @@ textarea.form-control {
 }
 
 .form-group .input-group .form-control {
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding-left: 57px;
 }
 
@@ -223,210 +221,195 @@ textarea.form-control {
 .form-horizontal .btn:last-child {
     margin-bottom: 0;
 }
-/* CHECKBOXES / RADIOS */
-.form-horizontal .checkbox,
-.form-horizontal .radio {
-    padding-top: 0;
-    margin-bottom: 15px;
-}
-
-.form-horizontal .checkbox:last-child,
-.form-horizontal .radio:last-child {
-    margin-bottom: 0;
-}
-
-.checkbox label.tgl-btn,
-.radio label.rtgl-btn {
-    margin-right: 15px;
-}
-
-.checkbox label + label,
-.radio label + label {
-    display: block;
-    padding-top: 5px;
-}
-/* CHECKBOX TOGGLE */
-.rtgl,
-.tgl {
+/* CHECKBOXES */
+input[type="checkbox"] {
     display: none;
 }
 
-.rtgl,
-.rtgl *,
-.rtgl *:after,
-.rtgl *:before,
-.rtgl + .rtgl-btn,
-.rtgl:after,
-.rtgl:before,
-.tgl,
-.tgl *,
-.tgl *:after,
-.tgl *:before,
-.tgl + .tgl-btn,
-.tgl:after,
-.tgl:before {
-    box-sizing: border-box;
-}
-
-.rtgl *::-moz-selection,
-.rtgl *:after::-moz-selection,
-.rtgl *:before::-moz-selection,
-.rtgl + .rtgl-btn::-moz-selection,
-.rtgl::-moz-selection,
-.rtgl:after::-moz-selection,
-.rtgl:before::-moz-selection,
-.tgl *::-moz-selection,
-.tgl *:after::-moz-selection,
-.tgl *:before::-moz-selection,
-.tgl + .tgl-btn::-moz-selection,
-.tgl::-moz-selection,
-.tgl:after::-moz-selection,
-.tgl:before::-moz-selection {
-    background: none;
-}
-
-.rtgl *::selection,
-.rtgl *:after::selection,
-.rtgl *:before::selection,
-.rtgl + .rtgl-btn::selection,
-.rtgl::selection,
-.rtgl:after::selection,
-.rtgl:before::selection,
-.tgl *::selection,
-.tgl *:after::selection,
-.tgl *:before::selection,
-.tgl + .tgl-btn::selection,
-.tgl::selection,
-.tgl:after::selection,
-.tgl:before::selection {
-    background: none;
-}
-
-.rtgl + .rtgl-btn,
-.tgl + .tgl-btn {
-    outline: 0;
-    float: left;
-    width: 4em;
-    height: 2em;
-    margin: 0;
+input[type="checkbox"] + label {
+    padding-left: 38px;
+    line-height: 28px;
+    font-weight: normal;
     position: relative;
     cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
-.tgl + .tgl-btn {
-    width: 4em;
-}
-
-.rtgl + .rtgl-btn {
-    width: 2em;
-}
-
-.rtgl + .rtgl-btn:after,
-.rtgl + .rtgl-btn:before,
-.tgl + .tgl-btn:after,
-.tgl + .tgl-btn:before {
-    position: relative;
-    display: block;
-    content: "";
-    height: 100%;
-}
-
-.tgl + .tgl-btn:after,
-.tgl + .tgl-btn:before {
-    width: 50%;
-}
-
-.rtgl + .rtgl-btn:after,
-.rtgl + .rtgl-btn:before {
-    width: 100%;
-}
-
-.rtgl + .rtgl-btn:after,
-.tgl + .tgl-btn:after {
+input[type="checkbox"] + label > span.check {
+    position: absolute;
     left: 0;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #e4e9eb;
+    padding-left: 0;
+    margin-bottom: 0;
+    text-align: center;
+    border-radius: 4px;
+    background-color: transparent;
+    -webkit-transition: background-color 0.15s ease;
+    transition: background-color 0.15s ease;
 }
 
-.rtgl + .rtgl-btn:before,
-.tgl + .tgl-btn:before {
+input[type="checkbox"]:checked + label > span.check {
+    background-color: #337ab7;
+}
+
+input[type="checkbox"] + label > span.check > i.fa {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    line-height: 26px;
+    font-size: 1.5em;
+    color: #337ab7;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+
+input[type="checkbox"]:checked + label span.check > i.fa {
+    color: #FFF;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+/* RADIOS */
+input[type="radio"] {
     display: none;
 }
 
-.tgl:checked + .tgl-btn:after {
-    left: 50%;
+input[type="radio"] + label {
+    padding-left: 38px;
+    line-height: 28px;
+    font-weight: normal;
+    position: relative;
+    cursor: pointer;
 }
 
-.rtgl:checked + .rtgl-btn:after {
+input[type="radio"] + label > span.check {
+    position: absolute;
+    left: 0;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #e4e9eb;
+    padding-left: 0;
+    margin-bottom: 0;
+    text-align: center;
+    border-radius: 50%;
+    background-color: transparent;
+    -webkit-transition: background-color 0.15s ease;
+    transition: background-color 0.15s ease;
+}
+
+input[type="radio"]:checked + label > span.check {
+    background-color: #337ab7;
+}
+
+input[type="radio"] + label > span.check > i.fa {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    line-height: 26px;
+    font-size: 1.2em;
+    color: #337ab7;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+
+input[type="radio"]:checked + label span.check > i.fa {
+    color: #FFF;
+    -webkit-transform: scale(1);
     transform: scale(1);
 }
-
-.rtgl-ios + .rtgl-btn,
-.tgl-ios + .tgl-btn {
-    background: #fbfbfb;
-    border-radius: 2em;
-    padding: 2px;
-    -webkit-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-    border: 1px solid #e8eae9;
+/* SELECT */
+.select-proxy-display {
+    width: 100%;
+    height: 44px;
+    margin: 0 auto;
+    padding: 0 44px 0 0;
+    background: #fff;
+    border: 1px solid #e4e9eb;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: 0;
+    font-weight: 400;
+    line-height: 44px;
+    position: relative;
+    color: #333;
 }
 
-.tgl-ios + .tgl-btn {
-    padding: 2px;
+.select-proxy-display > .hidden-select {
+    position: absolute;
+    top: -1px;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 1;
 }
 
-.rtgl-ios + .rtgl-btn {
-    padding: 4px;
+.select-proxy-display > .select-value-proxy {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 42px;
+    bottom: 0;
+    padding-left: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.rtgl-ios + .rtgl-btn:after,
-.tgl-ios + .tgl-btn:after {
-    border-radius: 2em;
-    background: #fbfbfb;
+.select-proxy-display > .icon {
+    position: absolute;
+    width: 44px;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    background-color: #337ab7;
+    text-align: center;
+    line-height: 44px;
+    font-size: 18px;
+    color: #FFF;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-left: 1px solid #e4e9eb;
 }
 
-.tgl-ios + .tgl-btn:after {
-    -webkit-transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
-    transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
+.select-proxy-display > .hidden-select[disabled] ~ .icon {
+    background-color: #aaa;
 }
 
-.rtgl-ios + .rtgl-btn:after {
-    -webkit-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
-    transform: scale(0);
+.select-proxy-display > .hidden-select[disabled] ~ .select-value-proxy {
+    background: #e4e9eb;
+}
+/* FILE */
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    padding-right: 40px;
 }
 
-.rtgl-ios + .rtgl-btn:hover:after,
-.tgl-ios + .tgl-btn:hover:after {
-    will-change: padding;
+.fileUpload .fa {
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+    top: 50%;
+    margin-top: -10px;
+    right: 10px;
+    color: #FFF;
 }
 
-.rtgl-ios + .rtgl-btn:active,
-.tgl-ios + .tgl-btn:active {
-    box-shadow: inset 0 0 0 2em #e8eae9;
-}
-
-.rtgl-ios + .rtgl-btn:active:after,
-.tgl-ios + .tgl-btn:active:after {
-    padding-right: 0.8em;
-}
-
-.rtgl-ios:checked + .rtgl-btn,
-.tgl-ios:checked + .tgl-btn {
-    background: #337ab7;
-}
-
-.rtgl-ios:checked + .rtgl-btn:active,
-.tgl-ios:checked + .tgl-btn:active {
-    box-shadow: none;
-}
-
-.tgl-ios:checked + .tgl-btn:active:after {
-    margin-left: -.8em;
+.fileUpload input[type="file"] {
+    display: none;
 }
 /* START RATING */
 .star-rating {
@@ -503,47 +486,43 @@ textarea.form-control {
 }
 
 .form-group .mce-btn-group {
-  float: none;
+    float: none;
 }
-
 /* File upload */
-
 .file-upload {
-  position: relative;
-  overflow: hidden;
-  padding-right: 44px;
-  padding-left: 44px;
+    position: relative;
+    overflow: hidden;
+    padding-right: 44px;
+    padding-left: 44px;
 }
 
 .file-upload > canvas {
-  position: absolute;
-  width: 36px;
-  height: 36px;
-  top: 4px;
-  left: 4px;
-  border-radius: 5px;
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    top: 4px;
+    left: 4px;
+    border-radius: 5px;
 }
 
 .file-upload > .fa {
-  display: block;
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  font-size: 16px;
-  top: 50%;
-  margin-top: -10px;
-  right: 10px;
-  color: #FFF;
-  opacity: 0.5;
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 16px;
+    top: 50%;
+    margin-top: -10px;
+    right: 10px;
+    color: #FFF;
+    opacity: 0.5;
 }
 
 .file-upload > input[type="file"] {
     display: none;
 }
-
 /* TinyMCE source code area */
-
 .mce-window[aria-label="Source code"] textarea {
-  font-family: monospace;
+    font-family: monospace;
 }

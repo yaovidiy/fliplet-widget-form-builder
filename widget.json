@@ -53,7 +53,8 @@
       "handlebars",
       "vue.js",
       "bootstrap",
-      "fliplet-datasources"
+      "fliplet-datasources",
+      "font-awesome"
     ],
     "assets": [
       "js/build.templates.js",
