@@ -44,8 +44,7 @@
       "js/configurations/paragraph.js",
 
       "js/libs/builder.js",
-      "css/builder.css",
-      "css/form.css"
+      "css/builder.css"
     ]
   },
   "build": {

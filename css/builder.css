@@ -1,200 +1,235 @@
 .loading-message {
-    display: none;
+  display: none;
 }
 
 .is-loading .loading-message {
-    display: block;
+  display: block;
 }
 
 .is-loading main {
-    opacity: 0;
-    pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 header {
-    background: #f2f6f7;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 15px;
-    left: 15px;
+  background: #f2f6f7;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 15px;
+  left: 15px;
+  padding-top: 15px;
 }
 
 main {
-    margin-bottom: 20px;
-    height: 100%;
+  margin-bottom: 20px;
+  height: 100%;
 }
 
 .builder {
-    position: relative;
-    padding-top: 86px;
+  position: relative;
+  padding-top: 116px;
 }
 
 nav {
-    position: fixed;
-    z-index: 1;
-    top: 42px;
-    right: 15px;
-    left: 15px;
-    height: 45px;
-    background: #f2f6f7;
+  position: fixed;
+  z-index: 1;
+  top: 57px;
+  right: 15px;
+  left: 15px;
+  background: #f2f6f7;
+  padding-top: 15px;
 }
 
 nav a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 nav > .btn {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    font-size: 12px;
-    padding: 3px 10px;
-    width: auto;
+  position: absolute;
+  right: 0;
+  top: calc(50% - 16px);
 }
 
-.btn-primary.add-field {
-    text-decoration: none;
-    font-size: 12px;
-    padding: 3px 10px;
+.btn.btn-xs {
+  text-decoration: none;
+  font-size: 12px;
+  padding: 3px 10px;
+  line-height: 24px;
+}
+
+.choose-template {
+  padding-top: 30px;
 }
 
 .component {
-    position: relative;
-    border: 1px dotted #999;
-    cursor: move;
-    padding: 15px;
-    margin-bottom: 5px;
-    background-color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  border: 1px dotted #999;
+  cursor: move;
+  padding: 15px;
+  margin-bottom: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .form-preview .component {
-    padding: 0 15px;
-    border-color: transparent;
-    margin-bottom: 0;
-    background-color: transparent;
+  padding: 0;
+  border-color: transparent;
+  margin-bottom: 0;
+  background-color: transparent;
 }
 
 .component[draggable="true"] {
-    background-color: rgba(0, 171, 209, 0.3);
+  background-color: rgba(0, 171, 209, 0.3);
 }
 
 .component.editing {
-    background-color: rgba(0, 171, 209, 0.3);
+  background-color: rgba(0, 171, 209, 0.3);
 }
 
 .component:hover:not([draggable="true"]) {
-    background-color: #ffffff;
-    border: 1px dotted #999;
+  background-color: #ffffff;
+  border: 1px dotted #999;
 }
 
 .form-preview .component:hover {
-    border-color: #999;
+  border-color: #999;
 }
 
 .components-list .form-group > *,
 .form-preview .form-group > * {
-    pointer-events: none;
+  pointer-events: none;
+}
+
+.components-list .form-group {
+  margin-bottom: 0;
 }
 
 .component .add {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
-    height: 20px;
-    background: #EEE;
-    line-height: 20px;
-    text-align: center;
-    text-decoration: none;
-    color: #000;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background: #EEE;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #000;
 }
 
 .component .add:hover {
-    background-color: rgba(199, 241, 255, 0.9);
+  background-color: rgba(199, 241, 255, 0.9);
 }
 
 .component .form-group .btn {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .component .overlay-screen {
-    background: rgba(255, 255, 255, 0.8);
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 0;
-    visibility: hidden;
+  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .component .edit-label {
-    opacity: 0;
-    visibility: hidden;
-    text-align: center;
-    position: absolute;
-    width: 80px;
-    left: calc(50% - 40px);
-    top: calc(50% - 10px);
+  opacity: 0;
+  visibility: hidden;
+  text-align: center;
+  position: absolute;
+  width: 80px;
+  left: calc(50% - 40px);
+  top: calc(50% - 10px);
 }
 
 .component .delete-field {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
-    height: 20px;
-    font-size: 12px;
-    padding-top: 1px;
-    text-align: center;
-    background: #d9534f;
-    color: #fff;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  padding-top: 1px;
+  text-align: center;
+  background: #d9534f;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .component:hover:not([draggable="true"]) .delete-field,
 .component:hover:not([draggable="true"]) .edit-label,
 .component:hover:not([draggable="true"]) .overlay-screen {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 .component .delete-field:hover {
-    background: #c9302c;
+  background: #c9302c;
 }
 
 .form-preview .form-html {
-    min-height: 100px;
-    padding-bottom: 30px;
+  min-height: 100px;
+  padding-bottom: 30px;
+}
+/* FILE FIELD */
+.fileUpload {
+  position: relative;
+  overflow: hidden;
+  padding-right: 40px;
+  color: #fff;
+}
+
+label.fileUpload {
+  color: #fff;
+}
+
+.fileUpload .fa {
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 20px;
+  top: 50%;
+  margin-top: -10px;
+  right: 10px;
+  color: #FFF;
+}
+
+.fileUpload input[type="file"] {
+  display: none;
 }
 /* temporary code for the modal */
 .modal.active {
-    background-color: rgba(0,0,0,0.3);
-    display: block;
+  background-color: rgba(0,0,0,0.3);
+  display: block;
 }
 
 .modal-dialog {
-    display: flex;
-    height: 98%;
-    margin: 2%;
+  display: flex;
+  height: 98%;
+  margin: 2%;
 }
 
 .modal-content {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 
 .modal-body {
-    overflow: scroll;
+  overflow: scroll;
 }
 @media screen and (min-width: 640px) {
-    .modal-dialog {
-        display: flex;
-        height: 90%;
-        margin: 5% auto;
-    }
+  .modal-dialog {
+    display: flex;
+    height: 90%;
+    margin: 5% auto;
+  }
 }

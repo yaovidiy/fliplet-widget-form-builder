@@ -13,10 +13,10 @@
       <p>Configure your form</p>
       <a id="help_tip" href="#">Need help?</a>
     </header>
-    <section v-if="chooseTemplate" class="col-sm-12">
+    <section v-if="chooseTemplate" class="col-sm-12 choose-template">
       <br />
       <label class="control-label">Step 1. Choose your form template</label>
-      <p>Cras mattis consectetur purus sit amet fermentum. Vestibulum id ligula porta felis euismod semper.</p>
+      <p>Select a template to load a new form.</p>
       <select class="form-control" v-model="settings.templateId">
         <option value="" disabled>-- Select a template</option>
         <option v-for="template in templates" :value="template.id">\{{ template.settings.displayName }}</option>
@@ -26,10 +26,9 @@
 
       <label class="control-label">Step 2. Give your form a name</label>
       <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-      <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId"/>
+      <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId" />
     </section>
     <div class="builder" v-else>
-
       <nav>
         <ul class="nav nav-tabs">
           <li v-bind:class="{ active: section === 'form' }">
@@ -77,16 +76,16 @@
         <div v-show="section === 'form'" class="clearfix">
           <section class="col-sm-6 form-preview">
             <br />
-            <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId"/>
+            <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId" />
             <br />
             <div class="row" v-if="!isAddingFields">
               <div class="col-sm-12">
-                <a href="#" v-on:click.prevent="isAddingFields = true" class="btn btn-primary btn-xs add-field pull-right">Add field</a>
+                <a href="#" v-on:click.prevent="isAddingFields = true" class="btn btn-primary btn-xs add-field pull-right">Add field <i class="fa fa-plus"></i></a>
                 <br /><br />
               </div>
             </div>
 
-            <div class="form-html form-horizontal" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
+            <form class="form-html" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
               <div class="component" :key="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: field.name === activeFieldId }">
                 <component :is="field._type" v-bind="field"></component>
                 <div class="overlay-screen"></div>
@@ -95,34 +94,34 @@
                 </div>
                 <div class="delete-field" href="#" v-on:click.prevent.stop="deleteField(index)"><i class="fa fa-trash"></i></div>
               </div>
-            </div>
+            </form>
           </section>
 
           <section v-if="isAddingFields" class="components-list col-sm-6">
             <h3>Components</h3>
-            <div class="form-html form-horizontal" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
+            <form class="form-html" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
               <div :key="field.name" class="component" v-for="(field, index) in formFields">
                 <a href="#" class="add" v-on:click.prevent.stop="addField(fields.length, index)">+</a>
                 <component :is="field"></component>
               </div>
-            </div>
+            </form>
           </section>
+        </div>
 
-          <div class="modal" tabindex="-1" role="dialog" v-bind:class="{ active: !!activeFieldConfigType }">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" v-on:click.prevent="closeEdit" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Configure form field</h4>
-                </div>
-                <div class="modal-body">
-                  <component :is="activeFieldConfigType" v-bind="activeField"></component>
-                </div>
+        <div class="modal" tabindex="-1" role="dialog" v-bind:class="{ active: !!activeFieldConfigType }">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" v-on:click.prevent="closeEdit" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Configure form field</h4>
+              </div>
+              <div class="modal-body">
+                <component :is="activeFieldConfigType" v-bind="activeField"></component>
               </div>
             </div>
           </div>
-
         </div>
+
       </div>
     </div>
   </main>
