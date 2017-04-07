@@ -1,5 +1,6 @@
 .loading-message {
   display: none;
+  padding-top: 25%;
 }
 
 .is-loading .loading-message {
@@ -9,6 +10,10 @@
 .is-loading main {
   opacity: 0;
   pointer-events: none;
+}
+
+.spinner-holder {
+  text-align: center;
 }
 
 header {
@@ -141,9 +146,11 @@ nav > .btn {
   visibility: hidden;
   text-align: center;
   position: absolute;
-  width: 80px;
-  left: calc(50% - 40px);
-  top: calc(50% - 10px);
+  width: 100%;
+  top: calc(50% - 12px);
+  font-size: 16px;
+  font-weight: bold;
+  color: #14505e;
 }
 
 .component .delete-field {

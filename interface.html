@@ -1,11 +1,9 @@
 <div id="app" class="is-loading">
   <div class="col-sm-12 loading-message">
-    <br />
-    <p class="alert alert-warning">
-      Loading the form builder... Please wait
-    </p>
-    <div class="progress">
-      <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%"></div>
+    <!-- Show loading animation -->
+    <div class="spinner-holder animated">
+      <div class="spinner-overlay">Loading...</div>
+      <p>Loading the form builder... Please wait!</p>
     </div>
   </div>
   <main>
@@ -74,7 +72,7 @@
         </section>
 
         <div v-show="section === 'form'" class="clearfix">
-          <section class="col-sm-6 form-preview">
+          <section class="form-preview" v-bind:class="{ 'col-sm-6': isAddingFields, 'col-sm-12': !isAddingFields }">
             <br />
             <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId" />
             <br />
@@ -90,22 +88,24 @@
                 <component :is="field._type" v-bind="field"></component>
                 <div class="overlay-screen"></div>
                 <div class="edit-label">
-                  <i>Click to edit</i>
+                  Click to edit and drag to reorder
                 </div>
                 <div class="delete-field" href="#" v-on:click.prevent.stop="deleteField(index)"><i class="fa fa-trash"></i></div>
               </div>
             </form>
           </section>
 
-          <section v-if="isAddingFields" class="components-list col-sm-6">
-            <h3>Components</h3>
-            <form class="form-html" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
-              <div :key="field.name" class="component" v-for="(field, index) in formFields">
-                <a href="#" class="add" v-on:click.prevent.stop="addField(fields.length, index)">+</a>
-                <component :is="field"></component>
-              </div>
-            </form>
-          </section>
+          <transition name="slide-fade">
+            <section v-if="isAddingFields" class="components-list col-sm-6">
+              <h3>Components</h3>
+              <form class="form-html" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
+                <div :key="field.name" class="component" v-for="(field, index) in formFields">
+                  <a href="#" class="add" v-on:click.prevent.stop="addField(fields.length, index)">+</a>
+                  <component :is="field"></component>
+                </div>
+              </form>
+            </section>
+          </transition>
         </div>
 
         <div class="modal" tabindex="-1" role="dialog" v-bind:class="{ active: !!activeFieldConfigType }">
