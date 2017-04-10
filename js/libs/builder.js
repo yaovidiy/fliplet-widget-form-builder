@@ -55,22 +55,17 @@ var app = new Vue({
   },
   methods: {
     setupCodeEditor() {
-      if (this.resultEditor) {
-        if (this.settings.resultHtml) {
-          this.resultEditor.getDoc().setValue(this.settings.resultHtml)
-        }
-      } else {
-        this.resultEditor = CodeMirror.fromTextArea(this.$refs.resulthtml, {
-          mode: 'htmlmixed',
-          lineNumbers: true,
-          autoRefresh: true,
-          lineWrapping: true,
-          viewportMargin: Infinity
-        })
-        this.resultEditor.on('change', () => {
-          this.settings.resultHtml = this.resultEditor.getValue()
-        })
-      }
+      this.resultEditor = CodeMirror.fromTextArea(this.$refs.resulthtml, {
+        mode: 'htmlmixed',
+        lineNumbers: true,
+        autoRefresh: true,
+        lineWrapping: true,
+        viewportMargin: Infinity
+      })
+
+      this.resultEditor.on('change', () => {
+        this.settings.resultHtml = this.resultEditor.getValue()
+      })
     },
     onSort: function(event) {
       this.fields.splice(event.newIndex, 0, this.fields.splice(event.oldIndex, 1)[0]);
@@ -116,16 +111,53 @@ var app = new Vue({
     changeTemplate: function() {
       this.toChangeTemplate = true;
       Fliplet.Studio.emit('widget-mode', 'normal');
+
+      if (this.toChangeTemplate) {
+        Fliplet.Studio.emit('widget-save-label-update', {
+          text: 'Update form template'
+        });
+        Fliplet.Widget.toggleSaveButton(false);
+      }
+
       changeSelectText()
     },
     goBack: function() {
       this.toChangeTemplate = false;
+      Fliplet.Studio.emit('widget-save-label-reset');
+      Fliplet.Widget.toggleSaveButton(true);
+
+      if (this.isAddingFields) {
+        Fliplet.Studio.emit('widget-mode', 'wide');
+      }
+
+      setTimeout(() => {
+        this.setupCodeEditor()
+      }, 1)
+    },
+    createDataSource: function() {
+      var $vm = this
+      var name = prompt('Please type a name for your data source:');
+
+      if (!name) {
+        return;
+      }
+
+      Fliplet.DataSources.create({
+        name: name,
+        organizationId: Fliplet.Env.get('organizationId')
+      }).then(function(d) {
+        $vm.settings.dataSourceId = d.id
+        changeSelectText()
+      });
     },
     save: function() {
       return Fliplet.Widget.save(this.settings);
     }
   },
   watch: {
+    'permissionToChange': function(newVal) {
+      Fliplet.Widget.toggleSaveButton(newVal);
+    },
     'isAddingFields': function(newVal) {
       if (newVal) {
         Fliplet.Studio.emit('widget-mode', 'wide');
@@ -145,9 +177,11 @@ var app = new Vue({
       var settings = formTemplate.settings;
       settings.templateId = formTemplate.id;
 
-      Fliplet.Studio.emit('widget-info-label-update', {
-        text: 'Previewing ' + settings.displayName
-      });
+      if (this.chooseTemplate) {
+        Fliplet.Studio.emit('widget-info-label-update', {
+          text: 'Previewing ' + settings.displayName
+        });
+      }
 
       this.settings = generateFormDefaults(settings);
       this.fields = this.settings.fields;
@@ -164,7 +198,12 @@ var app = new Vue({
           setTimeout(() => {
             this.setupCodeEditor()
           }, 1)
+        } else {
+          setTimeout(() => {
+            this.resultEditor.refresh()
+          }, 1)
         }
+
       }
     }
   },
@@ -195,13 +234,6 @@ var app = new Vue({
       Fliplet.Widget.toggleSaveButton(false);
     }
 
-    if (this.toChangeTemplate) {
-      Fliplet.Studio.emit('widget-save-label-update', {
-        text: 'Update form template'
-      });
-      Fliplet.Widget.toggleSaveButton(false);
-    }
-
     Fliplet.Widget.onSaveRequest(function() {
       if ($vm.chooseTemplate) {
         if ($vm.settings.templateId) {
@@ -215,13 +247,15 @@ var app = new Vue({
       }
 
       if ($vm.toChangeTemplate) {
-        if ($vm.permissionToChange) {
+        if ($vm.newTemplate) {
           $vm.toChangeTemplate = false;
           $vm.permissionToChange = false;
           $vm.settings.templateId = $vm.newTemplate;
-          Fliplet.Widget.toggleSaveButton(true);
           Fliplet.Studio.emit('widget-save-label-reset');
           Fliplet.Studio.emit('widget-info-label-update');
+          setTimeout(() => {
+            $vm.setupCodeEditor()
+          }, 1)
         }
 
         return;
