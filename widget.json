@@ -15,7 +15,8 @@
       "lodash",
       "vue.js",
       "fliplet-studio-ui",
-      "fliplet-datasources"
+      "fliplet-datasources",
+      "codemirror"
     ],
     "assets": [
       "vendor/sortable.js",

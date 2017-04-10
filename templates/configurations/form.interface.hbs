@@ -1,33 +1,38 @@
 <form v-on:submit.prevent="onSubmit">
   <div v-if="_isFormField">
     <div class="form-group">
-      <label>Field ID</label>
-      <input class="form-control" type="text" v-model.trim="name" placeholder="Field name" />
+      <p class="field-id"><span class="field-label">Field ID:</span> \{{ name }}</p>
     </div>
 
     <div class="form-group">
-      <label>Field description</label>
+      <label>Field label</label>
       <input class="form-control" type="text" v-model.trim="label" placeholder="Field description" />
     </div>
 
     <div class="form-group">
       <label>Is this field required?</label>
-      <select v-model="required" class="form-control">
-        <option v-bind:value="true">Yes, this field is required</option>
-        <option v-bind:value="false">No, this field isn't required</option>
-      </select>
+
+      <label for="required-select" class="select-proxy-display">
+        <span class="icon fa fa-chevron-down"></span>
+        <span class="select-value-proxy"><template v-if="required">Yes, this field is required</template><template v-else>No, this field is not required</template></span>
+        <select class="form-control hidden-select" id="required-select" v-model="required">
+          <option v-bind:value="true">Yes, this field is required</option>
+          <option v-bind:value="false" selected>No, this field is not required</option>
+        </select>
+      </label>
+
     </div>
   </div>
 
   {{#hasOptions}}
     <div class="form-group">
-      <label>Options (one per line)</label>
+      <label>Options <small>(One per line)</small></label>
       <textarea v-on:input="_setOptions($event.target.value)" class="form-control" v-model="_options"></textarea>
     </div>
   {{/hasOptions}}
 
   {{{ template }}}
-
-  <hr />
-  <button type="submit" class="btn btn-primary">Save changes</button>
+  <div class="footer">
+    <button type="submit" class="btn btn-primary">Save changes</button>
+  </div>
 </form>

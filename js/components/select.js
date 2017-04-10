@@ -3,9 +3,12 @@ Fliplet.FormBuilder.field('select', {
   props: {
     options: {
       type: Array,
-      default: [
-        { id: 'Option 1' },
-        { id: 'Option 2' }
+      default: [{
+          id: 'Option 1'
+        },
+        {
+          id: 'Option 2'
+        }
       ]
     },
     source: {
@@ -13,14 +16,14 @@ Fliplet.FormBuilder.field('select', {
     },
     placeholder: {
       type: String,
-      default: 'Select one'
+      default: '-- Select one'
     }
   },
-  mounted: function () {
+  mounted: function() {
     var $vm = this;
 
     if ($vm.source === 'dataSources') {
-      Fliplet.DataSources.get().then(function (dataSources) {
+      Fliplet.DataSources.get().then(function(dataSources) {
         $vm.options = dataSources;
       })
     }

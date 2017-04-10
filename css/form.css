@@ -7,6 +7,32 @@
   pointer-events: none;
 }
 
+form.placeholder {
+  opacity: 0.5;
+  cursor: pointer;
+  -webkit-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-user-modify: read-only !important;
+}
+
+form.placeholder .form-group,
+form.placeholder button {
+  pointer-events: none;
+}
+
+.fl-form .label-holder {
+  display: block;
+  text-align: right;
+}
+
+.fl-form .label {
+  display: inline-block;
+  border: 1px solid #00ABD1;
+  background-color: rgba(0, 171, 209, 0.55);
+  margin: 10px 0;
+}
+
 .fl-form .form-error {
   margin-top: 20px;
 }
@@ -487,4 +513,35 @@ textarea.form-control {
 /* TinyMCE source code area */
 .mce-window[aria-label="Source code"] textarea {
   font-family: monospace;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-leave-active {
+  opacity: 1;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+.callout {
+  padding: 10px;
+  margin: 20px 0;
+  border: 1px solid #f2f6f7;
+  border-left-width: 5px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+}
+
+.callout-danger {
+  border-color: #E03629;
+}
+
+.callout p:last-child {
+  margin-bottom: 0;
 }

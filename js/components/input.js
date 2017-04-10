@@ -1,5 +1,5 @@
 Fliplet.FormBuilder.field('input', {
-  name: 'Single-line text',
+  name: 'Text',
   props: {
     type: {
       type: String,
@@ -7,9 +7,6 @@ Fliplet.FormBuilder.field('input', {
     },
     placeholder: {
       type: String
-    },
-    maxlength: {
-      type: Number
     }
   }
 });

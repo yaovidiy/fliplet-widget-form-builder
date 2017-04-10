@@ -1,3 +1,8 @@
+#app,
+html {
+  height: 100%;
+}
+
 .loading-message {
   display: none;
   padding-top: 25%;
@@ -19,7 +24,7 @@
 header {
   background: #f2f6f7;
   position: fixed;
-  z-index: 1;
+  z-index: 5;
   top: 0;
   right: 15px;
   left: 15px;
@@ -27,18 +32,23 @@ header {
 }
 
 main {
-  margin-bottom: 20px;
   height: 100%;
 }
 
 .builder {
   position: relative;
   padding-top: 116px;
+  height: 100%;
+}
+
+.content,
+.section-holder {
+  height: 100%;
 }
 
 nav {
   position: fixed;
-  z-index: 1;
+  z-index: 5;
   top: 57px;
   right: 15px;
   left: 15px;
@@ -63,8 +73,22 @@ nav > .btn {
   line-height: 24px;
 }
 
+.empty-state {
+  padding-top: 30%;
+  text-align: center;
+}
+
+.change-template,
 .choose-template {
-  padding-top: 30px;
+  padding-top: 57px;
+}
+
+.change-template .panel {
+  margin-top: 30px;
+}
+
+.change-template .back-btn {
+  padding: 15px 0;
 }
 
 .component {
@@ -96,8 +120,18 @@ nav > .btn {
   border: 1px dotted #999;
 }
 
+.form-preview {
+  overflow: auto;
+  height: 100%;
+}
+
 .form-preview .component:hover {
   border-color: #999;
+}
+
+.components-list {
+  overflow: auto;
+  height: 100%;
 }
 
 .components-list .form-group > *,
@@ -137,13 +171,12 @@ nav > .btn {
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 2;
   opacity: 0;
   visibility: hidden;
 }
 
 .component .edit-label {
-  opacity: 0;
-  visibility: hidden;
   text-align: center;
   position: absolute;
   width: 100%;
@@ -151,6 +184,7 @@ nav > .btn {
   font-size: 16px;
   font-weight: bold;
   color: #14505e;
+  z-index: 2;
 }
 
 .component .delete-field {
@@ -165,12 +199,12 @@ nav > .btn {
   background: #d9534f;
   color: #fff;
   cursor: pointer;
+  z-index: 3;
   opacity: 0;
   visibility: hidden;
 }
 
-.component:hover:not([draggable="true"]) .delete-field,
-.component:hover:not([draggable="true"]) .edit-label,
+.component:hover .delete-field,
 .component:hover:not([draggable="true"]) .overlay-screen {
   opacity: 1;
   visibility: visible;
@@ -228,10 +262,39 @@ label.fileUpload {
   display: flex;
   width: 100%;
   flex-direction: column;
+  border-radius: 0;
+  border: none;
 }
 
 .modal-body {
-  overflow: scroll;
+  height: calc(100% - 56px);
+  position: relative;
+  padding: 0 15px;
+}
+
+.modal-body form {
+  height: 100%;
+  overflow: auto;
+  padding: 15px 0 91px;
+}
+
+.modal-body .footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  background-color: #fff;
+  border-top: 1px solid #e2e2e2;
+}
+
+.field-id {
+  color: #ababab;
+  text-align: right;
+}
+
+.field-label {
+  color: #14505e;
 }
 @media screen and (min-width: 640px) {
   .modal-dialog {
@@ -239,4 +302,22 @@ label.fileUpload {
     height: 90%;
     margin: 5% auto;
   }
+}
+
+.CodeMirror {
+  height: auto;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s ease;
+}
+/* .slide-fade-leave-active for <2.1.8 */
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
 }

@@ -4,11 +4,11 @@ Fliplet.FormBuilder.field('paragraph', {
     label: undefined,
     value: {
       type: String,
-      default: 'Paragraph of text'
+      default: 'Paragraph'
     }
   },
   computed: {
-    htmlValue: function () {
+    htmlValue: function() {
       return this.value.replace(/\r?\n/g, '<br />');
     }
   }

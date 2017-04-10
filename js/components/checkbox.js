@@ -7,9 +7,12 @@ Fliplet.FormBuilder.field('checkbox', {
     },
     options: {
       type: Array,
-      default: [
-        { id: 'Option 1' },
-        { id: 'Option 2' }
+      default: [{
+          id: 'Option 1'
+        },
+        {
+          id: 'Option 2'
+        }
       ]
     }
   }
