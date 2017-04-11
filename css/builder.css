@@ -376,6 +376,10 @@ label.fileUpload {
   height: auto;
 }
 /* ACCORDION */
+.panel-group {
+  margin-bottom: 0;
+}
+
 .panel-default {
   border-color: #14505e;
 }
