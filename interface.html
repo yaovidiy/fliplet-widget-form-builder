@@ -143,16 +143,38 @@
             <section v-if="isAddingFields" class="components-list col-sm-6">
               <a href="#" v-on:click.prevent="isAddingFields = false" class="btn btn-primary btn-xs hide-fields">Hide</a>
               <h2><small>Drag and drop to add a field</small></h2>
-              <form class="form-html" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
-                <div :key="field.name" class="component" v-for="(field, index) in formFields">
-                  <a href="#" class="add" v-on:click.prevent.stop="addField(fields.length, index)">+</a>
-                  <div class="overlay-screen">
-                    <div class="edit-label">
-                      Drag field to the left
+              <form class="form-html">
+
+                <div class="panel-group" id="componentsAccordion" role="tablist" aria-multiselectable="true">
+                  <!-- EACH PANEL SHOULD BE REPLICATED FOR EACH CATERGORY -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                      <h4 class="panel-title" role="button" data-toggle="collapse" data-parent="#componentsAccordion" href="#categoryOne">
+                      Category 1
+                      </h4>
+                      <div class="chevron-icon">
+                        <i class="fa fa-angle-up"></i>
+                      </div>
+                    </div>
+                    <div id="categoryOne" class="panel-collapse collapse in" role="tabpanel">
+                      <div class="panel-body" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
+
+                        <div :key="field.name" class="component" v-for="(field, index) in formFields">
+                          <a href="#" class="add" v-on:click.prevent.stop="addField(fields.length, index)">+</a>
+                          <div class="overlay-screen">
+                            <div class="edit-label">
+                              Drag field to the left
+                            </div>
+                          </div>
+                          <component :is="field"></component>
+                        </div>
+
+                      </div>
                     </div>
                   </div>
-                  <component :is="field"></component>
+                  <!-- END OF PANEL -->
                 </div>
+
               </form>
             </section>
           </transition>

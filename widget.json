@@ -16,7 +16,8 @@
       "vue.js",
       "fliplet-studio-ui",
       "fliplet-datasources",
-      "codemirror"
+      "codemirror",
+      "bootstrap"
     ],
     "assets": [
       "vendor/sortable.js",

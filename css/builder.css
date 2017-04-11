@@ -120,6 +120,14 @@ nav > .btn {
   background-color: rgba(0, 171, 209, 0.3);
 }
 
+.component[draggable="true"] {
+  background-color: #ffffff;
+}
+
+.component.sortable-ghost[draggable="true"] {
+  background-color: rgba(0, 171, 209, 0.3);
+}
+
 .component.editing {
   background-color: rgba(0, 171, 209, 0.3);
 }
@@ -367,7 +375,72 @@ label.fileUpload {
 .CodeMirror {
   height: auto;
 }
+/* ACCORDION */
+.panel-default {
+  border-color: #14505e;
+}
 
+.panel {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.panel-group .panel {
+  border-radius: 0;
+}
+
+.panel-default > .panel-heading {
+  padding: 0;
+  border-radius: 0;
+  color: #ffffff;
+  background-color: #14505e;
+  border-color: transparent;
+  position: relative;
+}
+
+.panel-title {
+  padding: 10px 47px 10px 15px;
+}
+
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #14505e;
+}
+
+.panel-body {
+  padding: 0;
+}
+
+.panel-body .component:last-child {
+  margin-bottom: 0;
+}
+
+.panel-heading .chevron-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 37px;
+  height: 37px;
+  font-size: 1.8em;
+  text-align: center;
+  pointer-events: none;
+}
+
+.panel-heading .chevron-icon i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  line-height: 37px;
+  -webkit-transition: -webkit-transform 0.25s ease;
+  transition: transform 0.25s ease;
+}
+
+.panel-heading .panel-title.collapsed + .chevron-icon i {
+  transform: rotate(180deg);
+}
+/* ANIMATIONS */
 .fade-enter-active {
   transition: all 0.8s ease;
 }
