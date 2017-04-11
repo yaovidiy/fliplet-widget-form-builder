@@ -73,9 +73,15 @@ nav > .btn {
   line-height: 24px;
 }
 
+.add-field {
+  position: absolute;
+  top: 16px;
+  right: 15px;
+}
+
 .hide-fields {
   position: absolute;
-  top: 36px;
+  top: 16px;
   right: 15px;
 }
 
@@ -124,6 +130,11 @@ nav > .btn {
   background-color: #ffffff;
 }
 
+.component[draggable="true"] .add,
+.component[draggable="true"] .delete-field {
+  display: none;
+}
+
 .component.sortable-ghost[draggable="true"] {
   background-color: rgba(0, 171, 209, 0.3);
 }
@@ -150,7 +161,6 @@ nav > .btn {
 
 .form-preview form {
   border: 1px solid #ccc;
-  margin-top: 15px;
 }
 
 .form-preview .component:hover {
@@ -163,14 +173,9 @@ nav > .btn {
   padding-bottom: 15px;
 }
 
-.components-list h2 {
-  line-height: 44px;
-  margin-top: 30px;
-  margin-bottom: 15px;
-}
-
 .components-list .form-html {
-  /* padding-top: 21px; */
+  height: calc(100% - 63px);
+  overflow: auto;
 }
 
 .components-list .form-group > *,
@@ -214,6 +219,7 @@ nav > .btn {
   z-index: 2;
   opacity: 0;
   visibility: hidden;
+  border: 3px dashed #00abd1;
 }
 
 .component .edit-label {
@@ -223,7 +229,7 @@ nav > .btn {
   top: calc(50% - 12px);
   font-size: 16px;
   font-weight: bold;
-  color: #14505e;
+  color: #00abd1;
   z-index: 2;
 }
 
@@ -257,6 +263,8 @@ nav > .btn {
 .form-preview .form-html {
   min-height: 100px;
   padding-bottom: 30px;
+  height: calc(100% - 63px);
+  overflow: auto;
 }
 /* FILE FIELD */
 .fileUpload {
@@ -378,6 +386,7 @@ label.fileUpload {
 /* ACCORDION */
 .panel-group {
   margin-bottom: 0;
+  height: 100%;
 }
 
 .panel-default {
@@ -407,8 +416,20 @@ label.fileUpload {
   padding: 10px 47px 10px 15px;
 }
 
+.panel-group .panel-title[aria-expanded=true] {
+  pointer-events: none;
+}
+
+.panel-default > .panel-heading + .panel-collapse {
+  overflow: auto;
+}
+
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #14505e;
+}
+
+.panel-group .panel + .panel {
+  margin-top: 1px;
 }
 
 .panel-body {

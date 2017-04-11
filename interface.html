@@ -113,13 +113,8 @@
 
         <div v-show="section === 'form'" class="section-holder clearfix">
           <section class="form-preview" v-bind:class="{ 'col-sm-6': isAddingFields, 'col-sm-12': !isAddingFields }">
-            <input placeholder="Form name" id="form-name" class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId" />
-            <div class="row" v-if="!isAddingFields">
-              <div class="col-sm-12">
-                <a href="#" v-on:click.prevent="isAddingFields = true" class="btn btn-primary btn-xs add-field pull-right">Add field <i class="fa fa-plus"></i></a>
-              </div>
-            </div>
-
+            <a href="#" v-if="!isAddingFields" v-on:click.prevent="isAddingFields = true" class="btn btn-primary btn-xs add-field pull-right">Add field <i class="fa fa-plus"></i></a>
+            <h2><small>Your form</small></h2>
             <form class="form-html" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
               <template v-if="fields.length">
                 <div class="component" :key="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: field.name === activeFieldId }">
@@ -141,7 +136,7 @@
 
           <transition name="fade">
             <section v-if="isAddingFields" class="components-list col-sm-6">
-              <a href="#" v-on:click.prevent="isAddingFields = false" class="btn btn-primary btn-xs hide-fields">Hide</a>
+              <a href="#" v-on:click.prevent="isAddingFields = false" class="btn btn-default btn-xs hide-fields">Hide</a>
               <h2><small>Drag and drop to add a field</small></h2>
               <form class="form-html">
 
@@ -149,7 +144,7 @@
                   <!-- EACH PANEL SHOULD BE REPLICATED FOR EACH CATERGORY -->
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab">
-                      <h4 class="panel-title" role="button" data-toggle="collapse" data-parent="#componentsAccordion" href="#categoryOne">
+                      <h4 class="panel-title" role="button" data-toggle="collapse" data-parent="#componentsAccordion" href="#categoryOne" aria-expanded="true" aria-controls="categoryOne">
                       Category 1
                       </h4>
                       <div class="chevron-icon">
@@ -173,6 +168,7 @@
                     </div>
                   </div>
                   <!-- END OF PANEL -->
+
                 </div>
 
               </form>

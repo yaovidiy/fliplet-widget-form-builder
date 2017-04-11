@@ -3,10 +3,29 @@ var data = Fliplet.Widget.getData() || {};
 function changeSelectText() {
   setTimeout(function() {
     $(".hidden-select:not(.component .hidden-select)").each(function(element) {
-      var selectedText = $(this).find('option:selected').text();
-      $(this).parents('.select-proxy-display').find('.select-value-proxy').html(selectedText);
+      var selectedText = $(this).find('option:selected').text()
+      $(this).parents('.select-proxy-display').find('.select-value-proxy').html(selectedText)
     })
   }, 1)
+}
+
+function attatchObservers() {
+  var $accordion = $('#componentsAccordion')
+
+  var recalculateHeight = function(obj) {
+    var $panelHeading = $('.panel-heading')
+    var tabsHeight = $panelHeading.outerHeight() * $panelHeading.length
+    var wrapperHeight = $('.components-list .form-html').innerHeight() - tabsHeight
+
+    obj.height(wrapperHeight - 5)
+    // +1 because of the top border
+  }
+
+  recalculateHeight($('.panel-collapse'));
+
+  $accordion.on('shown.bs.collapse', '.panel-collapse', function() {
+    recalculateHeight($(this));
+  })
 }
 
 Vue.directive('sortable', {
@@ -163,6 +182,9 @@ var app = new Vue({
     'isAddingFields': function(newVal) {
       if (newVal) {
         Fliplet.Studio.emit('widget-mode', 'wide');
+        setTimeout(() => {
+          attatchObservers()
+        }, 1)
       } else {
         Fliplet.Studio.emit('widget-mode', 'normal');
       }
