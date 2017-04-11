@@ -94,12 +94,14 @@ var app = new Vue({
       this.activeFieldConfigType = field._type.toString() + 'Config';
       this.activeField = field;
       changeSelectText()
+      Fliplet.Studio.emit('widget-save-label-update');
       this.$forceUpdate();
     },
     closeEdit: function() {
       this.activeFieldId = null;
       this.activeFieldConfigType = null;
       this.activeField = {};
+      Fliplet.Studio.emit('widget-save-label-reset');
     },
     onFieldSettingChanged: function(fieldData) {
       var $vm = this;
@@ -161,6 +163,8 @@ var app = new Vue({
     'isAddingFields': function(newVal) {
       if (newVal) {
         Fliplet.Studio.emit('widget-mode', 'wide');
+      } else {
+        Fliplet.Studio.emit('widget-mode', 'normal');
       }
     },
     'settings.templateId': function(newId) {
@@ -176,6 +180,7 @@ var app = new Vue({
 
       var settings = formTemplate.settings;
       settings.templateId = formTemplate.id;
+      settings.name = this.settings.name;
 
       if (this.chooseTemplate) {
         Fliplet.Studio.emit('widget-info-label-update', {
@@ -226,6 +231,7 @@ var app = new Vue({
   },
   mounted: function() {
     var $vm = this;
+    $vm.settings.name = $vm.settings.name || 'Untitled form';
 
     if (this.chooseTemplate) {
       Fliplet.Studio.emit('widget-save-label-update', {

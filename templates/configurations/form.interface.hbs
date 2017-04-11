@@ -1,7 +1,7 @@
 <form v-on:submit.prevent="onSubmit">
   <div v-if="_isFormField">
-    <div class="form-group">
-      <p class="field-id"><span class="field-label">Field ID:</span> \{{ name }}</p>
+    <div class="form-group field-id">
+      <p id="field-id"><span class="field-label">ID:</span> \{{ name }}</p>
     </div>
 
     <div class="form-group">
@@ -33,6 +33,6 @@
 
   {{{ template }}}
   <div class="footer">
-    <button type="submit" class="btn btn-primary">Save changes</button>
+    <button type="submit" class="btn btn-primary">Save</button>
   </div>
 </form>

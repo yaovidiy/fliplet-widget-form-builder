@@ -12,8 +12,11 @@
       </div>
       <div class="form-btns clearfix">
         {{#if submitLabel}}
-        <button type="submit" class="btn btn-primary pull-right">{{ submitLabel }}</button> {{/if}} {{#if clearLabel}}
-        <button type="reset" class="btn btn-secondary pull-right">{{ clearLabel }}</button> {{/if}}
+        <button type="submit" class="btn btn-primary pull-right">{{ submitLabel }}</button>
+        {{/if}}
+        {{#if clearLabel}}
+        <button type="reset" class="btn btn-secondary pull-right">{{ clearLabel }}</button>
+        {{/if}}
       </div>
     </div>
     <transition name="fade">
