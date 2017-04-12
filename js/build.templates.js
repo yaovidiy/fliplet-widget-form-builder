@@ -6,6 +6,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.checkbox"] = Handle
     return "<template v-for=\"(option, index) in options\">\n  <div class=\"checkbox checkbox-icon\">\n    <input type=\"checkbox\" :id=\"name + '-' + index\" :name=\"name\" v-model=\"value\" :value=\"option.id\" :required=\"required\" v-on:change=\"updateValue()\">\n    <label :for=\"name + '-' + index\">\n      <span class=\"check\"><i class=\"fa fa-check\"></i></span> {{ option.id }}&nbsp;&nbsp;&nbsp;\n    </label>\n  </div>\n</template>\n";
 },"useData":true});
 
+this["Fliplet"]["Widget"]["Templates"]["templates.components.clear"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<button :type=\"buttonType\" class=\"btn btn-secondary pull-right\">{{ label }}</button>\n";
+},"useData":true});
+
 this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
 
@@ -35,7 +39,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handleba
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.submit"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<button :type=\"options.type\" class=\"btn btn-primary pull-right\">{{ label }}</button>\n";
+    return "<button :type=\"buttonType\" class=\"btn btn-primary pull-right\">{{ label }}</button>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.textarea"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

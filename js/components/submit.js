@@ -2,7 +2,7 @@ Fliplet.FormBuilder.field('submit', {
   name: 'Submit button',
   category: 'Buttons',
   props: {
-    options: {
+    buttonType: {
       type: String,
       default: 'submit'
     }
