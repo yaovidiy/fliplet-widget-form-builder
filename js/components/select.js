@@ -1,5 +1,5 @@
 Fliplet.FormBuilder.field('select', {
-  name: 'Select one',
+  name: 'Select box',
   category: 'Multiple choice',
   props: {
     options: {

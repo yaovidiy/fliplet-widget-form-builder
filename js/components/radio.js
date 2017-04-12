@@ -1,5 +1,5 @@
 Fliplet.FormBuilder.field('radio', {
-  name: 'Choose one',
+  name: 'Single choice',
   category: 'Multiple choice',
   props: {
     options: {

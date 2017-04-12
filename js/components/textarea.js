@@ -1,5 +1,5 @@
 Fliplet.FormBuilder.field('textarea', {
-  name: 'Multi-line text',
+  name: 'Multiple line input',
   category: 'Text inputs',
   props: {
     placeholder: {
