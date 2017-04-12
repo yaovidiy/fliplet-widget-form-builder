@@ -36,7 +36,7 @@
       "js/components/paragraph.js",
       "js/components/submit.js",
       "js/components/clear.js",
-      "js/components/linebreak.js",
+      "js/components/horizontalRule.js",
 
       "js/configurations/input.js",
       "js/configurations/textarea.js",
@@ -47,7 +47,7 @@
       "js/configurations/paragraph.js",
       "js/configurations/submit.js",
       "js/configurations/clear.js",
-      "js/configurations/linebreak.js",
+      "js/configurations/horizontalRule.js",
 
       "js/libs/builder.js",
       "css/builder.css"
@@ -74,7 +74,7 @@
       "js/components/paragraph.js",
       "js/components/submit.js",
       "js/components/clear.js",
-      "js/components/linebreak.js",
+      "js/components/horizontalRule.js",
 
       "js/libs/form.js",
       "css/form.css"

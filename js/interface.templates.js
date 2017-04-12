@@ -27,12 +27,12 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form"] = Handle
     + "\n  <div class=\"footer\">\n    <button type=\"submit\" class=\"btn btn-primary\">Save</button>\n  </div>\n</form>\n";
 },"useData":true});
 
-this["Fliplet"]["Widget"]["Templates"]["templates.configurations.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"form-group\">\n  <label>Default value</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"value\" placeholder=\"Default value\" />\n</div>\n<div class=\"form-group\">\n  <label>Placeholder</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"placeholder\" placeholder=\"Placeholder text\" />\n</div>\n<div class=\"form-group\">\n  <label>Input type</label>\n  <label for=\"input-type\" class=\"select-proxy-display\">\n    <span class=\"icon fa fa-chevron-down\"></span>\n    <span class=\"select-value-proxy\">Text</span>\n    <select class=\"form-control hidden-select\" id=\"input-type\" v-model=\"type\">\n      <option value=\"text\">Text</option>\n      <option value=\"password\">Password (hidden characters)</option>\n      <option value=\"email\">E-mail address</option>\n      <option value=\"url\">URL</option>\n      <option value=\"tel\">Telephone</option>\n    </select>\n  </label>\n</div>\n";
+this["Fliplet"]["Widget"]["Templates"]["templates.configurations.horizontalRule"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "";
 },"useData":true});
 
-this["Fliplet"]["Widget"]["Templates"]["templates.configurations.linebreak"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "";
+this["Fliplet"]["Widget"]["Templates"]["templates.configurations.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"form-group\">\n  <label>Default value</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"value\" placeholder=\"Default value\" />\n</div>\n<div class=\"form-group\">\n  <label>Placeholder</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"placeholder\" placeholder=\"Placeholder text\" />\n</div>\n<div class=\"form-group\">\n  <label>Input type</label>\n  <label for=\"input-type\" class=\"select-proxy-display\">\n    <span class=\"icon fa fa-chevron-down\"></span>\n    <span class=\"select-value-proxy\">Text</span>\n    <select class=\"form-control hidden-select\" id=\"input-type\" v-model=\"type\">\n      <option value=\"text\">Text</option>\n      <option value=\"password\">Password (hidden characters)</option>\n      <option value=\"email\">E-mail address</option>\n      <option value=\"url\">URL</option>\n      <option value=\"tel\">Telephone</option>\n    </select>\n  </label>\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.paragraph"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

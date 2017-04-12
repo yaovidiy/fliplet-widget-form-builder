@@ -1,4 +1,4 @@
-Fliplet.FormBuilder.field('linebreak', {
+Fliplet.FormBuilder.field('horizontalRule', {
   name: 'Line break',
   category: 'Formatting',
   props: {
