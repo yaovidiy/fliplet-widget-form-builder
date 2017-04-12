@@ -1,6 +1,6 @@
 Fliplet.FormBuilder.field('input', {
   name: 'Text',
-  category: 'Foo',
+  category: 'Text inputs',
   props: {
     type: {
       type: String,
