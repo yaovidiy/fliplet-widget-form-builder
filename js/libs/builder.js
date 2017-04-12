@@ -99,8 +99,10 @@ var app = new Vue({
       this.fields.splice(event.newIndex, 0, this.fields.splice(event.oldIndex, 1)[0]);
     },
     onAdd: function(event) {
-      event.item.remove();
-      this.addField(event.newIndex, event.oldIndex);
+      if (event.item.parentElement.className !== 'panel-body') {
+        event.item.remove();
+        this.addField(event.newIndex, event.oldIndex);
+      }
     },
     addField: function(insertAtIndex, componentIndex) {
       var componentName = Fliplet.FormBuilder.fields()[componentIndex];
