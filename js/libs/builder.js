@@ -63,7 +63,7 @@ var app = new Vue({
     var formSettings = generateFormDefaults(data);
 
     return {
-      formFields: Fliplet.FormBuilder.fields(),
+      categories: Fliplet.FormBuilder.categories(),
       fields: formSettings.fields,
       activeFieldId: null,
       activeFieldConfigType: null,

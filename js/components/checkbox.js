@@ -1,5 +1,6 @@
 Fliplet.FormBuilder.field('checkbox', {
   name: 'Select one or more',
+  category: 'Foo',
   props: {
     value: {
       type: Array,

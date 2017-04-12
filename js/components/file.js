@@ -1,5 +1,6 @@
 Fliplet.FormBuilder.field('file', {
   name: 'Attach a file',
+  category: 'Foo',
   props: {
     accept: {
       type: String,
