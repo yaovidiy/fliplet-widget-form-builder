@@ -33,6 +33,15 @@ form.placeholder button {
   margin: 10px 0;
 }
 
+.required-info,
+.required-info-label {
+  color: #00ABD1;
+}
+
+.required-info-label {
+  margin-bottom: 15px;
+}
+
 .fl-form .form-error {
   margin-top: 20px;
 }

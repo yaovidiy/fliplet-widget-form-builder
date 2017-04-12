@@ -11,16 +11,18 @@
 
     <div class="form-group">
       <label>Is this field required?</label>
-
-      <label for="required-select" class="select-proxy-display">
-        <span class="icon fa fa-chevron-down"></span>
-        <span class="select-value-proxy"><template v-if="required">Yes, this field is required</template><template v-else>No, this field is not required</template></span>
-        <select class="form-control hidden-select" id="required-select" v-model="required">
-          <option v-bind:value="true">Yes, this field is required</option>
-          <option v-bind:value="false" selected>No, this field is not required</option>
-        </select>
-      </label>
-
+      <div class="radio radio-icon">
+        <input type="radio" id="required-yes" name="required-option" v-bind:value="true" v-model="required">
+        <label for="required-yes">
+          <span class="check"><i class="fa fa-circle"></i></span> <strong>Yes</strong> - Users will have to fill in the field
+        </label>
+      </div>
+      <div class="radio radio-icon">
+        <input type="radio" id="required-no" name="required-option" v-bind:value="false" v-model="required">
+        <label for="required-no">
+          <span class="check"><i class="fa fa-circle"></i></span> <strong>No</strong> - The field is optional
+        </label>
+      </div>
     </div>
   </div>
 

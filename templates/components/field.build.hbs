@@ -1,5 +1,5 @@
 <div class="form-group clearfix row">
-  <label v-if="_isFormField" class="col-sm-12 control-label" :for="name">\{{ label }} <template v-if="required">*</template></label>
+  <label v-if="_isFormField" class="col-sm-12 control-label" :for="name">\{{ label }} <template v-if="required"><span class="required-info">*</span></template></label>
   <div class="col-sm-12">
     {{{ template }}}
   </div>

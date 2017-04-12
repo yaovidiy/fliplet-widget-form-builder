@@ -9,7 +9,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.checkbox"] = Handle
 this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
 
-  return "<div class=\"form-group clearfix row\">\n  <label v-if=\"_isFormField\" class=\"col-sm-12 control-label\" :for=\"name\">{{ label }} <template v-if=\"required\">*</template></label>\n  <div class=\"col-sm-12\">\n    "
+  return "<div class=\"form-group clearfix row\">\n  <label v-if=\"_isFormField\" class=\"col-sm-12 control-label\" :for=\"name\">{{ label }} <template v-if=\"required\"><span class=\"required-info\">*</span></template></label>\n  <div class=\"col-sm-12\">\n    "
     + ((stack1 = ((helper = (helper = helpers.template || (depth0 != null ? depth0.template : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"template","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\n  </div>\n</div>\n";
 },"useData":true});
