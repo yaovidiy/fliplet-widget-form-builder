@@ -17,14 +17,21 @@ function attatchObservers() {
     var tabsHeight = $panelHeading.outerHeight() * $panelHeading.length
     var wrapperHeight = $('.components-list .form-html').innerHeight() - tabsHeight
 
-    obj.height(wrapperHeight - 5)
-    // +1 because of the top border
+    obj.children('.panel-body').height(wrapperHeight - 6) // Not really sure why the "6" but needed for adjustments
+    obj.children('.panel-body').fadeIn(250)
+    obj.children('.panel-body').animate({
+      scrollTop: 0
+    }, 250)
   }
 
-  recalculateHeight($('.panel-collapse'));
+  recalculateHeight($('.panel-collapse'))
 
-  $accordion.on('shown.bs.collapse', '.panel-collapse', function() {
-    recalculateHeight($(this));
+  $accordion.on('show.bs.collapse', '.panel-collapse', function() {
+    recalculateHeight($(this))
+  })
+
+  $accordion.on('hide.bs.collapse', '.panel-collapse', function() {
+    $(this).children('.panel-body').fadeOut(250)
   })
 }
 

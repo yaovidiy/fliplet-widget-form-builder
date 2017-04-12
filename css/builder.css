@@ -109,11 +109,15 @@ nav > .btn {
 
 .component {
   position: relative;
-  border: 1px dotted #999;
+  border: 1px dotted #d0d0d0;
   cursor: move;
   padding: 15px;
   margin-bottom: 5px;
   background-color: rgba(255, 255, 255, 0.5);
+}
+
+.component:hover {
+  border: 1px dotted transparent;
 }
 
 .form-preview .component {
@@ -130,8 +134,7 @@ nav > .btn {
   background-color: #ffffff;
 }
 
-.component[draggable="true"] .add,
-.component[draggable="true"] .delete-field {
+.component[draggable="true"] .add {
   display: none;
 }
 
@@ -145,7 +148,6 @@ nav > .btn {
 
 .component:hover:not([draggable="true"]) {
   background-color: #ffffff;
-  border: 1px dotted #999;
 }
 
 .form-preview {
@@ -161,10 +163,6 @@ nav > .btn {
 
 .form-preview form {
   border: 1px solid #ccc;
-}
-
-.form-preview .component:hover {
-  border-color: #999;
 }
 
 .components-list {
@@ -188,21 +186,26 @@ nav > .btn {
 }
 
 .component .add {
+  display: none;
   position: absolute;
   top: 0;
   right: 0;
   width: 20px;
   height: 20px;
-  background: #EEE;
+  background: #0087a6;
   line-height: 20px;
   text-align: center;
   text-decoration: none;
-  color: #000;
+  color: #ffffff;
   z-index: 3;
 }
 
 .component .add:hover {
-  background-color: rgba(199, 241, 255, 0.9);
+  background-color: #00abd1;
+}
+
+.component:hover .add {
+  display: block;
 }
 
 .component .form-group .btn {
@@ -426,6 +429,8 @@ label.fileUpload {
 
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #14505e;
+  overflow: auto;
+  display: none;
 }
 
 .panel-group .panel + .panel {
