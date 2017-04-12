@@ -1,6 +1,6 @@
 Fliplet.FormBuilder.field('title', {
   name: 'Title',
-  category: 'Bar',
+  category: 'Formatting',
   props: {
     label: undefined,
     value: {

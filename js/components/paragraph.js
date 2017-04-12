@@ -1,6 +1,6 @@
 Fliplet.FormBuilder.field('paragraph', {
   name: 'Paragraph',
-  category: 'Bar',
+  category: 'Formatting',
   props: {
     label: undefined,
     value: {
