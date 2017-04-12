@@ -470,6 +470,15 @@ label.fileUpload {
 .panel-heading .panel-title.collapsed + .chevron-icon i {
   transform: rotate(180deg);
 }
+
+.required-info,
+.required-info-label {
+  color: #00ABD1;
+}
+
+.required-info-label {
+  margin-bottom: 15px;
+}
 /* ANIMATIONS */
 .fade-enter-active {
   transition: all 0.8s ease;

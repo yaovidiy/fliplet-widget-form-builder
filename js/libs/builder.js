@@ -241,6 +241,13 @@ var app = new Vue({
       }
     }
   },
+  computed: {
+    hasRequiredFields: function() {
+      return this.fields.some(function(el) {
+        return !!el.required;
+      });
+    }
+  },
   created: function() {
     var $vm = this;
 
