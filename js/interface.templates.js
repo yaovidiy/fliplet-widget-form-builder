@@ -3,7 +3,7 @@ this["Fliplet"]["Widget"] = this["Fliplet"]["Widget"] || {};
 this["Fliplet"]["Widget"]["Templates"] = this["Fliplet"]["Widget"]["Templates"] || {};
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.clear"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"form-group\">\n  <label>Button label</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"label\" placeholder=\"Button label\" />\n</div>\n";
+    return "<div class=\"form-group\">\n  <label>Button label</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"value\" placeholder=\"Button label\" />\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.file"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -40,7 +40,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.select"] = Hand
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.submit"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"form-group\">\n  <label>Button label</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"label\" placeholder=\"Button label\" />\n</div>\n";
+    return "<div class=\"form-group\">\n  <label>Button label</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"value\" placeholder=\"Button label\" />\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.textarea"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

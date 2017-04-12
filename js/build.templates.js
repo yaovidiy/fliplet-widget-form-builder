@@ -7,7 +7,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.checkbox"] = Handle
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.clear"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<button :type=\"buttonType\" class=\"btn btn-secondary pull-right\">{{ label }}</button>\n";
+    return "<button :type=\"buttonType\" class=\"btn btn-secondary pull-right\">{{ value }}</button>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -39,7 +39,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handleba
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.submit"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<button :type=\"buttonType\" class=\"btn btn-primary pull-right\">{{ label }}</button>\n";
+    return "<button :type=\"buttonType\" class=\"btn btn-primary pull-right\">{{ value }}</button>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.textarea"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
