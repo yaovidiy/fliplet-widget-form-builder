@@ -26,6 +26,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebar
     return "<input\n  class=\"form-control\"\n  v-model.trim=\"value\"\n  v-on:input=\"updateValue()\"\n  :type=\"type\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n  :required=\"required\"\n/>\n";
 },"useData":true});
 
+this["Fliplet"]["Widget"]["Templates"]["templates.components.linebreak"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<hr>\n";
+},"useData":true});
+
 this["Fliplet"]["Widget"]["Templates"]["templates.components.paragraph"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<p v-html=\"htmlValue\"></p>";
 },"useData":true});

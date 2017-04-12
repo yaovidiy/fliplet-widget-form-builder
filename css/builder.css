@@ -512,3 +512,7 @@ label.fileUpload {
   transform: translateX(100%);
   opacity: 0;
 }
+
+form hr {
+  border-top: 2px solid #dddddd;
+}
