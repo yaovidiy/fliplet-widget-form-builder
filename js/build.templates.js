@@ -34,6 +34,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handleba
     return "<label :for=\"name\" class=\"select-proxy-display\">\n  <span class=\"icon fa fa-chevron-down\"></span>\n  <span class=\"select-value-proxy\"><template v-if=\"value && value !== ''\">{{ value }}</template><template v-else>{{ placeholder }}</template></span>\n  <select class=\"form-control hidden-select\" :name=\"name\" :id=\"name\" v-model=\"value\" :required=\"required\" v-on:input=\"updateValue()\">\n    <option v-if=\"placeholder\" value=\"\">{{ placeholder }}</option>\n    <option v-for=\"option in options\" :value=\"option.id\" :disabled=\"option.disabled\">\n      {{ option.id }}\n    </option>\n  </select>\n</label>\n";
 },"useData":true});
 
+this["Fliplet"]["Widget"]["Templates"]["templates.components.submit"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<button :type=\"options.type\" class=\"btn btn-primary pull-right\">{{ label }}</button>\n";
+},"useData":true});
+
 this["Fliplet"]["Widget"]["Templates"]["templates.components.textarea"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<textarea\n  class=\"form-control\"\n  v-model.trim=\"value\"\n  v-on:input=\"updateValue()\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n  :rows=\"rows\"\n  :required=\"required\"\n></textarea>";
 },"useData":true});

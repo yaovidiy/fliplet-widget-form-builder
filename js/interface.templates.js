@@ -35,6 +35,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.select"] = Hand
     return "<div class=\"form-group\">\n  <label>Default value <small>(Enter one of the options you entered above)</small></label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"value\" placeholder=\"Default value\" />\n</div>\n<div class=\"form-group\">\n  <label>Option placeholder</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"placeholder\" placeholder=\"Option placeholder\" />\n</div>\n";
 },"useData":true});
 
+this["Fliplet"]["Widget"]["Templates"]["templates.configurations.submit"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"form-group\">\n  <label>Button label</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"value\" placeholder=\"Button label\" />\n</div>\n";
+},"useData":true});
+
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.textarea"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"form-group\">\n  <label>Default value</label>\n  <textarea class=\"form-control\" v-model.trim=\"value\" placeholder=\"Default value\"></textarea>\n</div>\n<div class=\"form-group\">\n  <label>Placeholder</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"placeholder\" placeholder=\"Placeholder\" />\n</div>\n<div class=\"form-group\">\n  <label>Rows <small>(Specifies the height of the text area in lines)</small></label>\n  <label for=\"textarea-rows\" class=\"select-proxy-display\">\n    <span class=\"icon fa fa-chevron-down\"></span>\n    <span class=\"select-value-proxy\">2</span>\n    <select class=\"form-control hidden-select\" id=\"textarea-rows\" v-model=\"rows\">\n      <option :value=\"number\" v-for=\"number in [1,2,3,4,5,6,7,8,9]\">{{ number }}</option>\n    </select>\n  </label>\n</div>\n";
 },"useData":true});
