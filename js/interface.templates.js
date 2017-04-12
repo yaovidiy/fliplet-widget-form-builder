@@ -2,6 +2,10 @@ this["Fliplet"] = this["Fliplet"] || {};
 this["Fliplet"]["Widget"] = this["Fliplet"]["Widget"] || {};
 this["Fliplet"]["Widget"]["Templates"] = this["Fliplet"]["Widget"]["Templates"] || {};
 
+this["Fliplet"]["Widget"]["Templates"]["templates.configurations.clear"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"form-group\">\n  <label>Button label</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"value\" placeholder=\"Button label\" />\n</div>\n";
+},"useData":true});
+
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.file"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"form-group\">\n  <label>Allowed files</label>\n  <label for=\"allow-files\" class=\"select-proxy-display\">\n    <span class=\"icon fa fa-chevron-down\"></span>\n    <span class=\"select-value-proxy\">All files</span>\n    <select class=\"form-control hidden-select\" id=\"allow-files\" v-model=\"accept\">\n      <option value=\"\">All files</option>\n      <option value=\"image/gif, image/jpg, image/jpeg, image/tiff, image/png\">Images only</option>\n    </select>\n  </label>\n</div>\n";
 },"useData":true});
@@ -21,6 +25,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form"] = Handle
   return buffer + "\n  "
     + ((stack1 = ((helper = (helper = helpers.template || (depth0 != null ? depth0.template : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"template","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\n  <div class=\"footer\">\n    <button type=\"submit\" class=\"btn btn-primary\">Save</button>\n  </div>\n</form>\n";
+},"useData":true});
+
+this["Fliplet"]["Widget"]["Templates"]["templates.configurations.horizontalRule"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

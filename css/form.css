@@ -117,6 +117,8 @@ form.placeholder button {
   border-radius: 6px;
   text-align: center;
   cursor: pointer;
+  background-color: #c0c0c0;
+  white-space: initial;
 }
 
 .btn-primary:focus,
@@ -491,6 +493,10 @@ textarea.form-control {
 
 .star-rating .rating-input:checked ~ .rating-star .fa.fa-star {
   display: block;
+}
+/* LINE BREAK */
+form hr {
+  border-top: 2px solid #dddddd;
 }
 /* @MEDIA */
 @media screen and (min-width: 640px) {

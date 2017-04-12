@@ -66,6 +66,12 @@ nav > .btn {
   top: calc(50% - 16px);
 }
 
+.btn-secondary {
+  color: #333;
+  background-color: #e4e9eb;
+  border-bottom: 2px solid #cfd3d5;
+}
+
 .btn.btn-xs {
   text-decoration: none;
   font-size: 12px;
@@ -505,4 +511,8 @@ label.fileUpload {
 .slide-in-leave-to {
   transform: translateX(100%);
   opacity: 0;
+}
+
+form hr {
+  border-top: 2px solid #dddddd;
 }
