@@ -143,16 +143,16 @@
 
                 <div class="panel-group" id="componentsAccordion" role="tablist" aria-multiselectable="true">
                   <!-- EACH PANEL SHOULD BE REPLICATED FOR EACH CATERGORY -->
-                  <div class="panel panel-default" v-for="category in categories">
+                  <div class="panel panel-default" v-for="(category, idx) in categories">
                     <div class="panel-heading" role="tab">
-                      <h4 class="panel-title" role="button" data-toggle="collapse" data-parent="#componentsAccordion" href="#categoryOne" aria-expanded="true" aria-controls="categoryOne">
+                      <h4 class="panel-title" v-bind:class="{ collapsed: idx !== 0}" role="button" data-toggle="collapse" data-parent="#componentsAccordion" :href="'#category' + idx" :aria-expanded="idx === 0" :aria-controls="'category' + idx">
                       \{{ category.name }}
                       </h4>
                       <div class="chevron-icon">
                         <i class="fa fa-angle-up"></i>
                       </div>
                     </div>
-                    <div id="categoryOne" class="panel-collapse collapse in" role="tabpanel">
+                    <div :id="'category' + idx" class="panel-collapse collapse" v-bind:class="{ in: idx === 0}" role="tabpanel">
                       <div class="panel-body" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
 
                         <div :key="field.name" class="component" v-for="(field, index) in category.fields">
