@@ -110,7 +110,7 @@
             <form class="form-html" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
               <div v-if="hasRequiredFields" class="required-info-label">* Required fields</div>
               <template v-if="fields.length">
-                <div class="component" :key="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: field.name === activeFieldId }">
+                <div class="component" :key="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: activeField && field.name === activeField.name }">
                   <div class="delete-field" href="#" v-on:click.prevent.stop="deleteField(index)"><i class="fa fa-trash"></i></div>
                   <div class="overlay-screen">
                     <div class="edit-label">

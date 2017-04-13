@@ -64,7 +64,6 @@ var app = new Vue({
     return {
       categories: Fliplet.FormBuilder.categories(),
       fields: formSettings.fields,
-      activeFieldId: null,
       activeFieldConfigType: null,
       activeField: {},
       activeFieldName: '',
@@ -118,7 +117,6 @@ var app = new Vue({
       this.activeFieldConfigType = null;
     },
     onFieldClick: function(field) {
-      this.activeFieldId = field.name;
       this.activeFieldConfigType = field._type.toString() + 'Config';
       this.activeFieldName = Fliplet.FormBuilder.components()[field._type].name;
       this.activeField = field;
@@ -127,7 +125,6 @@ var app = new Vue({
       this.$forceUpdate();
     },
     closeEdit: function() {
-      this.activeFieldId = null;
       this.activeFieldConfigType = null;
       this.activeField = {};
       Fliplet.Studio.emit('widget-save-label-reset');

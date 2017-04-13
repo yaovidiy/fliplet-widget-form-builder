@@ -6,6 +6,7 @@ var systemTemplates = [
       fields: [
         {
           _type: 'flInput',
+          name: 'field-1',
           label: 'Foo'
         }
       ]
@@ -18,10 +19,12 @@ var systemTemplates = [
       fields: [
         {
           _type: 'flInput',
+          name: 'field-1',
           label: 'Bar'
         },
         {
           _type: 'flSelect',
+          name: 'field-2',
           options: [
             { id: 'Option 1' },
             { id: 'Option 2' }
