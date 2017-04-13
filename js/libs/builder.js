@@ -293,6 +293,7 @@ var app = new Vue({
 
       if ($vm.toChangeTemplate) {
         if ($vm.newTemplate) {
+          $vm.isAddingFields = false;
           $vm.toChangeTemplate = false;
           $vm.permissionToChange = false;
           $vm.settings.templateId = $vm.newTemplate;
