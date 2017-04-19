@@ -96,21 +96,21 @@ var app = new Vue({
       this.fields.splice(event.newIndex, 0, this.fields.splice(event.oldIndex, 1)[0]);
     },
     onAdd: function(event) {
+      var componentName;
+      var value;
+
       if (event.item.parentElement.className !== 'panel-body') {
+        componentName = event.item.dataset.field;
+        value = Fliplet.FormBuilder.components()[componentName].props.value;
+
         event.item.remove();
-        this.addField(event.newIndex, event.oldIndex);
+
+        this.fields.splice(event.newIndex, 0, {
+          _type: componentName,
+          name: 'field-' + (this.fields.length + 1),
+          value: value.default || value.type()
+        });
       }
-    },
-    addField: function(insertAtIndex, componentIndex) {
-      var componentName = Fliplet.FormBuilder.fields()[componentIndex];
-
-      var value = Fliplet.FormBuilder.components()[componentName].props.value;
-
-      this.fields.splice(insertAtIndex, 0, {
-        _type: componentName,
-        name: 'field-' + (this.fields.length + 1),
-        value: value.default || value.type()
-      });
     },
     deleteField: function(index) {
       this.fields.splice(index, 1);

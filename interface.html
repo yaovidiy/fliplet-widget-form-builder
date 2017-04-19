@@ -132,9 +132,7 @@
               <a href="#" v-on:click.prevent="isAddingFields = false" class="btn btn-default btn-xs hide-fields">Hide</a>
               <h2><small>Drag and drop to add a field</small></h2>
               <form class="form-html">
-
                 <div class="panel-group" id="componentsAccordion" role="tablist" aria-multiselectable="true">
-                  <!-- EACH PANEL SHOULD BE REPLICATED FOR EACH CATERGORY -->
                   <div class="panel panel-default" v-for="(category, idx) in categories">
                     <div class="panel-heading" role="tab">
                       <h4 class="panel-title" v-bind:class="{ collapsed: idx !== 0}" role="button" data-toggle="collapse" data-parent="#componentsAccordion" :href="'#category' + idx" :aria-expanded="idx === 0" :aria-controls="'category' + idx">
@@ -146,9 +144,7 @@
                     </div>
                     <div :id="'category' + idx" class="panel-collapse collapse" v-bind:class="{ in: idx === 0}" role="tabpanel">
                       <div class="panel-body" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
-
-                        <div :key="field.name" class="component" v-for="(field, index) in category.fields">
-                          <a href="#" class="add" v-on:click.prevent.stop="addField(fields.length, index)">+</a>
+                        <div :key="field" :data-field="field" class="component" v-for="(field, index) in category.fields">
                           <div class="overlay-screen">
                             <div class="edit-label">
                               Drag field to the left
@@ -156,14 +152,10 @@
                           </div>
                           <component :is="field"></component>
                         </div>
-
                       </div>
                     </div>
                   </div>
-                  <!-- END OF PANEL -->
-
                 </div>
-
               </form>
             </section>
           </transition>
