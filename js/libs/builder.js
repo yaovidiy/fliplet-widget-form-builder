@@ -97,16 +97,19 @@ var app = new Vue({
     },
     onAdd: function(event) {
       var componentName;
+      var component;
       var value;
 
       if (event.item.parentElement.className !== 'panel-body') {
         componentName = event.item.dataset.field;
-        value = Fliplet.FormBuilder.components()[componentName].props.value;
+        component = Fliplet.FormBuilder.components()[componentName];
+        value = component.props.value;
 
         event.item.remove();
 
         this.fields.splice(event.newIndex, 0, {
           _type: componentName,
+          _submit: typeof component.submit !== undefined ? component.submit : true,
           name: 'field-' + (this.fields.length + 1),
           value: value.default || value.type()
         });

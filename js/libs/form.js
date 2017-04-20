@@ -62,6 +62,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
         this.fields.forEach(function(field) {
           var value = field.value;
 
+          if (field._submit === false) {
+            return;
+          }
+
           if (isFile(value)) {
             // File input
             for (var i = 0; i < value.length; i++) {
