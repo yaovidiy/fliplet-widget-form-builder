@@ -58,7 +58,7 @@ Fliplet.FormBuilder = (function () {
       // Define method to emit the new input value on change
       if (!component.methods.updateValue) {
         component.methods.updateValue = function () {
-          this.$emit('input', this.value);
+          this.$emit('_input', this.name, this.value);
         }
       }
 
@@ -88,7 +88,8 @@ Fliplet.FormBuilder = (function () {
           default: component.name || 'Label text'
         },
         value: {
-          type: String
+          type: String,
+          default: ''
         },
         required: {
           type: Boolean,
