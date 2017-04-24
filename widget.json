@@ -34,8 +34,7 @@
       "js/components/checkbox.js",
       "js/components/title.js",
       "js/components/paragraph.js",
-      "js/components/submit.js",
-      "js/components/clear.js",
+      "js/components/buttons.js",
       "js/components/horizontalRule.js",
 
       "js/configurations/input.js",
@@ -45,8 +44,7 @@
       "js/configurations/checkbox.js",
       "js/configurations/title.js",
       "js/configurations/paragraph.js",
-      "js/configurations/submit.js",
-      "js/configurations/clear.js",
+      "js/configurations/buttons.js",
       "js/configurations/horizontalRule.js",
 
       "js/libs/builder.js",
@@ -72,8 +70,7 @@
       "js/components/checkbox.js",
       "js/components/title.js",
       "js/components/paragraph.js",
-      "js/components/submit.js",
-      "js/components/clear.js",
+      "js/components/buttons.js",
       "js/components/horizontalRule.js",
 
       "js/libs/form.js",
