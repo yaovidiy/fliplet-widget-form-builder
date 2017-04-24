@@ -477,6 +477,14 @@ label.fileUpload {
   transform: rotate(180deg);
 }
 
+.panel .panel-heading .panel-title {
+  padding: 0;
+}
+
+.panel .panel-body {
+  padding: 15px;
+}
+
 .required-info,
 .required-info-label {
   color: #00ABD1;
