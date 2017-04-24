@@ -4,7 +4,11 @@ function changeSelectText() {
   setTimeout(function() {
     $(".hidden-select:not(.component .hidden-select)").each(function(element) {
       var selectedText = $(this).find('option:selected').text()
-      $(this).parents('.select-proxy-display').find('.select-value-proxy').html(selectedText)
+      if (selectedText !== '') {
+        $(this).parents('.select-proxy-display').find('.select-value-proxy').html(selectedText)
+      } else {
+        $(this).parents('.select-proxy-display').find('.select-value-proxy').html('Select a data source')
+      }
     })
   }, 1)
 }
@@ -176,9 +180,9 @@ var app = new Vue({
       Fliplet.DataSources.create({
         name: name,
         organizationId: Fliplet.Env.get('organizationId')
-      }).then(function(d) {
-        $vm.settings.dataSourceId = d.id
-        changeSelectText()
+      }).then(function(ds) {
+        $vm.dataSources.push(ds)
+        $vm.settings.dataSourceId = ds.id
       });
     },
     save: function() {
@@ -186,6 +190,9 @@ var app = new Vue({
     }
   },
   watch: {
+    'dataSources': function(newVal) {
+      changeSelectText()
+    },
     'permissionToChange': function(newVal) {
       Fliplet.Widget.toggleSaveButton(newVal);
     },
