@@ -263,7 +263,9 @@ var app = new Vue({
 
     Fliplet.FormBuilder.on('field-settings-changed', this.onFieldSettingChanged);
 
-    Fliplet.DataSources.get().then(function(results) {
+    Fliplet.DataSources.get({
+      type: null
+    }).then(function(results) {
       $vm.dataSources = results;
       $(selector).removeClass('is-loading');
     });
