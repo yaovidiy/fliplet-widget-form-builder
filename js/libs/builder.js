@@ -22,7 +22,7 @@ function attatchObservers() {
     var borders = $panelHeading.length * 3
     var wrapperHeight = $('.components-list .form-html').innerHeight() - tabsHeight
 
-    obj.children('.panel-body').height(wrapperHeight - borders)
+    obj.children('.panel-body').css('height', wrapperHeight - borders)
     obj.children('.panel-body').fadeIn(250)
     obj.children('.panel-body').animate({
       scrollTop: 0

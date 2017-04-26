@@ -477,6 +477,10 @@ label.fileUpload {
   transform: rotate(180deg);
 }
 
+.panel .panel-heading[role="tab"] .panel-title {
+  padding: 10px 37px 10px 15px;
+}
+
 .panel .panel-heading .panel-title {
   padding: 0;
 }
@@ -523,4 +527,8 @@ label.fileUpload {
 
 form hr {
   border-top: 2px solid #dddddd;
+}
+
+.component .btn + .btn {
+  margin-right: 15px;
 }
