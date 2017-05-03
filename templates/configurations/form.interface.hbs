@@ -29,7 +29,7 @@
   {{#hasOptions}}
     <div class="form-group">
       <label>Options <small>(One per line)</small></label>
-      <textarea v-on:input="_setOptions($event.target.value)" class="form-control" v-model="_options"></textarea>
+      <textarea v-on:input="_setOptions($event.target.value)" class="form-control">\{{ _options }}</textarea>
     </div>
   {{/hasOptions}}
 
