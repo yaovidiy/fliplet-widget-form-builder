@@ -1,5 +1,6 @@
 Fliplet.FormBuilder.field('checkbox', {
-  name: 'Select one or more',
+  name: 'Multiple choice',
+  category: 'Multiple choice',
   props: {
     value: {
       type: Array,
@@ -7,9 +8,12 @@ Fliplet.FormBuilder.field('checkbox', {
     },
     options: {
       type: Array,
-      default: [
-        { id: 'Option 1' },
-        { id: 'Option 2' }
+      default: [{
+          id: 'Option 1'
+        },
+        {
+          id: 'Option 2'
+        }
       ]
     }
   }

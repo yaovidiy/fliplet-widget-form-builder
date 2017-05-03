@@ -1,31 +1,69 @@
 <div id="app" class="is-loading">
   <div class="col-sm-12 loading-message">
-    <br />
-    <p class="alert alert-warning">
-      Loading the form builder... Please wait
-    </p>
-    <div class="progress">
-      <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%"></div>
+    <!-- Show loading animation -->
+    <div class="spinner-holder animated">
+      <div class="spinner-overlay">Loading...</div>
+      <p>Loading the form builder... Please wait!</p>
     </div>
   </div>
   <main>
-    <section v-if="chooseTemplate" class="col-sm-12">
+    <header>
+      <p>Configure your form</p>
+      <a id="help_tip" href="#">Need help?</a>
+    </header>
+    <section v-if="chooseTemplate" class="col-sm-12 choose-template">
       <br />
       <label class="control-label">Step 1. Choose your form template</label>
-      <p>Cras mattis consectetur purus sit amet fermentum. Vestibulum id ligula porta felis euismod semper.</p>
-      <select class="form-control" v-model="settings.templateId">
-        <option value="" disabled>-- Select a template</option>
-        <option v-for="template in templates" :value="template.id">\{{ template.settings.displayName }}</option>
-      </select>
+      <p>Select a template to load a new form.</p>
+
+      <label for="select-template" class="select-proxy-display">
+        <span class="icon fa fa-chevron-down"></span>
+        <span class="select-value-proxy">-- Select a template</span>
+        <select class="form-control hidden-select" id="select-template" v-model="settings.templateId">
+          <option value="" disabled>-- Select a template</option>
+          <option v-for="template in templates" :value="template.id">\{{ template.settings.displayName }}</option>
+        </select>
+      </label>
 
       <hr />
 
       <label class="control-label">Step 2. Give your form a name</label>
-      <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-      <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId"/>
+      <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" />
     </section>
-    <div class="builder" v-else>
+    <section v-if="toChangeTemplate" class="col-sm-12 change-template">
+      <div class="back-btn">
+        <a href="#" v-on:click.prevent="goBack"><i class="fa fa-angle-left"></i> Back</a>
+      </div>
+      <label class="control-label">Change your form template</label>
+      <p>Select another template to load a new form.</p>
 
+      <label for="select-new-template" class="select-proxy-display">
+        <span class="icon fa fa-chevron-down"></span>
+        <span class="select-value-proxy">-- Select a template</span>
+        <select class="form-control hidden-select" id="select-new-template" v-model="newTemplate">
+          <option value="" disabled>-- Select a template</option>
+          <option v-for="template in templates" :value="template.id">\{{ template.settings.displayName }}</option>
+        </select>
+      </label>
+
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <h3 class="panel-title">Are you sure you want to load a new form?</h3>
+        </div>
+        <div class="panel-body">
+          <p>Your existing form fields and settings will be lost. Previously collected data will NOT be deleted.</p>
+          <div class="form-group clearfix" style="margin-bottom:0">
+            <div class="checkbox checkbox-icon">
+              <input type="checkbox" id="reviewCheckbox" v-model="permissionToChange">
+              <label for="reviewCheckbox" class="bolder">
+                <span class="check"><i class="fa fa-check"></i></span> Yup, I'm sure.
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="builder" v-if="!chooseTemplate && !toChangeTemplate">
       <nav>
         <ul class="nav nav-tabs">
           <li v-bind:class="{ active: section === 'form' }">
@@ -40,81 +78,105 @@
 
       <div class="content">
         <section class="col-sm-12" v-show="section === 'settings'">
-          <h3>Configure form</h3>
-          <form>
+          <form class="form-settings">
             <div class="form-group">
               <label for="formName" class="control-label">Form name</label>
               <input id="formName" type="text" v-model="settings.name" class="form-control" />
             </div>
             <div class="form-group" v-if="dataSources.length">
-              <label for="selectDataSource" class="control-label">Save results to data source</label>
-              <select id="selectDataSource" class="form-control" v-model="settings.dataSourceId" required>
-                <option value="" disabled="disabled">Select a data source</option>
-                <option v-for="dataSource in dataSources" v-bind:value="dataSource.id">
-                  \{{ dataSource.name }}
-                </option>
-              </select>
+              <label class="control-label">Save results to data source</label>
+              <label for="select-datasource" class="select-proxy-display">
+                <span class="icon fa fa-chevron-down"></span>
+                <span class="select-value-proxy">Select a data source</span>
+                <select class="form-control hidden-select" id="select-datasource" v-model="settings.dataSourceId">
+                  <option value="" disabled="disabled">Select a data source</option>
+                  <option v-for="dataSource in dataSources" v-bind:value="dataSource.id">
+                    \{{ dataSource.name }}
+                  </option>
+                </select>
+              </label> or just <a href="#" v-on:click.prevent="createDataSource">create a new data source</a>
             </div>
             <div class="form-group">
               <label for="formResult" class="control-label">Result HTML message</label>
-              <textarea id="formResult" v-model="settings.resultHtml" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-              <label for="formSubmitLabel" class="control-label">Submit button label</label>
-              <input id="formSubmitLabel" type="text" v-model="settings.submitLabel" class="form-control" maxlength="32" />
-            </div>
-            <div class="form-group">
-              <label for="formClearLabel" class="control-label">Clear button label</label>
-              <input id="formClearLabel" type="text" v-model="settings.clearLabel" class="form-control" maxlength="32" />
+              <textarea id="formResult" ref="resulthtml" v-model="settings.resultHtml" class="form-control" rows="4"></textarea>
             </div>
           </form>
         </section>
 
-        <div v-show="section === 'form'">
-          <section v-if="isAddingFields" class="components-list col-sm-6">
-            <h3>Components</h3>
-            <div class="form-html form-horizontal" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
-              <div :key="field.name" class="component" v-for="(field, index) in formFields">
-                <a href="#" class="add" v-on:click.prevent.stop="addField(fields.length, index)">+</a>
-                <component :is="field"></component>
+        <div v-show="section === 'form'" class="section-holder clearfix">
+          <section class="form-preview" v-bind:class="{ 'col-sm-6': isAddingFields, 'col-sm-12': !isAddingFields }">
+            <a href="#" v-if="!isAddingFields" v-on:click.prevent="isAddingFields = true" class="btn btn-primary btn-xs add-field pull-right">Add field <i class="fa fa-plus"></i></a>
+            <h2><small>Your form</small></h2>
+            <form class="form-html" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
+              <div v-if="hasRequiredFields" class="required-info-label">* Required fields</div>
+              <template v-if="fields.length">
+                <div class="component" :key="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: activeField && field.name === activeField.name }">
+                  <div class="delete-field" href="#" v-on:click.prevent.stop="deleteField(index)"><i class="fa fa-trash"></i></div>
+                  <div class="overlay-screen">
+                    <div class="edit-label">
+                      Click to edit and drag to reorder
+                    </div>
+                  </div>
+                  <component :is="field._type" v-bind="field"></component>
+                </div>
+              </template>
+              <div v-else class="empty-state">
+                <p>Add field by dragging from the right side and dropping them here.</p>
               </div>
-            </div>
+            </form>
+
           </section>
 
-          <section class="col-sm-6 form-preview">
-            <br />
-            <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" :disabled="!settings.templateId"/>
-            <br />
-            <div class="row" v-if="!isAddingFields">
-              <div class="col-sm-2">
-                <a href="#" v-on:click.prevent="isAddingFields = true" class="btn btn-primary add-field pull-right">Add field</a>
-                <br /><br />
-              </div>
-            </div>
+          <transition name="fade">
+            <section v-if="isAddingFields" class="components-list col-sm-6">
+              <a href="#" v-on:click.prevent="isAddingFields = false" class="btn btn-default btn-xs hide-fields">Hide</a>
+              <h2><small>Drag and drop to add a field</small></h2>
+              <form class="form-html">
+                <div class="panel-group" id="componentsAccordion" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default" v-for="(category, idx) in categories">
+                    <div class="panel-heading" role="tab">
+                      <h4 class="panel-title" v-bind:class="{ collapsed: idx !== 0}" role="button" data-toggle="collapse" data-parent="#componentsAccordion" :href="'#category' + idx" :aria-expanded="idx === 0" :aria-controls="'category' + idx">
+                      \{{ category.name }}
+                      </h4>
+                      <div class="chevron-icon">
+                        <i class="fa fa-angle-up"></i>
+                      </div>
+                    </div>
+                    <div :id="'category' + idx" class="panel-collapse collapse" v-bind:class="{ in: idx === 0}" role="tabpanel">
+                      <div class="panel-body" v-sortable="{ sort: false, group: { name: 'fields', pull: 'clone', put: false, revertClone: true } }">
+                        <div :key="field" :data-field="field" class="component" v-for="(field, index) in category.fields">
+                          <div class="overlay-screen">
+                            <div class="edit-label">
+                              Drag field to the left
+                            </div>
+                          </div>
+                          <component :is="field"></component>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </section>
+          </transition>
+        </div>
 
-            <div class="form-html form-horizontal" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
-              <div class="component" :key="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: field.name === activeFieldId }">
-                <component :is="field._type" v-bind="field"></component>
-                <i>Click to edit</i> - <a class="text-danger" href="#" v-on:click.prevent.stop="deleteField(index)">Delete field</a>
-              </div>
-            </div>
-          </section>
-
-          <div class="modal" tabindex="-1" role="dialog" v-bind:class="{ active: !!activeFieldConfigType }">
-            <div class="modal-dialog" role="document">
+        <div class="modal" tabindex="-1" role="dialog" v-bind:class="{ active: !!activeFieldConfigType }">
+          <transition name="slide-in">
+            <div v-show="!!activeFieldConfigType" class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <button type="button" class="close" v-on:click.prevent="closeEdit" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Configure form field</h4>
+                  <h2 class="modal-title"><small>\{{ activeFieldName }}</small></h2>
                 </div>
                 <div class="modal-body">
+                  <button type="button" class="btn btn-link close-btn" data-dismiss="modal" aria-label="Close" v-on:click.prevent="closeEdit">Cancel</button>
                   <component :is="activeFieldConfigType" v-bind="activeField"></component>
                 </div>
               </div>
             </div>
-          </div>
-
+          </transition>
         </div>
+
       </div>
     </div>
   </main>

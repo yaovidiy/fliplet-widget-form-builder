@@ -1,25 +1,72 @@
 <div class="is-loading" data-form-builder-id="{{ id }}">
   <form v-if="isConfigured" v-on:submit.prevent="onSubmit" class="fl-form">
     <div v-if="!isSending && !isSent" class="form-html form-horizontal">
-      <span v-if="hasRequiredFields" class="label label-info">* marks required fields</span>
+      <div v-if="hasRequiredFields" class="required-info-label">* Required fields</div>
       <div v-for="field in fields">
-        <component :is="field._type" v-bind="field" v-on:input="value => { field.value = value }"></component>
+        <component :is="field._type" v-bind="field" v-on:_input="onInput"></component>
       </div>
-      <div class="form-btns clearfix">
-        {{#if submitLabel}}
-          <button type="submit" class="btn btn-primary pull-right">{{ submitLabel }}</button>
-        {{/if}}
-        {{#if clearLabel}}
-          <button type="reset" class="btn btn-secondary pull-right">{{ clearLabel }}</button>
-        {{/if}}
+      <div class="callout callout-danger" v-if="error">
+        <p>\{{ error }}</p>
       </div>
     </div>
-    <div v-else>{{{ resultHtml }}}</div>
+    <transition name="fade">
+      <div v-if="isSent">{{{ resultHtml }}}</div>
+    </transition>
   </form>
   <div v-else>
-    <p class="alert alert-warning">
-      <span v-if="!fields.length">Please select a form template to start building your form.</span>
-    </p>
+    <form class="fl-form placeholder">
+      <div class="form-html form-horizontal">
+        <div>
+          <div class="form-group clearfix row" _type="flTitle">
+            <div class="col-sm-12">
+              <h2>Example form</h2>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="form-group clearfix row" _type="flParagraph">
+            <div class="col-sm-12">
+              <p>Click on this example to configure your own form</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="form-group clearfix row" _type="flInput">
+            <label class="col-sm-12 control-label">Name</label>
+            <div class="col-sm-12">
+              <input type="text" name="field-1" placeholder="Enter your name" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="form-group clearfix row" _type="flSelect">
+            <label class="col-sm-12 control-label">Type of enquiry</label>
+            <div class="col-sm-12">
+              <label class="select-proxy-display">
+              <span class="icon fa fa-chevron-down"></span>
+              <span class="select-value-proxy">-- Select one</span>
+              <select name="field-3" class="form-control hidden-select">
+                <option value="">-- Select one</option>
+                <option value="Option 1">Option 1</option>
+                <option value="Option 2">Option 2</option>
+              </select>
+            </label>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="form-group clearfix row" _type="flTextarea">
+            <label class="col-sm-12 control-label">Message</label>
+            <div class="col-sm-12">
+              <textarea name="field-2" rows="4" class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="form-btns clearfix">
+          <button type="submit" class="btn btn-primary pull-right">Submit</button>
+          <button type="reset" class="btn btn-secondary pull-right">Clear</button>
+        </div>
+      </div>
+    </form>
   </div>
-  <p class="alert alert-warning" v-if="error">\{{ error }}</p>
 </div>

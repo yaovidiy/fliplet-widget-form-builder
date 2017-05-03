@@ -1,4 +1,4 @@
-Fliplet.Widget.instance('form-builder', function (data) {
+Fliplet.Widget.instance('form-builder', function(data) {
   var selector = '[data-form-builder-id="' + data.id + '"]';
 
   function getFields() {
@@ -11,7 +11,7 @@ Fliplet.Widget.instance('form-builder', function (data) {
 
   new Vue({
     el: $(selector)[0],
-    data: function () {
+    data: function() {
       return {
         isSent: false,
         isSending: false,
@@ -21,22 +21,30 @@ Fliplet.Widget.instance('form-builder', function (data) {
       };
     },
     computed: {
-      hasRequiredFields: function () {
+      hasRequiredFields: function() {
         return this.fields.some(function(el) {
           return !!el.required;
         });
       }
     },
     methods: {
-      start: function () {
+      start: function() {
         this.isSent = false;
       },
-      reset: function () {
+      reset: function() {
         this.fields = getFields();
         this.isSending = false;
         this.isSent = true;
       },
-      onSubmit: function () {
+      onInput: function (fieldName, value) {
+        this.fields.some(function (field) {
+          if (field.name === fieldName) {
+            field.value = value;
+            return true;
+          }
+        });
+      },
+      onSubmit: function() {
         var $vm = this;
         var hasFileInputs = this.fields.some(function(field) {
           return isFile(field.value);
@@ -51,8 +59,12 @@ Fliplet.Widget.instance('form-builder', function (data) {
           }
         }
 
-        this.fields.forEach(function (field) {
+        this.fields.forEach(function(field) {
           var value = field.value;
+
+          if (field._submit === false) {
+            return;
+          }
 
           if (isFile(value)) {
             // File input
@@ -67,13 +79,13 @@ Fliplet.Widget.instance('form-builder', function (data) {
 
         this.isSending = true;
 
-        Fliplet.Hooks.run('beforeFormSubmit', formData).then(function () {
+        Fliplet.Hooks.run('beforeFormSubmit', formData).then(function() {
           return Fliplet.DataSources.connect(data.dataSourceId);
-        }).then(function (connection) {
+        }).then(function(connection) {
           return connection.insert(formData);
-        }).then(function () {
+        }).then(function() {
           $vm.reset();
-        }, function (err) {
+        }, function(err) {
           console.error(err);
           $vm.error = err.message || err.description || err;
           $vm.isSending = false;
@@ -87,10 +99,10 @@ Fliplet.Widget.instance('form-builder', function (data) {
         // });
       }
     },
-    mounted: function () {
+    mounted: function() {
       $(selector).removeClass('is-loading');
 
-      Fliplet.Hooks.on('beforeFormSubmit', function (data) {
+      Fliplet.Hooks.on('beforeFormSubmit', function(data) {
         console.log('[Hook] beforeFormSubmit', data);
       });
     }

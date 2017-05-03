@@ -1,11 +1,15 @@
 Fliplet.FormBuilder.field('radio', {
-  name: 'Choose one',
+  name: 'Single choice',
+  category: 'Multiple choice',
   props: {
     options: {
       type: Array,
-      default: [
-        { id: 'Option 1' },
-        { id: 'Option 2' }
+      default: [{
+          id: 'Option 1'
+        },
+        {
+          id: 'Option 2'
+        }
       ]
     }
   }

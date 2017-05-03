@@ -19,6 +19,27 @@ Fliplet.FormBuilder = (function () {
     components() {
       return components;
     },
+    categories() {
+      var categories = [];
+
+      _.forIn(components, function (component, componentName) {
+        var categoryName = component.category || 'Generic';
+        var category = _.find(categories, { name: categoryName });
+        var isExisting = !!category;
+
+        if (!isExisting) {
+          category = { name: categoryName, fields: [] };
+        }
+
+        category.fields.push(componentName);
+
+        if (!isExisting) {
+          categories.push(category);
+        }
+      });
+
+      return categories;
+    },
     field: function (componentName, component) {
       if (!component.name) {
         throw new Error('The component name is required');
@@ -37,7 +58,7 @@ Fliplet.FormBuilder = (function () {
       // Define method to emit the new input value on change
       if (!component.methods.updateValue) {
         component.methods.updateValue = function () {
-          this.$emit('input', this.value);
+          this.$emit('_input', this.name, this.value);
         }
       }
 
@@ -67,7 +88,8 @@ Fliplet.FormBuilder = (function () {
           default: component.name || 'Label text'
         },
         value: {
-          type: String
+          type: String,
+          default: ''
         },
         required: {
           type: Boolean,

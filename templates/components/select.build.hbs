@@ -1,6 +1,10 @@
-<select class="form-control" :name="name" :id="name" v-model="value" :required="required" v-on:input="updateValue()">
-  <option v-if="placeholder" value="" disabled="disabled">\{{ placeholder }}</option>
-  <option v-for="option in options" :value="option.id" :disabled="option.disabled">
-    \{{ option.id }}
-  </option>
-</select>
+<label :for="name" class="select-proxy-display">
+  <span class="icon fa fa-chevron-down"></span>
+  <span class="select-value-proxy"><template v-if="value && value !== ''">\{{ value }}</template><template v-else>\{{ placeholder }}</template></span>
+  <select class="form-control hidden-select" :name="name" :id="name" v-model="value" :required="required" v-on:change="updateValue()">
+    <option v-if="placeholder" value="">\{{ placeholder }}</option>
+    <option v-for="option in options" :value="option.id" :disabled="option.disabled">
+      \{{ option.id }}
+    </option>
+  </select>
+</label>

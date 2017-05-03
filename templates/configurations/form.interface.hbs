@@ -1,33 +1,40 @@
 <form v-on:submit.prevent="onSubmit">
   <div v-if="_isFormField">
-    <div class="form-group">
-      <label>Field ID</label>
-      <input class="form-control" type="text" v-model.trim="name" placeholder="Field name" />
+    <div class="form-group field-id">
+      <p id="field-id"><span class="field-label">ID:</span> \{{ name }}</p>
     </div>
 
     <div class="form-group">
-      <label>Field description</label>
+      <label>Field label</label>
       <input class="form-control" type="text" v-model.trim="label" placeholder="Field description" />
     </div>
 
     <div class="form-group">
       <label>Is this field required?</label>
-      <select v-model="required" class="form-control">
-        <option v-bind:value="true">Yes, this field is required</option>
-        <option v-bind:value="false">No, this field isn't required</option>
-      </select>
+      <div class="radio radio-icon">
+        <input type="radio" id="required-yes" name="required-option" v-bind:value="true" v-model="required">
+        <label for="required-yes">
+          <span class="check"><i class="fa fa-circle"></i></span> <strong>Yes</strong> - Users will have to fill in the field
+        </label>
+      </div>
+      <div class="radio radio-icon">
+        <input type="radio" id="required-no" name="required-option" v-bind:value="false" v-model="required">
+        <label for="required-no">
+          <span class="check"><i class="fa fa-circle"></i></span> <strong>No</strong> - The field is optional
+        </label>
+      </div>
     </div>
   </div>
 
   {{#hasOptions}}
     <div class="form-group">
-      <label>Options (one per line)</label>
-      <textarea v-on:input="_setOptions($event.target.value)" class="form-control" v-model="_options"></textarea>
+      <label>Options <small>(One per line)</small></label>
+      <textarea v-on:input="_setOptions($event.target.value)" class="form-control">\{{ _options }}</textarea>
     </div>
   {{/hasOptions}}
 
   {{{ template }}}
-
-  <hr />
-  <button type="submit" class="btn btn-primary">Save changes</button>
+  <div class="footer">
+    <button type="submit" class="btn btn-primary">Save</button>
+  </div>
 </form>

@@ -1,5 +1,5 @@
 {
-  "name": "Form",
+  "name": "Form Builder",
   "package": "com.fliplet.form-builder",
   "version": "1.0.0",
   "icon": "img/icon.png",
@@ -15,7 +15,9 @@
       "lodash",
       "vue.js",
       "fliplet-studio-ui",
-      "fliplet-datasources"
+      "fliplet-datasources",
+      "codemirror",
+      "bootstrap"
     ],
     "assets": [
       "vendor/sortable.js",
@@ -30,22 +32,23 @@
       "js/components/select.js",
       "js/components/radio.js",
       "js/components/checkbox.js",
-      "js/components/file.js",
       "js/components/title.js",
       "js/components/paragraph.js",
+      "js/components/buttons.js",
+      "js/components/horizontalRule.js",
 
       "js/configurations/input.js",
       "js/configurations/textarea.js",
       "js/configurations/select.js",
       "js/configurations/radio.js",
       "js/configurations/checkbox.js",
-      "js/configurations/file.js",
       "js/configurations/title.js",
       "js/configurations/paragraph.js",
+      "js/configurations/buttons.js",
+      "js/configurations/horizontalRule.js",
 
       "js/libs/builder.js",
-      "css/builder.css",
-      "css/form.css"
+      "css/builder.css"
     ]
   },
   "build": {
@@ -53,7 +56,8 @@
       "handlebars",
       "vue.js",
       "bootstrap",
-      "fliplet-datasources"
+      "fliplet-datasources",
+      "font-awesome"
     ],
     "assets": [
       "js/build.templates.js",
@@ -64,9 +68,10 @@
       "js/components/select.js",
       "js/components/radio.js",
       "js/components/checkbox.js",
-      "js/components/file.js",
       "js/components/title.js",
       "js/components/paragraph.js",
+      "js/components/buttons.js",
+      "js/components/horizontalRule.js",
 
       "js/libs/form.js",
       "css/form.css"
