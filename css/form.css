@@ -167,12 +167,6 @@ a {
   text-decoration: underline;
 }
 /* FORM STYLES */
-.form-horizontal .control-label {
-  text-align: left !important;
-  margin-bottom: 0.8em;
-  font-size: 1.1em;
-}
-
 .form-group .control-label label {
   margin-bottom: 0;
   padding-top: 5px;
@@ -251,11 +245,11 @@ textarea.form-control {
   box-shadow: none;
 }
 
-.form-horizontal .btn {
+.form-html .btn {
   margin-bottom: 15px;
 }
 
-.form-horizontal .btn:last-child {
+.form-html .btn:last-child {
   margin-bottom: 0;
 }
 /* CHECKBOXES */
@@ -513,11 +507,11 @@ form hr {
     max-width: 100%;
   }
 
-  .form-horizontal .btn {
+  .form-html .btn {
     margin-bottom: 0;
   }
 
-  .form-horizontal .btn + .btn {
+  .form-html .btn + .btn {
     margin-right: 15px;
   }
 }

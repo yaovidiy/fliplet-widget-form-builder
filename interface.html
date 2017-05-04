@@ -73,7 +73,7 @@
             <a href="#" v-on:click.prevent="section = 'settings'">Settings</a>
           </li>
         </ul>
-        <a href="#" class="btn btn-xs btn-primary" v-on:click.prevent="changeTemplate()">Change template</a>
+        <a href="#" class="btn btn-xs btn-primary hidden" v-on:click.prevent="changeTemplate()">Change template</a>
       </nav>
 
       <div class="content">
@@ -105,7 +105,7 @@
 
         <div v-show="section === 'form'" class="section-holder clearfix">
           <section class="form-preview" v-bind:class="{ 'col-sm-6': isAddingFields, 'col-sm-12': !isAddingFields }">
-            <a href="#" v-if="!isAddingFields" v-on:click.prevent="isAddingFields = true" class="btn btn-primary btn-xs add-field pull-right">Add field <i class="fa fa-plus"></i></a>
+            <a href="#" v-if="!isAddingFields" v-on:click.prevent="isAddingFields = true" class="btn btn-primary btn-xs add-field pull-right">Add fields <i class="fa fa-plus"></i></a>
             <h2><small>Your form</small></h2>
             <form class="form-html" v-sortable="{ group: { name: 'fields', pull: false }, onAdd: onAdd, onUpdate: onSort }">
               <div v-if="hasRequiredFields" class="required-info-label">* Required fields</div>
@@ -121,7 +121,7 @@
                 </div>
               </template>
               <div v-else class="empty-state">
-                <p>Add field by dragging from the right side and dropping them here.</p>
+                <p>Add fields by dragging from the right side and dropping them here.</p>
               </div>
             </form>
 
@@ -169,7 +169,7 @@
                   <h2 class="modal-title"><small>\{{ activeFieldName }}</small></h2>
                 </div>
                 <div class="modal-body">
-                  <button type="button" class="btn btn-link close-btn" data-dismiss="modal" aria-label="Close" v-on:click.prevent="closeEdit">Cancel</button>
+                  <a href="#" class="btn btn-secondary close-btn" data-dismiss="modal" aria-label="Close" v-on:click.prevent="closeEdit">Cancel</a>
                   <component :is="activeFieldConfigType" v-bind="activeField"></component>
                 </div>
               </div>

@@ -67,9 +67,16 @@ nav > .btn {
 }
 
 .btn-secondary {
-  color: #333;
-  background-color: #e4e9eb;
-  border-bottom: 2px solid #cfd3d5;
+  color: #00abd1;
+  background-color: transparent;
+  border-bottom-color: #00abd1;
+  border: 1px solid #00abd1;
+}
+
+.btn-secondary:hover {
+  color: #00abd1;
+  background-color: transparent;
+  border-bottom-color: #007994;
 }
 
 .btn.btn-xs {
@@ -375,7 +382,7 @@ label.fileUpload {
   position: absolute;
   bottom: 15px;
   z-index: 1;
-  left: 90px;
+  left: 78px;
 }
 @media screen and (min-width: 640px) {
   .modal-dialog {
