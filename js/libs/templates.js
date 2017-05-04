@@ -40,6 +40,10 @@ var systemTemplates = [{
           _type: 'flTextarea',
           name: 'field-4',
           label: 'Message'
+        },
+        {
+          _type: 'flButtons',
+          name: 'field-5'
         }
       ]
     }
