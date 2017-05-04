@@ -28,6 +28,7 @@
       "js/libs/templates.js",
 
       "js/components/input.js",
+      "js/components/email.js",
       "js/components/textarea.js",
       "js/components/select.js",
       "js/components/radio.js",
@@ -38,6 +39,7 @@
       "js/components/horizontalRule.js",
 
       "js/configurations/input.js",
+      "js/configurations/email.js",
       "js/configurations/textarea.js",
       "js/configurations/select.js",
       "js/configurations/radio.js",
@@ -64,6 +66,7 @@
       "js/libs/core.js",
 
       "js/components/input.js",
+      "js/components/email.js",
       "js/components/textarea.js",
       "js/components/select.js",
       "js/components/radio.js",
