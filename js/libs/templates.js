@@ -19,10 +19,9 @@ var systemTemplates = [{
           label: 'Name'
         },
         {
-          _type: 'flInput',
+          _type: 'flEmail',
           name: 'field-2',
-          label: 'Email address',
-          type: 'email'
+          label: 'Email address'
         },
         {
           _type: 'flSelect',
