@@ -7,6 +7,11 @@ Fliplet.FormBuilder.field('file', {
       default: ''
     }
   },
+  computed: {
+    selectedFileName: function() {
+      return this.value && this.value[0].name
+    }
+  },
   methods: {
     updateValue: function() {
       this.value = this.$refs.fileInput.files;

@@ -5,17 +5,24 @@ Fliplet.FormBuilder.field('image', {
     accept: {
       type: String,
       default: ''
-    }
-  },
-  computed: {
-    selectedFileName: function() {
-      return this.value && this.value[0].name;
+    },
+    selectedImage: {
+      type: String,
+      default: ''
     }
   },
   methods: {
     updateValue: function() {
-      debugger;
-      this.value = this.$refs.fileInput.files;
+      var $vm = this;
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        $vm.selectedImage = e.target.result;
+      };
+
+      reader.readAsDataURL(this.$refs.imageInput.files[0]);
+
+      this.value = this.$refs.imageInput.files;
       this.$emit('_input', this.name, this.value);
     }
   }

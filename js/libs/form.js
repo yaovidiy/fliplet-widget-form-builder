@@ -36,8 +36,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
         this.isSending = false;
         this.isSent = true;
       },
-      onInput: function (fieldName, value) {
-        this.fields.some(function (field) {
+      onInput: function(fieldName, value) {
+        this.fields.some(function(field) {
           if (field.name === fieldName) {
             field.value = value;
             return true;
