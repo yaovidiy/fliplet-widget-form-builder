@@ -10,7 +10,7 @@ Fliplet.FormBuilder.field('file', {
   methods: {
     updateValue: function() {
       this.value = this.$refs.fileInput.files;
-      this.$emit('input', this.value);
+      this.$emit('_input', this.name, this.value);
     }
   }
 });
