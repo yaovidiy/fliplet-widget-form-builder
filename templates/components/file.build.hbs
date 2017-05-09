@@ -1,5 +1,5 @@
 <label :for="name" class="fileUpload btn btn-primary">
   <i class="fa fa-plus" aria-hidden="true"></i> Choose file
-  <input type="file" ref="fileInput" :id="name" :name="name" class="input-file selectfile" :accept="accept" :required="required" v-on:input="updateValue()">
+  <input type="file" ref="fileInput" :id="name" :name="name" class="input-file selectfile" :accept="accept" :required="required" v-on:change="updateValue()">
 </label>
 <span class="text-helper file-name-helper">\{{ value }}</span>
