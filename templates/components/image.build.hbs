@@ -1,0 +1,5 @@
+<label :for="name" class="fileUpload btn btn-primary">
+  <i class="fa fa-plus" aria-hidden="true"></i> Choose image
+  <input type="file" ref="imageInput" :id="name" :name="name" class="input-file selectfile" accept="image/gif, image/jpg, image/jpeg, image/tiff, image/png" :required="required" v-on:input="updateValue()">
+</label>
+<span class="file-thumbnail-helper">\{{ selectedFileName }}</span>

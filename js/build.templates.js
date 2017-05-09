@@ -18,7 +18,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebar
     var stack1, helper;
 
   return "<div class=\"form-group clearfix\">\n  <label v-if=\"_isFormField\" :for=\"name\">{{ label }} <template v-if=\"required\"><span class=\"required-info\">*</span></template></label>\n  "
-    + ((stack1 = ((helper = (helper = helpers.template || (depth0 != null ? depth0.template : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"template","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.template || (depth0 != null ? depth0.template : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"template","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\n</div>\n";
 },"useData":true});
 
@@ -28,6 +28,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.file"] = Handlebars
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.horizontalRule"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<hr>\n";
+},"useData":true});
+
+this["Fliplet"]["Widget"]["Templates"]["templates.components.image"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<label :for=\"name\" class=\"fileUpload btn btn-primary\">\n  <i class=\"fa fa-plus\" aria-hidden=\"true\"></i> Choose image\n  <input type=\"file\" ref=\"imageInput\" :id=\"name\" :name=\"name\" class=\"input-file selectfile\" accept=\"image/gif, image/jpg, image/jpeg, image/tiff, image/png\" :required=\"required\" v-on:input=\"updateValue()\">\n</label>\n<span class=\"file-thumbnail-helper\">{{ selectedFileName }}</span>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
