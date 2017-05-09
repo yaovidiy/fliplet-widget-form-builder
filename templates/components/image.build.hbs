@@ -1,5 +1,11 @@
 <label :for="name" class="fileUpload btn btn-primary">
-  <i class="fa fa-plus" aria-hidden="true"></i> Choose image
+  <template v-if="selectedImage">
+    <div class="file-thumbnail-helper"><img v-bind:src="selectedImage" /></div>
+    <span>Replace image</span>
+  </template>
+  <template v-else>
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    <span>Choose image</span>
+  </template>
   <input type="file" ref="imageInput" :id="name" :name="name" class="input-file selectfile" accept="image/gif, image/jpg, image/jpeg, image/tiff, image/png" :required="required" v-on:change="updateValue()">
 </label>
-<span class="file-thumbnail-helper"><img v-bind:src="selectedImage" /></span>
