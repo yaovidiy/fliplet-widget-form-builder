@@ -66,6 +66,7 @@
       "font-awesome"
     ],
     "assets": [
+      "vendor/load-image.all.min.js",
       "js/build.templates.js",
       "js/libs/core.js",
 

@@ -31,7 +31,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.horizontalRule"] = 
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.image"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<label :for=\"name\" class=\"fileUpload btn btn-primary\">\n  <template v-if=\"selectedImage\">\n    <div class=\"file-thumbnail-helper\"><img v-bind:src=\"selectedImage\" /></div>\n    <span>Replace image</span>\n  </template>\n  <template v-else>\n    <i class=\"fa fa-plus\" aria-hidden=\"true\"></i>\n    <span>Choose image</span>\n  </template>\n  <input type=\"file\" ref=\"imageInput\" :id=\"name\" :name=\"name\" class=\"input-file selectfile\" accept=\"image/gif, image/jpg, image/jpeg, image/tiff, image/png\" :required=\"required\" v-on:change=\"updateValue()\">\n</label>\n";
+    return "<label :for=\"name\" class=\"fileUpload btn btn-primary\">\n  <canvas :data-file-name=\"name\"></canvas>\n  <i class=\"fa fa-plus\" aria-hidden=\"true\"></i>\n  <span v-if=\"selectedImage\">Replace image</span>\n  <span v-else>Choose image</span>\n  <input type=\"file\" data-file-image ref=\"imageInput\" :id=\"name\" :name=\"name\" class=\"input-file selectfile\" accept=\"image/gif, image/jpg, image/jpeg, image/tiff, image/png\" :required=\"required\" v-on:change=\"updateValue()\">\n</label>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

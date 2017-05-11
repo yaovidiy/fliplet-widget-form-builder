@@ -1,5 +1,6 @@
 Fliplet.Widget.instance('form-builder', function(data) {
   var selector = '[data-form-builder-id="' + data.id + '"]';
+  $form = $(selector);
 
   function getFields() {
     return JSON.parse(JSON.stringify(data.fields || []));
