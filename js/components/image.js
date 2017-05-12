@@ -24,7 +24,6 @@ Fliplet.FormBuilder.field('image', {
     }
   },
   methods: {
-
     loadImage: function (file) {
       var $vm = this;
 
