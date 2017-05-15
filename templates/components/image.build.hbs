@@ -1,5 +1,8 @@
 <label :for="name" class="fileUpload btn btn-primary">
-  <canvas :data-file-name="name"></canvas>
+  <div class="canvas-holder">
+    <span v-if="selectedImages.length > 1" class="badge">\{{selectedImages.length}}</span>
+    <canvas :data-file-name="name"></canvas>
+  </div>
   <i class="fa fa-plus" aria-hidden="true"></i>
   <span v-if="selectedImages.length">Replace image</span>
   <span v-else>Choose image</span>
