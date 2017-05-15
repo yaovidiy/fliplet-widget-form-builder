@@ -24,21 +24,25 @@ Fliplet.FormBuilder.field('image', {
     }
   },
   methods: {
-    loadImage: function (file) {
+    loadImage: function(file) {
       var $vm = this;
 
       this.value.push(file);
       this.$emit('_input', this.name, this.value);
 
-      loadImage.parseMetaData(file, function (data) {
-        loadImage(file, function (img) {
-          $vm.selectedImages.push(img);
-          $vm.$refs.images.append(img);
-        }, {
-          maxWidth: this.customWidth,
-          maxHeight: this.customHeight,
-          orientation: data.exif ? data.exif.get('Orientation') : true
-        });
+      loadImage.parseMetaData(file, function(data) {
+        loadImage(
+          file,
+          function(img) {
+            onSelectedPicture($vm, img.toDataURL('image/jpeg', 80));
+            $vm.selectedImages.push(img);
+            $vm.$refs.imageInput.append(img);
+          }, {
+            canvas: true,
+            maxWidth: this.customWidth,
+            maxHeight: this.customHeight,
+            orientation: data.exif ? data.exif.get('Orientation') : true
+          });
       });
     },
     updateValue: function() {
@@ -46,7 +50,7 @@ Fliplet.FormBuilder.field('image', {
 
       // Cleanup if the user adds new images
       $vm.selectedImages = [];
-      $vm.$refs.images.innerHTML = '';
+      $vm.$refs.imageInput.innerHTML = '';
 
       // Web
       if (Fliplet.Env.is('web') || !navigator.camera) {
@@ -68,7 +72,7 @@ Fliplet.FormBuilder.field('image', {
         }
 
         return getPicture(options);
-      }).then(function (imageURI) {
+      }).then(function(imageURI) {
         $vm.loadImage(imageURI);
       });
     }
@@ -128,8 +132,8 @@ function getPicture(options) {
     popoverOptions.height = boundingRect.height;
   }
 
-  return new Promise(function (resolve, reject) {
-    navigator.camera.getPicture(resolve, reject, {
+  return new Promise(function(resolve, reject) {
+    navigator.camera.getPicture(onSelectedPicture, resolve, reject, {
       quality: 80,
       destinationType: Camera.DestinationType.DATA_URL,
       sourceType: (options.source) ? options.source : Camera.PictureSourceType.PHOTOLIBRARY,
@@ -141,4 +145,64 @@ function getPicture(options) {
       correctOrientation: true // Corrects Android orientation quirks
     });
   });
+}
+
+function onSelectedPicture(vm, imageURI) {
+  var $vm = vm;
+  var fileImages = {};
+  imageURI = (imageURI.indexOf('base64') > -1) ? imageURI : 'data:image/jpeg;base64,' + imageURI;
+
+  fileImages[$vm.$refs.imageInput.name] = {
+    base64: imageURI
+  };
+
+  $('canvas[data-file-name="' + $vm.$refs.imageInput.name + '"]').each(function forEachCanvas() {
+    var canvas = this;
+    var imgSrc = imageURI;
+    var canvasWidth = canvas.clientWidth;
+    var canvasHeight = canvas.clientHeight;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    var canvasRatio = canvasWidth / canvasHeight;
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    var img = new Image();
+    img.onload = function imageLoadedFromURI() {
+      drawImageOnCanvas(this, canvas);
+    };
+    img.src = imgSrc;
+  });
+}
+
+function drawImageOnCanvas(img, canvas) {
+  var imgWidth = img.width;
+  var imgHeight = img.height;
+  var imgRatio = imgWidth / imgHeight;
+  var canvasWidth = canvas.width;
+  var canvasHeight = canvas.height;
+  var canvasRatio = canvasWidth / canvasHeight;
+  var context = canvas.getContext('2d');
+
+  // Re-interpolate image draw dimensions based to CONTAIN within canvas
+  if (imgRatio < canvasRatio) {
+    // IMAGE RATIO is slimmer than CANVAS RATIO, i.e. margin on the left & right
+    if (imgHeight > canvasHeight) {
+      // Image is taller. Resize image to fit height in canvas first.
+      imgHeight = canvasHeight;
+      imgWidth = imgHeight * imgRatio;
+    }
+  } else {
+    // IMAGE RATIO is wider than CANVAS RATIO, i.e. margin on the top & bottom
+    if (imgWidth > canvasWidth) {
+      // Image is wider. Resize image to fit width in canvas first.
+      imgWidth = canvasWidth;
+      imgHeight = imgWidth / imgRatio;
+    }
+  }
+
+  var drawX = (canvasWidth > imgWidth) ? (canvasWidth - imgWidth) / 2 : 0;
+  var drawY = (canvasHeight > imgHeight) ? (canvasHeight - imgHeight) / 2 : 0;
+
+  context.drawImage(img, drawX, drawY, imgWidth, imgHeight);
 }
