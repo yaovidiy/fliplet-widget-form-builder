@@ -1,7 +1,7 @@
 <label :for="name" class="fileUpload btn btn-primary">
   <div class="canvas-holder">
     <span v-if="value.length > 1" class="badge">\{{value.length}}</span>
-    <canvas ref="canvas" :data-file-name="name"></canvas>
+    <canvas ref="canvas"></canvas>
   </div>
   <i class="fa fa-plus" aria-hidden="true"></i>
   <span v-if="value.length">Replace image</span>

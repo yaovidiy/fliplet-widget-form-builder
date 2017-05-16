@@ -47,9 +47,9 @@ Fliplet.FormBuilder.field('image', {
             canvas: true,
             maxWidth: $vm.customWidth,
             maxHeight: $vm.customHeight,
-            orientation: data.exif ?
-              data.exif.get('Orientation') :
-              true
+            orientation: data.exif
+              ? data.exif.get('Orientation')
+              : true
           });
       });
     },
@@ -67,7 +67,6 @@ Fliplet.FormBuilder.field('image', {
         'data:image/jpeg;base64,' + imageURI;
 
       var canvas = this.$refs.canvas;
-      var imgSrc = imageURI;
       var canvasWidth = canvas.clientWidth;
       var canvasHeight = canvas.clientHeight;
       canvas.width = canvasWidth;
@@ -80,7 +79,7 @@ Fliplet.FormBuilder.field('image', {
       img.onload = function imageLoadedFromURI() {
         drawImageOnCanvas(this, canvas);
       };
-      img.src = imgSrc;
+      img.src = imageURI;
     }
   }
 });
