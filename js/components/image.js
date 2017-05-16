@@ -6,10 +6,6 @@ Fliplet.FormBuilder.field('image', {
       type: String,
       default: ''
     },
-    selectedImages: {
-      type: Array,
-      default: []
-    },
     customWidth: {
       type: Number,
       default: 1024
@@ -45,7 +41,6 @@ Fliplet.FormBuilder.field('image', {
             if (addThumbnail) {
               $vm.addThumbnailToCanvas(imgBase64Url);
             }
-            $vm.selectedImages.push(img);
             $vm.value.push(imgBase64Url);
             $vm.$emit('_input', $vm.name, $vm.value);
           }, {
@@ -60,7 +55,6 @@ Fliplet.FormBuilder.field('image', {
     },
     updateValue: function() {
       // Cleanup if the user adds new images
-      this.selectedImages = [];
       this.value = [];
 
       for (var i = 0; i < this.$refs.imageInput.files.length; i++) {

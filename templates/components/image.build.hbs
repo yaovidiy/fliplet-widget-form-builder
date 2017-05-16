@@ -1,10 +1,10 @@
 <label :for="name" class="fileUpload btn btn-primary">
   <div class="canvas-holder">
-    <span v-if="selectedImages.length > 1" class="badge">\{{selectedImages.length}}</span>
+    <span v-if="value.length > 1" class="badge">\{{value.length}}</span>
     <canvas ref="canvas" :data-file-name="name"></canvas>
   </div>
   <i class="fa fa-plus" aria-hidden="true"></i>
-  <span v-if="selectedImages.length">Replace image</span>
+  <span v-if="value.length">Replace image</span>
   <span v-else>Choose image</span>
   <input multiple type="file" ref="imageInput" :id="name" :name="name" class="input-file selectfile" accept="image/gif, image/jpg, image/jpeg, image/tiff, image/png" :required="required" v-on:change="updateValue()">
 </label>
