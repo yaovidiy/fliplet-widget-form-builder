@@ -11,7 +11,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
   new Vue({
     el: $(selector)[0],
-    data: function() {
+    data: function () {
       return {
         isSent: false,
         isSending: false,
@@ -28,13 +28,12 @@ Fliplet.Widget.instance('form-builder', function(data) {
       }
     },
     methods: {
-      start: function() {
-        this.isSent = false;
-      },
       reset: function() {
-        this.fields = getFields();
-        this.isSending = false;
-        this.isSent = true;
+        this.fields.forEach(function (field, index) {
+          field.value = data.fields[index].value;
+        });
+
+        Fliplet.FormBuilder.emit('reset');
       },
       onInput: function(fieldName, value) {
         this.fields.some(function(field) {

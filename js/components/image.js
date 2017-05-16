@@ -23,7 +23,17 @@ Fliplet.FormBuilder.field('image', {
       default: []
     }
   },
+  created: function () {
+    Fliplet.FormBuilder.on('reset', this.onReset);
+  },
+  destroyed: function () {
+    Fliplet.FormBuilder.off('reset', this.onReset);
+  },
   methods: {
+    onReset: function () {
+      var canvas = this.$refs.canvas;
+      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    },
     processImage: function(file, addThumbnail) {
       var $vm = this;
 
@@ -62,23 +72,21 @@ Fliplet.FormBuilder.field('image', {
         imageURI :
         'data:image/jpeg;base64,' + imageURI;
 
-      $('canvas[data-file-name="' + this.$refs.imageInput.name + '"]').each(function forEachCanvas() {
-        var canvas = this;
-        var imgSrc = imageURI;
-        var canvasWidth = canvas.clientWidth;
-        var canvasHeight = canvas.clientHeight;
-        canvas.width = canvasWidth;
-        canvas.height = canvasHeight;
-        var canvasRatio = canvasWidth / canvasHeight;
-        var context = canvas.getContext('2d');
-        context.clearRect(0, 0, canvas.width, canvas.height);
+      var canvas = this.$refs.canvas;
+      var imgSrc = imageURI;
+      var canvasWidth = canvas.clientWidth;
+      var canvasHeight = canvas.clientHeight;
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      var canvasRatio = canvasWidth / canvasHeight;
+      var context = canvas.getContext('2d');
+      context.clearRect(0, 0, canvas.width, canvas.height);
 
-        var img = new Image();
-        img.onload = function imageLoadedFromURI() {
-          drawImageOnCanvas(this, canvas);
-        };
-        img.src = imgSrc;
-      });
+      var img = new Image();
+      img.onload = function imageLoadedFromURI() {
+        drawImageOnCanvas(this, canvas);
+      };
+      img.src = imgSrc;
     }
   }
 });
