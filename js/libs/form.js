@@ -11,7 +11,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
   new Vue({
     el: $(selector)[0],
-    data: function () {
+    data: function() {
       return {
         isSent: false,
         isSending: false,
@@ -28,8 +28,11 @@ Fliplet.Widget.instance('form-builder', function(data) {
       }
     },
     methods: {
+      start: function() {
+        this.isSent = false;
+      },
       reset: function() {
-        this.fields.forEach(function (field, index) {
+        this.fields.forEach(function(field, index) {
           field.value = data.fields[index].value;
         });
 
@@ -82,6 +85,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
         }).then(function(connection) {
           return connection.insert(formData);
         }).then(function() {
+          $vm.isSent = true;
+          $vm.isSending = false;
           $vm.reset();
         }, function(err) {
           console.error(err);
