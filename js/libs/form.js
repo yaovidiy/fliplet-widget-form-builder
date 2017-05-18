@@ -78,6 +78,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
         });
 
+        if (!data.dataSourceId) {
+          return $vm.error = 'You need to select a data source in the form settings.';
+        }
+
         this.isSending = true;
 
         Fliplet.Hooks.run('beforeFormSubmit', formData).then(function() {
