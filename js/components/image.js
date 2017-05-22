@@ -76,6 +76,7 @@ Fliplet.FormBuilder.field('image', {
       });
     },
     getPicture: function() {
+      var $vm = this;
       var popoverOptions = {
         arrowDir: Camera.PopoverArrowDirection.ARROW_ANY
       };
@@ -142,7 +143,7 @@ Fliplet.FormBuilder.field('image', {
         if ($vm.cameraSource === Camera.PictureSourceType.PHOTOLIBRARY) {
           $vm.forcedClick = true;
           $($vm.$refs.imageInput).trigger('click');
-          return;
+          return Promise.reject('Switch to HTML file input to select files');
         }
         return $vm.getPicture();
       }).then(function onSelectedPicture(imgBase64Url) {
@@ -153,6 +154,8 @@ Fliplet.FormBuilder.field('image', {
         $vm.addThumbnailToCanvas(imgBase64Url);
         $vm.value.push(imgBase64Url);
         $vm.$emit('_input', $vm.name, $vm.value);
+      }, function(message) {
+        console.log(message);
       }).catch(function(error) {
         console.error(error);
       });
