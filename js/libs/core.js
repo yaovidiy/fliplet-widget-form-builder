@@ -16,6 +16,9 @@ Fliplet.FormBuilder = (function () {
     off: function (eventName, fn) {
       eventHub.$off(eventName, fn);
     },
+    emit: function (eventName, data) {
+      eventHub.$emit(eventName, data);
+    },
     components() {
       return components;
     },
@@ -59,6 +62,13 @@ Fliplet.FormBuilder = (function () {
       if (!component.methods.updateValue) {
         component.methods.updateValue = function () {
           this.$emit('_input', this.name, this.value);
+        }
+      }
+
+      // Define method to trigger the form reset from a children
+      if (!component.methods.resetForm) {
+        component.methods.resetForm = function () {
+          this.$emit('_reset');
         }
       }
 

@@ -42,7 +42,8 @@ var systemTemplates = [{
         },
         {
           _type: 'flButtons',
-          name: 'field-5'
+          name: 'field-5',
+          _submit: false
         }
       ]
     }

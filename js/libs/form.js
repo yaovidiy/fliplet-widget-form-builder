@@ -32,12 +32,14 @@ Fliplet.Widget.instance('form-builder', function(data) {
         this.isSent = false;
       },
       reset: function() {
-        this.fields = getFields();
-        this.isSending = false;
-        this.isSent = true;
+        this.fields.forEach(function(field, index) {
+          field.value = data.fields[index].value;
+        });
+
+        Fliplet.FormBuilder.emit('reset');
       },
-      onInput: function (fieldName, value) {
-        this.fields.some(function (field) {
+      onInput: function(fieldName, value) {
+        this.fields.some(function(field) {
           if (field.name === fieldName) {
             field.value = value;
             return true;
@@ -46,14 +48,13 @@ Fliplet.Widget.instance('form-builder', function(data) {
       },
       onSubmit: function() {
         var $vm = this;
-        var hasFileInputs = this.fields.some(function(field) {
-          return isFile(field.value);
-        });
-        var formData = hasFileInputs ? (new FormData()) : {};
+        var formData = {};
 
         function appendField(name, value) {
-          if (hasFileInputs) {
-            formData.append(name, value);
+          if (Array.isArray(formData[name])) {
+            formData[name].push(value);
+          } else if (typeof formData[name] !== 'undefined') {
+            formData[name] = [formData[name], value];
           } else {
             formData[name] = value;
           }
@@ -77,6 +78,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
         });
 
+        if (!data.dataSourceId) {
+          return $vm.error = 'You need to select a data source in the form settings.';
+        }
+
         this.isSending = true;
 
         Fliplet.Hooks.run('beforeFormSubmit', formData).then(function() {
@@ -84,6 +89,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
         }).then(function(connection) {
           return connection.insert(formData);
         }).then(function() {
+          $vm.isSent = true;
+          $vm.isSending = false;
           $vm.reset();
         }, function(err) {
           console.error(err);

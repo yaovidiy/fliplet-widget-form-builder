@@ -11,7 +11,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.email"] = Handl
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.file"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"form-group\">\n  <label>Allowed files</label>\n  <label for=\"allow-files\" class=\"select-proxy-display\">\n    <span class=\"icon fa fa-chevron-down\"></span>\n    <span class=\"select-value-proxy\">All files</span>\n    <select class=\"form-control hidden-select\" id=\"allow-files\" v-model=\"accept\">\n      <option value=\"\">All files</option>\n      <option value=\"image/gif, image/jpg, image/jpeg, image/tiff, image/png\">Images only</option>\n    </select>\n  </label>\n</div>\n";
+    return "\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form-result"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -21,7 +21,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form-result"] =
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return "    <div class=\"form-group\">\n      <label>Options <small>(One per line)</small></label>\n      <textarea v-on:input=\"_setOptions($event.target.value)\" class=\"form-control\">{{ _options }}</textarea>\n    </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", buffer = 
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
   "<form v-on:submit.prevent=\"onSubmit\">\n  <div v-if=\"_isFormField\">\n    <div class=\"form-group field-id\">\n      <p id=\"field-id\"><span class=\"field-label\">ID:</span> {{ name }}</p>\n    </div>\n\n    <div class=\"form-group\">\n      <label>Field label</label>\n      <input class=\"form-control\" type=\"text\" v-model.trim=\"label\" placeholder=\"Field description\" />\n    </div>\n\n    <div class=\"form-group\">\n      <label>Is this field required?</label>\n      <div class=\"radio radio-icon\">\n        <input type=\"radio\" id=\"required-yes\" name=\"required-option\" v-bind:value=\"true\" v-model=\"required\">\n        <label for=\"required-yes\">\n          <span class=\"check\"><i class=\"fa fa-circle\"></i></span> <strong>Yes</strong> - Users will have to fill in the field\n        </label>\n      </div>\n      <div class=\"radio radio-icon\">\n        <input type=\"radio\" id=\"required-no\" name=\"required-option\" v-bind:value=\"false\" v-model=\"required\">\n        <label for=\"required-no\">\n          <span class=\"check\"><i class=\"fa fa-circle\"></i></span> <strong>No</strong> - The field is optional\n        </label>\n      </div>\n    </div>\n  </div>\n\n";
   stack1 = ((helper = (helper = helpers.hasOptions || (depth0 != null ? depth0.hasOptions : depth0)) != null ? helper : alias2),(options={"name":"hasOptions","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.hasOptions) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
@@ -33,6 +33,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form"] = Handle
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.horizontalRule"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "";
+},"useData":true});
+
+this["Fliplet"]["Widget"]["Templates"]["templates.configurations.image"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"form-group\">\n  <label>Maximum width</label>\n  <input class=\"form-control\" type=\"number\" v-model.trim=\"customWidth\" />\n</div>\n<div class=\"form-group\">\n  <label>Maximum height</label>\n  <input class=\"form-control\" type=\"number\" v-model.trim=\"customHeight\" />\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
