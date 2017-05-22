@@ -21,6 +21,10 @@ Fliplet.FormBuilder.field('image', {
     value: {
       type: Array,
       default: []
+    },
+    imageFolder: {
+      type: Number,
+      default: Fliplet.Env.get('appId')
     }
   },
   data: {
