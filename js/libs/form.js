@@ -87,7 +87,9 @@ Fliplet.Widget.instance('form-builder', function(data) {
         Fliplet.Hooks.run('beforeFormSubmit', formData).then(function() {
           return Fliplet.DataSources.connect(data.dataSourceId);
         }).then(function(connection) {
-          return connection.insert(formData);
+          return connection.insert(formData, {
+            offline: data.offline
+          });
         }).then(function() {
           $vm.isSent = true;
           $vm.isSending = false;
