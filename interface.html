@@ -94,7 +94,27 @@
                     \{{ dataSource.name }}
                   </option>
                 </select>
-              </label> or just <a href="#" v-on:click.prevent="createDataSource">create a new data source</a>
+              </label>
+              <small>or just <a href="#" v-on:click.prevent="createDataSource">create a new data source</a></small>
+            </div>
+            <div class="form-group">
+              <div class="control-label">
+                <label>Submit form when the device is...</label>
+              </div>
+              <div>
+                <div class="radio radio-icon">
+                  <input type="radio" id="online_offline" name="connectivityStatus" v-model="settings.offline" :value="true">
+                  <label for="online_offline">
+                    <span class="check"><i class="fa fa-circle"></i></span> <strong>Online &amp; Offline</strong> - The user can submit the form when connected or disconnect from the internet
+                  </label>
+                </div>
+                <div class="radio radio-icon">
+                  <input type="radio" id="online_only" name="connectivityStatus" v-model="settings.offline" :value="false">
+                  <label for="online_only">
+                    <span class="check"><i class="fa fa-circle"></i></span> <strong>Online only</strong> - The user can only submit the form when connected to the internet
+                  </label>
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="formResult" class="control-label">Result HTML message</label>
