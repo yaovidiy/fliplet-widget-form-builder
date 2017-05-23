@@ -118,17 +118,15 @@ Fliplet.Widget.instance('form-builder', function(data) {
         console.log('[Hook] beforeFormSubmit', data);
       });
 
-      Fliplet.Navigator.onOnline(function() {
-        if (!data.offline) {
+      if (!data.offline) {
+        Fliplet.Navigator.onOnline(function() {
           $vm.isOffline = false;
-        }
-      });
+        });
 
-      Fliplet.Navigator.onOffline(function() {
-        if (!data.offline) {
+        Fliplet.Navigator.onOffline(function() {
           $vm.isOffline = true;
-        }
-      });
+        });
+      }
     }
   });
 });
