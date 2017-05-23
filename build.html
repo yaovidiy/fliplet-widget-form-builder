@@ -1,6 +1,7 @@
 <div class="is-loading" data-form-builder-id="{{ id }}">
-  <form v-if="isConfigured" v-on:submit.prevent="onSubmit" class="fl-form">
+  <form v-if="isConfigured" v-on:submit.prevent="onSubmit" class="fl-form" v-bind:class="{ 'form-offline': isOffline }">
     <div v-if="!isSending && !isSent" class="form-html">
+      <div v-if="isOffline" class="online-only text-danger">This form can only be submitted when connected to the internet.</div>
       <div v-if="hasRequiredFields" class="required-info-label">* Required fields</div>
       <template v-for="field in fields">
         <component :is="field._type" v-bind="field" v-on:_input="onInput" v-on:_reset="reset"></component>
