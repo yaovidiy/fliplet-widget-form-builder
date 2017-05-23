@@ -22,9 +22,9 @@ Fliplet.FormBuilder.field('image', {
       type: Array,
       default: []
     },
-    imageFolder: {
+    mediaFolderId: {
       type: Number,
-      default: Fliplet.Env.get('appId')
+      default: null
     }
   },
   data: {

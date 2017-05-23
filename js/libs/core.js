@@ -153,28 +153,40 @@ Fliplet.FormBuilder = (function() {
 
       component.methods._openFilePicker = function() {
         var $vm = this;
-        var providerInstance;
+
         var config = {
           selectedFiles: {},
           selectMultiple: false,
           type: 'folder'
         };
 
-        providerInstance = Fliplet.Widget.open('com.fliplet.file-picker', {
+        window.currentProvider = Fliplet.Widget.open('com.fliplet.file-picker', {
           data: config,
           onEvent: function(e, data) {
             switch (e) {
               case 'widget-rendered':
                 break;
               case 'widget-set-info':
+                Fliplet.Studio.emit('widget-save-label-reset');
+                Fliplet.Studio.emit('widget-save-label-update', {
+                  text: 'Select'
+                });
                 Fliplet.Widget.toggleSaveButton(!!data.length);
-                var msg = data.length ? data.length + ' folder selected' : 'no selected folder';
+                var msg = data.length ? data.length + ' folder selected' : 'no selected folders';
                 Fliplet.Widget.info(msg);
                 break;
               default:
                 break;
             }
           }
+        });
+
+        window.currentProvider.then(function(result) {
+          console.log(result);
+          Fliplet.Widget.info('');
+          Fliplet.Studio.emit('widget-save-label-update');
+          $vm.mediaFolderId = result.data[0].id;
+          window.currentProvider = null;
         });
       }
 

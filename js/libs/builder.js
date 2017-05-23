@@ -290,6 +290,10 @@ var app = new Vue({
     }
 
     Fliplet.Widget.onSaveRequest(function() {
+      if (window.currentProvider) {
+        return window.currentProvider.forwardSaveRequest();
+      }
+
       if ($vm.chooseTemplate) {
         if ($vm.settings.templateId) {
           $vm.chooseTemplate = false;
