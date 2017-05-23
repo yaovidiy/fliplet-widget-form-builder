@@ -17,7 +17,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
         isSending: false,
         isConfigured: !!data.templateId,
         fields: getFields(),
-        error: null
+        error: null,
+        isOffline: false
       };
     },
     computed: {
@@ -109,10 +110,20 @@ Fliplet.Widget.instance('form-builder', function(data) {
       }
     },
     mounted: function() {
+      var $vm = this;
+
       $(selector).removeClass('is-loading');
 
       Fliplet.Hooks.on('beforeFormSubmit', function(data) {
         console.log('[Hook] beforeFormSubmit', data);
+      });
+
+      Fliplet.Navigator.onOnline(function() {
+        $vm.isOffline = false;
+      });
+
+      Fliplet.Navigator.onOffline(function() {
+        $vm.isOffline = true;
       });
     }
   });
