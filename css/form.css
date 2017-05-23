@@ -2,8 +2,9 @@
   position: relative;
 }
 
-.fl-form.form-offline .form-btns button[type="submit"] {
+.fl-form.form-offline button[type="submit"] {
   pointer-events: none;
+  opacity: 0.65;
 }
 
 [data-form-builder-id].is-loading {

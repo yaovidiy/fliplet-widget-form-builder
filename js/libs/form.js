@@ -1,4 +1,5 @@
 Fliplet.Widget.instance('form-builder', function(data) {
+  console.log(data);
   var selector = '[data-form-builder-id="' + data.id + '"]';
 
   function getFields() {
@@ -119,11 +120,15 @@ Fliplet.Widget.instance('form-builder', function(data) {
       });
 
       Fliplet.Navigator.onOnline(function() {
-        $vm.isOffline = false;
+        if (!data.offline) {
+          $vm.isOffline = false;
+        }
       });
 
       Fliplet.Navigator.onOffline(function() {
-        $vm.isOffline = true;
+        if (!data.offline) {
+          $vm.isOffline = true;
+        }
       });
     }
   });

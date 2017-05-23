@@ -27,21 +27,6 @@ Fliplet.FormBuilder.field('buttons', {
     clearType: {
       type: String,
       default: 'reset'
-    },
-    isOffline: {
-      type: Boolean,
-      default: false
     }
-  },
-  mounted: function() {
-    var $vm = this;
-
-    Fliplet.Navigator.onOnline(function() {
-      $vm.isOffline = false;
-    });
-
-    Fliplet.Navigator.onOffline(function() {
-      $vm.isOffline = true;
-    });
   }
 });
