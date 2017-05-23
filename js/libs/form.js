@@ -1,5 +1,4 @@
 Fliplet.Widget.instance('form-builder', function(data) {
-  console.log(data);
   var selector = '[data-form-builder-id="' + data.id + '"]';
 
   function getFields() {
