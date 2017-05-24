@@ -10,7 +10,7 @@ function changeSelectText() {
         $(this).parents('.select-proxy-display').find('.select-value-proxy').html('Select a data source')
       }
     })
-  }, 1)
+  }, 1);
 }
 
 function attatchObservers() {
@@ -128,7 +128,7 @@ var app = new Vue({
       this.activeFieldConfigType = field._type.toString() + 'Config';
       this.activeFieldName = Fliplet.FormBuilder.components()[field._type].name;
       this.activeField = field;
-      changeSelectText()
+      changeSelectText();
       Fliplet.Studio.emit('widget-save-label-update');
       this.$forceUpdate();
     },
@@ -155,7 +155,7 @@ var app = new Vue({
         Fliplet.Widget.toggleSaveButton(false);
       }
 
-      changeSelectText()
+      changeSelectText();
     },
     goBack: function() {
       this.toChangeTemplate = false;
@@ -192,7 +192,7 @@ var app = new Vue({
   },
   watch: {
     'dataSources': function(newVal) {
-      changeSelectText()
+      changeSelectText();
     },
     'permissionToChange': function(newVal) {
       Fliplet.Widget.toggleSaveButton(newVal);
@@ -237,7 +237,7 @@ var app = new Vue({
     },
     'section': function(value) {
       if (value === 'settings') {
-        changeSelectText()
+        changeSelectText();
 
         if (!this.resultEditor) {
           setTimeout(() => {
