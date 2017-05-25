@@ -164,8 +164,6 @@ Fliplet.FormBuilder = (function() {
           data: config,
           onEvent: function(e, data) {
             switch (e) {
-              case 'widget-rendered':
-                break;
               case 'widget-set-info':
                 Fliplet.Studio.emit('widget-save-label-reset');
                 Fliplet.Studio.emit('widget-save-label-update', {
@@ -175,14 +173,11 @@ Fliplet.FormBuilder = (function() {
                 var msg = data.length ? data.length + ' folder selected' : 'no selected folders';
                 Fliplet.Widget.info(msg);
                 break;
-              default:
-                break;
             }
           }
         });
 
         window.currentProvider.then(function(result) {
-          console.log(result);
           Fliplet.Widget.info('');
           Fliplet.Studio.emit('widget-save-label-update');
           $vm.mediaFolderId = result.data[0].id;

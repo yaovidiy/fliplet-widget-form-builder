@@ -87,6 +87,16 @@ Fliplet.Widget.instance('form-builder', function(data) {
         Fliplet.Hooks.run('beforeFormSubmit', formData).then(function() {
           return Fliplet.DataSources.connect(data.dataSourceId);
         }).then(function(connection) {
+          // Append schema as private variable
+          formData._flSchema = {};
+          $vm.fields.forEach(function (field) {
+            if (field.mediaFolderId) {
+              formData._flSchema[field.name] = {
+                mediaFolderId: field.mediaFolderId
+              };
+            }
+          });
+
           return connection.insert(formData, {
             offline: data.offline
           });
