@@ -562,3 +562,8 @@ form hr {
 .component .btn + .btn {
   margin-right: 15px;
 }
+
+#linkAction > iframe {
+  width: 100%;
+  border: 0;
+}

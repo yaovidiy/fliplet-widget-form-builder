@@ -289,11 +289,33 @@ var app = new Vue({
       Fliplet.Widget.toggleSaveButton(false);
     }
 
+    var linkProvider = Fliplet.Widget.open('com.fliplet.link', {
+      selector: '#linkAction',
+      data: $vm.settings && $vm.settings.linkAction
+    });
+
+    linkProvider.then(function onLinkAction(result) {
+      if (result && result.data && result.data.action) {
+        $vm.settings.linkAction = result.data;
+      }
+
+      linkProvider = null;
+      triggerSave();
+    });
+
     Fliplet.Widget.onSaveRequest(function() {
       if (window.currentProvider) {
         return window.currentProvider.forwardSaveRequest();
       }
 
+      if (linkProvider) {
+        return linkProvider.forwardSaveRequest();
+      }
+
+      triggerSave();
+    });
+
+    function triggerSave() {
       if ($vm.chooseTemplate) {
         if ($vm.settings.templateId) {
           $vm.chooseTemplate = false;
@@ -325,6 +347,6 @@ var app = new Vue({
       $vm.save().then(function() {
         Fliplet.Widget.complete();
       });
-    });
+    }
   }
 });

@@ -86,5 +86,9 @@
       "js/libs/form.js",
       "css/form.css"
     ]
-  }
+  },
+  "references": [
+    "linkAction.page:page",
+    "fields.$.mediaFolderId:mediaFolder"
+  ]
 }
