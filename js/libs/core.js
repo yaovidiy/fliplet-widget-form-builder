@@ -1,4 +1,4 @@
-Fliplet.FormBuilder = (function () {
+Fliplet.FormBuilder = (function() {
   var fields = [];
   var components = {};
   var eventHub = new Vue();
@@ -10,13 +10,13 @@ Fliplet.FormBuilder = (function () {
   }
 
   return {
-    on: function (eventName, fn) {
+    on: function(eventName, fn) {
       eventHub.$on(eventName, fn);
     },
-    off: function (eventName, fn) {
+    off: function(eventName, fn) {
       eventHub.$off(eventName, fn);
     },
-    emit: function (eventName, data) {
+    emit: function(eventName, data) {
       eventHub.$emit(eventName, data);
     },
     components() {
@@ -25,13 +25,18 @@ Fliplet.FormBuilder = (function () {
     categories() {
       var categories = [];
 
-      _.forIn(components, function (component, componentName) {
+      _.forIn(components, function(component, componentName) {
         var categoryName = component.category || 'Generic';
-        var category = _.find(categories, { name: categoryName });
+        var category = _.find(categories, {
+          name: categoryName
+        });
         var isExisting = !!category;
 
         if (!isExisting) {
-          category = { name: categoryName, fields: [] };
+          category = {
+            name: categoryName,
+            fields: []
+          };
         }
 
         category.fields.push(componentName);
@@ -43,7 +48,7 @@ Fliplet.FormBuilder = (function () {
 
       return categories;
     },
-    field: function (componentName, component) {
+    field: function(componentName, component) {
       if (!component.name) {
         throw new Error('The component name is required');
       }
@@ -60,14 +65,14 @@ Fliplet.FormBuilder = (function () {
 
       // Define method to emit the new input value on change
       if (!component.methods.updateValue) {
-        component.methods.updateValue = function () {
+        component.methods.updateValue = function() {
           this.$emit('_input', this.name, this.value);
         }
       }
 
       // Define method to trigger the form reset from a children
       if (!component.methods.resetForm) {
-        component.methods.resetForm = function () {
+        component.methods.resetForm = function() {
           this.$emit('_reset');
         }
       }
@@ -76,7 +81,7 @@ Fliplet.FormBuilder = (function () {
         component.computed = {};
       }
 
-      component.computed._isFormField = function () {
+      component.computed._isFormField = function() {
         return this.label !== undefined;
       };
 
@@ -109,10 +114,10 @@ Fliplet.FormBuilder = (function () {
 
       Vue.component(componentName, component);
     },
-    fields: function () {
+    fields: function() {
       return Object.keys(components);
     },
-    configuration: function (componentName, component) {
+    configuration: function(componentName, component) {
       if (!component) {
         component = {};
       }
@@ -131,11 +136,11 @@ Fliplet.FormBuilder = (function () {
       ]), component);
 
       // On submit event
-      component.methods._onSubmit = function () {
+      component.methods._onSubmit = function() {
         var $vm = this;
         var data = {};
 
-        Object.keys($vm.$props).forEach(function (prop) {
+        Object.keys($vm.$props).forEach(function(prop) {
           data[prop] = $vm[prop];
         });
 
@@ -146,19 +151,59 @@ Fliplet.FormBuilder = (function () {
         component.methods.onSubmit = component.methods._onSubmit;
       }
 
+      component.methods._openFilePicker = function() {
+        var $vm = this;
+
+        var config = {
+          selectedFiles: {},
+          selectMultiple: false,
+          type: 'folder'
+        };
+
+        window.currentProvider = Fliplet.Widget.open('com.fliplet.file-picker', {
+          data: config,
+          onEvent: function(e, data) {
+            switch (e) {
+              case 'widget-set-info':
+                Fliplet.Studio.emit('widget-save-label-reset');
+                Fliplet.Studio.emit('widget-save-label-update', {
+                  text: 'Select'
+                });
+                Fliplet.Widget.toggleSaveButton(!!data.length);
+                var msg = data.length ? data.length + ' folder selected' : 'no selected folders';
+                Fliplet.Widget.info(msg);
+                break;
+            }
+          }
+        });
+
+        window.currentProvider.then(function(result) {
+          Fliplet.Widget.info('');
+          Fliplet.Studio.emit('widget-save-label-update');
+          $vm.mediaFolderId = result.data[0].id;
+          window.currentProvider = null;
+        });
+      }
+
+      if (!component.methods.openFilePicker) {
+        component.methods.openFilePicker = component.methods._openFilePicker;
+      }
+
       var hasOptions = component.props.options && Array.isArray(component.props.options.type());
 
       // If options is an array, automatically deal with options
       if (hasOptions) {
-        component.computed._options = function generateOptions () {
-          return this.options.map(function (option) {
+        component.computed._options = function generateOptions() {
+          return this.options.map(function(option) {
             return option.id;
           }).join('\r\n');
         };
 
-        component.methods._setOptions = function setOptions (str) {
-          this.options = _.compact(str.split(/\r?\n/).map(function (s) {
-            return { id: s.trim() };
+        component.methods._setOptions = function setOptions(str) {
+          this.options = _.compact(str.split(/\r?\n/).map(function(s) {
+            return {
+              id: s.trim()
+            };
           }));
         };
       }

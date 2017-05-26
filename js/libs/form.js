@@ -51,6 +51,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
         var $vm = this;
         var formData = {};
 
+        this.isSending = true;
+
         function appendField(name, value) {
           if (Array.isArray(formData[name])) {
             formData[name].push(value);
@@ -80,14 +82,23 @@ Fliplet.Widget.instance('form-builder', function(data) {
         });
 
         if (!data.dataSourceId) {
+          this.isSending = false;
           return $vm.error = 'You need to select a data source in the form settings.';
         }
-
-        this.isSending = true;
 
         Fliplet.Hooks.run('beforeFormSubmit', formData).then(function() {
           return Fliplet.DataSources.connect(data.dataSourceId);
         }).then(function(connection) {
+          // Append schema as private variable
+          formData._flSchema = {};
+          $vm.fields.forEach(function(field) {
+            if (field.mediaFolderId) {
+              formData._flSchema[field.name] = {
+                mediaFolderId: field.mediaFolderId
+              };
+            }
+          });
+
           return connection.insert(formData, {
             offline: data.offline
           });

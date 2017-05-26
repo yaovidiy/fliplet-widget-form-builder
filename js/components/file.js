@@ -9,6 +9,10 @@ Fliplet.FormBuilder.field('file', {
     selectedFileName: {
       type: String,
       default: ''
+    },
+    mediaFolderId: {
+      type: Number,
+      default: null
     }
   },
   computed: {

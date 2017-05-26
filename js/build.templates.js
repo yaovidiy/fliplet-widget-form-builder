@@ -23,7 +23,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebar
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.file"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<label :for=\"name\" class=\"fileUpload btn btn-primary\">\n  <i class=\"fa fa-plus\" aria-hidden=\"true\"></i> <span v-if=\"selectedFileName\">Replace file</span><span v-else>Choose file</span>\n  <input type=\"file\" ref=\"fileInput\" :id=\"name\" :name=\"name\" class=\"input-file selectfile\" :required=\"required\" v-on:change=\"updateValue()\">\n</label>\n<template v-if=\"selectedFileName\">\n  <div class=\"file-name-helper\">Chosen file: <strong>{{ selectedFileName }}</strong></div>\n<template>\n";
+    return "<label :for=\"name\" class=\"fileUpload btn btn-primary\">\n  <i class=\"fa fa-plus\" aria-hidden=\"true\"></i>\n  <span v-if=\"selectedFileName\">Replace file</span>\n  <span v-else>Choose file</span>\n  <input type=\"file\" ref=\"fileInput\" :id=\"name\" :name=\"name\" :data-folder-id=\"mediaFolderId\" class=\"input-file selectfile\" :required=\"required\" v-on:change=\"updateValue()\">\n</label>\n<template v-if=\"selectedFileName\">\n  <div class=\"file-name-helper\">Chosen file: <strong>{{ selectedFileName }}</strong></div>\n<template>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.horizontalRule"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -31,7 +31,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.horizontalRule"] = 
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.image"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<label :for=\"name\" class=\"fileUpload btn btn-primary\">\n  <div class=\"canvas-holder\">\n    <span v-if=\"value.length > 1\" class=\"badge\">{{value.length}}</span>\n    <canvas ref=\"canvas\"></canvas>\n  </div>\n  <i class=\"fa fa-plus\" aria-hidden=\"true\"></i>\n  <span v-if=\"value.length\">Replace image</span>\n  <span v-else>Choose image</span>\n  <input multiple type=\"file\" ref=\"imageInput\" :id=\"name\" :name=\"name\" class=\"input-file selectfile\" accept=\"image/gif, image/jpg, image/jpeg, image/tiff, image/png\" :required=\"required\" v-on:click=\"onFileClick\" v-on:change=\"onFileChange\">\n</label>\n";
+    return "<label :for=\"name\" class=\"fileUpload btn btn-primary\">\n  <div class=\"canvas-holder\">\n    <span v-if=\"value.length > 1\" class=\"badge\">{{value.length}}</span>\n    <canvas ref=\"canvas\"></canvas>\n  </div>\n  <i class=\"fa fa-plus\" aria-hidden=\"true\"></i>\n  <span v-if=\"value.length\">Replace image</span>\n  <span v-else>Choose image</span>\n  <input multiple type=\"file\" ref=\"imageInput\" :id=\"name\" :name=\"name\" class=\"input-file selectfile\" accept=\"image/gif, image/jpg, image/jpeg, image/tiff, image/png\" :required=\"required\" :data-folder-id=\"mediaFolderId\" v-on:click=\"onFileClick\" v-on:change=\"onFileChange\">\n</label>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

@@ -21,6 +21,10 @@ Fliplet.FormBuilder.field('image', {
     value: {
       type: Array,
       default: []
+    },
+    mediaFolderId: {
+      type: Number,
+      default: null
     }
   },
   data: {
