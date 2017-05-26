@@ -103,6 +103,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
             offline: data.offline
           });
         }).then(function() {
+          if (data.linkAction) {
+            return Fliplet.Navigate.to(data.linkAction);
+          }
+
           $vm.isSent = true;
           $vm.isSending = false;
           $vm.reset();

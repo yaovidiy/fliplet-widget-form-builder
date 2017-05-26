@@ -63,7 +63,7 @@
         </div>
       </div>
     </section>
-    <div class="builder" v-if="!chooseTemplate && !toChangeTemplate">
+    <div class="builder" v-show="!chooseTemplate && !toChangeTemplate">
       <nav>
         <ul class="nav nav-tabs">
           <li v-bind:class="{ active: section === 'form' }">
@@ -119,6 +119,10 @@
             <div class="form-group">
               <label for="formResult" class="control-label">Result HTML message</label>
               <textarea id="formResult" ref="resulthtml" v-model="settings.resultHtml" class="form-control" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Action after submission</label>
+              <div id="linkAction"></div>
             </div>
           </form>
         </section>
