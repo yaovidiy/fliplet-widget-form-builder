@@ -99,6 +99,41 @@
             </div>
             <div class="form-group">
               <div class="control-label">
+                <label>When the form is submitted...</label>
+              </div>
+              <div>
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="save_datasource" name="whenSubimitted" v-model="settings.onSubmit" value="dataSource">
+                  <label for="save_datasource">
+                    <span class="check"><i class="fa fa-check"></i></span> Save the data in a data source
+                  </label>
+                </div>
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="templated_email" name="whenSubimitted" v-model="settings.onSubmit" value="templatedEmail">
+                  <label for="templated_email">
+                    <span class="check"><i class="fa fa-check"></i></span> Automatically send an email via Fliplet
+                  </label>
+                  <div class="hidden-settings" v-show="toggleTemplatedEmail">
+                    <div class="form-group">
+                      <a class="btn btn-primary" v-on:click="configureEmailTemplate">Configure email template</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="generate_email" name="whenSubimitted" v-model="settings.onSubmit" value="generateEmail">
+                  <label for="generate_email">
+                    <span class="check"><i class="fa fa-check"></i></span> Generate an email on the device
+                  </label>
+                  <div class="hidden-settings" v-show="toggleGenerateEmail">
+                    <div class="form-group">
+                      <a class="btn btn-primary" v-on:click="configureGenerateEmailDevice">Configure email template</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="control-label">
                 <label>Submit form when the device is...</label>
               </div>
               <div>
@@ -117,12 +152,33 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="formResult" class="control-label">Result HTML message</label>
-              <textarea id="formResult" ref="resulthtml" v-model="settings.resultHtml" class="form-control" rows="4"></textarea>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Action after submission</label>
-              <div id="linkAction"></div>
+              <div class="control-label">
+                <label>Redirect to another screen after the form is submitted</label>
+              </div>
+              <div>
+                <div class="radio radio-icon">
+                  <input type="radio" id="redirect_yes" name="redirectOptions" v-model="settings.redirect" :value="true">
+                  <label for="redirect_yes">
+                    <span class="check"><i class="fa fa-circle"></i></span> Yes
+                  </label>
+                  <div class="hidden-settings" v-show="settings.redirect">
+                    <div class="form-group">
+                      <div id="linkAction"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="radio radio-icon">
+                  <input type="radio" id="redirect_no" name="redirectOptions" v-model="settings.redirect" :value="false">
+                  <label for="redirect_no">
+                    <span class="check"><i class="fa fa-circle"></i></span> No, just show a confirmation message
+                  </label>
+                  <div class="hidden-settings" v-show="!settings.redirect">
+                    <div class="form-group">
+                      <textarea id="formResult" ref="resulthtml" v-model="settings.resultHtml" class="form-control" rows="4"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </form>
         </section>

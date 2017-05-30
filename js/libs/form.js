@@ -99,11 +99,15 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
           });
 
-          return connection.insert(formData, {
-            offline: data.offline
-          });
+          if (data.onSubmit && data.onSubmit.indexOf("dataSource") > -1) {
+            return connection.insert(formData, {
+              offline: data.offline
+            });
+          }
+
+          return;
         }).then(function() {
-          if (data.linkAction) {
+          if (data.linkAction && data.redirect) {
             return Fliplet.Navigate.to(data.linkAction);
           }
 
