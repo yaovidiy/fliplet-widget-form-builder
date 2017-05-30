@@ -178,7 +178,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
       this.saveProgress = debounce(function () {
         var progress = {};
 
-        $vm.fields.forEach(function(field, index) {
+        $vm.fields.forEach(function(field) {
           progress[field.name] = field.value;
         });
 
