@@ -1,8 +1,48 @@
 Fliplet.Widget.instance('form-builder', function(data) {
+  var saveDelay = 1000; // save progress after 1s from last input
   var selector = '[data-form-builder-id="' + data.id + '"]';
+  var progressKey = 'form-builder-progress-' + (data.uuid || data.id);
+
+  function getProgress() {
+    var progress = localStorage.getItem(progressKey);
+
+    if (!progress) {
+      return;
+    }
+
+    return JSON.parse(progress);
+  }
+
+  function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
 
   function getFields() {
-    return JSON.parse(JSON.stringify(data.fields || []));
+    var fields = JSON.parse(JSON.stringify(data.fields || []));
+    var progress = getProgress();
+
+    if (fields.length && data.saveProgress && typeof progress === 'object') {
+      fields.forEach(function (field) {
+        var savedValue = progress[field.name];
+
+        if (typeof savedValue !== 'undefined') {
+          field.value = savedValue;
+        }
+      });
+    }
+
+    return fields;
   }
 
   function isFile(value) {
@@ -46,6 +86,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
             return true;
           }
         });
+
+        if (data.saveProgress) {
+          this.saveProgress();
+        }
       },
       onSubmit: function() {
         var $vm = this;
@@ -103,6 +147,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
             offline: data.offline
           });
         }).then(function() {
+          if (data.saveProgress) {
+            localStorage.removeItem(progressKey);
+          }
+
           if (data.linkAction) {
             return Fliplet.Navigate.to(data.linkAction);
           }
@@ -126,6 +174,16 @@ Fliplet.Widget.instance('form-builder', function(data) {
     },
     mounted: function() {
       var $vm = this;
+
+      this.saveProgress = debounce(function () {
+        var progress = {};
+
+        $vm.fields.forEach(function(field) {
+          progress[field.name] = field.value;
+        });
+
+        localStorage.setItem(progressKey, JSON.stringify(progress));
+      }, saveDelay);
 
       $(selector).removeClass('is-loading');
 

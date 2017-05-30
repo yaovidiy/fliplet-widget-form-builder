@@ -117,6 +117,25 @@
               </div>
             </div>
             <div class="form-group">
+              <div class="control-label">
+                <label>Restore progress where the user left off</label>
+              </div>
+              <div>
+                <div class="radio radio-icon">
+                  <input type="radio" id="progress_save" name="progress" v-model="settings.saveProgress" :value="true">
+                  <label for="progress_save">
+                    <span class="check"><i class="fa fa-circle"></i></span> <strong>Always</strong> - User's progress of the form will be saved until it's submitted
+                  </label>
+                </div>
+                <div class="radio radio-icon">
+                  <input type="radio" id="progress_dont_save" name="progress" v-model="settings.saveProgress" :value="false">
+                  <label for="progress_dont_save">
+                    <span class="check"><i class="fa fa-circle"></i></span> <strong>Never</strong> - User's progress of the form will not be saved
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
               <label for="formResult" class="control-label">Result HTML message</label>
               <textarea id="formResult" ref="resulthtml" v-model="settings.resultHtml" class="form-control" rows="4"></textarea>
             </div>
