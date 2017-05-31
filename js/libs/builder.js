@@ -86,7 +86,8 @@ var app = new Vue({
       newTemplate: '',
       redirect: formSettings.redirect,
       toggleTemplatedEmail: formSettings.onSubmit.indexOf("templatedEmail") > -1 ? true : false,
-      toggleGenerateEmail: formSettings.onSubmit.indexOf("generateEmail") > -1 ? true : false
+      toggleGenerateEmail: formSettings.onSubmit.indexOf("generateEmail") > -1 ? true : false,
+      showDataSource: formSettings.onSubmit.indexOf("templatedEmail") > -1 || formSettings.onSubmit.indexOf("dataSource") > -1 ? true : false
     }
   },
   methods: {
@@ -198,9 +199,20 @@ var app = new Vue({
     },
     configureEmailTemplate: function() {
       var $vm = this;
-      var defaultEmailTemplate = '<p>HELLO WORLD</p>';
+      console.log($vm.settings);
+      var allFields = $vm.settings.fields;
+      // Creates default email template
+      var defaultEmailTemplate = '<h1>' + $vm.settings.displayName + '</h1><p>A new form submission has been received.</p>';
+      defaultEmailTemplate += '<ul>';
+      for (var i = 0; i < allFields.length; i++) {
+        if (typeof allFields[i]._submit === "undefined" || allFields[i]._submit) {
+          defaultEmailTemplate += '<li style="line-height: 24px;">' + allFields[i].label + ': {{' + allFields[i].name + '}}</li>';
+        }
+      }
+      defaultEmailTemplate += '</ul>';
+
       var defaultEmailSettings = {
-        subject: 'Your form submission',
+        subject: 'Form entries from "' + $vm.settings.displayName + '" form',
         html: defaultEmailTemplate,
         to: []
       };
@@ -221,12 +233,12 @@ var app = new Vue({
         };
 
         Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
-          var currentHook = _.find(dataSource.hooks, function(o) {
-            return o.widgetInstanceId == $vm.settings.id;
-          });
-
-          if (currentHook) {
+          if (dataSource.hooks.length) {
             // Update existing hook
+            var currentHook = _.find(dataSource.hooks, function(o) {
+              return o.widgetInstanceId == $vm.settings.id;
+            });
+
             currentHook.payload = $vm.settings.emailTemplate;
 
             var index = _.findIndex(dataSource.hooks, function(o) {
@@ -251,9 +263,19 @@ var app = new Vue({
     },
     configureGenerateEmailDevice: function() {
       var $vm = this;
-      var defaultEmailTemplate = '<p>HELLO WORLD</p>';
+      var allFields = $vm.settings.fields;
+      // Creates default email template
+      var defaultEmailTemplate = '<h1>' + $vm.settings.displayName + '</h1><p>A form submission has been received.</p>';
+      defaultEmailTemplate += '<ul>'
+      for (var i = 0; i < allFields.length; i++) {
+        if (typeof allFields[i]._submit === "undefined" || allFields[i]._submit) {
+          defaultEmailTemplate += '<li style="line-height: 24px;">' + allFields[i].label + ': {{' + allFields[i].name + '}}</li>';
+        }
+      }
+      defaultEmailTemplate += '</ul>'
+
       var defaultEmailSettings = {
-        subject: 'Your form submission',
+        subject: 'Form entries from "' + $vm.settings.displayName + '" form',
         html: defaultEmailTemplate,
         to: []
       };
@@ -348,6 +370,7 @@ var app = new Vue({
     },
     'settings.onSubmit': function(array) {
       var $vm = this;
+      this.showDataSource = array.indexOf("templatedEmail") > -1 || array.indexOf("dataSource") > -1 ? true : false;
       this.toggleGenerateEmail = array.indexOf("generateEmail") > -1 ? true : false;
 
       if (array.indexOf("templatedEmail") > -1) {
@@ -355,16 +378,20 @@ var app = new Vue({
       } else {
         this.toggleTemplatedEmail = false;
         // Remove hook
-        Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
-          var index = _.findIndex(dataSource.hooks, function(o) {
-            return o.widgetInstanceId == $vm.settings.id
-          });
-          dataSource.hooks.splice(index, 1);
+        if ($vm.settings.dataSourceId && $vm.settings.dataSourceId !== '') {
+          Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
+            if (dataSource.hooks.length) {
+              var index = _.findIndex(dataSource.hooks, function(o) {
+                return o.widgetInstanceId == $vm.settings.id
+              });
+              dataSource.hooks.splice(index, 1);
 
-          Fliplet.DataSources.update($vm.settings.dataSourceId, {
-            hooks: dataSource.hooks
+              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+                hooks: dataSource.hooks
+              });
+            }
           });
-        });
+        }
       }
     }
   },

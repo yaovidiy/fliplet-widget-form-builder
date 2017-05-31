@@ -156,7 +156,11 @@ Fliplet.Widget.instance('form-builder', function(data) {
             localStorage.removeItem(progressKey);
           }
 
-          if (data.linkAction) {
+          if (data.generateEmailTemplate && data.onSubmit && data.onSubmit.indexOf("generateEmail") > -1) {
+            cordova.plugins.email.open();
+          }
+
+          if (data.linkAction && data.redirect) {
             return Fliplet.Navigate.to(data.linkAction);
           }
 

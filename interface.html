@@ -84,20 +84,6 @@
               <input id="formName" type="text" v-model="settings.name" class="form-control" />
             </div>
             <div class="form-group">
-              <label class="control-label">Save results to data source</label>
-              <label for="select-datasource" class="select-proxy-display">
-                <span class="icon fa fa-chevron-down"></span>
-                <span class="select-value-proxy">Select a data source</span>
-                <select class="form-control hidden-select" id="select-datasource" v-model="settings.dataSourceId">
-                  <option value="" disabled="disabled">Select a data source</option>
-                  <option v-for="dataSource in dataSources" v-bind:value="dataSource.id">
-                    \{{ dataSource.name }}
-                  </option>
-                </select>
-              </label>
-              <small>or just <a href="#" v-on:click.prevent="createDataSource">create a new data source</a></small>
-            </div>
-            <div class="form-group">
               <div class="control-label">
                 <label>Restore progress where the user left off</label>
               </div>
@@ -113,41 +99,6 @@
                   <label for="progress_dont_save">
                     <span class="check"><i class="fa fa-circle"></i></span> <strong>Never</strong> - User's progress of the form will not be saved
                   </label>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="control-label">
-                <label>When the form is submitted...</label>
-              </div>
-              <div>
-                <div class="checkbox checkbox-icon">
-                  <input type="checkbox" id="save_datasource" name="whenSubimitted" v-model="settings.onSubmit" value="dataSource">
-                  <label for="save_datasource">
-                    <span class="check"><i class="fa fa-check"></i></span> Save the data in a data source
-                  </label>
-                </div>
-                <div class="checkbox checkbox-icon">
-                  <input type="checkbox" id="templated_email" name="whenSubimitted" v-model="settings.onSubmit" value="templatedEmail">
-                  <label for="templated_email">
-                    <span class="check"><i class="fa fa-check"></i></span> Automatically send an email via Fliplet
-                  </label>
-                  <div class="hidden-settings" v-show="toggleTemplatedEmail">
-                    <div class="form-group">
-                      <a class="btn btn-primary" v-on:click="configureEmailTemplate">Configure email template</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="checkbox checkbox-icon">
-                  <input type="checkbox" id="generate_email" name="whenSubimitted" v-model="settings.onSubmit" value="generateEmail">
-                  <label for="generate_email">
-                    <span class="check"><i class="fa fa-check"></i></span> Generate an email on the device
-                  </label>
-                  <div class="hidden-settings" v-show="toggleGenerateEmail">
-                    <div class="form-group">
-                      <a class="btn btn-primary" v-on:click="configureGenerateEmailDevice">Configure email template</a>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -172,13 +123,52 @@
             </div>
             <div class="form-group">
               <div class="control-label">
-                <label>Redirect to another screen after the form is submitted</label>
+                <label>When the form is submitted...</label>
+              </div>
+              <div>
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="save_datasource" name="whenSubimitted" v-model="settings.onSubmit" value="dataSource">
+                  <label for="save_datasource">
+                    <span class="check"><i class="fa fa-check"></i></span> Save the data in a data source
+                  </label>
+                </div>
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="templated_email" name="whenSubimitted" v-model="settings.onSubmit" value="templatedEmail">
+                  <label for="templated_email">
+                    <span class="check"><i class="fa fa-check"></i></span> Automatically send an email via Fliplet <span v-show="toggleTemplatedEmail">[<a href="#" v-on:click="configureEmailTemplate">Configure email template]</a></span>
+                  </label>
+                </div>
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="generate_email" name="whenSubimitted" v-model="settings.onSubmit" value="generateEmail">
+                  <label for="generate_email">
+                    <span class="check"><i class="fa fa-check"></i></span> Generate an email on the device <span v-show="toggleGenerateEmail">[<a href="#" v-on:click="configureGenerateEmailDevice">Configure email template]</a></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" v-bind:class="{ active: showDataSource, hidden: !showDataSource }">
+              <label class="control-label">Select a data source to save the form submissions</label>
+              <label for="select-datasource" class="select-proxy-display">
+                <span class="icon fa fa-chevron-down"></span>
+                <span class="select-value-proxy">Select a data source</span>
+                <select class="form-control hidden-select" id="select-datasource" v-model="settings.dataSourceId">
+                  <option value="" disabled="disabled">Select a data source</option>
+                  <option v-for="dataSource in dataSources" v-bind:value="dataSource.id">
+                    \{{ dataSource.name }}
+                  </option>
+                </select>
+              </label>
+              <small>or just <a href="#" v-on:click.prevent="createDataSource">create a new data source</a></small>
+            </div>
+            <div class="form-group">
+              <div class="control-label">
+                <label>After the form has been submitted...</label>
               </div>
               <div>
                 <div class="radio radio-icon">
                   <input type="radio" id="redirect_yes" name="redirectOptions" v-model="settings.redirect" :value="true">
                   <label for="redirect_yes">
-                    <span class="check"><i class="fa fa-circle"></i></span> Yes
+                    <span class="check"><i class="fa fa-circle"></i></span> Take the user to another screen
                   </label>
                   <div class="hidden-settings" v-show="settings.redirect">
                     <div class="form-group">
@@ -189,7 +179,7 @@
                 <div class="radio radio-icon">
                   <input type="radio" id="redirect_no" name="redirectOptions" v-model="settings.redirect" :value="false">
                   <label for="redirect_no">
-                    <span class="check"><i class="fa fa-circle"></i></span> No, just show a confirmation message
+                    <span class="check"><i class="fa fa-circle"></i></span> Show a confirmation message
                   </label>
                   <div class="hidden-settings" v-show="!settings.redirect">
                     <div class="form-group">
