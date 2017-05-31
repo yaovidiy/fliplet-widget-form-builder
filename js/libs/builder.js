@@ -57,6 +57,7 @@ function generateFormDefaults(data) {
     offline: true,
     redirect: false,
     onSubmit: ['dataSource'],
+    saveProgress: true,
     resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
   }, data);
 }
