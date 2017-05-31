@@ -563,6 +563,18 @@ form hr {
   margin-right: 15px;
 }
 
+.hidden-settings {
+  padding: 10px;
+  margin-left: 25px;
+  margin-top: 5px;
+  background-color: #d9e5e8;
+  border-radius: 6px;
+}
+
+.hidden-settings .form-group {
+  margin-bottom: 0;
+}
+
 #linkAction > iframe {
   width: 100%;
   border: 0;
