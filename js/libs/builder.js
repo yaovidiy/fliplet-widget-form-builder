@@ -199,7 +199,6 @@ var app = new Vue({
     },
     configureEmailTemplate: function() {
       var $vm = this;
-      console.log($vm.settings);
       var allFields = $vm.settings.fields;
       // Creates default email template
       var defaultEmailTemplate = '<h1>' + $vm.settings.displayName + '</h1><p>A new form submission has been received.</p>';
@@ -214,7 +213,10 @@ var app = new Vue({
       var defaultEmailSettings = {
         subject: 'Form entries from "' + $vm.settings.displayName + '" form',
         html: defaultEmailTemplate,
-        to: []
+        to: [{
+          email: window.userData.email,
+          type: "to"
+        }]
       };
       var emailProviderData = ($vm.settings && $vm.settings.emailTemplate) || defaultEmailSettings;
 
@@ -225,38 +227,41 @@ var app = new Vue({
       window.emailTemplateProvider.then(function onForwardEmailProvider(result) {
         window.emailTemplateProvider = null;
         $vm.settings.emailTemplate = result.data;
-        var newHook = {
-          widgetInstanceId: $vm.settings.id,
-          runOn: ["insert", "update"],
-          type: "email",
-          payload: $vm.settings.emailTemplate
-        };
 
-        Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
-          if (dataSource.hooks.length) {
-            // Update existing hook
-            var currentHook = _.find(dataSource.hooks, function(o) {
-              return o.widgetInstanceId == $vm.settings.id;
-            });
+        if ($vm.settings.onSubmit.indexOf("dataSource") > -1 || $vm.settings.dataSourceId) {
+          var newHook = {
+            widgetInstanceId: $vm.settings.id,
+            runOn: ["insert", "update"],
+            type: "email",
+            payload: $vm.settings.emailTemplate
+          };
 
-            currentHook.payload = $vm.settings.emailTemplate;
+          Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
+            if (dataSource.hooks.length) {
+              // Update existing hook
+              var currentHook = _.find(dataSource.hooks, function(o) {
+                return o.widgetInstanceId == $vm.settings.id;
+              });
 
-            var index = _.findIndex(dataSource.hooks, function(o) {
-              return o.widgetInstanceId == $vm.settings.id
-            });
-            dataSource.hooks.splice(index, 1, currentHook);
+              currentHook.payload = $vm.settings.emailTemplate;
 
-            Fliplet.DataSources.update($vm.settings.dataSourceId, {
-              hooks: dataSource.hooks
-            });
-          } else {
-            // Add new hook
-            dataSource.hooks.push(newHook);
-            Fliplet.DataSources.update($vm.settings.dataSourceId, {
-              hooks: dataSource.hooks
-            });
-          }
-        });
+              var index = _.findIndex(dataSource.hooks, function(o) {
+                return o.widgetInstanceId == $vm.settings.id
+              });
+              dataSource.hooks.splice(index, 1, currentHook);
+
+              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+                hooks: dataSource.hooks
+              });
+            } else {
+              // Add new hook
+              dataSource.hooks.push(newHook);
+              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+                hooks: dataSource.hooks
+              });
+            }
+          });
+        }
 
         Fliplet.Widget.autosize();
       });
@@ -370,7 +375,7 @@ var app = new Vue({
     },
     'settings.onSubmit': function(array) {
       var $vm = this;
-      this.showDataSource = array.indexOf("templatedEmail") > -1 || array.indexOf("dataSource") > -1 ? true : false;
+      this.showDataSource = array.indexOf("dataSource") > -1 ? true : false;
       this.toggleGenerateEmail = array.indexOf("generateEmail") > -1 ? true : false;
 
       if (array.indexOf("templatedEmail") > -1) {
@@ -501,5 +506,9 @@ var app = new Vue({
         Fliplet.Widget.complete();
       });
     }
+
+    Fliplet.API.request('v1/user').then(function(response) {
+      window.userData = response.user;
+    });
   }
 });

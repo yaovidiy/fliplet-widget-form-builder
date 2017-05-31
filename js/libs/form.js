@@ -150,6 +150,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
             });
           }
 
+          if (data.onSubmit && data.onSubmit.indexOf("dataSource") <= -1 && data.onSubmit.indexOf("templatedEmail") > -1) {
+            Fliplet.Communicate.sendEmail(data.emailTemplate);
+          }
+
           return;
         }).then(function() {
           if (data.saveProgress) {
