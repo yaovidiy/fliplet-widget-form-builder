@@ -16,7 +16,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
   function debounce(func, wait, immediate) {
     var timeout;
     return function() {
-      var context = this, args = arguments;
+      var context = this,
+        args = arguments;
       var later = function() {
         timeout = null;
         if (!immediate) func.apply(context, args);
@@ -33,7 +34,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
     var progress = getProgress();
 
     if (fields.length && data.saveProgress && typeof progress === 'object') {
-      fields.forEach(function (field) {
+      fields.forEach(function(field) {
         var savedValue = progress[field.name];
 
         if (typeof savedValue !== 'undefined') {
@@ -151,7 +152,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             localStorage.removeItem(progressKey);
           }
 
-          if (data.linkAction) {
+          if (data.linkAction && data.redirect) {
             return Fliplet.Navigate.to(data.linkAction);
           }
 
@@ -175,7 +176,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
     mounted: function() {
       var $vm = this;
 
-      this.saveProgress = debounce(function () {
+      this.saveProgress = debounce(function() {
         var progress = {};
 
         $vm.fields.forEach(function(field) {

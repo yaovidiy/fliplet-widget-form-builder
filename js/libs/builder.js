@@ -56,6 +56,7 @@ function generateFormDefaults(data) {
     fields: [],
     offline: true,
     saveProgress: true,
+    redirect: false,
     resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
   }, data);
 }
@@ -81,7 +82,8 @@ var app = new Vue({
       chooseTemplate: !formSettings.templateId,
       toChangeTemplate: false,
       permissionToChange: false,
-      newTemplate: ''
+      newTemplate: '',
+      redirect: formSettings.redirect
     }
   },
   methods: {
@@ -250,6 +252,20 @@ var app = new Vue({
           }, 1)
         }
 
+      }
+    },
+    'settings.redirect': function(value) {
+      var $vm = this;
+      if (!value) {
+        if (!$vm.resultEditor) {
+          setTimeout(function() {
+            $vm.setupCodeEditor();
+          }, 1);
+        } else {
+          setTimeout(function() {
+            $vm.resultEditor.refresh();
+          }, 1);
+        }
       }
     }
   },
