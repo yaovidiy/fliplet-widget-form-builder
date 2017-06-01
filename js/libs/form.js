@@ -150,18 +150,18 @@ Fliplet.Widget.instance('form-builder', function(data) {
             });
           }
 
-          if (data.onSubmit && data.onSubmit.indexOf("dataSource") <= -1 && data.onSubmit.indexOf("templatedEmail") > -1) {
-            Fliplet.Communicate.sendEmail(data.emailTemplate);
-          }
-
           return;
         }).then(function() {
           if (data.saveProgress) {
             localStorage.removeItem(progressKey);
           }
 
+          if (data.onSubmit && data.onSubmit.indexOf("dataSource") <= -1 && data.onSubmit.indexOf("templatedEmail") > -1) {
+            Fliplet.Communicate.sendEmail(data.emailTemplate, formData);
+          }
+
           if (data.generateEmailTemplate && data.onSubmit && data.onSubmit.indexOf("generateEmail") > -1) {
-            cordova.plugins.email.open();
+            Fliplet.Communicate.composeEmail(data.generateEmailTemplate, formData);
           }
 
           if (data.linkAction && data.redirect) {
