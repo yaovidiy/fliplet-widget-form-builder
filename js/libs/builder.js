@@ -1,7 +1,7 @@
 var data = Fliplet.Widget.getData() || {};
 
 function changeSelectText() {
-  setTimeout(() => {
+  setTimeout(function() {
     $(".hidden-select:not(.component .hidden-select)").each(function(element) {
       var selectedText = $(this).find('option:selected').text()
       if (selectedText !== '') {
@@ -100,7 +100,7 @@ var app = new Vue({
         viewportMargin: Infinity
       })
 
-      this.resultEditor.on('change', () => {
+      this.resultEditor.on('change', function() {
         this.settings.resultHtml = this.resultEditor.getValue()
       })
     },
@@ -174,7 +174,7 @@ var app = new Vue({
         Fliplet.Studio.emit('widget-mode', 'wide');
       }
 
-      setTimeout(() => {
+      setTimeout(function() {
         $vm.setupCodeEditor();
       }, 1);
     },
@@ -314,7 +314,7 @@ var app = new Vue({
     'isAddingFields': function(newVal) {
       if (newVal) {
         Fliplet.Studio.emit('widget-mode', 'wide');
-        setTimeout(() => {
+        setTimeout(function() {
           attatchObservers();
         }, 1);
       } else {
@@ -345,7 +345,7 @@ var app = new Vue({
       this.settings = generateFormDefaults(settings);
       this.fields = this.settings.fields;
 
-      this.save().then(() => {
+      this.save().then(function() {
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
       });
     },
@@ -355,11 +355,11 @@ var app = new Vue({
         changeSelectText();
 
         if (!this.resultEditor) {
-          setTimeout(() => {
+          setTimeout(function() {
             $vm.setupCodeEditor();
           }, 1);
         } else {
-          setTimeout(() => {
+          setTimeout(function() {
             $vm.resultEditor.refresh();
           }, 1);
         }
@@ -370,11 +370,11 @@ var app = new Vue({
       var $vm = this;
       if (!value) {
         if (!$vm.resultEditor) {
-          setTimeout(() => {
+          setTimeout(function() {
             $vm.setupCodeEditor();
           }, 1);
         } else {
-          setTimeout(() => {
+          setTimeout(function() {
             $vm.resultEditor.refresh();
           }, 1);
         }
@@ -410,11 +410,11 @@ var app = new Vue({
       var $vm = this;
       if (!value) {
         if (!$vm.resultEditor) {
-          setTimeout(() => {
+          setTimeout(function() {
             $vm.setupCodeEditor();
           }, 1);
         } else {
-          setTimeout(() => {
+          setTimeout(function() {
             $vm.resultEditor.refresh();
           }, 1);
         }
@@ -514,7 +514,7 @@ var app = new Vue({
           $vm.settings.templateId = $vm.newTemplate;
           Fliplet.Studio.emit('widget-save-label-reset');
           Fliplet.Studio.emit('widget-info-label-update');
-          setTimeout(() => {
+          setTimeout(function() {
             $vm.setupCodeEditor();
           }, 1);
         }
@@ -523,7 +523,7 @@ var app = new Vue({
       }
 
       // Save and close
-      $vm.save().then(() => {
+      $vm.save().then(function() {
         Fliplet.Widget.complete();
       });
     }
