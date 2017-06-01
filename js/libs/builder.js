@@ -273,7 +273,7 @@ var app = new Vue({
         Fliplet.Widget.autosize();
       });
     },
-    configureGenerateEmailDevice: function() {
+    configureEmailTemplateForCompose: function() {
       var $vm = this;
       var allFields = $vm.settings.fields;
       // Creates default email template
