@@ -3,7 +3,7 @@ var userData;
 
 function changeSelectText() {
   setTimeout(function() {
-    $('.hidden-select:not(.component .hidden-select)').each(function(element) {
+    $('.hidden-select:not(.component .hidden-select)').each(function() {
       var selectedText = $(this).find('option:selected').text()
       if (selectedText !== '') {
         $(this).parents('.select-proxy-display').find('.select-value-proxy').html(selectedText)
@@ -400,20 +400,6 @@ var app = new Vue({
               });
             }
           });
-        }
-      }
-    },
-    'settings.redirect': function(value) {
-      var $vm = this;
-      if (!value) {
-        if (!$vm.resultEditor) {
-          setTimeout(function() {
-            $vm.setupCodeEditor();
-          }, 1);
-        } else {
-          setTimeout(function() {
-            $vm.resultEditor.refresh();
-          }, 1);
         }
       }
     }
