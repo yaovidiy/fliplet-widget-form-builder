@@ -1,4 +1,5 @@
 var data = Fliplet.Widget.getData() || {};
+var userData;
 
 function changeSelectText() {
   setTimeout(function() {
@@ -219,7 +220,7 @@ var app = new Vue({
         subject: 'Form entries from "' + $vm.settings.displayName + '" form',
         html: defaultEmailTemplate,
         to: [{
-          email: window.userData.email,
+          email: userData.email,
           type: 'to'
         }]
       };
@@ -525,7 +526,7 @@ var app = new Vue({
     }
 
     Fliplet.API.request('v1/user').then(function(response) {
-      window.userData = response.user;
+      userData = response.user;
     });
   }
 });
