@@ -197,18 +197,23 @@ var app = new Vue({
     save: function() {
       return Fliplet.Widget.save(this.settings);
     },
+    createDefaultBodyTemplate: function(settings) {
+      // Creates default email template
+      var defaultEmailTemplate = '<h1>' + settings.displayName + '</h1><p>A form submission has been received.</p>';
+      defaultEmailTemplate += '<ul>';
+
+      settings.fields.forEach(function(field) {
+        if (typeof field._submit === 'undefined' || field._submit) {
+          defaultEmailTemplate += '<li style="line-height: 24px;">' + field.label + ': {{' + field.name + '}}</li>';
+        }
+      });
+      defaultEmailTemplate += '</ul>';
+
+      return defaultEmailTemplate;
+    },
     configureEmailTemplate: function() {
       var $vm = this;
-      var allFields = $vm.settings.fields;
-      // Creates default email template
-      var defaultEmailTemplate = '<h1>' + $vm.settings.displayName + '</h1><p>A new form submission has been received.</p>';
-      defaultEmailTemplate += '<ul>';
-      for (var i = 0; i < allFields.length; i++) {
-        if (typeof allFields[i]._submit === 'undefined' || allFields[i]._submit) {
-          defaultEmailTemplate += '<li style="line-height: 24px;">' + allFields[i].label + ': {{' + allFields[i].name + '}}</li>';
-        }
-      }
-      defaultEmailTemplate += '</ul>';
+      var defaultEmailTemplate = this.createDefaultBodyTemplate($vm.settings);
 
       var defaultEmailSettings = {
         subject: 'Form entries from "' + $vm.settings.displayName + '" form',
@@ -275,16 +280,7 @@ var app = new Vue({
     },
     configureEmailTemplateForCompose: function() {
       var $vm = this;
-      var allFields = $vm.settings.fields;
-      // Creates default email template
-      var defaultEmailTemplate = '<h1>' + $vm.settings.displayName + '</h1><p>A form submission has been received.</p>';
-      defaultEmailTemplate += '<ul>'
-      for (var i = 0; i < allFields.length; i++) {
-        if (typeof allFields[i]._submit === 'undefined' || allFields[i]._submit) {
-          defaultEmailTemplate += '<li style="line-height: 24px;">' + allFields[i].label + ': {{' + allFields[i].name + '}}</li>';
-        }
-      }
-      defaultEmailTemplate += '</ul>'
+      var defaultEmailTemplate = this.createDefaultBodyTemplate($vm.settings);
 
       var defaultEmailSettings = {
         subject: 'Form entries from "' + $vm.settings.displayName + '" form',
