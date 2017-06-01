@@ -62,6 +62,7 @@
       "handlebars",
       "vue.js",
       "bootstrap",
+      "fliplet-communicate",
       "fliplet-datasources",
       "font-awesome"
     ],

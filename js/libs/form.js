@@ -144,12 +144,24 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
           });
 
-          return connection.insert(formData, {
-            offline: data.offline
-          });
+          if (data.onSubmit && data.onSubmit.indexOf('dataSource') > -1) {
+            return connection.insert(formData, {
+              offline: data.offline
+            });
+          }
+
+          return;
         }).then(function() {
           if (data.saveProgress) {
             localStorage.removeItem(progressKey);
+          }
+
+          if (data.onSubmit && data.onSubmit.indexOf('dataSource') <= -1 && data.onSubmit.indexOf('templatedEmail') > -1) {
+            Fliplet.Communicate.sendEmail(data.emailTemplate, formData);
+          }
+
+          if (data.generateEmailTemplate && data.onSubmit && data.onSubmit.indexOf('generateEmail') > -1) {
+            Fliplet.Communicate.composeEmail(data.generateEmailTemplate, formData);
           }
 
           if (data.linkAction && data.redirect) {

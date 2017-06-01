@@ -1,8 +1,9 @@
 var data = Fliplet.Widget.getData() || {};
+var userData;
 
 function changeSelectText() {
   setTimeout(function() {
-    $(".hidden-select:not(.component .hidden-select)").each(function(element) {
+    $('.hidden-select:not(.component .hidden-select)').each(function() {
       var selectedText = $(this).find('option:selected').text()
       if (selectedText !== '') {
         $(this).parents('.select-proxy-display').find('.select-value-proxy').html(selectedText)
@@ -13,7 +14,7 @@ function changeSelectText() {
   }, 1)
 }
 
-function attatchObservers() {
+function attachObservers() {
   var $accordion = $('#componentsAccordion')
 
   var recalculateHeight = function(obj) {
@@ -55,8 +56,9 @@ function generateFormDefaults(data) {
     templateId: '',
     fields: [],
     offline: true,
-    saveProgress: true,
     redirect: false,
+    onSubmit: ['dataSource'],
+    saveProgress: true,
     resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
   }, data);
 }
@@ -83,7 +85,10 @@ var app = new Vue({
       toChangeTemplate: false,
       permissionToChange: false,
       newTemplate: '',
-      redirect: formSettings.redirect
+      redirect: formSettings.redirect,
+      toggleTemplatedEmail: formSettings.onSubmit.indexOf('templatedEmail') > -1,
+      toggleGenerateEmail: formSettings.onSubmit.indexOf('generateEmail') > -1,
+      showDataSource: formSettings.onSubmit.indexOf('templatedEmail') > -1 || formSettings.onSubmit.indexOf('dataSource') > -1
     }
   },
   methods: {
@@ -96,7 +101,7 @@ var app = new Vue({
         viewportMargin: Infinity
       })
 
-      this.resultEditor.on('change', () => {
+      this.resultEditor.on('change', function() {
         this.settings.resultHtml = this.resultEditor.getValue()
       })
     },
@@ -161,6 +166,7 @@ var app = new Vue({
       changeSelectText()
     },
     goBack: function() {
+      var $vm = this;
       this.toChangeTemplate = false;
       Fliplet.Studio.emit('widget-save-label-reset');
       Fliplet.Widget.toggleSaveButton(true);
@@ -169,9 +175,9 @@ var app = new Vue({
         Fliplet.Studio.emit('widget-mode', 'wide');
       }
 
-      setTimeout(() => {
-        this.setupCodeEditor()
-      }, 1)
+      setTimeout(function() {
+        $vm.setupCodeEditor();
+      }, 1);
     },
     createDataSource: function() {
       var $vm = this
@@ -191,11 +197,113 @@ var app = new Vue({
     },
     save: function() {
       return Fliplet.Widget.save(this.settings);
+    },
+    createDefaultBodyTemplate: function(settings) {
+      // Creates default email template
+      var defaultEmailTemplate = '<h1>' + settings.displayName + '</h1><p>A form submission has been received.</p>';
+      defaultEmailTemplate += '<ul>';
+
+      settings.fields.forEach(function(field) {
+        if (typeof field._submit === 'undefined' || field._submit) {
+          defaultEmailTemplate += '<li style="line-height: 24px;">' + field.label + ': {{' + field.name + '}}</li>';
+        }
+      });
+      defaultEmailTemplate += '</ul>';
+
+      return defaultEmailTemplate;
+    },
+    configureEmailTemplate: function() {
+      var $vm = this;
+      var defaultEmailTemplate = this.createDefaultBodyTemplate($vm.settings);
+
+      var defaultEmailSettings = {
+        subject: 'Form entries from "' + $vm.settings.displayName + '" form',
+        html: defaultEmailTemplate,
+        to: [{
+          email: userData.email,
+          type: 'to'
+        }]
+      };
+      var emailProviderData = ($vm.settings && $vm.settings.emailTemplate) || defaultEmailSettings;
+      emailProviderData.options = {
+        variables: {
+          'field-x': 'Insert the value entered in the form field.<br><i>To see the ID of each form field, click to edit the field and the ID can be seen at the top right corner.</i>',
+          appName: 'Insert your app name',
+          organisationName: 'insert your organisation name'
+        }
+      };
+
+      window.emailTemplateProvider = Fliplet.Widget.open('com.fliplet.email-provider', {
+        data: emailProviderData
+      });
+
+      window.emailTemplateProvider.then(function onForwardEmailProvider(result) {
+        window.emailTemplateProvider = null;
+        $vm.settings.emailTemplate = result.data;
+
+        if ($vm.settings.onSubmit.indexOf('dataSource') > -1 || $vm.settings.dataSourceId) {
+          var newHook = {
+            widgetInstanceId: $vm.settings.id,
+            runOn: ['insert', 'update'],
+            type: 'email',
+            payload: $vm.settings.emailTemplate
+          };
+
+          Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
+            if (dataSource.hooks.length) {
+              // Update existing hook
+              var currentHook = _.find(dataSource.hooks, function(o) {
+                return o.widgetInstanceId == $vm.settings.id;
+              });
+
+              currentHook.payload = $vm.settings.emailTemplate;
+
+              var index = _.findIndex(dataSource.hooks, function(o) {
+                return o.widgetInstanceId == $vm.settings.id
+              });
+              dataSource.hooks.splice(index, 1, currentHook);
+
+              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+                hooks: dataSource.hooks
+              });
+            } else {
+              // Add new hook
+              dataSource.hooks.push(newHook);
+              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+                hooks: dataSource.hooks
+              });
+            }
+          });
+        }
+
+        Fliplet.Widget.autosize();
+      });
+    },
+    configureEmailTemplateForCompose: function() {
+      var $vm = this;
+      var defaultEmailTemplate = this.createDefaultBodyTemplate($vm.settings);
+
+      var defaultEmailSettings = {
+        subject: 'Form entries from "' + $vm.settings.displayName + '" form',
+        html: defaultEmailTemplate,
+        to: []
+      };
+      var emailProviderData = ($vm.settings && $vm.settings.generateEmailTemplate) || defaultEmailSettings;
+
+      window.generateEmailProvider = Fliplet.Widget.open('com.fliplet.email-provider', {
+        data: emailProviderData
+      });
+
+      window.generateEmailProvider.then(function onForwardEmailProvider(result) {
+        window.generateEmailProvider = null;
+        $vm.settings.generateEmailTemplate = result.data;
+        Fliplet.Widget.autosize();
+      });
     }
   },
   watch: {
     'dataSources': function(newVal) {
-      changeSelectText()
+      changeSelectText();
     },
     'permissionToChange': function(newVal) {
       Fliplet.Widget.toggleSaveButton(newVal);
@@ -203,9 +311,9 @@ var app = new Vue({
     'isAddingFields': function(newVal) {
       if (newVal) {
         Fliplet.Studio.emit('widget-mode', 'wide');
-        setTimeout(() => {
-          attatchObservers()
-        }, 1)
+        setTimeout(function() {
+          attachObservers();
+        }, 1);
       } else {
         Fliplet.Studio.emit('widget-mode', 'normal');
       }
@@ -239,17 +347,18 @@ var app = new Vue({
       });
     },
     'section': function(value) {
+      var $vm = this;
       if (value === 'settings') {
-        changeSelectText()
+        changeSelectText();
 
         if (!this.resultEditor) {
-          setTimeout(() => {
-            this.setupCodeEditor()
-          }, 1)
+          setTimeout(function() {
+            $vm.setupCodeEditor();
+          }, 1);
         } else {
-          setTimeout(() => {
-            this.resultEditor.refresh()
-          }, 1)
+          setTimeout(function() {
+            $vm.resultEditor.refresh();
+          }, 1);
         }
 
       }
@@ -265,6 +374,32 @@ var app = new Vue({
           setTimeout(function() {
             $vm.resultEditor.refresh();
           }, 1);
+        }
+      }
+    },
+    'settings.onSubmit': function(array) {
+      var $vm = this;
+      this.showDataSource = array.indexOf('dataSource') > -1;
+      this.toggleGenerateEmail = array.indexOf('generateEmail');
+
+      if (array.indexOf('templatedEmail') > -1) {
+        this.toggleTemplatedEmail = true;
+      } else {
+        this.toggleTemplatedEmail = false;
+        // Remove hook
+        if ($vm.settings.dataSourceId && $vm.settings.dataSourceId !== '') {
+          Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
+            if (dataSource.hooks.length) {
+              var index = _.findIndex(dataSource.hooks, function(o) {
+                return o.widgetInstanceId == $vm.settings.id
+              });
+              dataSource.hooks.splice(index, 1);
+
+              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+                hooks: dataSource.hooks
+              });
+            }
+          });
         }
       }
     }
@@ -296,6 +431,8 @@ var app = new Vue({
     Fliplet.FormBuilder.off('field-settings-changed', this.onFieldSettingChanged);
   },
   mounted: function() {
+    window.emailTemplateProvider = null;
+    window.generateEmailProvider = null;
     var $vm = this;
     $vm.settings.name = $vm.settings.name || 'Untitled form';
 
@@ -321,6 +458,14 @@ var app = new Vue({
     });
 
     Fliplet.Widget.onSaveRequest(function() {
+      if (window.emailTemplateProvider) {
+        return window.emailTemplateProvider.forwardSaveRequest();
+      }
+
+      if (window.generateEmailProvider) {
+        return window.generateEmailProvider.forwardSaveRequest();
+      }
+
       if (window.currentProvider) {
         return window.currentProvider.forwardSaveRequest();
       }
@@ -352,9 +497,9 @@ var app = new Vue({
           $vm.settings.templateId = $vm.newTemplate;
           Fliplet.Studio.emit('widget-save-label-reset');
           Fliplet.Studio.emit('widget-info-label-update');
-          setTimeout(() => {
-            $vm.setupCodeEditor()
-          }, 1)
+          setTimeout(function() {
+            $vm.setupCodeEditor();
+          }, 1);
         }
 
         return;
@@ -365,5 +510,9 @@ var app = new Vue({
         Fliplet.Widget.complete();
       });
     }
+
+    Fliplet.API.request('v1/user').then(function(response) {
+      userData = response.user;
+    });
   }
 });
