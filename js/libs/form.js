@@ -144,7 +144,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
           });
 
-          if (data.onSubmit && data.onSubmit.indexOf("dataSource") > -1) {
+          if (data.onSubmit && data.onSubmit.indexOf('dataSource') > -1) {
             return connection.insert(formData, {
               offline: data.offline
             });
@@ -156,11 +156,11 @@ Fliplet.Widget.instance('form-builder', function(data) {
             localStorage.removeItem(progressKey);
           }
 
-          if (data.onSubmit && data.onSubmit.indexOf("dataSource") <= -1 && data.onSubmit.indexOf("templatedEmail") > -1) {
+          if (data.onSubmit && data.onSubmit.indexOf('dataSource') <= -1 && data.onSubmit.indexOf('templatedEmail') > -1) {
             Fliplet.Communicate.sendEmail(data.emailTemplate, formData);
           }
 
-          if (data.generateEmailTemplate && data.onSubmit && data.onSubmit.indexOf("generateEmail") > -1) {
+          if (data.generateEmailTemplate && data.onSubmit && data.onSubmit.indexOf('generateEmail') > -1) {
             Fliplet.Communicate.composeEmail(data.generateEmailTemplate, formData);
           }
 

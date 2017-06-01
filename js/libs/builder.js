@@ -2,7 +2,7 @@ var data = Fliplet.Widget.getData() || {};
 
 function changeSelectText() {
   setTimeout(function() {
-    $(".hidden-select:not(.component .hidden-select)").each(function(element) {
+    $('.hidden-select:not(.component .hidden-select)').each(function(element) {
       var selectedText = $(this).find('option:selected').text()
       if (selectedText !== '') {
         $(this).parents('.select-proxy-display').find('.select-value-proxy').html(selectedText)
@@ -85,9 +85,9 @@ var app = new Vue({
       permissionToChange: false,
       newTemplate: '',
       redirect: formSettings.redirect,
-      toggleTemplatedEmail: formSettings.onSubmit.indexOf("templatedEmail") > -1 ? true : false,
-      toggleGenerateEmail: formSettings.onSubmit.indexOf("generateEmail") > -1 ? true : false,
-      showDataSource: formSettings.onSubmit.indexOf("templatedEmail") > -1 || formSettings.onSubmit.indexOf("dataSource") > -1 ? true : false
+      toggleTemplatedEmail: formSettings.onSubmit.indexOf('templatedEmail') > -1,
+      toggleGenerateEmail: formSettings.onSubmit.indexOf('generateEmail') > -1,
+      showDataSource: formSettings.onSubmit.indexOf('templatedEmail') > -1 || formSettings.onSubmit.indexOf('dataSource') > -1
     }
   },
   methods: {
@@ -204,7 +204,7 @@ var app = new Vue({
       var defaultEmailTemplate = '<h1>' + $vm.settings.displayName + '</h1><p>A new form submission has been received.</p>';
       defaultEmailTemplate += '<ul>';
       for (var i = 0; i < allFields.length; i++) {
-        if (typeof allFields[i]._submit === "undefined" || allFields[i]._submit) {
+        if (typeof allFields[i]._submit === 'undefined' || allFields[i]._submit) {
           defaultEmailTemplate += '<li style="line-height: 24px;">' + allFields[i].label + ': {{' + allFields[i].name + '}}</li>';
         }
       }
@@ -215,7 +215,7 @@ var app = new Vue({
         html: defaultEmailTemplate,
         to: [{
           email: window.userData.email,
-          type: "to"
+          type: 'to'
         }]
       };
       var emailProviderData = ($vm.settings && $vm.settings.emailTemplate) || defaultEmailSettings;
@@ -235,11 +235,11 @@ var app = new Vue({
         window.emailTemplateProvider = null;
         $vm.settings.emailTemplate = result.data;
 
-        if ($vm.settings.onSubmit.indexOf("dataSource") > -1 || $vm.settings.dataSourceId) {
+        if ($vm.settings.onSubmit.indexOf('dataSource') > -1 || $vm.settings.dataSourceId) {
           var newHook = {
             widgetInstanceId: $vm.settings.id,
-            runOn: ["insert", "update"],
-            type: "email",
+            runOn: ['insert', 'update'],
+            type: 'email',
             payload: $vm.settings.emailTemplate
           };
 
@@ -280,7 +280,7 @@ var app = new Vue({
       var defaultEmailTemplate = '<h1>' + $vm.settings.displayName + '</h1><p>A form submission has been received.</p>';
       defaultEmailTemplate += '<ul>'
       for (var i = 0; i < allFields.length; i++) {
-        if (typeof allFields[i]._submit === "undefined" || allFields[i]._submit) {
+        if (typeof allFields[i]._submit === 'undefined' || allFields[i]._submit) {
           defaultEmailTemplate += '<li style="line-height: 24px;">' + allFields[i].label + ': {{' + allFields[i].name + '}}</li>';
         }
       }
@@ -382,10 +382,10 @@ var app = new Vue({
     },
     'settings.onSubmit': function(array) {
       var $vm = this;
-      this.showDataSource = array.indexOf("dataSource") > -1 ? true : false;
-      this.toggleGenerateEmail = array.indexOf("generateEmail") > -1 ? true : false;
+      this.showDataSource = array.indexOf('dataSource') > -1 ? true : false;
+      this.toggleGenerateEmail = array.indexOf('generateEmail') > -1 ? true : false;
 
-      if (array.indexOf("templatedEmail") > -1) {
+      if (array.indexOf('templatedEmail') > -1) {
         this.toggleTemplatedEmail = true;
       } else {
         this.toggleTemplatedEmail = false;
