@@ -13,7 +13,7 @@ function changeSelectText() {
   }, 1)
 }
 
-function attatchObservers() {
+function attachObservers() {
   var $accordion = $('#componentsAccordion')
 
   var recalculateHeight = function(obj) {
@@ -311,7 +311,7 @@ var app = new Vue({
       if (newVal) {
         Fliplet.Studio.emit('widget-mode', 'wide');
         setTimeout(function() {
-          attatchObservers();
+          attachObservers();
         }, 1);
       } else {
         Fliplet.Studio.emit('widget-mode', 'normal');
