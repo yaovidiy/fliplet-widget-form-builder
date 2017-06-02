@@ -5,9 +5,6 @@
   "icon": "img/icon.png",
   "tags": ["type:component", "category:general"],
   "provider_only": false,
-  "references": [
-    "dataSourceId:dataSource"
-  ],
   "html_tag": "div",
   "interface": {
     "dependencies": [
@@ -90,6 +87,7 @@
   },
   "references": [
     "linkAction.page:page",
-    "fields.$.mediaFolderId:mediaFolder"
+    "fields.$.mediaFolderId:mediaFolder",
+    "dataSourceId:dataSource"
   ]
 }
