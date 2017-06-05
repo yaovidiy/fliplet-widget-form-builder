@@ -380,7 +380,7 @@ var app = new Vue({
     'settings.onSubmit': function(array) {
       var $vm = this;
       this.showDataSource = array.indexOf('dataSource') > -1;
-      this.toggleGenerateEmail = array.indexOf('generateEmail');
+      this.toggleGenerateEmail = array.indexOf('generateEmail') > -1;
 
       if (array.indexOf('templatedEmail') > -1) {
         this.toggleTemplatedEmail = true;
