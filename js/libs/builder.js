@@ -88,22 +88,36 @@ var app = new Vue({
       redirect: formSettings.redirect,
       toggleTemplatedEmail: formSettings.onSubmit.indexOf('templatedEmail') > -1,
       toggleGenerateEmail: formSettings.onSubmit.indexOf('generateEmail') > -1,
-      showDataSource: formSettings.onSubmit.indexOf('templatedEmail') > -1 || formSettings.onSubmit.indexOf('dataSource') > -1
+      showDataSource: formSettings.onSubmit.indexOf('templatedEmail') > -1 || formSettings.onSubmit.indexOf('dataSource') > -1,
+      userData: {},
+      defaultEmailSettings: {
+        subject: 'Form entries from "' + formSettings.name + '" form',
+        html: this.createDefaultBodyTemplate(formSettings),
+        to: []
+      },
+      defaultEmailSettingsForCompose: {
+        subject: 'Form entries from "' + formSettings.name + '" form',
+        html: this.createDefaultBodyTemplate(formSettings),
+        to: []
+      },
+      emailTemplate: undefined,
+      generateEmailTemplate: undefined
+
     }
   },
   methods: {
-    setupCodeEditor() {
+    setupCodeEditor: function() {
       this.resultEditor = CodeMirror.fromTextArea(this.$refs.resulthtml, {
         mode: 'htmlmixed',
         lineNumbers: true,
         autoRefresh: true,
         lineWrapping: true,
         viewportMargin: Infinity
-      })
+      });
 
       this.resultEditor.on('change', function() {
-        this.settings.resultHtml = this.resultEditor.getValue()
-      })
+        this.settings.resultHtml = this.resultEditor.getValue();
+      });
     },
     onSort: function(event) {
       this.fields.splice(event.newIndex, 0, this.fields.splice(event.oldIndex, 1)[0]);
@@ -137,7 +151,7 @@ var app = new Vue({
       this.activeFieldConfigType = field._type.toString() + 'Config';
       this.activeFieldName = Fliplet.FormBuilder.components()[field._type].name;
       this.activeField = field;
-      changeSelectText()
+      changeSelectText();
       Fliplet.Studio.emit('widget-save-label-update');
       this.$forceUpdate();
     },
@@ -164,7 +178,7 @@ var app = new Vue({
         Fliplet.Widget.toggleSaveButton(false);
       }
 
-      changeSelectText()
+      changeSelectText();
     },
     goBack: function() {
       var $vm = this;
@@ -181,7 +195,7 @@ var app = new Vue({
       }, 1);
     },
     createDataSource: function() {
-      var $vm = this
+      var $vm = this;
       var name = prompt('Please type a name for your data source:');
 
       if (!name) {
@@ -192,16 +206,18 @@ var app = new Vue({
         name: name,
         organizationId: Fliplet.Env.get('organizationId')
       }).then(function(ds) {
-        $vm.dataSources.push(ds)
-        $vm.settings.dataSourceId = ds.id
+        $vm.dataSources.push(ds);
+        $vm.settings.dataSourceId = ds.id;
       });
     },
     save: function() {
+      this.settings.emailTemplate = this.emailTemplate || this.defaultEmailSettings;
+      this.settings.generateEmailTemplate = this.generateEmailTemplate || this.defaultEmailSettingsForCompose;
       return Fliplet.Widget.save(this.settings);
     },
     createDefaultBodyTemplate: function(settings) {
       // Creates default email template
-      var defaultEmailTemplate = '<h1>' + settings.displayName + '</h1><p>A form submission has been received.</p>';
+      var defaultEmailTemplate = '<h1>' + settings.name + '</h1><p>A form submission has been received.</p>';
       defaultEmailTemplate += '<ul>';
 
       settings.fields.forEach(function(field) {
@@ -215,17 +231,8 @@ var app = new Vue({
     },
     configureEmailTemplate: function() {
       var $vm = this;
-      var defaultEmailTemplate = this.createDefaultBodyTemplate($vm.settings);
+      var emailProviderData = ($vm.settings && $vm.settings.emailTemplate) || $vm.defaultEmailSettings;
 
-      var defaultEmailSettings = {
-        subject: 'Form entries from "' + $vm.settings.displayName + '" form',
-        html: defaultEmailTemplate,
-        to: [{
-          email: userData.email,
-          type: 'to'
-        }]
-      };
-      var emailProviderData = ($vm.settings && $vm.settings.emailTemplate) || defaultEmailSettings;
       emailProviderData.options = {
         variables: {
           'field-x': 'Insert the value entered in the form field.<br><i>To see the ID of each form field, click to edit the field and the ID can be seen at the top right corner.</i>',
@@ -240,7 +247,7 @@ var app = new Vue({
 
       window.emailTemplateProvider.then(function onForwardEmailProvider(result) {
         window.emailTemplateProvider = null;
-        $vm.settings.emailTemplate = result.data;
+        $vm.emailTemplate = result.data;
 
         if ($vm.settings.onSubmit.indexOf('dataSource') > -1 || $vm.settings.dataSourceId) {
           var newHook = {
@@ -260,7 +267,7 @@ var app = new Vue({
               currentHook.payload = $vm.settings.emailTemplate;
 
               var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id
+                return o.widgetInstanceId == $vm.settings.id;
               });
               dataSource.hooks.splice(index, 1, currentHook);
 
@@ -282,14 +289,7 @@ var app = new Vue({
     },
     configureEmailTemplateForCompose: function() {
       var $vm = this;
-      var defaultEmailTemplate = this.createDefaultBodyTemplate($vm.settings);
-
-      var defaultEmailSettings = {
-        subject: 'Form entries from "' + $vm.settings.displayName + '" form',
-        html: defaultEmailTemplate,
-        to: []
-      };
-      var emailProviderData = ($vm.settings && $vm.settings.generateEmailTemplate) || defaultEmailSettings;
+      var emailProviderData = ($vm.settings && $vm.settings.generateEmailTemplate) || $vm.defaultEmailSettingsForCompose;
 
       window.generateEmailProvider = Fliplet.Widget.open('com.fliplet.email-provider', {
         data: emailProviderData
@@ -297,7 +297,7 @@ var app = new Vue({
 
       window.generateEmailProvider.then(function onForwardEmailProvider(result) {
         window.generateEmailProvider = null;
-        $vm.settings.generateEmailTemplate = result.data;
+        $vm.generateEmailTemplate = result.data;
         Fliplet.Widget.autosize();
       });
     }
@@ -403,6 +403,12 @@ var app = new Vue({
           });
         }
       }
+    },
+    'userData': function(data) {
+      this.defaultEmailSettings.to.push({
+        email: data.email,
+        type: 'to'
+      });
     }
   },
   computed: {
@@ -514,6 +520,7 @@ var app = new Vue({
 
     Fliplet.API.request('v1/user').then(function(response) {
       userData = response.user;
+      $vm.userData = userData;
     });
   }
 });
