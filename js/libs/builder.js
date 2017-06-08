@@ -124,6 +124,7 @@ var app = new Vue({
           _type: componentName,
           _submit: typeof component.submit !== undefined ? component.submit : true,
           name: 'field-' + (this.fields.length + 1),
+          label: component.name,
           value: value.default || value.type()
         });
       }
