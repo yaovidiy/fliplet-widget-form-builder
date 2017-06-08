@@ -1,5 +1,4 @@
 var data = Fliplet.Widget.getData() || {};
-var userData;
 
 function changeSelectText() {
   setTimeout(function() {
@@ -519,7 +518,6 @@ var app = new Vue({
     }
 
     Fliplet.API.request('v1/user').then(function(response) {
-      userData = response.user;
       $vm.userData = userData;
     });
   }
