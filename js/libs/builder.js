@@ -1,4 +1,5 @@
-var data = Fliplet.Widget.getData() || {};
+var widgetId = Fliplet.Widget.getDefaultId();
+var data = Fliplet.Widget.getData(widgetId) || {};
 
 function changeSelectText() {
   setTimeout(function() {
@@ -514,6 +515,7 @@ var app = new Vue({
       // Save and close
       $vm.save().then(function() {
         Fliplet.Widget.complete();
+        Fliplet.Studio.emit('reload-widget-instance', widgetId);
       });
     }
 
