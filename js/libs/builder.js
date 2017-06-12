@@ -515,7 +515,7 @@ var app = new Vue({
       // Save and close
       $vm.save().then(function() {
         Fliplet.Widget.complete();
-        Fliplet.Studio.emit('reload-widget-instance', widgetId);
+        Fliplet.Studio.emit('reload-page-preview');
       });
     }
 
