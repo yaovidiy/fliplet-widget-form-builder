@@ -240,7 +240,7 @@ var app = new Vue({
     },
     configureEmailTemplate: function() {
       var $vm = this;
-      $vm.defaultEmailSettings.subject = $vm.settings.name;
+      $vm.defaultEmailSettings.subject = 'Form entries from ' + $vm.settings.name + ' form';
       $vm.defaultEmailSettings.html = $vm.createDefaultBodyTemplate($vm.settings);
 
       var emailProviderData = ($vm.settings && $vm.settings.emailTemplate) || $vm.defaultEmailSettings;
@@ -301,7 +301,7 @@ var app = new Vue({
     },
     configureEmailTemplateForCompose: function() {
       var $vm = this;
-      $vm.defaultEmailSettingsForCompose.subject = $vm.settings.name;
+      $vm.defaultEmailSettingsForCompose.subject = 'Form entries from ' + $vm.settings.name + ' form';
       $vm.defaultEmailSettingsForCompose.html = $vm.createDefaultBodyTemplate($vm.settings);
 
       var emailProviderData = ($vm.settings && $vm.settings.generateEmailTemplate) || $vm.defaultEmailSettingsForCompose;
