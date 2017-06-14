@@ -107,7 +107,6 @@ var app = new Vue({
       },
       emailTemplate: undefined,
       generateEmailTemplate: undefined
-
     }
   },
   methods: {
@@ -240,9 +239,6 @@ var app = new Vue({
     },
     configureEmailTemplate: function() {
       var $vm = this;
-      $vm.defaultEmailSettings.subject = 'Form entries from ' + $vm.settings.name + ' form';
-      $vm.defaultEmailSettings.html = $vm.createDefaultBodyTemplate($vm.settings);
-
       var emailProviderData = ($vm.settings && $vm.settings.emailTemplate) || $vm.defaultEmailSettings;
 
       emailProviderData.options = {
@@ -301,9 +297,6 @@ var app = new Vue({
     },
     configureEmailTemplateForCompose: function() {
       var $vm = this;
-      $vm.defaultEmailSettingsForCompose.subject = 'Form entries from ' + $vm.settings.name + ' form';
-      $vm.defaultEmailSettingsForCompose.html = $vm.createDefaultBodyTemplate($vm.settings);
-
       var emailProviderData = ($vm.settings && $vm.settings.generateEmailTemplate) || $vm.defaultEmailSettingsForCompose;
 
       window.generateEmailProvider = Fliplet.Widget.open('com.fliplet.email-provider', {
@@ -358,6 +351,16 @@ var app = new Vue({
       this.settings = generateFormDefaults(settings);
       this.fields = this.settings.fields;
 
+      if (!this.settings.emailTemplate) {
+        this.defaultEmailSettings.subject = 'Form entries from "' + this.settings.name + '" form';
+        this.defaultEmailSettings.html = this.createDefaultBodyTemplate(this.settings);
+      }
+
+      if (!this.settings.generateEmailTemplate) {
+        this.defaultEmailSettingsForCompose.subject = 'Form entries from "' + this.settings.name + '" form';
+        this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.settings);
+      }
+
       this.save().then(function() {
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
       });
@@ -396,10 +399,25 @@ var app = new Vue({
     'settings.onSubmit': function(array) {
       var $vm = this;
       this.showDataSource = array.indexOf('dataSource') > -1;
-      this.toggleGenerateEmail = array.indexOf('generateEmail') > -1;
+
+      if (array.indexOf('generateEmail') > -1) {
+        this.toggleGenerateEmail = true
+
+        if (!this.settings.generateEmailTemplate) {
+          this.defaultEmailSettingsForCompose.subject = 'Form entries from "' + this.settings.name + '" form';
+          this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.settings);
+        }
+      } else {
+        this.toggleGenerateEmail = false
+      }
 
       if (array.indexOf('templatedEmail') > -1) {
         this.toggleTemplatedEmail = true;
+
+        if (!this.settings.emailTemplate) {
+          this.defaultEmailSettings.subject = 'Form entries from "' + this.settings.name + '" form';
+          this.defaultEmailSettings.html = this.createDefaultBodyTemplate(this.settings);
+        }
       } else {
         this.toggleTemplatedEmail = false;
         // Remove hook
