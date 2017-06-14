@@ -308,6 +308,18 @@ var app = new Vue({
         $vm.generateEmailTemplate = result.data;
         Fliplet.Widget.autosize();
       });
+    },
+    checkEmailTemplate: function() {
+      if (!this.settings.emailTemplate) {
+        this.defaultEmailSettings.subject = 'Form entries from "' + this.settings.name + '" form';
+        this.defaultEmailSettings.html = this.createDefaultBodyTemplate(this.settings);
+      }
+    },
+    checkGenerateEmailTemplate: function() {
+      if (!this.settings.generateEmailTemplate) {
+        this.defaultEmailSettingsForCompose.subject = 'Form entries from "' + this.settings.name + '" form';
+        this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.settings);
+      }
     }
   },
   watch: {
@@ -351,15 +363,8 @@ var app = new Vue({
       this.settings = generateFormDefaults(settings);
       this.fields = this.settings.fields;
 
-      if (!this.settings.emailTemplate) {
-        this.defaultEmailSettings.subject = 'Form entries from "' + this.settings.name + '" form';
-        this.defaultEmailSettings.html = this.createDefaultBodyTemplate(this.settings);
-      }
-
-      if (!this.settings.generateEmailTemplate) {
-        this.defaultEmailSettingsForCompose.subject = 'Form entries from "' + this.settings.name + '" form';
-        this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.settings);
-      }
+      this.checkEmailTemplate();
+      this.checkGenerateEmailTemplate();
 
       this.save().then(function() {
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
@@ -402,22 +407,14 @@ var app = new Vue({
 
       if (array.indexOf('generateEmail') > -1) {
         this.toggleGenerateEmail = true
-
-        if (!this.settings.generateEmailTemplate) {
-          this.defaultEmailSettingsForCompose.subject = 'Form entries from "' + this.settings.name + '" form';
-          this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.settings);
-        }
+        this.checkGenerateEmailTemplate();
       } else {
         this.toggleGenerateEmail = false
       }
 
       if (array.indexOf('templatedEmail') > -1) {
         this.toggleTemplatedEmail = true;
-
-        if (!this.settings.emailTemplate) {
-          this.defaultEmailSettings.subject = 'Form entries from "' + this.settings.name + '" form';
-          this.defaultEmailSettings.html = this.createDefaultBodyTemplate(this.settings);
-        }
+        this.checkEmailTemplate();
       } else {
         this.toggleTemplatedEmail = false;
         // Remove hook
