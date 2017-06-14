@@ -1,6 +1,11 @@
 var widgetId = Fliplet.Widget.getDefaultId();
 var data = Fliplet.Widget.getData(widgetId) || {};
 
+// Cleanup
+if (data.fields) {
+  data.fields = _.compact(data.fields);
+}
+
 function changeSelectText() {
   setTimeout(function() {
     $('.hidden-select:not(.component .hidden-select)').each(function() {
@@ -213,6 +218,10 @@ var app = new Vue({
     save: function() {
       this.settings.emailTemplate = this.emailTemplate || this.defaultEmailSettings;
       this.settings.generateEmailTemplate = this.generateEmailTemplate || this.defaultEmailSettingsForCompose;
+
+      // Cleanup
+      this.settings.fields = _.compact(this.settings.fields);
+
       return Fliplet.Widget.save(this.settings);
     },
     createDefaultBodyTemplate: function(settings) {
