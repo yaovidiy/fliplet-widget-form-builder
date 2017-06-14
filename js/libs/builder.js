@@ -292,6 +292,9 @@ var app = new Vue({
           });
         }
 
+        $vm.save().then(function() {
+          Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+        });
         Fliplet.Widget.autosize();
       });
     },
@@ -306,6 +309,9 @@ var app = new Vue({
       window.generateEmailProvider.then(function onForwardEmailProvider(result) {
         window.generateEmailProvider = null;
         $vm.generateEmailTemplate = result.data;
+        $vm.save().then(function() {
+          Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+        });
         Fliplet.Widget.autosize();
       });
     },
