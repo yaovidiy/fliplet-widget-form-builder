@@ -4,6 +4,10 @@ Fliplet.FormBuilder.field('title', {
   submit: false,
   props: {
     label: undefined,
+    showLabel: {
+      type: Boolean,
+      default: false
+    },
     value: {
       type: String,
       default: 'Title'

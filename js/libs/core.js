@@ -82,7 +82,7 @@ Fliplet.FormBuilder = (function() {
       }
 
       component.computed._isFormField = function() {
-        return this.label !== undefined;
+        return this.showLabel || this.showLabel === undefined;
       };
 
       component.template = templates['templates.components.field']({
@@ -101,6 +101,10 @@ Fliplet.FormBuilder = (function() {
         label: {
           type: String,
           default: component.name || 'Label text'
+        },
+        showLabel: {
+          type: Boolean,
+          default: true
         },
         value: {
           type: String,

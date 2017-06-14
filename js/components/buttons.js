@@ -4,6 +4,10 @@ Fliplet.FormBuilder.field('buttons', {
   submit: false,
   props: {
     label: undefined,
+    showLabel: {
+      type: Boolean,
+      default: false
+    },
     showSubmit: {
       type: Boolean,
       default: true

@@ -91,13 +91,13 @@ var app = new Vue({
       showDataSource: formSettings.onSubmit.indexOf('templatedEmail') > -1 || formSettings.onSubmit.indexOf('dataSource') > -1,
       userData: {},
       defaultEmailSettings: {
-        subject: 'Form entries from "' + formSettings.name + '" form',
-        html: this.createDefaultBodyTemplate(formSettings),
+        subject: '',
+        html: '',
         to: []
       },
       defaultEmailSettingsForCompose: {
-        subject: 'Form entries from "' + formSettings.name + '" form',
-        html: this.createDefaultBodyTemplate(formSettings),
+        subject: '',
+        html: '',
         to: []
       },
       emailTemplate: undefined,
@@ -136,7 +136,7 @@ var app = new Vue({
 
         this.fields.splice(event.newIndex, 0, {
           _type: componentName,
-          _submit: typeof component.submit !== undefined ? component.submit : true,
+          _submit: typeof component.submit !== 'undefined' ? component.submit : true,
           name: 'field-' + (this.fields.length + 1),
           label: component.name,
           value: value.default || value.type()
@@ -231,6 +231,9 @@ var app = new Vue({
     },
     configureEmailTemplate: function() {
       var $vm = this;
+      $vm.defaultEmailSettings.subject = $vm.settings.name;
+      $vm.defaultEmailSettings.html = $vm.createDefaultBodyTemplate($vm.settings);
+
       var emailProviderData = ($vm.settings && $vm.settings.emailTemplate) || $vm.defaultEmailSettings;
 
       emailProviderData.options = {
@@ -289,6 +292,9 @@ var app = new Vue({
     },
     configureEmailTemplateForCompose: function() {
       var $vm = this;
+      $vm.defaultEmailSettingsForCompose.subject = $vm.settings.name;
+      $vm.defaultEmailSettingsForCompose.html = $vm.createDefaultBodyTemplate($vm.settings);
+
       var emailProviderData = ($vm.settings && $vm.settings.generateEmailTemplate) || $vm.defaultEmailSettingsForCompose;
 
       window.generateEmailProvider = Fliplet.Widget.open('com.fliplet.email-provider', {
