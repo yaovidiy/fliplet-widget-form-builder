@@ -218,13 +218,12 @@ var app = new Vue({
       if (!this.settings.emailTemplate) {
         this.settings.emailTemplate = this.emailTemplate || this.defaultEmailSettings;
       }
-
       if (!this.settings.generateEmailTemplate) {
         this.settings.generateEmailTemplate = this.generateEmailTemplate || this.defaultEmailSettingsForCompose;
       }
 
       // Cleanup
-      this.settings.fields = _.compact(this.settings.fields);
+      this.settings.fields = _.compact(this.fields);
 
       return Fliplet.Widget.save(this.settings);
     },
