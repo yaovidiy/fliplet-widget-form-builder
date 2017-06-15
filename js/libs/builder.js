@@ -1,6 +1,11 @@
 var widgetId = Fliplet.Widget.getDefaultId();
 var data = Fliplet.Widget.getData(widgetId) || {};
 
+// Cleanup
+if (data.fields) {
+  data.fields = _.compact(data.fields);
+}
+
 function changeSelectText() {
   setTimeout(function() {
     $('.hidden-select:not(.component .hidden-select)').each(function() {
@@ -91,18 +96,17 @@ var app = new Vue({
       showDataSource: formSettings.onSubmit.indexOf('templatedEmail') > -1 || formSettings.onSubmit.indexOf('dataSource') > -1,
       userData: {},
       defaultEmailSettings: {
-        subject: 'Form entries from "' + formSettings.name + '" form',
-        html: this.createDefaultBodyTemplate(formSettings),
+        subject: '',
+        html: '',
         to: []
       },
       defaultEmailSettingsForCompose: {
-        subject: 'Form entries from "' + formSettings.name + '" form',
-        html: this.createDefaultBodyTemplate(formSettings),
+        subject: '',
+        html: '',
         to: []
       },
       emailTemplate: undefined,
       generateEmailTemplate: undefined
-
     }
   },
   methods: {
@@ -136,7 +140,7 @@ var app = new Vue({
 
         this.fields.splice(event.newIndex, 0, {
           _type: componentName,
-          _submit: typeof component.submit !== undefined ? component.submit : true,
+          _submit: typeof component.submit !== 'undefined' ? component.submit : true,
           name: 'field-' + (this.fields.length + 1),
           label: component.name,
           value: value.default || value.type()
@@ -213,6 +217,10 @@ var app = new Vue({
     save: function() {
       this.settings.emailTemplate = this.emailTemplate || this.defaultEmailSettings;
       this.settings.generateEmailTemplate = this.generateEmailTemplate || this.defaultEmailSettingsForCompose;
+
+      // Cleanup
+      this.settings.fields = _.compact(this.settings.fields);
+
       return Fliplet.Widget.save(this.settings);
     },
     createDefaultBodyTemplate: function(settings) {
@@ -284,6 +292,9 @@ var app = new Vue({
           });
         }
 
+        $vm.save().then(function() {
+          Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+        });
         Fliplet.Widget.autosize();
       });
     },
@@ -298,8 +309,23 @@ var app = new Vue({
       window.generateEmailProvider.then(function onForwardEmailProvider(result) {
         window.generateEmailProvider = null;
         $vm.generateEmailTemplate = result.data;
+        $vm.save().then(function() {
+          Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+        });
         Fliplet.Widget.autosize();
       });
+    },
+    checkEmailTemplate: function() {
+      if (!this.settings.emailTemplate) {
+        this.defaultEmailSettings.subject = 'Form entries from "' + this.settings.name + '" form';
+        this.defaultEmailSettings.html = this.createDefaultBodyTemplate(this.settings);
+      }
+    },
+    checkGenerateEmailTemplate: function() {
+      if (!this.settings.generateEmailTemplate) {
+        this.defaultEmailSettingsForCompose.subject = 'Form entries from "' + this.settings.name + '" form';
+        this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.settings);
+      }
     }
   },
   watch: {
@@ -343,6 +369,9 @@ var app = new Vue({
       this.settings = generateFormDefaults(settings);
       this.fields = this.settings.fields;
 
+      this.checkEmailTemplate();
+      this.checkGenerateEmailTemplate();
+
       this.save().then(function() {
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
       });
@@ -381,10 +410,17 @@ var app = new Vue({
     'settings.onSubmit': function(array) {
       var $vm = this;
       this.showDataSource = array.indexOf('dataSource') > -1;
-      this.toggleGenerateEmail = array.indexOf('generateEmail') > -1;
+
+      if (array.indexOf('generateEmail') > -1) {
+        this.toggleGenerateEmail = true
+        this.checkGenerateEmailTemplate();
+      } else {
+        this.toggleGenerateEmail = false
+      }
 
       if (array.indexOf('templatedEmail') > -1) {
         this.toggleTemplatedEmail = true;
+        this.checkEmailTemplate();
       } else {
         this.toggleTemplatedEmail = false;
         // Remove hook

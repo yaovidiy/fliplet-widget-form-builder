@@ -3,6 +3,10 @@ Fliplet.FormBuilder.field('horizontalRule', {
   category: 'Formatting',
   submit: false,
   props: {
-    label: undefined
+    label: undefined,
+    showLabel: {
+      type: Boolean,
+      default: false
+    }
   }
 });

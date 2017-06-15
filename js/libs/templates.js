@@ -3,10 +3,16 @@ var systemTemplates = [{
     settings: {
       displayName: 'Blank',
       fields: [{
-        _type: 'flInput',
-        name: 'field-1',
-        label: 'Text input'
-      }]
+          _type: 'flInput',
+          name: 'field-1',
+          label: 'Text input'
+        },
+        {
+          _type: 'flButtons',
+          name: 'field-2',
+          _submit: false
+        }
+      ]
     }
   },
   {
