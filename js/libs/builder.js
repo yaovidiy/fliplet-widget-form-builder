@@ -215,8 +215,13 @@ var app = new Vue({
       });
     },
     save: function() {
-      this.settings.emailTemplate = this.emailTemplate || this.defaultEmailSettings;
-      this.settings.generateEmailTemplate = this.generateEmailTemplate || this.defaultEmailSettingsForCompose;
+      if (!this.settings.emailTemplate) {
+        this.settings.emailTemplate = this.emailTemplate || this.defaultEmailSettings;
+      }
+
+      if (!this.settings.generateEmailTemplate) {
+        this.settings.generateEmailTemplate = this.generateEmailTemplate || this.defaultEmailSettingsForCompose;
+      }
 
       // Cleanup
       this.settings.fields = _.compact(this.settings.fields);
