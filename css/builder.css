@@ -185,7 +185,8 @@ nav > .btn {
 }
 
 .components-list .form-html {
-  height: calc(100% - 63px);
+  height: calc(100% - 93px);
+  margin-top: 40px;
   overflow: auto;
 }
 
@@ -279,7 +280,7 @@ nav > .btn {
 .form-preview .form-html {
   min-height: 100px;
   padding-bottom: 30px;
-  height: calc(100% - 63px);
+  height: calc(100% - 93px);
   overflow: auto;
 }
 /* FILE FIELD */
@@ -525,7 +526,12 @@ label.fileUpload {
 }
 
 .required-info-label {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  opacity: 0;
+}
+
+.required-info-label.isRequired {
+  opacity: 1;
 }
 /* ANIMATIONS */
 .fade-enter-active {
