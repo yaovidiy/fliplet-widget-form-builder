@@ -33,14 +33,14 @@ form.placeholder button {
 
 .fl-form .label {
   display: inline-block;
-  border: 1px solid #00ABD1;
+  border: 1px solid #337ab7;
   background-color: rgba(0, 171, 209, 0.55);
   margin: 10px 0;
 }
 
 .required-info,
 .required-info-label {
-  color: #00ABD1;
+  color: #337ab7;
 }
 
 .required-info-label {

@@ -215,20 +215,24 @@ var app = new Vue({
       });
     },
     save: function() {
-      this.settings.emailTemplate = this.emailTemplate || this.defaultEmailSettings;
-      this.settings.generateEmailTemplate = this.generateEmailTemplate || this.defaultEmailSettingsForCompose;
+      if (!this.settings.emailTemplate && this.settings.onSubmit.indexOf('templatedEmail') > -1) {
+        this.settings.emailTemplate = this.emailTemplate || this.defaultEmailSettings;
+      }
+      if (!this.settings.generateEmailTemplate && this.settings.onSubmit.indexOf('generateEmail') > -1) {
+        this.settings.generateEmailTemplate = this.generateEmailTemplate || this.defaultEmailSettingsForCompose;
+      }
 
       // Cleanup
-      this.settings.fields = _.compact(this.settings.fields);
+      this.settings.fields = _.compact(this.fields);
 
       return Fliplet.Widget.save(this.settings);
     },
-    createDefaultBodyTemplate: function(settings) {
+    createDefaultBodyTemplate: function(fields) {
       // Creates default email template
-      var defaultEmailTemplate = '<h1>' + settings.name + '</h1><p>A form submission has been received.</p>';
+      var defaultEmailTemplate = '<h1>' + this.settings.name + '</h1><p>A form submission has been received.</p>';
       defaultEmailTemplate += '<ul>';
 
-      settings.fields.forEach(function(field) {
+      fields.forEach(function(field) {
         if (typeof field._submit === 'undefined' || field._submit) {
           defaultEmailTemplate += '<li style="line-height: 24px;">' + field.label + ': {{' + field.name + '}}</li>';
         }
@@ -318,13 +322,13 @@ var app = new Vue({
     checkEmailTemplate: function() {
       if (!this.settings.emailTemplate) {
         this.defaultEmailSettings.subject = 'Form entries from "' + this.settings.name + '" form';
-        this.defaultEmailSettings.html = this.createDefaultBodyTemplate(this.settings);
+        this.defaultEmailSettings.html = this.createDefaultBodyTemplate(this.fields);
       }
     },
     checkGenerateEmailTemplate: function() {
       if (!this.settings.generateEmailTemplate) {
         this.defaultEmailSettingsForCompose.subject = 'Form entries from "' + this.settings.name + '" form';
-        this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.settings);
+        this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.fields);
       }
     }
   },
@@ -368,9 +372,6 @@ var app = new Vue({
 
       this.settings = generateFormDefaults(settings);
       this.fields = this.settings.fields;
-
-      this.checkEmailTemplate();
-      this.checkGenerateEmailTemplate();
 
       this.save().then(function() {
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
