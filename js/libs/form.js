@@ -126,13 +126,12 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
         });
 
-        if (!data.dataSourceId) {
-          this.isSending = false;
-          return $vm.error = 'You need to select a data source in the form settings.';
-        }
-
         Fliplet.Hooks.run('beforeFormSubmit', formData).then(function() {
-          return Fliplet.DataSources.connect(data.dataSourceId);
+          if (data.dataSourceId) {
+            return Fliplet.DataSources.connect(data.dataSourceId);
+          }
+
+          return;
         }).then(function(connection) {
           // Append schema as private variable
           formData._flSchema = {};
@@ -144,7 +143,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
           });
 
-          if (data.onSubmit && data.onSubmit.indexOf('dataSource') > -1) {
+          if (data.onSubmit && data.onSubmit.indexOf('dataSource') > -1 && data.dataSourceId) {
             return connection.insert(formData, {
               offline: data.offline
             });
@@ -156,7 +155,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             localStorage.removeItem(progressKey);
           }
 
-          if (data.onSubmit && data.onSubmit.indexOf('dataSource') <= -1 && data.onSubmit.indexOf('templatedEmail') > -1) {
+          if (data.emailTemplate && data.onSubmit && data.onSubmit.indexOf('templatedEmail') > -1) {
             Fliplet.Communicate.sendEmail(data.emailTemplate, formData);
           }
 
