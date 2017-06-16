@@ -215,10 +215,10 @@ var app = new Vue({
       });
     },
     save: function() {
-      if (!this.settings.emailTemplate && this.settings.onSubmit.indexOf('templatedEmail') > -1) {
+      if (this.settings.onSubmit.indexOf('templatedEmail') > -1) {
         this.settings.emailTemplate = this.emailTemplate || this.defaultEmailSettings;
       }
-      if (!this.settings.generateEmailTemplate && this.settings.onSubmit.indexOf('generateEmail') > -1) {
+      if (this.settings.onSubmit.indexOf('generateEmail') > -1) {
         this.settings.generateEmailTemplate = this.generateEmailTemplate || this.defaultEmailSettingsForCompose;
       }
 
