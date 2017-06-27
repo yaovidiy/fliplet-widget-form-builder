@@ -249,7 +249,7 @@ var app = new Vue({
         usage: {
           'field-x': 'Insert the value entered in the form field.<br><i>To see the ID of each form field, click to edit the field and the ID can be seen at the top right corner.</i>',
           appName: 'Insert your app name',
-          organisationName: 'insert your organisation name'
+          organisationName: 'Insert your organisation name'
         }
       };
 
@@ -310,7 +310,7 @@ var app = new Vue({
         usage: {
           'field-x': 'Insert the value entered in the form field.<br><i>To see the ID of each form field, click to edit the field and the ID can be seen at the top right corner.</i>',
           appName: 'Insert your app name',
-          organisationName: 'insert your organisation name'
+          organisationName: 'Insert your organisation name'
         }
       };
 
