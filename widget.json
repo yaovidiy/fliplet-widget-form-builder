@@ -26,6 +26,10 @@
 
       "js/components/input.js",
       "js/components/email.js",
+      "js/components/number.js",
+      "js/components/telephone.js",
+      "js/components/url.js",
+      "js/components/password.js",
       "js/components/textarea.js",
       "js/components/select.js",
       "js/components/radio.js",
@@ -39,6 +43,10 @@
 
       "js/configurations/input.js",
       "js/configurations/email.js",
+      "js/configurations/number.js",
+      "js/configurations/telephone.js",
+      "js/configurations/url.js",
+      "js/configurations/password.js",
       "js/configurations/textarea.js",
       "js/configurations/select.js",
       "js/configurations/radio.js",
@@ -70,6 +78,10 @@
 
       "js/components/input.js",
       "js/components/email.js",
+      "js/components/number.js",
+      "js/components/telephone.js",
+      "js/components/url.js",
+      "js/components/password.js",
       "js/components/textarea.js",
       "js/components/select.js",
       "js/components/radio.js",
