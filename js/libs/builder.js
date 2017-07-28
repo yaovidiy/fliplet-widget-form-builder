@@ -220,6 +220,8 @@ var app = new Vue({
       });
     },
     save: function() {
+      var $vm = this;
+
       if (this.settings.onSubmit.indexOf('templatedEmail') > -1) {
         this.settings.emailTemplate = this.emailTemplate || this.defaultEmailSettings;
       }
@@ -230,7 +232,9 @@ var app = new Vue({
       // Cleanup
       this.settings.fields = _.compact(this.fields);
 
-      return Fliplet.Widget.save(this.settings);
+      return Fliplet.Widget.save(this.settings).then(function onSettingsUpdated() {
+        return $vm.updateDataSourceColumns();
+      });
     },
     createDefaultBodyTemplate: function(fields) {
       // Creates default email template
@@ -343,6 +347,28 @@ var app = new Vue({
         this.defaultEmailSettingsForCompose.subject = 'Form entries from "' + this.settings.name + '" form';
         this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.fields);
       }
+    },
+    updateDataSourceColumns: function () {
+      var $vm = this;
+      var dataSourceId = this.settings.dataSourceId;
+
+      if (!dataSourceId) {
+        return Promise.resolve();
+      }
+
+      return Fliplet.DataSources.getById(dataSourceId).then(function (ds) {
+        ds.columns = ds.columns || [];
+
+        var columns = _.uniq(_.map($vm.fields, 'name').concat(ds.columns));
+
+        if (_.isEqual(columns.sort(), ds.columns.sort())) {
+          return Promise.resolve(); // no need to update
+        }
+
+        return Fliplet.DataSources.update(dataSourceId, {
+          columns: columns
+        });
+      });
     }
   },
   watch: {
@@ -386,7 +412,7 @@ var app = new Vue({
       this.settings = generateFormDefaults(settings);
       this.fields = this.settings.fields;
 
-      this.save().then(function() {
+      this.save().then(function onSettingsSaved() {
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
       });
     },
