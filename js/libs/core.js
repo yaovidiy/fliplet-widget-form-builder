@@ -159,6 +159,14 @@ Fliplet.FormBuilder = (function() {
         component.methods.onSubmit = component.methods._onSubmit;
       }
 
+      if (!component.mounted) {
+        component.mounted = function () {
+          if (this.$refs.tooltip) {
+            $(this.$refs.tooltip).tooltip()
+          }
+        };
+      }
+
       component.props._fields = {
         type: Array
       };
