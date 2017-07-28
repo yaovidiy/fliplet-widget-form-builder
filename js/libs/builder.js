@@ -588,6 +588,10 @@ var app = new Vue({
         return;
       }
 
+      // Add progress
+      $(selector).addClass('is-loading');
+      $('.spinner-holder p').text('Please wait while we save your changes...');
+
       // Save and close
       $vm.save().then(function() {
         Fliplet.Widget.complete();
