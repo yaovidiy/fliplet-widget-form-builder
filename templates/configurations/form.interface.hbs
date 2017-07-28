@@ -1,9 +1,5 @@
 <form v-on:submit.prevent="onSubmit">
   <div v-if="_isFormField">
-    <!--<div class="form-group field-id">
-      <p id="field-id"><span class="field-label">ID:</span> \{{ name }}</p>
-    </div>-->
-
     <div class="form-group" :class="{ 'has-error': _fieldNameError }">
       <label class="control-label" for="field-name">Field ID <i class="text-muted fa fa-question-circle" ref="tooltip" data-toggle="tooltip" data-placement="right" title="If the field ID is changed, please test to make sure other components and settings referencing the same data source continues to work as expected."></i>
 </label>
