@@ -141,6 +141,10 @@ Fliplet.FormBuilder = (function() {
 
       // On submit event
       component.methods._onSubmit = function() {
+        if (this._fieldNameError) {
+          return;
+        }
+
         var $vm = this;
         var data = {};
 
@@ -154,6 +158,37 @@ Fliplet.FormBuilder = (function() {
       if (!component.methods.onSubmit) {
         component.methods.onSubmit = component.methods._onSubmit;
       }
+
+      if (!component.mounted) {
+        component.mounted = function () {
+          if (this.$refs.tooltip) {
+            $(this.$refs.tooltip).tooltip()
+          }
+        };
+      }
+
+      component.props._fields = {
+        type: Array
+      };
+
+      component.props._idx = {
+        type: Number,
+        default: -1
+      };
+
+      component.computed._fieldNameError = function () {
+        if (!this.name) {
+          return 'Please provide a Field ID';
+        }
+
+        var existing = _.findIndex(this._fields, { name: this.name });
+
+        if (existing > -1 && existing !== this._idx) {
+          return this.name + ' is taken. Please use another Field ID.';
+        }
+
+        return '';
+      };
 
       component.methods._openFilePicker = function() {
         var $vm = this;

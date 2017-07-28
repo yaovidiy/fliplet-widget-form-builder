@@ -81,6 +81,7 @@ var app = new Vue({
       activeFieldConfigType: null,
       activeField: {},
       activeFieldName: '',
+      activeFieldIdx: -1,
       isAddingFields: false,
       dataSources: [],
       section: 'form', // form or settings
@@ -157,6 +158,7 @@ var app = new Vue({
     onFieldClick: function(field) {
       this.activeFieldConfigType = field._type.toString() + 'Config';
       this.activeFieldName = Fliplet.FormBuilder.components()[field._type].name;
+      this.activeFieldIdx = _.findIndex(this.fields, { name: field.name });
       this.activeField = field;
       changeSelectText();
       Fliplet.Studio.emit('widget-save-label-update');
