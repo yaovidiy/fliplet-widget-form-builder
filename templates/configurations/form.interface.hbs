@@ -16,7 +16,7 @@
     </div>
 
     <div class="form-group">
-      <label>Is this field required?</label>
+      <label class="control-label">Is this field required?</label>
       <div class="radio radio-icon">
         <input type="radio" id="required-yes" name="required-option" v-bind:value="true" v-model="required">
         <label for="required-yes">
@@ -34,7 +34,7 @@
 
   {{#hasOptions}}
     <div class="form-group">
-      <label>Options <small>(One per line)</small></label>
+      <label class="control-label">Options <small>(One per line)</small></label>
       <textarea v-on:input="_setOptions($event.target.value)" class="form-control">\{{ _options }}</textarea>
     </div>
   {{/hasOptions}}
