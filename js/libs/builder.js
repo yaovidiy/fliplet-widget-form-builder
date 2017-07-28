@@ -589,8 +589,8 @@ var app = new Vue({
       }
 
       // Add progress
-      $(selector).addClass('is-loading');
       $('.spinner-holder p').text('Please wait while we save your changes...');
+      $(selector).addClass('is-loading');
 
       // Save and close
       $vm.save().then(function() {
