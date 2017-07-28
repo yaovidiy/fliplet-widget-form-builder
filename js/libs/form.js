@@ -110,6 +110,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
         this.fields.forEach(function(field) {
           var value = field.value;
+          var type = field.type;
 
           if (field._submit === false) {
             return;
@@ -121,6 +122,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
               appendField(field.name, value.item(i));
             }
           } else {
+            // Remove spaces and dashes from value
+            if (type === 'number' || type === 'tel') {
+              value = value.replace(/-|\s/g, '');
+            }
             // Other inputs
             appendField(field.name, value);
           }

@@ -1,10 +1,10 @@
-Fliplet.FormBuilder.field('email', {
-  name: 'Email input',
+Fliplet.FormBuilder.field('telephone', {
+  name: 'Telephone input',
   category: 'Text inputs',
   props: {
     fieldType: {
       type: String,
-      default: 'email'
+      default: 'tel'
     },
     placeholder: {
       type: String

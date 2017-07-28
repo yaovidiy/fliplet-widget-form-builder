@@ -5,7 +5,8 @@ var systemTemplates = [{
       fields: [{
           _type: 'flInput',
           name: 'field-1',
-          label: 'Text input'
+          label: 'Text input',
+          type: 'text'
         },
         {
           _type: 'flButtons',
@@ -22,12 +23,14 @@ var systemTemplates = [{
       fields: [{
           _type: 'flInput',
           name: 'field-1',
-          label: 'Name'
+          label: 'Name',
+          type: 'text'
         },
         {
           _type: 'flEmail',
           name: 'field-2',
-          label: 'Email address'
+          label: 'Email address',
+          type: 'email'
         },
         {
           _type: 'flSelect',
