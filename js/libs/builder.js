@@ -349,8 +349,8 @@ var app = new Vue({
       }
     },
     updateDataSourceColumns: function () {
-      var $vm = this;
       var dataSourceId = this.settings.dataSourceId;
+      var newColumns = _.map(this.fields, 'name');
 
       if (!dataSourceId) {
         return Promise.resolve();
@@ -359,14 +359,14 @@ var app = new Vue({
       return Fliplet.DataSources.getById(dataSourceId).then(function (ds) {
         ds.columns = ds.columns || [];
 
-        var columns = _.uniq(_.map($vm.fields, 'name').concat(ds.columns));
+        var columns = _.uniq(newColumns.concat(ds.columns));
 
         if (_.isEqual(columns.sort(), ds.columns.sort())) {
           return Promise.resolve(); // no need to update
         }
 
         return Fliplet.DataSources.update(dataSourceId, {
-          columns: columns
+          columns: newColumns
         });
       });
     }
