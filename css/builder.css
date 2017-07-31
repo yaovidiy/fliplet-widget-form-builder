@@ -86,6 +86,11 @@ nav > .btn {
   line-height: 24px;
 }
 
+.form-control-static {
+  min-height: 44px;
+  line-height: 30px;
+}
+
 .add-field {
   position: absolute;
   top: 16px;

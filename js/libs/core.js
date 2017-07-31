@@ -149,7 +149,7 @@ Fliplet.FormBuilder = (function() {
         var data = {};
 
         Object.keys($vm.$props).forEach(function(prop) {
-          if (['_fields', '_idx'].indexOf(prop) === -1) {
+          if (prop.indexOf('_') !== 0) {
             data[prop] = $vm[prop];
           }
         });
@@ -176,6 +176,11 @@ Fliplet.FormBuilder = (function() {
       component.props._idx = {
         type: Number,
         default: -1
+      };
+
+      component.props._isEditingName = {
+        type: Boolean,
+        default: false
       };
 
       component.computed._fieldNameError = function () {
