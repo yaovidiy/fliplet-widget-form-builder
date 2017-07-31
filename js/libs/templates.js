@@ -4,13 +4,13 @@ var systemTemplates = [{
       displayName: 'Blank',
       fields: [{
           _type: 'flInput',
-          name: 'text-input',
-          label: 'Text input',
+          name: 'Question 1',
+          label: 'Enter your first question',
           type: 'text'
         },
         {
           _type: 'flButtons',
-          name: 'field-2',
+          name: 'buttons',
           _submit: false
         }
       ]
@@ -22,20 +22,20 @@ var systemTemplates = [{
       displayName: 'Enquiry',
       fields: [{
           _type: 'flInput',
-          name: 'name',
+          name: 'Name',
           label: 'Name',
           type: 'text'
         },
         {
           _type: 'flEmail',
-          name: 'email-address',
+          name: 'Email address',
           label: 'Email address',
           type: 'email'
         },
         {
           _type: 'flSelect',
-          name: 'type-of-enquiry',
-          label: 'Type of Enquiry',
+          name: 'Enquiry type',
+          label: 'What is your enquiry about?',
           options: [{
               id: 'Support'
             },
@@ -46,8 +46,8 @@ var systemTemplates = [{
         },
         {
           _type: 'flTextarea',
-          name: 'message',
-          label: 'Message'
+          name: 'Message',
+          label: 'Please provide a message'
         },
         {
           _type: 'flButtons',
