@@ -4,7 +4,7 @@ var systemTemplates = [{
       displayName: 'Blank',
       fields: [{
           _type: 'flInput',
-          name: 'field-1',
+          name: 'text-input',
           label: 'Text input',
           type: 'text'
         },
@@ -22,19 +22,19 @@ var systemTemplates = [{
       displayName: 'Enquiry',
       fields: [{
           _type: 'flInput',
-          name: 'field-1',
+          name: 'name',
           label: 'Name',
           type: 'text'
         },
         {
           _type: 'flEmail',
-          name: 'field-2',
+          name: 'email-address',
           label: 'Email address',
           type: 'email'
         },
         {
           _type: 'flSelect',
-          name: 'field-3',
+          name: 'type-of-enquiry',
           label: 'Type of Enquiry',
           options: [{
               id: 'Support'
@@ -46,12 +46,12 @@ var systemTemplates = [{
         },
         {
           _type: 'flTextarea',
-          name: 'field-4',
+          name: 'message',
           label: 'Message'
         },
         {
           _type: 'flButtons',
-          name: 'field-5',
+          name: 'buttons',
           _submit: false
         }
       ]
