@@ -47,7 +47,7 @@ var systemTemplates = [{
         {
           _type: 'flTextarea',
           name: 'Message',
-          label: 'Please provide a message'
+          label: 'How can we help you today?'
         },
         {
           _type: 'flButtons',
