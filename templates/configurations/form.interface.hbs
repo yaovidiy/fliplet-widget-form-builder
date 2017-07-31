@@ -6,12 +6,12 @@
           Field ID <i class="text-muted fa fa-question-circle" ref="tooltip" data-toggle="tooltip" data-placement="right" title="If you change this default ID, a new column will be created in the database that saves this form’s entries. Be careful to update any directories that reference this form with the new ID names."></i>
         </label>
       </div>
-      <div class="col-xs-12" v-if="_fieldChange">
+      <div class="col-xs-12" v-if="_isEditingName">
         <input id="field-name" class="form-control" type="text" v-model.trim="name" placeholder="Field ID" />
         <p class="help-block" v-if="_fieldNameError" v-html="_fieldNameError"></p>
       </div>
       <div class="col-xs-12 form-control-static" v-else>
-        <span v-html="name"></span> - <a href="#" v-on:click="_changeFieldName(true)">Change</a>
+        <span v-html="name"></span> - <a href="#" @click="_isEditingName = true">Change</a>
       </div>
     </div>
 
