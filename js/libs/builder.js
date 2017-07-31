@@ -220,6 +220,8 @@ var app = new Vue({
       });
     },
     save: function() {
+      var $vm = this;
+
       if (this.settings.onSubmit.indexOf('templatedEmail') > -1) {
         this.settings.emailTemplate = this.emailTemplate || this.defaultEmailSettings;
       }
@@ -230,7 +232,9 @@ var app = new Vue({
       // Cleanup
       this.settings.fields = _.compact(this.fields);
 
-      return Fliplet.Widget.save(this.settings);
+      return Fliplet.Widget.save(this.settings).then(function onSettingsUpdated() {
+        return $vm.updateDataSourceColumns();
+      });
     },
     createDefaultBodyTemplate: function(fields) {
       // Creates default email template
@@ -343,6 +347,28 @@ var app = new Vue({
         this.defaultEmailSettingsForCompose.subject = 'Form entries from "' + this.settings.name + '" form';
         this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.fields);
       }
+    },
+    updateDataSourceColumns: function () {
+      var dataSourceId = this.settings.dataSourceId;
+      var newColumns = _.map(this.fields, 'name');
+
+      if (!dataSourceId) {
+        return Promise.resolve();
+      }
+
+      return Fliplet.DataSources.getById(dataSourceId).then(function (ds) {
+        ds.columns = ds.columns || [];
+
+        var columns = _.uniq(newColumns.concat(ds.columns));
+
+        if (_.isEqual(columns.sort(), ds.columns.sort())) {
+          return Promise.resolve(); // no need to update
+        }
+
+        return Fliplet.DataSources.update(dataSourceId, {
+          columns: newColumns
+        });
+      });
     }
   },
   watch: {
@@ -386,7 +412,7 @@ var app = new Vue({
       this.settings = generateFormDefaults(settings);
       this.fields = this.settings.fields;
 
-      this.save().then(function() {
+      this.save().then(function onSettingsSaved() {
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
       });
     },
@@ -561,6 +587,10 @@ var app = new Vue({
 
         return;
       }
+
+      // Add progress
+      $('.spinner-holder p').text('Please wait while we save your changes...');
+      $(selector).addClass('is-loading');
 
       // Save and close
       $vm.save().then(function() {

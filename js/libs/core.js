@@ -149,7 +149,9 @@ Fliplet.FormBuilder = (function() {
         var data = {};
 
         Object.keys($vm.$props).forEach(function(prop) {
-          data[prop] = $vm[prop];
+          if (['_fields', '_idx'].indexOf(prop) === -1) {
+            data[prop] = $vm[prop];
+          }
         });
 
         eventHub.$emit('field-settings-changed', data);
