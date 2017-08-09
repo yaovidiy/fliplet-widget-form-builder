@@ -5,11 +5,19 @@
         <div class="sending-form">
           <div class="spinner-holder animated">
             <div class="spinner-overlay">Loading...</div>
-            <p>Submitting data...</p>
+            <p v-html="isSendingMessage"></p>
           </div>
         </div>
       </template>
-      <div v-if="isOffline" class="online-only text-danger">This form can only be submitted when connected to the internet.</div>
+      <template v-if="isLoading">
+        <div class="sending-form">
+          <div class="spinner-holder animated">
+            <div class="spinner-overlay">Loading...</div>
+            <p v-html="isLoadingMessage"></p>
+          </div>
+        </div>
+      </template>
+      <div v-if="isOffline" class="online-only text-danger" v-html="isOfflineMessage"></div>
       <div v-if="hasRequiredFields" class="required-info-label">* Required fields</div>
       <template v-for="field in fields">
         <component :is="field._type" v-bind="field" v-on:_input="onInput" v-on:_reset="reset"></component>

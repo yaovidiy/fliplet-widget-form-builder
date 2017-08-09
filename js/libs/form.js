@@ -56,10 +56,14 @@ Fliplet.Widget.instance('form-builder', function(data) {
       return {
         isSent: false,
         isSending: false,
+        isSendingMessage: '',
+        isLoading: false, // Set to TRUE when in Edit Mode until the data is retrieved
+        isLoadingMessage: 'We are retrieving your data...',
         isConfigured: !!data.templateId,
         fields: getFields(),
         error: null,
-        isOffline: false
+        isOffline: false,
+        isOfflineMessage: ''
       };
     },
     computed: {
@@ -97,6 +101,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         var formData = {};
 
         this.isSending = true;
+        this.isSendingMessage = data.dataStore === 'editDataSource' ? 'Updating data...' : 'Submitting data...';
 
         function appendField(name, value) {
           if (Array.isArray(formData[name])) {
@@ -215,6 +220,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
         Fliplet.Navigator.onOffline(function() {
           $vm.isOffline = true;
+          console.log(data);
+          $vm.isOfflineMessage = data.dataStore === 'editDataSource' ? 'The data can only be updated when connected to the internet.' : 'This form can only be submitted when connected to the internet.';
         });
       }
     }
