@@ -62,7 +62,8 @@ function generateFormDefaults(data) {
     fields: [],
     offline: true,
     redirect: false,
-    onSubmit: ['dataSource'],
+    dataStore: 'dataSource',
+    onSubmit: [],
     saveProgress: true,
     resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
   }, data);
@@ -94,7 +95,9 @@ var app = new Vue({
       redirect: formSettings.redirect,
       toggleTemplatedEmail: formSettings.onSubmit.indexOf('templatedEmail') > -1,
       toggleGenerateEmail: formSettings.onSubmit.indexOf('generateEmail') > -1,
-      showDataSource: formSettings.onSubmit.indexOf('templatedEmail') > -1 || formSettings.onSubmit.indexOf('dataSource') > -1,
+      showDataSource: formSettings.dataStore === 'dataSource' || formSettings.dataStore === 'editDataSource' ?
+        true : false,
+      inEditMode: formSettings.dataStore === 'editDataSource' ? true : false,
       userData: {},
       defaultEmailSettings: {
         subject: '',
@@ -108,7 +111,7 @@ var app = new Vue({
       },
       emailTemplate: undefined,
       generateEmailTemplate: undefined
-    }
+    };
   },
   methods: {
     setupCodeEditor: function() {
@@ -158,7 +161,9 @@ var app = new Vue({
     onFieldClick: function(field) {
       this.activeFieldConfigType = field._type.toString() + 'Config';
       this.activeFieldName = Fliplet.FormBuilder.components()[field._type].name;
-      this.activeFieldIdx = _.findIndex(this.fields, { name: field.name });
+      this.activeFieldIdx = _.findIndex(this.fields, {
+        name: field.name
+      });
       this.activeField = field;
       changeSelectText();
       Fliplet.Studio.emit('widget-save-label-update');
@@ -270,7 +275,7 @@ var app = new Vue({
         window.emailTemplateProvider = null;
         $vm.emailTemplate = result.data;
 
-        if ($vm.settings.onSubmit.indexOf('dataSource') > -1 || $vm.settings.dataSourceId) {
+        if (($vm.settings.dataStore === 'dataSource' || $vm.settings.dataStore === 'editDataSource') || $vm.settings.dataSourceId) {
           var newHook = {
             widgetInstanceId: $vm.settings.id,
             runOn: ['insert', 'update'],
@@ -348,7 +353,7 @@ var app = new Vue({
         this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.fields);
       }
     },
-    updateDataSourceColumns: function () {
+    updateDataSourceColumns: function() {
       var dataSourceId = this.settings.dataSourceId;
       var newColumns = _.map(this.fields, 'name');
 
@@ -356,7 +361,7 @@ var app = new Vue({
         return Promise.resolve();
       }
 
-      return Fliplet.DataSources.getById(dataSourceId).then(function (ds) {
+      return Fliplet.DataSources.getById(dataSourceId).then(function(ds) {
         ds.columns = ds.columns || [];
 
         var columns = _.uniq(newColumns.concat(ds.columns));
@@ -447,15 +452,31 @@ var app = new Vue({
         }
       }
     },
+    'settings.dataStore': function(value) {
+      this.showDataSource = value === 'dataSource' || value === 'editDataSource' ? true : false;
+
+      // IF IN EDIT MODE
+      // SET TO ONLINE ONLY MODE & NEVER RESTORE PROGRESS
+      this.settings.saveProgress = value === 'editDataSource' ? false : this.settings.saveProgress;
+      this.settings.offline = value === 'editDataSource' ? false : this.settings.saveProgress;
+      this.inEditMode = value === 'editDataSource' ? true : false;
+
+      // IF NO DATA SOURCE SELECTION
+      // REMOVE CHECK ON FLIPLET EMAIL OPTION
+      if (!this.showDataSource) {
+        this.settings.onSubmit = this.settings.onSubmit.filter(function(item) {
+          return item !== 'templatedEmail';
+        });
+      }
+    },
     'settings.onSubmit': function(array) {
       var $vm = this;
-      this.showDataSource = array.indexOf('dataSource') > -1;
 
       if (array.indexOf('generateEmail') > -1) {
-        this.toggleGenerateEmail = true
+        this.toggleGenerateEmail = true;
         this.checkGenerateEmailTemplate();
       } else {
-        this.toggleGenerateEmail = false
+        this.toggleGenerateEmail = false;
       }
 
       if (array.indexOf('templatedEmail') > -1) {

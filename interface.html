@@ -88,8 +88,8 @@
                 <label>Restore progress where the user left off</label>
               </div>
               <div>
-                <div class="radio radio-icon">
-                  <input type="radio" id="progress_save" name="progress" v-model="settings.saveProgress" :value="true">
+                <div class="radio radio-icon" v-bind:class="{ disabled: inEditMode }">
+                  <input type="radio" id="progress_save" name="progress" v-model="settings.saveProgress" :value="true" :disabled="inEditMode">
                   <label for="progress_save">
                     <span class="check"><i class="fa fa-circle"></i></span> <strong>Always</strong> - User's progress of the form will be saved until it's submitted
                   </label>
@@ -107,8 +107,8 @@
                 <label>Submit form when the device is...</label>
               </div>
               <div>
-                <div class="radio radio-icon">
-                  <input type="radio" id="online_offline" name="connectivityStatus" v-model="settings.offline" :value="true">
+                <div class="radio radio-icon" v-bind:class="{ disabled: inEditMode }">
+                  <input type="radio" id="online_offline" name="connectivityStatus" v-model="settings.offline" :value="true" :disabled="inEditMode">
                   <label for="online_offline">
                     <span class="check"><i class="fa fa-circle"></i></span> <strong>Online &amp; Offline</strong> - The user can submit the form when connected or disconnect from the internet
                   </label>
@@ -126,22 +126,22 @@
                 <label>When the form is submitted...</label>
               </div>
               <div>
-                <div class="checkbox checkbox-icon">
-                  <input type="checkbox" id="save_datasource" name="whenSubimitted" v-model="settings.onSubmit" value="dataSource">
+                <div class="radio radio-icon">
+                  <input type="radio" id="save_datasource" name="dataStore" v-model="settings.dataStore" value="dataSource">
                   <label for="save_datasource">
-                    <span class="check"><i class="fa fa-check"></i></span> Save the data in a data source
+                    <span class="check"><i class="fa fa-circle"></i></span> Add new entries to a data source
                   </label>
                 </div>
-                <div class="checkbox checkbox-icon">
-                  <input type="checkbox" id="templated_email" name="whenSubimitted" v-model="settings.onSubmit" value="templatedEmail">
-                  <label for="templated_email">
-                    <span class="check"><i class="fa fa-check"></i></span> Automatically send an email via Fliplet <span v-show="toggleTemplatedEmail">[<a href="#" v-on:click="configureEmailTemplate">Configure email template]</a></span>
+                <div class="radio radio-icon">
+                  <input type="radio" id="edit_datasource" name="dataStore" v-model="settings.dataStore" value="editDataSource">
+                  <label for="edit_datasource">
+                    <span class="check"><i class="fa fa-circle"></i></span> Update existing entries in a data source <small>(online only)</small>
                   </label>
                 </div>
-                <div class="checkbox checkbox-icon">
-                  <input type="checkbox" id="generate_email" name="whenSubimitted" v-model="settings.onSubmit" value="generateEmail">
-                  <label for="generate_email">
-                    <span class="check"><i class="fa fa-check"></i></span> Generate an email on the device <span v-show="toggleGenerateEmail">[<a href="#" v-on:click="configureEmailTemplateForCompose">Configure email template]</a></span>
+                <div class="radio radio-icon">
+                  <input type="radio" id="no_datasource" name="dataStore" v-model="settings.dataStore" value="noDataSource">
+                  <label for="no_datasource">
+                    <span class="check"><i class="fa fa-circle"></i></span> Don't store data in any data source
                   </label>
                 </div>
               </div>
@@ -159,6 +159,25 @@
                 </select>
               </label>
               <small>or just <a href="#" v-on:click.prevent="createDataSource">create a new data source</a></small>
+            </div>
+            <div class="form-group">
+              <div class="control-label">
+                <label>When the form is submitted send an email...</label>
+              </div>
+              <div>
+                <div class="checkbox checkbox-icon" v-bind:class="{ disabled: !showDataSource }">
+                  <input type="checkbox" id="templated_email" name="whenSubimitted" v-model="settings.onSubmit" value="templatedEmail" :disabled="!showDataSource">
+                  <label for="templated_email">
+                    <span class="check"><i class="fa fa-check"></i></span> Automatically via Fliplet <span v-show="toggleTemplatedEmail">[<a href="#" v-on:click="configureEmailTemplate">Configure email template]</a></span>
+                  </label>
+                </div>
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="generate_email" name="whenSubimitted" v-model="settings.onSubmit" value="generateEmail">
+                  <label for="generate_email">
+                    <span class="check"><i class="fa fa-check"></i></span> Generated on the device <span v-show="toggleGenerateEmail">[<a href="#" v-on:click="configureEmailTemplateForCompose">Configure email template]</a></span>
+                  </label>
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <div class="control-label">
