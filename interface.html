@@ -78,7 +78,8 @@
 
       <div class="content">
         <section class="col-sm-12" v-show="section === 'settings'">
-          <form class="form-settings">
+          <form class="form-settings" ref="formSettings">
+            <h3>General</h3>
             <div class="form-group">
               <label for="formName" class="control-label">Form name</label>
               <input id="formName" type="text" v-model="settings.name" class="form-control" />
@@ -91,17 +92,18 @@
                 <div class="radio radio-icon" v-bind:class="{ disabled: inEditMode }">
                   <input type="radio" id="progress_save" name="progress" v-model="settings.saveProgress" :value="true" :disabled="inEditMode">
                   <label for="progress_save">
-                    <span class="check"><i class="fa fa-circle"></i></span> <strong>Always</strong> - User's progress of the form will be saved until it's submitted
+                    <span class="check"><i class="fa fa-circle"></i></span> Always <small>- User's progress of the form will be saved until it's submitted</small>
                   </label>
                 </div>
                 <div class="radio radio-icon">
                   <input type="radio" id="progress_dont_save" name="progress" v-model="settings.saveProgress" :value="false">
                   <label for="progress_dont_save">
-                    <span class="check"><i class="fa fa-circle"></i></span> <strong>Never</strong> - User's progress of the form will not be saved
+                    <span class="check"><i class="fa fa-circle"></i></span> Never <small>- User's progress of the form will not be saved</small>
                   </label>
                 </div>
               </div>
             </div>
+            <h3>Form submission</h3>
             <div class="form-group">
               <div class="control-label">
                 <label>Submit form when the device is...</label>
@@ -110,13 +112,13 @@
                 <div class="radio radio-icon" v-bind:class="{ disabled: inEditMode }">
                   <input type="radio" id="online_offline" name="connectivityStatus" v-model="settings.offline" :value="true" :disabled="inEditMode">
                   <label for="online_offline">
-                    <span class="check"><i class="fa fa-circle"></i></span> <strong>Online &amp; Offline</strong> - The user can submit the form when connected or disconnect from the internet
+                    <span class="check"><i class="fa fa-circle"></i></span> Online &amp; Offline <small>- The user can submit the form when connected or disconnect from the internet</small>
                   </label>
                 </div>
                 <div class="radio radio-icon">
                   <input type="radio" id="online_only" name="connectivityStatus" v-model="settings.offline" :value="false">
                   <label for="online_only">
-                    <span class="check"><i class="fa fa-circle"></i></span> <strong>Online only</strong> - The user can only submit the form when connected to the internet
+                    <span class="check"><i class="fa fa-circle"></i></span> Online only <small>- The user can only submit the form when connected to the internet</small>
                   </label>
                 </div>
               </div>
@@ -126,24 +128,26 @@
                 <label>When the form is submitted...</label>
               </div>
               <div>
-                <div class="radio radio-icon">
-                  <input type="radio" id="save_datasource" name="dataStore" v-model="settings.dataStore" value="dataSource">
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="save_datasource" name="dataStore" v-model="settings.dataStore" value="dataSource">
                   <label for="save_datasource">
-                    <span class="check"><i class="fa fa-circle"></i></span> Add new entries to a data source
+                    <span class="check"><i class="fa fa-check"></i></span> Add new submissions to a data source
                   </label>
                 </div>
-                <div class="radio radio-icon">
-                  <input type="radio" id="edit_datasource" name="dataStore" v-model="settings.dataStore" value="editDataSource">
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="edit_datasource" name="dataStore" v-model="settings.dataStore" value="editDataSource">
                   <label for="edit_datasource">
-                    <span class="check"><i class="fa fa-circle"></i></span> Update existing entries in a data source <small>(online only)</small>
+                    <span class="check"><i class="fa fa-check"></i></span> Update existing entries in a data source <i class="text-muted fa fa-question-circle" data-viewport=".form-settings" data-toggle="tooltip" data-placement="top" title="Selecting this option will force your form to only online and not being able to restore user's progress."></i>
                   </label>
                 </div>
-                <div class="radio radio-icon">
-                  <input type="radio" id="no_datasource" name="dataStore" v-model="settings.dataStore" value="noDataSource">
+                <!--
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="no_datasource" name="dataStore" v-model="settings.dataStore" value="noDataSource">
                   <label for="no_datasource">
-                    <span class="check"><i class="fa fa-circle"></i></span> Don't store data in any data source
+                    <span class="check"><i class="fa fa-check"></i></span> Don't store data in any data source <i class="text-muted fa fa-question-circle" data-viewport=".form-settings" data-toggle="tooltip" data-placement="top" title="Selecting this option will disable the ability to send an email automatically via Fliplet when a form is submitted."></i>
                   </label>
                 </div>
+                -->
               </div>
             </div>
             <div class="form-group" v-bind:class="{ active: showDataSource, hidden: !showDataSource }">
@@ -168,7 +172,7 @@
                 <div class="checkbox checkbox-icon" v-bind:class="{ disabled: !showDataSource }">
                   <input type="checkbox" id="templated_email" name="whenSubimitted" v-model="settings.onSubmit" value="templatedEmail" :disabled="!showDataSource">
                   <label for="templated_email">
-                    <span class="check"><i class="fa fa-check"></i></span> Automatically via Fliplet <span v-show="toggleTemplatedEmail">[<a href="#" v-on:click="configureEmailTemplate">Configure email template]</a></span>
+                    <span class="check"><i class="fa fa-check"></i></span> Automatically via Fliplet <i class="text-muted fa fa-question-circle" data-viewport=".form-settings" data-toggle="tooltip" data-placement="top" title="This options requires a data source."></i> <span v-show="toggleTemplatedEmail">[<a href="#" v-on:click="configureEmailTemplate">Configure email template]</a></span>
                   </label>
                 </div>
                 <div class="checkbox checkbox-icon">

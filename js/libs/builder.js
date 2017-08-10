@@ -62,7 +62,7 @@ function generateFormDefaults(data) {
     fields: [],
     offline: true,
     redirect: false,
-    dataStore: 'dataSource',
+    dataStore: ['dataSource'],
     onSubmit: [],
     saveProgress: true,
     resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
@@ -95,9 +95,9 @@ var app = new Vue({
       redirect: formSettings.redirect,
       toggleTemplatedEmail: formSettings.onSubmit.indexOf('templatedEmail') > -1,
       toggleGenerateEmail: formSettings.onSubmit.indexOf('generateEmail') > -1,
-      showDataSource: formSettings.dataStore === 'dataSource' || formSettings.dataStore === 'editDataSource' ?
+      showDataSource: formSettings.onSubmit.indexOf('dataSource') > -1 || formSettings.onSubmit.indexOf('editDataSource') > -1 ?
         true : false,
-      inEditMode: formSettings.dataStore === 'editDataSource' ? true : false,
+      inEditMode: formSettings.onSubmit.indexOf('editDataSource') > -1 ? true : false,
       userData: {},
       defaultEmailSettings: {
         subject: '',
@@ -275,7 +275,7 @@ var app = new Vue({
         window.emailTemplateProvider = null;
         $vm.emailTemplate = result.data;
 
-        if (($vm.settings.dataStore === 'dataSource' || $vm.settings.dataStore === 'editDataSource') || $vm.settings.dataSourceId) {
+        if (($vm.settings.dataStore.indexOf('dataSource') > -1 || $vm.settings.dataStore.indexOf('editDataSource') > -1) || $vm.settings.dataSourceId) {
           var newHook = {
             widgetInstanceId: $vm.settings.id,
             runOn: ['insert', 'update'],
@@ -453,13 +453,13 @@ var app = new Vue({
       }
     },
     'settings.dataStore': function(value) {
-      this.showDataSource = value === 'dataSource' || value === 'editDataSource' ? true : false;
+      this.showDataSource = value.indexOf('dataSource') > -1 || value.indexOf('editDataSource') > -1 ? true : false;
 
       // IF IN EDIT MODE
       // SET TO ONLINE ONLY MODE & NEVER RESTORE PROGRESS
-      this.settings.saveProgress = value === 'editDataSource' ? false : this.settings.saveProgress;
-      this.settings.offline = value === 'editDataSource' ? false : this.settings.saveProgress;
-      this.inEditMode = value === 'editDataSource' ? true : false;
+      this.settings.saveProgress = value.indexOf('editDataSource') > -1 ? false : this.settings.saveProgress;
+      this.settings.offline = value.indexOf('editDataSource') > -1 ? false : this.settings.saveProgress;
+      this.inEditMode = value.indexOf('editDataSource') > -1 ? true : false;
 
       // IF NO DATA SOURCE SELECTION
       // REMOVE CHECK ON FLIPLET EMAIL OPTION
@@ -545,6 +545,11 @@ var app = new Vue({
         text: 'Next'
       });
       Fliplet.Widget.toggleSaveButton(false);
+    }
+
+    // Init tooltip
+    if ($vm.$refs.formSettings) {
+      $($vm.$refs.formSettings).find('[data-toggle="tooltip"]').tooltip();
     }
 
     var linkProvider = Fliplet.Widget.open('com.fliplet.link', {
