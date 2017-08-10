@@ -56,14 +56,16 @@ Fliplet.Widget.instance('form-builder', function(data) {
       return {
         isSent: false,
         isSending: false,
-        isSendingMessage: '',
+        isSendingMessage: 'Saving data...',
         isLoading: false, // Set to TRUE when in Edit Mode until the data is retrieved
-        isLoadingMessage: 'We are retrieving your data...',
+        isLoadingMessage: 'Retrieving data...',
         isConfigured: !!data.templateId,
         fields: getFields(),
         error: null,
         isOffline: false,
-        isOfflineMessage: ''
+        isOfflineMessage: '',
+        isEditMode: data.dataStore.indexOf('editDataSource') > -1,
+        blockScreen: false
       };
     },
     computed: {
@@ -101,7 +103,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
         var formData = {};
 
         this.isSending = true;
-        this.isSendingMessage = data.dataStore === 'editDataSource' ? 'Updating data...' : 'Submitting data...';
 
         function appendField(name, value) {
           if (Array.isArray(formData[name])) {
@@ -216,12 +217,16 @@ Fliplet.Widget.instance('form-builder', function(data) {
       if (!data.offline) {
         Fliplet.Navigator.onOnline(function() {
           $vm.isOffline = false;
+          $vm.blockScreen = false;
         });
 
         Fliplet.Navigator.onOffline(function() {
           $vm.isOffline = true;
-          console.log(data);
-          $vm.isOfflineMessage = data.dataStore === 'editDataSource' ? 'The data can only be updated when connected to the internet.' : 'This form can only be submitted when connected to the internet.';
+          $vm.isOfflineMessage = data.dataStore.indexOf('editDataSource') > -1 ? 'The data can only be updated when connected to the internet.' : 'This form can only be submitted when connected to the internet.';
+
+          if ($vm.isEditMode && $vm.isLoading && $vm.isOffline) {
+            $vm.blockScreen = true;
+          }
         });
       }
     }
