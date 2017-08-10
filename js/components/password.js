@@ -8,6 +8,10 @@ Fliplet.FormBuilder.field('password', {
     },
     placeholder: {
       type: String
+    },
+    passEncrypt: {
+      type: Boolean,
+      default: false
     }
   }
 });
