@@ -633,14 +633,14 @@ var app = new Vue({
     }
 
     var savedLinkData = $vm.settings && $vm.settings.linkAction;
-    var linkData = $.extend(true, savedLinkData, {
+    var linkData = $.extend(true, {
       action: 'screen',
       page: 'none',
       transition: 'slide.left',
       options: {
         hideAction: true
       }
-    });
+    }, savedLinkData);
 
     var linkProvider = Fliplet.Widget.open('com.fliplet.link', {
       selector: '#linkAction',
