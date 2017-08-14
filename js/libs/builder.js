@@ -632,9 +632,19 @@ var app = new Vue({
       $($vm.$refs.formSettings).find('[data-toggle="tooltip"]').tooltip();
     }
 
+    var savedLinkData = $vm.settings && $vm.settings.linkAction;
+    var linkData = $.extend(true, savedLinkData, {
+      action: 'screen',
+      page: 'none',
+      transition: 'slide.left',
+      options: {
+        hideAction: true
+      }
+    });
+
     var linkProvider = Fliplet.Widget.open('com.fliplet.link', {
       selector: '#linkAction',
-      data: $vm.settings && $vm.settings.linkAction
+      data: linkData
     });
 
     linkProvider.then(function onLinkAction(result) {
@@ -708,6 +718,15 @@ var app = new Vue({
         Fliplet.Studio.emit('reload-page-preview');
       });
     }
+
+    function migrateData() {
+      if ($vm.settings && $vm.settings.emailTemplate) {
+        $vm.settings.emailTemplateAdd = $vm.settings.emailTemplate;
+        delete $vm.settings.emailTemplate;
+      }
+    }
+
+    migrateData();
 
     Fliplet.API.request('v1/user').then(function(response) {
       $vm.userData = response.user;
