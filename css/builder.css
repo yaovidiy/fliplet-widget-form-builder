@@ -612,3 +612,11 @@ form hr {
   width: 100%;
   border: 0;
 }
+
+.addExtraOptions {
+  margin-left: 25px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #e6eeef;
+  border-radius: 6px;
+}

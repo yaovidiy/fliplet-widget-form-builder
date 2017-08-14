@@ -85,72 +85,6 @@
               <input id="formName" type="text" v-model="settings.name" class="form-control" />
             </div>
             <div class="form-group">
-              <div class="control-label">
-                <label>Restore progress where the user left off</label>
-              </div>
-              <div>
-                <div class="radio radio-icon" v-bind:class="{ disabled: inEditMode }">
-                  <input type="radio" id="progress_save" name="progress" v-model="settings.saveProgress" :value="true" :disabled="inEditMode">
-                  <label for="progress_save">
-                    <span class="check"><i class="fa fa-circle"></i></span> Always <small>- User's progress of the form will be saved until it's submitted</small>
-                  </label>
-                </div>
-                <div class="radio radio-icon">
-                  <input type="radio" id="progress_dont_save" name="progress" v-model="settings.saveProgress" :value="false">
-                  <label for="progress_dont_save">
-                    <span class="check"><i class="fa fa-circle"></i></span> Never <small>- User's progress of the form will not be saved</small>
-                  </label>
-                </div>
-              </div>
-            </div>
-            <h3>Form submission</h3>
-            <div class="form-group">
-              <div class="control-label">
-                <label>Submit form when the device is...</label>
-              </div>
-              <div>
-                <div class="radio radio-icon" v-bind:class="{ disabled: inEditMode }">
-                  <input type="radio" id="online_offline" name="connectivityStatus" v-model="settings.offline" :value="true" :disabled="inEditMode">
-                  <label for="online_offline">
-                    <span class="check"><i class="fa fa-circle"></i></span> Online &amp; Offline <small>- The user can submit the form when connected or disconnect from the internet</small>
-                  </label>
-                </div>
-                <div class="radio radio-icon">
-                  <input type="radio" id="online_only" name="connectivityStatus" v-model="settings.offline" :value="false">
-                  <label for="online_only">
-                    <span class="check"><i class="fa fa-circle"></i></span> Online only <small>- The user can only submit the form when connected to the internet</small>
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="control-label">
-                <label>When the form is submitted...</label>
-              </div>
-              <div>
-                <div class="checkbox checkbox-icon">
-                  <input type="checkbox" id="save_datasource" name="dataStore" v-model="settings.dataStore" value="dataSource">
-                  <label for="save_datasource">
-                    <span class="check"><i class="fa fa-check"></i></span> Add new submissions to a data source
-                  </label>
-                </div>
-                <div class="checkbox checkbox-icon">
-                  <input type="checkbox" id="edit_datasource" name="dataStore" v-model="settings.dataStore" value="editDataSource">
-                  <label for="edit_datasource">
-                    <span class="check"><i class="fa fa-check"></i></span> Update existing entries in a data source <i class="text-muted fa fa-question-circle" data-viewport=".form-settings" data-toggle="tooltip" data-placement="top" title="Selecting this option will force your form to only online and not being able to restore user's progress."></i>
-                  </label>
-                </div>
-                <!--
-                <div class="checkbox checkbox-icon">
-                  <input type="checkbox" id="no_datasource" name="dataStore" v-model="settings.dataStore" value="noDataSource">
-                  <label for="no_datasource">
-                    <span class="check"><i class="fa fa-check"></i></span> Don't store data in any data source <i class="text-muted fa fa-question-circle" data-viewport=".form-settings" data-toggle="tooltip" data-placement="top" title="Selecting this option will disable the ability to send an email automatically via Fliplet when a form is submitted."></i>
-                  </label>
-                </div>
-                -->
-              </div>
-            </div>
-            <div class="form-group" v-bind:class="{ active: showDataSource, hidden: !showDataSource }">
               <label class="control-label">Select a data source to save the form submissions</label>
               <label for="select-datasource" class="select-proxy-display">
                 <span class="icon fa fa-chevron-down"></span>
@@ -164,21 +98,107 @@
               </label>
               <small>or just <a href="#" v-on:click.prevent="createDataSource">create a new data source</a></small>
             </div>
+
+            <h3>Submission</h3>
             <div class="form-group">
               <div class="control-label">
-                <label>When the form is submitted send an email...</label>
+                <label>When the form is submitted...</label>
               </div>
               <div>
-                <div class="checkbox checkbox-icon" v-bind:class="{ disabled: !showDataSource }">
-                  <input type="checkbox" id="templated_email" name="whenSubimitted" v-model="settings.onSubmit" value="templatedEmail" :disabled="!showDataSource">
-                  <label for="templated_email">
-                    <span class="check"><i class="fa fa-check"></i></span> Automatically via Fliplet <i class="text-muted fa fa-question-circle" data-viewport=".form-settings" data-toggle="tooltip" data-placement="top" title="This options requires a data source."></i> <span v-show="toggleTemplatedEmail">[<a href="#" v-on:click="configureEmailTemplate">Configure email template]</a></span>
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="save_datasource" name="dataStore" v-model="settings.dataStore" value="dataSource">
+                  <label for="save_datasource">
+                    <span class="check"><i class="fa fa-check"></i></span> Add new submissions to a data source
                   </label>
                 </div>
+
+                <div class="addExtraOptions" v-bind:class="{ 'active': showExtraAdd, 'hidden': !showExtraAdd }">
+                  <div class="form-group">
+                    <div class="control-label">
+                      <label>Submit form when the device is...</label>
+                    </div>
+                    <div>
+                      <div class="radio radio-icon">
+                        <input type="radio" id="online_offline" name="connectivityStatus" v-model="settings.offline" :value="true">
+                        <label for="online_offline">
+                          <span class="check"><i class="fa fa-circle"></i></span> Online &amp; Offline <small>- The user can submit the form when connected or disconnect from the internet</small>
+                        </label>
+                      </div>
+                      <div class="radio radio-icon">
+                        <input type="radio" id="online_only" name="connectivityStatus" v-model="settings.offline" :value="false">
+                        <label for="online_only">
+                          <span class="check"><i class="fa fa-circle"></i></span> Online only <small>- The user can only submit the form when connected to the internet</small>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="control-label">
+                      <label>Restore progress where the user left off</label>
+                    </div>
+                    <div>
+                      <div class="radio radio-icon">
+                        <input type="radio" id="progress_save" name="progress" v-model="settings.saveProgress" :value="true">
+                        <label for="progress_save">
+                          <span class="check"><i class="fa fa-circle"></i></span> Always <small>- User's progress of the form will be saved until it's submitted</small>
+                        </label>
+                      </div>
+                      <div class="radio radio-icon">
+                        <input type="radio" id="progress_dont_save" name="progress" v-model="settings.saveProgress" :value="false">
+                        <label for="progress_dont_save">
+                          <span class="check"><i class="fa fa-circle"></i></span> Never <small>- User's progress of the form will not be saved</small>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="control-label">
+                      <label>When the form is submitted send an email automatically via Fliplet</label>
+                    </div>
+                    <div>
+                      <div class="checkbox checkbox-icon">
+                        <input type="checkbox" id="templated_email_add" name="whenSubimitted" v-model="settings.onSubmit" value="templatedEmailAdd">
+                        <label for="templated_email_add">
+                          <span class="check"><i class="fa fa-check"></i></span> Yes, please <span v-show="toggleTemplatedEmailAdd">[<a href="#" v-on:click="configureEmailTemplateAdd">Configure email template]</a></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="edit_datasource" name="dataStore" v-model="settings.dataStore" value="editDataSource">
+                  <label for="edit_datasource">
+                    <span class="check"><i class="fa fa-check"></i></span> Update existing entries in a data source
+                    <p class="help-block"><small>Selecting this option will force your form to be submitted only when online, and the form will always restore data from the data source.</small></p>
+                  </label>
+                </div>
+                <div class="addExtraOptions" v-bind:class="{ 'active': showExtraEdit, 'hidden': !showExtraEdit }">
+                  <div class="form-group">
+                    <div class="control-label">
+                      <label>When the entry is updated send an email automatically via Fliplet</label>
+                    </div>
+                    <div>
+                      <div class="checkbox checkbox-icon">
+                        <input type="checkbox" id="templated_email_edit" name="whenSubimitted" v-model="settings.onSubmit" value="templatedEmailEdit">
+                        <label for="templated_email_edit">
+                          <span class="check"><i class="fa fa-check"></i></span> Yes, please <span v-show="toggleTemplatedEmailEdit">[<a href="#" v-on:click="configureEmailTemplateEdit">Configure email template]</a></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="control-label">
+                <label>When the form is submitted do you want to generate an email on the device?</label>
+              </div>
+              <div>
                 <div class="checkbox checkbox-icon">
                   <input type="checkbox" id="generate_email" name="whenSubimitted" v-model="settings.onSubmit" value="generateEmail">
                   <label for="generate_email">
-                    <span class="check"><i class="fa fa-check"></i></span> Generated on the device <span v-show="toggleGenerateEmail">[<a href="#" v-on:click="configureEmailTemplateForCompose">Configure email template]</a></span>
+                    <span class="check"><i class="fa fa-check"></i></span> Yes, please! <span v-show="toggleGenerateEmail">[<a href="#" v-on:click="configureEmailTemplateForCompose">Configure email template]</a></span>
                   </label>
                 </div>
               </div>

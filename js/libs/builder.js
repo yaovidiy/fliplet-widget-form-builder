@@ -93,11 +93,11 @@ var app = new Vue({
       permissionToChange: false,
       newTemplate: '',
       redirect: formSettings.redirect,
-      toggleTemplatedEmail: formSettings.onSubmit.indexOf('templatedEmail') > -1,
+      toggleTemplatedEmailAdd: formSettings.onSubmit.indexOf('templatedEmailAdd') > -1,
+      toggleTemplatedEmailEdit: formSettings.onSubmit.indexOf('templatedEmailEdit') > -1,
       toggleGenerateEmail: formSettings.onSubmit.indexOf('generateEmail') > -1,
-      showDataSource: formSettings.onSubmit.indexOf('dataSource') > -1 || formSettings.onSubmit.indexOf('editDataSource') > -1 ?
-        true : false,
-      inEditMode: formSettings.onSubmit.indexOf('editDataSource') > -1 ? true : false,
+      showExtraAdd: formSettings.dataStore.indexOf('dataSource') > -1,
+      showExtraEdit: formSettings.dataStore.indexOf('editDataSource') > -1,
       userData: {},
       defaultEmailSettings: {
         subject: '',
@@ -109,7 +109,8 @@ var app = new Vue({
         html: '',
         to: []
       },
-      emailTemplate: undefined,
+      emailTemplateAdd: undefined,
+      emailTemplateEdit: undefined,
       generateEmailTemplate: undefined
     };
   },
@@ -227,8 +228,11 @@ var app = new Vue({
     save: function() {
       var $vm = this;
 
-      if (this.settings.onSubmit.indexOf('templatedEmail') > -1) {
-        this.settings.emailTemplate = this.emailTemplate || this.defaultEmailSettings;
+      if (this.settings.onSubmit.indexOf('templatedEmailAdd') > -1) {
+        this.settings.emailTemplateAdd = this.emailTemplateAdd || this.defaultEmailSettings;
+      }
+      if (this.settings.onSubmit.indexOf('templatedEmailEdit') > -1) {
+        this.settings.emailTemplateEdit = this.emailTemplateEdit || this.defaultEmailSettings;
       }
       if (this.settings.onSubmit.indexOf('generateEmail') > -1) {
         this.settings.generateEmailTemplate = this.generateEmailTemplate || this.defaultEmailSettingsForCompose;
@@ -255,9 +259,9 @@ var app = new Vue({
 
       return defaultEmailTemplate;
     },
-    configureEmailTemplate: function() {
+    configureEmailTemplateAdd: function() {
       var $vm = this;
-      var emailProviderData = ($vm.settings && $vm.settings.emailTemplate) || $vm.defaultEmailSettings;
+      var emailProviderData = ($vm.settings && $vm.settings.emailTemplateAdd) || $vm.defaultEmailSettings;
 
       emailProviderData.options = {
         usage: {
@@ -267,20 +271,20 @@ var app = new Vue({
         }
       };
 
-      window.emailTemplateProvider = Fliplet.Widget.open('com.fliplet.email-provider', {
+      window.emailTemplateAddProvider = Fliplet.Widget.open('com.fliplet.email-provider', {
         data: emailProviderData
       });
 
-      window.emailTemplateProvider.then(function onForwardEmailProvider(result) {
-        window.emailTemplateProvider = null;
-        $vm.emailTemplate = result.data;
+      window.emailTemplateAddProvider.then(function onForwardEmailProvider(result) {
+        window.emailTemplateAddProvider = null;
+        $vm.emailTemplateAdd = result.data;
 
-        if (($vm.settings.dataStore.indexOf('dataSource') > -1 || $vm.settings.dataStore.indexOf('editDataSource') > -1) || $vm.settings.dataSourceId) {
+        if ($vm.settings.dataStore.indexOf('dataSource') > -1 || $vm.settings.dataSourceId) {
           var newHook = {
             widgetInstanceId: $vm.settings.id,
-            runOn: ['insert', 'update'],
+            runOn: ['insert'],
             type: 'email',
-            payload: $vm.settings.emailTemplate
+            payload: $vm.settings.emailTemplateAdd
           };
 
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
@@ -290,7 +294,68 @@ var app = new Vue({
                 return o.widgetInstanceId == $vm.settings.id;
               });
 
-              currentHook.payload = $vm.settings.emailTemplate;
+              currentHook.payload = $vm.settings.emailTemplateAdd;
+
+              var index = _.findIndex(dataSource.hooks, function(o) {
+                return o.widgetInstanceId == $vm.settings.id;
+              });
+              dataSource.hooks.splice(index, 1, currentHook);
+
+              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+                hooks: dataSource.hooks
+              });
+            } else {
+              // Add new hook
+              dataSource.hooks.push(newHook);
+              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+                hooks: dataSource.hooks
+              });
+            }
+          });
+        }
+
+        $vm.save().then(function() {
+          Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+        });
+        Fliplet.Widget.autosize();
+      });
+    },
+    configureEmailTemplateEdit: function() {
+      var $vm = this;
+      var emailProviderData = ($vm.settings && $vm.settings.emailTemplateEdit) || $vm.defaultEmailSettings;
+
+      emailProviderData.options = {
+        usage: {
+          'field-x': 'Insert the value entered in the form field.<br><i>To see the ID of each form field, click to edit the field and the ID can be seen at the top right corner.</i>',
+          appName: 'Insert your app name',
+          organisationName: 'Insert your organisation name'
+        }
+      };
+
+      window.emailTemplateEditProvider = Fliplet.Widget.open('com.fliplet.email-provider', {
+        data: emailProviderData
+      });
+
+      window.emailTemplateEditProvider.then(function onForwardEmailProvider(result) {
+        window.emailTemplateEditProvider = null;
+        $vm.emailTemplateEdit = result.data;
+
+        if ($vm.settings.dataStore.indexOf('editDataSource') > -1 || $vm.settings.dataSourceId) {
+          var newHook = {
+            widgetInstanceId: $vm.settings.id,
+            runOn: ['update'],
+            type: 'email',
+            payload: $vm.settings.emailTemplateEdit
+          };
+
+          Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
+            if (dataSource.hooks.length) {
+              // Update existing hook
+              var currentHook = _.find(dataSource.hooks, function(o) {
+                return o.widgetInstanceId == $vm.settings.id;
+              });
+
+              currentHook.payload = $vm.settings.emailTemplateEdit;
 
               var index = _.findIndex(dataSource.hooks, function(o) {
                 return o.widgetInstanceId == $vm.settings.id;
@@ -342,7 +407,12 @@ var app = new Vue({
       });
     },
     checkEmailTemplate: function() {
-      if (!this.settings.emailTemplate) {
+      if (!this.settings.emailTemplateAdd) {
+        this.defaultEmailSettings.subject = 'Form entries from "' + this.settings.name + '" form';
+        this.defaultEmailSettings.html = this.createDefaultBodyTemplate(this.fields);
+      }
+
+      if (!this.settings.emailTemplateEdit) {
         this.defaultEmailSettings.subject = 'Form entries from "' + this.settings.name + '" form';
         this.defaultEmailSettings.html = this.createDefaultBodyTemplate(this.fields);
       }
@@ -453,21 +523,8 @@ var app = new Vue({
       }
     },
     'settings.dataStore': function(value) {
-      this.showDataSource = value.indexOf('dataSource') > -1 || value.indexOf('editDataSource') > -1 ? true : false;
-
-      // IF IN EDIT MODE
-      // SET TO ONLINE ONLY MODE & NEVER RESTORE PROGRESS
-      this.settings.saveProgress = value.indexOf('editDataSource') > -1 ? false : this.settings.saveProgress;
-      this.settings.offline = value.indexOf('editDataSource') > -1 ? false : this.settings.saveProgress;
-      this.inEditMode = value.indexOf('editDataSource') > -1 ? true : false;
-
-      // IF NO DATA SOURCE SELECTION
-      // REMOVE CHECK ON FLIPLET EMAIL OPTION
-      if (!this.showDataSource) {
-        this.settings.onSubmit = this.settings.onSubmit.filter(function(item) {
-          return item !== 'templatedEmail';
-        });
-      }
+      this.showExtraAdd = value.indexOf('dataSource') > -1;
+      this.showExtraEdit = value.indexOf('editDataSource') > -1;
     },
     'settings.onSubmit': function(array) {
       var $vm = this;
@@ -479,17 +536,39 @@ var app = new Vue({
         this.toggleGenerateEmail = false;
       }
 
-      if (array.indexOf('templatedEmail') > -1) {
-        this.toggleTemplatedEmail = true;
+      if (array.indexOf('templatedEmailAdd') > -1) {
+        this.toggleTemplatedEmailAdd = true;
         this.checkEmailTemplate();
       } else {
-        this.toggleTemplatedEmail = false;
+        this.toggleTemplatedEmailAdd = false;
         // Remove hook
         if ($vm.settings.dataSourceId && $vm.settings.dataSourceId !== '') {
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
             if (dataSource.hooks.length) {
               var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id
+                return o.widgetInstanceId == $vm.settings.id;
+              });
+              dataSource.hooks.splice(index, 1);
+
+              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+                hooks: dataSource.hooks
+              });
+            }
+          });
+        }
+      }
+
+      if (array.indexOf('templatedEmailEdit') > -1) {
+        this.toggleTemplatedEmailEdit = true;
+        this.checkEmailTemplate();
+      } else {
+        this.toggleTemplatedEmailEdit = false;
+        // Remove hook
+        if ($vm.settings.dataSourceId && $vm.settings.dataSourceId !== '') {
+          Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
+            if (dataSource.hooks.length) {
+              var index = _.findIndex(dataSource.hooks, function(o) {
+                return o.widgetInstanceId == $vm.settings.id;
               });
               dataSource.hooks.splice(index, 1);
 
@@ -535,7 +614,8 @@ var app = new Vue({
     Fliplet.FormBuilder.off('field-settings-changed', this.onFieldSettingChanged);
   },
   mounted: function() {
-    window.emailTemplateProvider = null;
+    window.emailTemplateAddProvider = null;
+    window.emailTemplateEditProvider = null;
     window.generateEmailProvider = null;
     var $vm = this;
     $vm.settings.name = $vm.settings.name || 'Untitled form';
@@ -567,8 +647,12 @@ var app = new Vue({
     });
 
     Fliplet.Widget.onSaveRequest(function() {
-      if (window.emailTemplateProvider) {
-        return window.emailTemplateProvider.forwardSaveRequest();
+      if (window.emailTemplateAddProvider) {
+        return window.emailTemplateAddProvider.forwardSaveRequest();
+      }
+
+      if (window.emailTemplateEditProvider) {
+        return window.emailTemplateEditProvider.forwardSaveRequest();
       }
 
       if (window.generateEmailProvider) {
