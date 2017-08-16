@@ -112,7 +112,8 @@ var app = new Vue({
   },
   methods: {
     setupCodeEditor: function() {
-      this.resultEditor = CodeMirror.fromTextArea(this.$refs.resulthtml, {
+      const $vm = this;
+      $vm.resultEditor = CodeMirror.fromTextArea($vm.$refs.resulthtml, {
         mode: 'htmlmixed',
         lineNumbers: true,
         autoRefresh: true,
@@ -120,8 +121,8 @@ var app = new Vue({
         viewportMargin: Infinity
       });
 
-      this.resultEditor.on('change', function() {
-        this.settings.resultHtml = this.resultEditor.getValue();
+      $vm.resultEditor.on('change', function() {
+        $vm.settings.resultHtml = $vm.resultEditor.getValue();
       });
     },
     onSort: function(event) {
@@ -158,7 +159,9 @@ var app = new Vue({
     onFieldClick: function(field) {
       this.activeFieldConfigType = field._type.toString() + 'Config';
       this.activeFieldName = Fliplet.FormBuilder.components()[field._type].name;
-      this.activeFieldIdx = _.findIndex(this.fields, { name: field.name });
+      this.activeFieldIdx = _.findIndex(this.fields, {
+        name: field.name
+      });
       this.activeField = field;
       changeSelectText();
       Fliplet.Studio.emit('widget-save-label-update');
@@ -348,7 +351,7 @@ var app = new Vue({
         this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.fields);
       }
     },
-    updateDataSourceColumns: function () {
+    updateDataSourceColumns: function() {
       var dataSourceId = this.settings.dataSourceId;
       var newColumns = _.map(this.fields, 'name');
 
@@ -356,7 +359,7 @@ var app = new Vue({
         return Promise.resolve();
       }
 
-      return Fliplet.DataSources.getById(dataSourceId).then(function (ds) {
+      return Fliplet.DataSources.getById(dataSourceId).then(function(ds) {
         ds.columns = ds.columns || [];
 
         var columns = _.uniq(newColumns.concat(ds.columns));
