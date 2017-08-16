@@ -34,7 +34,7 @@ Fliplet.FormBuilder.field('password', {
       this.checkPasswordConfirmation();
     },
     checkPasswordConfirmation: function () {
-      this.hasConfirmationError = confirm && (this.value || this.valueConfirmation) && this.valueConfirmation !== this.value;
+      this.hasConfirmationError = this.confirm && (this.value || this.valueConfirmation) && this.valueConfirmation !== this.value;
     }
   }
 });
