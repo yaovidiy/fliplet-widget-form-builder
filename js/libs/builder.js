@@ -116,7 +116,8 @@ var app = new Vue({
   },
   methods: {
     setupCodeEditor: function() {
-      this.resultEditor = CodeMirror.fromTextArea(this.$refs.resulthtml, {
+      const $vm = this;
+      $vm.resultEditor = CodeMirror.fromTextArea($vm.$refs.resulthtml, {
         mode: 'htmlmixed',
         lineNumbers: true,
         autoRefresh: true,
@@ -124,8 +125,8 @@ var app = new Vue({
         viewportMargin: Infinity
       });
 
-      this.resultEditor.on('change', function() {
-        this.settings.resultHtml = this.resultEditor.getValue();
+      $vm.resultEditor.on('change', function() {
+        $vm.settings.resultHtml = $vm.resultEditor.getValue();
       });
     },
     onSort: function(event) {
