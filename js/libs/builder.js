@@ -632,8 +632,8 @@ var app = new Vue({
       });
     }
 
-    Fliplet.API.request('v1/user').then(function(response) {
-      $vm.userData = response.user;
+    Fliplet.User.fetch().then(function(user) {
+      $vm.userData = user;
     });
   }
 });

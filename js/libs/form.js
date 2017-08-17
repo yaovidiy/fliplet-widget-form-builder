@@ -59,6 +59,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         isConfigured: !!data.templateId,
         fields: getFields(),
         error: null,
+        errors: {},
         isOffline: false
       };
     },
@@ -79,6 +80,17 @@ Fliplet.Widget.instance('form-builder', function(data) {
         });
 
         Fliplet.FormBuilder.emit('reset');
+      },
+      onError: function (fieldName, error) {
+        if (!error) {
+          if (this.errors[fieldName]) {
+            delete this.errors[fieldName];
+          }
+
+          return;
+        }
+
+        this.errors[fieldName] = error;
       },
       onInput: function(fieldName, value) {
         this.fields.some(function(field) {
@@ -106,6 +118,18 @@ Fliplet.Widget.instance('form-builder', function(data) {
           } else {
             formData[name] = value;
           }
+        }
+
+        var errorFields = Object.keys(this.errors);
+        var fieldErrors = [];
+        if (errorFields) {
+          errorFields.forEach(function (fieldName) {
+            fieldErrors.push(errorFields[fieldName]);
+          });
+
+          $vm.error = fieldErrors.join('. ');
+          $vm.isSending = false;
+          return;
         }
 
         this.fields.forEach(function(field) {

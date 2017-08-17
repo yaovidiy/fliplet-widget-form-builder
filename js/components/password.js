@@ -1,3 +1,5 @@
+var confirmationErrorMessage = 'The confirmation password does not match';
+
 Fliplet.FormBuilder.field('password', {
   name: 'Password input',
   category: 'Text inputs',
@@ -44,7 +46,11 @@ Fliplet.FormBuilder.field('password', {
     checkPasswordConfirmation: function () {
       this.hasConfirmationError = this.confirm && (this.value || this.valueConfirmation) && this.valueConfirmation !== this.value;
 
-      this.$refs.confirmPassword.setCustomValidity(this.hasConfirmationError ? 'The password does not match' : '');
+      this.$emit('_error', this.name, confirmationErrorMessage);
+
+      if (this.$refs.confirmPassword) {
+        this.$refs.confirmPassword.setCustomValidity(this.hasConfirmationError ? confirmationErrorMessage : '');
+      }
     }
   }
 });
