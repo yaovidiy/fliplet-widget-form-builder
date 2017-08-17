@@ -122,7 +122,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
         var errorFields = Object.keys(this.errors);
         var fieldErrors = [];
-        if (errorFields) {
+        if (errorFields.length) {
           errorFields.forEach(function (fieldName) {
             fieldErrors.push(errorFields[fieldName]);
           });

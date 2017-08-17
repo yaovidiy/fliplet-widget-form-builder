@@ -46,7 +46,9 @@ Fliplet.FormBuilder.field('password', {
     checkPasswordConfirmation: function () {
       this.hasConfirmationError = this.confirm && (this.value || this.valueConfirmation) && this.valueConfirmation !== this.value;
 
-      this.$emit('_error', this.name, confirmationErrorMessage);
+      console.log('error', this.hasConfirmationError)
+
+      this.$emit('_error', this.name, this.hasConfirmationError ? confirmationErrorMessage : null);
 
       if (this.$refs.confirmPassword) {
         this.$refs.confirmPassword.setCustomValidity(this.hasConfirmationError ? confirmationErrorMessage : '');
