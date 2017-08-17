@@ -196,7 +196,9 @@ Fliplet.Widget.instance('form-builder', function(data) {
         var progress = {};
 
         $vm.fields.forEach(function(field) {
-          progress[field.name] = field.value;
+          if (field.saveProgress !== false) {
+            progress[field.name] = field.value;
+          }
         });
 
         localStorage.setItem(progressKey, JSON.stringify(progress));

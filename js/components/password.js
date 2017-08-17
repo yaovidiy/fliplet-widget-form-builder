@@ -23,6 +23,10 @@ Fliplet.FormBuilder.field('password', {
     hasConfirmationError: {
       type: Boolean,
       default: false
+    },
+    saveProgress: {
+      type: Boolean,
+      default: false
     }
   },
   created: function () {
