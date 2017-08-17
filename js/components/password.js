@@ -27,6 +27,10 @@ Fliplet.FormBuilder.field('password', {
     saveProgress: {
       type: Boolean,
       default: false
+    },
+    submitWhenFalsy: {
+      type: Boolean,
+      default: false
     }
   },
   created: function () {
@@ -39,6 +43,8 @@ Fliplet.FormBuilder.field('password', {
     },
     checkPasswordConfirmation: function () {
       this.hasConfirmationError = this.confirm && (this.value || this.valueConfirmation) && this.valueConfirmation !== this.value;
+
+      this.$refs.confirmPassword.setCustomValidity(this.hasConfirmationError ? 'The password does not match' : '');
     }
   }
 });

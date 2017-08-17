@@ -116,6 +116,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
             return;
           }
 
+          if (field.submitWhenFalsy === false && !value) {
+            return;
+          }
+
           if (isFile(value)) {
             // File input
             for (var i = 0; i < value.length; i++) {
