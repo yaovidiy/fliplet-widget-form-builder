@@ -60,12 +60,14 @@ var systemTemplates = [{
 ];
 
 Fliplet.FormBuilder.templates = function() {
-  var operation = Fliplet.Env.get('development') ?
+  var organizationId = Fliplet.Env.get('organizationId');
+
+  var operation = Fliplet.Env.get('development') || !organizationId ?
     Promise.resolve([]) :
     Fliplet.API.request({
       url: [
         'v1/widget-instances',
-        '?organizationId=' + Fliplet.Env.get('organizationId'),
+        '?organizationId=' + organizationId,
         '&package=com.fliplet.form-builder',
         '&where=' + encodeURIComponent(JSON.stringify({
           $contains: {
