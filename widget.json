@@ -40,6 +40,7 @@
       "js/components/paragraph.js",
       "js/components/buttons.js",
       "js/components/horizontalRule.js",
+      "js/components/starRating.js",
 
       "js/configurations/input.js",
       "js/configurations/email.js",
@@ -57,6 +58,7 @@
       "js/configurations/paragraph.js",
       "js/configurations/buttons.js",
       "js/configurations/horizontalRule.js",
+      "js/configurations/starRating.js",
 
       "js/libs/builder.js",
       "css/builder.css"
@@ -92,6 +94,7 @@
       "js/components/paragraph.js",
       "js/components/buttons.js",
       "js/components/horizontalRule.js",
+      "js/components/starRating.js",
 
       "js/libs/form.js",
       "css/form.css"

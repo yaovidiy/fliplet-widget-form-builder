@@ -18,7 +18,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebar
     var stack1, helper;
 
   return "<div class=\"form-group row clearfix\">\n  <div class=\"col-xs-12\">\n    <label v-if=\"_isFormField\" :for=\"name\">{{ label }} <template v-if=\"required\"><span class=\"required-info\">*</span></template></label>\n  </div>\n  <div class=\"col-xs-12\">\n    "
-    + ((stack1 = ((helper = (helper = helpers.template || (depth0 != null ? depth0.template : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"template","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.template || (depth0 != null ? depth0.template : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"template","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\n  </div>\n</div>\n";
 },"useData":true});
 
@@ -56,6 +56,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.radio"] = Handlebar
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<label :for=\"name\" class=\"select-proxy-display\">\n  <span class=\"icon fa fa-chevron-down\"></span>\n  <span class=\"select-value-proxy\"><template v-if=\"value && value !== ''\">{{ value }}</template><template v-else>{{ placeholder }}</template></span>\n  <select class=\"form-control hidden-select\" :name=\"name\" :id=\"name\" v-model=\"value\" :required=\"required\" v-on:change=\"updateValue()\">\n    <option v-if=\"placeholder\" value=\"\">{{ placeholder }}</option>\n    <option v-for=\"option in options\" :value=\"option.id\" :disabled=\"option.disabled\">\n      {{ option.id }}\n    </option>\n  </select>\n</label>\n";
+},"useData":true});
+
+this["Fliplet"]["Widget"]["Templates"]["templates.components.starRating"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-5'\" v-model=\"value\" value=\"5\">\n<label class=\"rating-star\" :for=\"name + '-5'\">\n  <i class=\"fa fa-star-o\"></i>\n  <i class=\"fa fa-star\"></i>\n</label>\n\n<input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-4'\" v-model=\"value\" value=\"4\">\n<label class=\"rating-star\" :for=\"name + '-4'\">\n  <i class=\"fa fa-star-o\"></i>\n  <i class=\"fa fa-star\"></i>\n</label>\n\n<input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-3'\" v-model=\"value\" value=\"3\">\n<label class=\"rating-star\" :for=\"name + '-3'\">\n  <i class=\"fa fa-star-o\"></i>\n  <i class=\"fa fa-star\"></i>\n</label>\n\n<input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-2'\" v-model=\"value\" value=\"2\">\n<label class=\"rating-star\" :for=\"name + '-2'\">\n  <i class=\"fa fa-star-o\"></i>\n  <i class=\"fa fa-star\"></i>\n</label>\n\n<input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-1'\" v-model=\"value\" value=\"1\">\n<label class=\"rating-star\" :for=\"name + '-1'\">\n  <i class=\"fa fa-star-o\"></i>\n  <i class=\"fa fa-star\"></i>\n</label>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.telephone"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
