@@ -11,7 +11,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.checkbox"] = Handle
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.date"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"input-group\">\n  <div class=\"input-group-addon\">\n    <i class=\"fa fa-calendar\"></i>\n  </div>\n\n  <input :type=\"fieldType\" v-model.trim=\"value\" v-on:input=\"updateValue()\" :name=\"name\"\n  :id=\"name\" :placeholder=\"placeholder\" :required=\"required\" class=\"datepicker form-control\" />\n</div>\n";
+    return "<div class=\"input-group\">\n  <div class=\"input-group-addon\">\n    <i class=\"fa fa-calendar\"></i>\n  </div>\n\n  <input :type=\"fieldType\" v-model.trim=\"value\" v-on:input=\"updateValue()\" :name=\"name\"\n  :id=\"name\" :placeholder=\"placeholder\" :required=\"required\" class=\"date-picker form-control\" />\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.email"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -22,7 +22,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebar
     var stack1, helper;
 
   return "<div class=\"form-group row clearfix\">\n  <div class=\"col-xs-12\">\n    <label v-if=\"_isFormField\" :for=\"name\">{{ label }} <template v-if=\"required\"><span class=\"required-info\">*</span></template></label>\n  </div>\n  <div class=\"col-xs-12\">\n    "
-    + ((stack1 = ((helper = (helper = helpers.template || (depth0 != null ? depth0.template : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"template","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.template || (depth0 != null ? depth0.template : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"template","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\n  </div>\n</div>\n";
 },"useData":true});
 

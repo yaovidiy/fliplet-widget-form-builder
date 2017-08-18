@@ -11,7 +11,7 @@ Fliplet.FormBuilder.field('date', {
     }
   },
   mounted: function() {
-    this.$el.find('input.date-picker').datepicker({
+    $(this.$el).find('input.date-picker').datepicker({
       format: "dd/mm/yyyy",
       todayBtn: "linked",
       keyboardNavigation: true,
