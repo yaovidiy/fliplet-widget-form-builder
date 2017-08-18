@@ -1,0 +1,8 @@
+<div class="input-group">
+  <div class="input-group-addon">
+    <i class="fa fa-calendar"></i>
+  </div>
+
+  <input :type="fieldType" v-model.trim="value" v-on:input="updateValue()" :name="name"
+  :id="name" :placeholder="placeholder" :required="required" class="datepicker form-control" />
+</div>
