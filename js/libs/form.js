@@ -59,6 +59,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         isConfigured: !!data.templateId,
         fields: getFields(),
         error: null,
+        errors: {},
         isOffline: false
       };
     },
@@ -79,6 +80,17 @@ Fliplet.Widget.instance('form-builder', function(data) {
         });
 
         Fliplet.FormBuilder.emit('reset');
+      },
+      onError: function (fieldName, error) {
+        if (!error) {
+          if (this.errors[fieldName]) {
+            delete this.errors[fieldName];
+          }
+
+          return;
+        }
+
+        this.errors[fieldName] = error;
       },
       onInput: function(fieldName, value) {
         this.fields.some(function(field) {
@@ -108,11 +120,27 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
         }
 
+        var errorFields = Object.keys(this.errors);
+        var fieldErrors = [];
+        if (errorFields.length) {
+          errorFields.forEach(function (fieldName) {
+            fieldErrors.push(errorFields[fieldName]);
+          });
+
+          $vm.error = fieldErrors.join('. ');
+          $vm.isSending = false;
+          return;
+        }
+
         this.fields.forEach(function(field) {
           var value = field.value;
           var type = field.type;
 
           if (field._submit === false) {
+            return;
+          }
+
+          if (field.submitWhenFalsy === false && !value) {
             return;
           }
 
@@ -196,7 +224,9 @@ Fliplet.Widget.instance('form-builder', function(data) {
         var progress = {};
 
         $vm.fields.forEach(function(field) {
-          progress[field.name] = field.value;
+          if (field.saveProgress !== false) {
+            progress[field.name] = field.value;
+          }
         });
 
         localStorage.setItem(progressKey, JSON.stringify(progress));
