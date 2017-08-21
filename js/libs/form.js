@@ -3,6 +3,13 @@ Fliplet.Widget.instance('form-builder', function(data) {
   var selector = '[data-form-builder-id="' + data.id + '"]';
   var progressKey = 'form-builder-progress-' + (data.uuid || data.id);
 
+  var entryId = data.dataSourceId && Fliplet.Navigate.query.dataSourceEntryId;
+  var entry;
+
+  if (entryId) {
+    entryId = parseInt(entryId, 10) || undefined;
+  }
+
   function getProgress() {
     var progress = localStorage.getItem(progressKey);
 
@@ -33,12 +40,18 @@ Fliplet.Widget.instance('form-builder', function(data) {
     var fields = JSON.parse(JSON.stringify(data.fields || []));
     var progress = getProgress();
 
-    if (fields.length && data.saveProgress && typeof progress === 'object') {
+    if (fields.length && (data.saveProgress && typeof progress === 'object') || entry) {
       fields.forEach(function(field) {
-        var savedValue = progress[field.name];
+        if (entry && typeof entry.data[field.name] !== 'undefined') {
+          return field.value = entry.data[field.name];
+        }
 
-        if (typeof savedValue !== 'undefined') {
-          field.value = savedValue;
+        if (progress) {
+          var savedValue = progress[field.name];
+
+          if (typeof savedValue !== 'undefined') {
+            field.value = savedValue;
+          }
         }
       });
     }
@@ -57,7 +70,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         isSent: false,
         isSending: false,
         isSendingMessage: 'Saving data...',
-        isLoading: false, // Set to TRUE when in Edit Mode until the data is retrieved
+        isLoading: !!entryId,
         isLoadingMessage: 'Retrieving data...',
         isConfigured: !!data.templateId,
         fields: getFields(),
@@ -183,6 +196,12 @@ Fliplet.Widget.instance('form-builder', function(data) {
           });
 
           if (data.onSubmit && data.onSubmit.indexOf('dataSource') > -1 && data.dataSourceId) {
+            if (entry) {
+              return connection.update(entryId, formData, {
+                offline: data.offline
+              });
+            }
+
             return connection.insert(formData, {
               offline: data.offline
             });
@@ -259,6 +278,23 @@ Fliplet.Widget.instance('form-builder', function(data) {
           if ($vm.isEditMode && $vm.isLoading && $vm.isOffline) {
             $vm.blockScreen = true;
           }
+        });
+      }
+
+      if (entryId) {
+        Fliplet.DataSources.connect(data.dataSourceId).then(function (ds) {
+          return ds.findById(entryId);
+        }).then(function (record) {
+          if (!record) {
+            $vm.error = 'This entry has not been found';
+          }
+
+          entry = record;
+
+          $vm.fields = getFields();
+          $vm.isLoading = false;
+        }).catch(function (err) {
+          $vm.error = err.message || err.description || err;
         });
       }
     }
