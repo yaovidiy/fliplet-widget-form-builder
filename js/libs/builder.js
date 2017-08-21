@@ -1,4 +1,4 @@
-var widgetId = Fliplet.Widget.getDefaultId();
+var widgetId = parseInt(Fliplet.Widget.getDefaultId(), 10);
 var data = Fliplet.Widget.getData(widgetId) || {};
 
 // Cleanup
@@ -243,7 +243,7 @@ var app = new Vue({
       this.settings.fields = _.compact(this.fields);
 
       return Fliplet.Widget.save(this.settings).then(function onSettingsUpdated() {
-        return $vm.updateDataSourceColumns();
+        return $vm.updateDataSource();
       });
     },
     createDefaultBodyTemplate: function(fields) {
@@ -424,9 +424,13 @@ var app = new Vue({
         this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.fields);
       }
     },
-    updateDataSourceColumns: function() {
+    updateDataSource: function() {
       var dataSourceId = this.settings.dataSourceId;
       var newColumns = _.map(this.fields, 'name');
+
+      var fieldsToHash = _.map(_.filter(this.fields, function (field) {
+        return !!field.hash;
+      }), 'name');
 
       if (!dataSourceId) {
         return Promise.resolve();
@@ -435,14 +439,40 @@ var app = new Vue({
       return Fliplet.DataSources.getById(dataSourceId).then(function(ds) {
         ds.columns = ds.columns || [];
 
+        var hooksDeleted;
         var columns = _.uniq(newColumns.concat(ds.columns));
 
-        if (_.isEqual(columns.sort(), ds.columns.sort())) {
-          return Promise.resolve(); // no need to update
+        // remove existing hooks for the operations
+        ds.hooks = _.reject(ds.hooks || [], function (hook) {
+          var result = hook.widgetInstanceId && hook.widgetInstanceId == widgetId;
+          if (result) {
+            hooksDeleted = true;
+          }
+
+          return result;
+        });
+
+        if (fieldsToHash) {
+          var payload = {};
+          fieldsToHash.forEach(function (field) {
+            payload[field] = ['hash'];
+          });
+
+          ds.hooks.push({
+            widgetInstanceId: widgetId,
+            type: 'operations',
+            runOn: ['beforeSave', 'beforeQuery'],
+            payload: payload
+          });
+        } else if (!hooksDeleted) {
+          if (_.isEqual(columns.sort(), ds.columns.sort())) {
+            return Promise.resolve(); // no need to update
+          }
         }
 
         return Fliplet.DataSources.update(dataSourceId, {
-          columns: newColumns
+          columns: newColumns,
+          hooks: ds.hooks
         });
       });
     }
@@ -729,8 +759,8 @@ var app = new Vue({
 
     migrateData();
 
-    Fliplet.API.request('v1/user').then(function(response) {
-      $vm.userData = response.user;
+    Fliplet.User.fetch().then(function(user) {
+      $vm.userData = user;
     });
   }
 });
