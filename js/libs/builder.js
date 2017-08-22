@@ -148,7 +148,7 @@ var app = new Vue({
           name: 'field-' + (this.fields.length + 1),
           label: component.name,
           value: value.default || value.type(),
-          type: type.default || type.type()
+          type: type && type.default || type.type()
         });
       }
     },
