@@ -195,13 +195,13 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
           });
 
-          if (data.onSubmit && data.onSubmit.indexOf('dataSource') > -1 && data.dataSourceId) {
-            if (entry) {
-              return connection.update(entryId, formData, {
-                offline: data.offline
-              });
-            }
+          if (entry && data.dataSourceId) {
+            return connection.update(entryId, formData, {
+              offline: data.offline
+            });
+          }
 
+          if (data.onSubmit && data.onSubmit.indexOf('dataSource') > -1 && data.dataSourceId) {
             return connection.insert(formData, {
               offline: data.offline
             });
