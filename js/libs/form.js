@@ -228,6 +228,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
           $vm.isSent = true;
           $vm.isSending = false;
           $vm.reset();
+
+          $vm.loadEntryForUpdate();
         }, function(err) {
           console.error(err);
           $vm.error = err.message || err.description || err;
@@ -240,6 +242,24 @@ Fliplet.Widget.instance('form-builder', function(data) {
         //     return { name: field.name, value: field.value };
         //   }));
         // });
+      },
+      loadEntryForUpdate() {
+        if (entryId) {
+          Fliplet.DataSources.connect(data.dataSourceId).then(function (ds) {
+            return ds.findById(entryId);
+          }).then(function (record) {
+            if (!record) {
+              $vm.error = 'This entry has not been found';
+            }
+
+            entry = record;
+
+            $vm.fields = getFields();
+            $vm.isLoading = false;
+          }).catch(function (err) {
+            $vm.error = err.message || err.description || err;
+          });
+        }
       }
     },
     mounted: function() {
@@ -281,22 +301,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         });
       }
 
-      if (entryId) {
-        Fliplet.DataSources.connect(data.dataSourceId).then(function (ds) {
-          return ds.findById(entryId);
-        }).then(function (record) {
-          if (!record) {
-            $vm.error = 'This entry has not been found';
-          }
-
-          entry = record;
-
-          $vm.fields = getFields();
-          $vm.isLoading = false;
-        }).catch(function (err) {
-          $vm.error = err.message || err.description || err;
-        });
-      }
+      this.loadEntryForUpdate();
     }
   });
 });
