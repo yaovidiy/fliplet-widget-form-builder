@@ -244,6 +244,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
         // });
       },
       loadEntryForUpdate() {
+        var $vm = this;
+
         if (entryId) {
           Fliplet.DataSources.connect(data.dataSourceId).then(function (ds) {
             return ds.findById(entryId);
