@@ -42,7 +42,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
     if (fields.length && (data.saveProgress && typeof progress === 'object') || entry) {
       fields.forEach(function(field) {
-        if (entry && typeof entry.data[field.name] !== 'undefined') {
+        if (entry && typeof entry.data[field.name] !== 'undefined' && field.populateOnUpdate !== false) {
           return field.value = entry.data[field.name];
         }
 
