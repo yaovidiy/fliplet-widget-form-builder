@@ -173,6 +173,15 @@
                     <p class="help-block"><small>Selecting this option will make your form unavailable if the user doesn't have an internet connection.</small></p>
                   </label>
                 </div>
+
+                <div class="checkbox checkbox-icon">
+                  <input type="checkbox" id="autobindProfileEditing" v-model="settings.autobindProfileEditing" :value="true">
+                  <label for="autobindProfileEditing">
+                    <span class="check"><i class="fa fa-check"></i></span> Load the data from user's profile
+                    <p class="help-block"><small>If the user is signed in to the app, they will be able to edit their user profile using this form.</small></p>
+                  </label>
+                </div>
+
                 <div class="hidden-settings" v-bind:class="{ 'active': showExtraEdit, 'hidden': !showExtraEdit }">
                   <div class="form-group">
                     <div class="control-label">

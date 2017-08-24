@@ -67,9 +67,10 @@
       "handlebars",
       "vue.js",
       "bootstrap",
+      "font-awesome",
       "fliplet-communicate",
       "fliplet-datasources",
-      "font-awesome"
+      "fliplet-session"
     ],
     "assets": [
       "vendor/load-image.all.min.js",
