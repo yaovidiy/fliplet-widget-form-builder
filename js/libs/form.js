@@ -249,7 +249,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         if (data.autobindProfileEditing) {
           return Fliplet.Session.get().then(function (session) {
             if (session.entries && session.entries.dataSource) {
-              entryId = session.entries.dataSource.id;
+              entryId = 'session'; // this works because you can use it as an ID on the backend
               entry = session.entries.dataSource;
             }
 
