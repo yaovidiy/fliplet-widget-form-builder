@@ -132,13 +132,11 @@ var app = new Vue({
       var componentName;
       var component;
       var value;
-      var type;
 
       if (event.item.parentElement.className !== 'panel-body') {
         componentName = event.item.dataset.field;
         component = Fliplet.FormBuilder.components()[componentName];
         value = component.props.value;
-        type = component.props.fieldType;
 
         event.item.remove();
 
@@ -147,8 +145,7 @@ var app = new Vue({
           _submit: typeof component.submit !== 'undefined' ? component.submit : true,
           name: 'field-' + (this.fields.length + 1),
           label: component.name,
-          value: value.default || value.type(),
-          type: typeof type === 'object' ? (type.default || type.type()) : undefined
+          value: value.default || value.type()
         });
       }
     },
