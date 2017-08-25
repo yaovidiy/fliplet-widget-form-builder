@@ -132,7 +132,6 @@ var app = new Vue({
       var componentName;
       var component;
       var value;
-      var type;
 
       if (event.item.parentElement.className !== 'panel-body') {
         componentName = event.item.dataset.field;
