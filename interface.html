@@ -129,19 +129,19 @@
                 <div class="checkbox checkbox-icon">
                   <input type="checkbox" id="save_datasource" name="whenSubimitted" v-model="settings.onSubmit" value="dataSource">
                   <label for="save_datasource">
-                    <span class="check"><i class="fa fa-check"></i></span>Save the data in a data source
+                    <span class="check"><i class="fa fa-check"></i></span> Save the data in a data source
                   </label>
                 </div>
                 <div class="checkbox checkbox-icon">
                   <input type="checkbox" id="templated_email" name="whenSubimitted" v-model="settings.onSubmit" value="templatedEmail">
                   <label for="templated_email">
-                    <span class="check"><i class="fa fa-check"></i></span>Send an email automatically to a target<span v-show="toggleTemplatedEmail">[<a href="#" v-on:click="configureEmailTemplate">Configure email]</a></span>
+                    <span class="check"><i class="fa fa-check"></i></span> Automatically send an email via Fliplet <span v-show="toggleTemplatedEmail">[<a href="#" v-on:click="configureEmailTemplate">Configure email template]</a></span>
                   </label>
                 </div>
                 <div class="checkbox checkbox-icon">
                   <input type="checkbox" id="generate_email" name="whenSubimitted" v-model="settings.onSubmit" value="generateEmail">
                   <label for="generate_email">
-                    <span class="check"><i class="fa fa-check"></i></span>Pre-populate a manual email in the user's email client<span v-show="toggleGenerateEmail">[<a href="#" v-on:click="configureEmailTemplateForCompose">Configure email]</a></span>
+                    <span class="check"><i class="fa fa-check"></i></span> Generate an email on the device <span v-show="toggleGenerateEmail">[<a href="#" v-on:click="configureEmailTemplateForCompose">Configure email template]</a></span>
                   </label>
                 </div>
               </div>
