@@ -31,15 +31,15 @@ Fliplet.FormBuilder.field('password', {
       default: false
     }
   },
-  created: function () {
+  created: function() {
     this.checkPasswordConfirmation();
   },
   methods: {
-    updateValue: function () {
+    updateValue: function() {
       this.$emit('_input', this.name, this.value);
       this.checkPasswordConfirmation();
     },
-    checkPasswordConfirmation: function () {
+    checkPasswordConfirmation: function() {
       this.hasConfirmationError = this.confirm && (this.value || this.valueConfirmation) && this.valueConfirmation !== this.value;
 
       this.$emit('_error', this.name, this.hasConfirmationError ? confirmationErrorMessage : null);
