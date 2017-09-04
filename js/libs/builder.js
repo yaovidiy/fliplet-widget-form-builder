@@ -1,4 +1,4 @@
-var widgetId = Fliplet.Widget.getDefaultId();
+var widgetId = parseInt(Fliplet.Widget.getDefaultId(), 10);
 var data = Fliplet.Widget.getData(widgetId) || {};
 
 // Cleanup
@@ -112,7 +112,8 @@ var app = new Vue({
   },
   methods: {
     setupCodeEditor: function() {
-      this.resultEditor = CodeMirror.fromTextArea(this.$refs.resulthtml, {
+      const $vm = this;
+      $vm.resultEditor = CodeMirror.fromTextArea($vm.$refs.resulthtml, {
         mode: 'htmlmixed',
         lineNumbers: true,
         autoRefresh: true,
@@ -120,8 +121,8 @@ var app = new Vue({
         viewportMargin: Infinity
       });
 
-      this.resultEditor.on('change', function() {
-        this.settings.resultHtml = this.resultEditor.getValue();
+      $vm.resultEditor.on('change', function() {
+        $vm.settings.resultHtml = $vm.resultEditor.getValue();
       });
     },
     onSort: function(event) {
@@ -131,13 +132,11 @@ var app = new Vue({
       var componentName;
       var component;
       var value;
-      var type;
 
       if (event.item.parentElement.className !== 'panel-body') {
         componentName = event.item.dataset.field;
         component = Fliplet.FormBuilder.components()[componentName];
         value = component.props.value;
-        type = component.props.fieldType;
 
         event.item.remove();
 
@@ -146,8 +145,7 @@ var app = new Vue({
           _submit: typeof component.submit !== 'undefined' ? component.submit : true,
           name: 'field-' + (this.fields.length + 1),
           label: component.name,
-          value: value.default || value.type(),
-          type: type.default || type.type()
+          value: value.default || value.type()
         });
       }
     },
@@ -158,7 +156,9 @@ var app = new Vue({
     onFieldClick: function(field) {
       this.activeFieldConfigType = field._type.toString() + 'Config';
       this.activeFieldName = Fliplet.FormBuilder.components()[field._type].name;
-      this.activeFieldIdx = _.findIndex(this.fields, { name: field.name });
+      this.activeFieldIdx = _.findIndex(this.fields, {
+        name: field.name
+      });
       this.activeField = field;
       changeSelectText();
       Fliplet.Studio.emit('widget-save-label-update');
@@ -233,7 +233,7 @@ var app = new Vue({
       this.settings.fields = _.compact(this.fields);
 
       return Fliplet.Widget.save(this.settings).then(function onSettingsUpdated() {
-        return $vm.updateDataSourceColumns();
+        return $vm.updateDataSource();
       });
     },
     createDefaultBodyTemplate: function(fields) {
@@ -348,25 +348,55 @@ var app = new Vue({
         this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.fields);
       }
     },
-    updateDataSourceColumns: function () {
+    updateDataSource: function() {
       var dataSourceId = this.settings.dataSourceId;
       var newColumns = _.map(this.fields, 'name');
+
+      var fieldsToHash = _.map(_.filter(this.fields, function (field) {
+        return !!field.hash;
+      }), 'name');
 
       if (!dataSourceId) {
         return Promise.resolve();
       }
 
-      return Fliplet.DataSources.getById(dataSourceId).then(function (ds) {
+      return Fliplet.DataSources.getById(dataSourceId).then(function(ds) {
         ds.columns = ds.columns || [];
 
+        var hooksDeleted;
         var columns = _.uniq(newColumns.concat(ds.columns));
 
-        if (_.isEqual(columns.sort(), ds.columns.sort())) {
-          return Promise.resolve(); // no need to update
+        // remove existing hooks for the operations
+        ds.hooks = _.reject(ds.hooks || [], function (hook) {
+          var result = hook.widgetInstanceId && hook.widgetInstanceId == widgetId;
+          if (result) {
+            hooksDeleted = true;
+          }
+
+          return result;
+        });
+
+        if (fieldsToHash) {
+          var payload = {};
+          fieldsToHash.forEach(function (field) {
+            payload[field] = ['hash'];
+          });
+
+          ds.hooks.push({
+            widgetInstanceId: widgetId,
+            type: 'operations',
+            runOn: ['beforeSave', 'beforeQuery'],
+            payload: payload
+          });
+        } else if (!hooksDeleted) {
+          if (_.isEqual(columns.sort(), ds.columns.sort())) {
+            return Promise.resolve(); // no need to update
+          }
         }
 
         return Fliplet.DataSources.update(dataSourceId, {
-          columns: newColumns
+          columns: newColumns,
+          hooks: ds.hooks
         });
       });
     }
@@ -599,8 +629,8 @@ var app = new Vue({
       });
     }
 
-    Fliplet.API.request('v1/user').then(function(response) {
-      $vm.userData = response.user;
+    Fliplet.User.fetch().then(function(user) {
+      $vm.userData = user;
     });
   }
 });

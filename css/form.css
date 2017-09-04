@@ -259,7 +259,14 @@ textarea.form-control {
 }
 /* CHECKBOXES */
 .checkbox.checkbox-icon input[type="checkbox"] {
-  display: none;
+  z-index: -1;
+  position: absolute;
+  margin: 0;
+  width: 28px;
+  height: 28px;
+  opacity: 0;
+  background: black;
+  display: block;
 }
 
 .checkbox.checkbox-icon input[type="checkbox"] + label {
@@ -311,7 +318,14 @@ textarea.form-control {
 }
 /* RADIOS */
 .radio.radio-icon input[type="radio"] {
-  display: none;
+  z-index: -1;
+  position: absolute;
+  margin: 0;
+  width: 28px;
+  height: 28px;
+  opacity: 0;
+  background: none;
+  display: block;
 }
 
 .radio.radio-icon input[type="radio"] + label {
