@@ -150,8 +150,11 @@ var app = new Vue({
       }
     },
     deleteField: function(index) {
-      this.fields.splice(index, 1);
-      this.activeFieldConfigType = null;
+      var confirmDelete = confirm("Are you sure you want to delete field?");
+      if (confirmDelete) {
+        this.fields.splice(index, 1);
+        this.activeFieldConfigType = null;
+      }
     },
     onFieldClick: function(field) {
       this.activeFieldConfigType = field._type.toString() + 'Config';
@@ -399,6 +402,46 @@ var app = new Vue({
           hooks: ds.hooks
         });
       });
+    },
+    triggerSave: function() {
+      var $vm = this;
+
+      if ($vm.chooseTemplate) {
+        if ($vm.settings.templateId) {
+          $vm.chooseTemplate = false;
+          Fliplet.Widget.toggleSaveButton(true);
+          Fliplet.Studio.emit('widget-save-label-reset');
+          Fliplet.Studio.emit('widget-info-label-update');
+        }
+
+        return;
+      }
+
+      if ($vm.toChangeTemplate) {
+        if ($vm.newTemplate) {
+          $vm.isAddingFields = false;
+          $vm.toChangeTemplate = false;
+          $vm.permissionToChange = false;
+          $vm.settings.templateId = $vm.newTemplate;
+          Fliplet.Studio.emit('widget-save-label-reset');
+          Fliplet.Studio.emit('widget-info-label-update');
+          setTimeout(function() {
+            $vm.setupCodeEditor();
+          }, 1);
+        }
+
+        return;
+      }
+
+      // Add progress
+      $('.spinner-holder p').text('Please wait while we save your changes...');
+      $(selector).addClass('is-loading');
+
+      // Save and close
+      $vm.save().then(function() {
+        Fliplet.Widget.complete();
+        Fliplet.Studio.emit('reload-page-preview');
+      });
     }
   },
   watch: {
@@ -544,9 +587,12 @@ var app = new Vue({
     Fliplet.FormBuilder.off('field-settings-changed', this.onFieldSettingChanged);
   },
   mounted: function() {
+    var $vm = this;
+
     window.emailTemplateProvider = null;
     window.generateEmailProvider = null;
-    var $vm = this;
+    window.linkProvider = null;
+    
     $vm.settings.name = $vm.settings.name || 'Untitled form';
 
     if (this.chooseTemplate) {
@@ -556,19 +602,22 @@ var app = new Vue({
       Fliplet.Widget.toggleSaveButton(false);
     }
 
-    var linkProvider = Fliplet.Widget.open('com.fliplet.link', {
-      selector: '#linkAction',
-      data: $vm.settings && $vm.settings.linkAction
-    });
+    if (!window.linkProvider) {
+      window.linkProvider = Fliplet.Widget.open('com.fliplet.link', {
+        selector: '#linkAction',
+        data: $vm.settings && $vm.settings.linkAction
+      });
 
-    linkProvider.then(function onLinkAction(result) {
-      if (result && result.data && result.data.action) {
-        $vm.settings.linkAction = result.data;
-      }
+      window.linkProvider.then(function onLinkAction(result) {
+        if (result && result.data && result.data.action) {
+          $vm.settings.linkAction = result.data;
+        }
 
-      linkProvider = null;
-      triggerSave();
-    });
+        window.linkProvider = null;
+        $vm.triggerSave();
+      });
+    }
+    
 
     Fliplet.Widget.onSaveRequest(function() {
       if (window.emailTemplateProvider) {
@@ -583,54 +632,34 @@ var app = new Vue({
         return window.currentProvider.forwardSaveRequest();
       }
 
-      if (linkProvider) {
-        return linkProvider.forwardSaveRequest();
+      if (window.linkProvider) {
+        return window.linkProvider.forwardSaveRequest();
       }
 
-      triggerSave();
+      $vm.triggerSave();
     });
-
-    function triggerSave() {
-      if ($vm.chooseTemplate) {
-        if ($vm.settings.templateId) {
-          $vm.chooseTemplate = false;
-          Fliplet.Widget.toggleSaveButton(true);
-          Fliplet.Studio.emit('widget-save-label-reset');
-          Fliplet.Studio.emit('widget-info-label-update');
-        }
-
-        return;
-      }
-
-      if ($vm.toChangeTemplate) {
-        if ($vm.newTemplate) {
-          $vm.isAddingFields = false;
-          $vm.toChangeTemplate = false;
-          $vm.permissionToChange = false;
-          $vm.settings.templateId = $vm.newTemplate;
-          Fliplet.Studio.emit('widget-save-label-reset');
-          Fliplet.Studio.emit('widget-info-label-update');
-          setTimeout(function() {
-            $vm.setupCodeEditor();
-          }, 1);
-        }
-
-        return;
-      }
-
-      // Add progress
-      $('.spinner-holder p').text('Please wait while we save your changes...');
-      $(selector).addClass('is-loading');
-
-      // Save and close
-      $vm.save().then(function() {
-        Fliplet.Widget.complete();
-        Fliplet.Studio.emit('reload-page-preview');
-      });
-    }
 
     Fliplet.User.fetch().then(function(user) {
       $vm.userData = user;
     });
+  },
+  updated: function() {
+    var $vm = this;
+
+    if (!window.linkProvider) {
+      window.linkProvider = Fliplet.Widget.open('com.fliplet.link', {
+        selector: '#linkAction',
+        data: $vm.settings && $vm.settings.linkAction
+      });
+
+      window.linkProvider.then(function onLinkAction(result) {
+        if (result && result.data && result.data.action) {
+          $vm.settings.linkAction = result.data;
+        }
+
+        window.linkProvider = null;
+        $vm.triggerSave();
+      });
+    }
   }
 });
