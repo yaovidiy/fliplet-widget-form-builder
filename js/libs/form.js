@@ -246,18 +246,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
       loadEntryForUpdate() {
         var $vm = this;
 
-        if (data.autobindProfileEditing) {
-          return Fliplet.Session.get().then(function (session) {
-            if (session.entries && session.entries.dataSource) {
-              entryId = 'session'; // this works because you can use it as an ID on the backend
-              entry = session.entries.dataSource;
-            }
-
-            $vm.fields = getFields();
-            $vm.isLoading = false;
-          });
-        }
-
         if (entryId) {
           return Fliplet.DataSources.connect(data.dataSourceId).then(function (ds) {
             return ds.findById(entryId);
@@ -272,6 +260,18 @@ Fliplet.Widget.instance('form-builder', function(data) {
             $vm.isLoading = false;
           }).catch(function (err) {
             $vm.error = err.message || err.description || err;
+          });
+        }
+
+        if (data.autobindProfileEditing) {
+          return Fliplet.Session.get().then(function (session) {
+            if (session.entries && session.entries.dataSource) {
+              entryId = 'session'; // this works because you can use it as an ID on the backend
+              entry = session.entries.dataSource;
+            }
+
+            $vm.fields = getFields();
+            $vm.isLoading = false;
           });
         }
       }
