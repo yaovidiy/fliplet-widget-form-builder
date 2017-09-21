@@ -150,8 +150,11 @@ var app = new Vue({
       }
     },
     deleteField: function(index) {
-      this.fields.splice(index, 1);
-      this.activeFieldConfigType = null;
+      var confirmDelete = confirm("Are you sure you want to delete field?");
+      if (confirmDelete) {
+        this.fields.splice(index, 1);
+        this.activeFieldConfigType = null;
+      }
     },
     onFieldClick: function(field) {
       this.activeFieldConfigType = field._type.toString() + 'Config';
