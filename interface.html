@@ -112,6 +112,8 @@
                   </label>
                 </div>
 
+                <div v-if="conflictWarning" class="alert alert-warning">Use the query <code>?mode="add"</code> in the link to add new entries.</div>
+
                 <div class="hidden-settings" v-bind:class="{ 'active': showExtraAdd, 'hidden': !showExtraAdd }">
                   <div class="form-group">
                     <div class="control-label">

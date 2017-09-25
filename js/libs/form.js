@@ -4,6 +4,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
   var progressKey = 'form-builder-progress-' + (data.uuid || data.id);
 
   var entryId = data.dataSourceId && Fliplet.Navigate.query.dataSourceEntryId;
+  var formMode = Fliplet.Navigate.query.mode;
   var entry;
 
   if (entryId) {
@@ -261,6 +262,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }).catch(function (err) {
             $vm.error = err.message || err.description || err;
           });
+        }
+
+        if (formMode === 'add') {
+          return;
         }
 
         if (data.autobindProfileEditing) {

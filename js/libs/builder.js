@@ -111,7 +111,8 @@ var app = new Vue({
       },
       emailTemplateAdd: undefined,
       emailTemplateEdit: undefined,
-      generateEmailTemplate: undefined
+      generateEmailTemplate: undefined,
+      conflictWarning: formSettings.dataStore.indexOf('dataSource') > -1 && formSettings.autobindProfileEditing ? true : false
     };
   },
   methods: {
@@ -596,6 +597,10 @@ var app = new Vue({
     'settings.dataStore': function(value) {
       this.showExtraAdd = value.indexOf('dataSource') > -1;
       this.showExtraEdit = value.indexOf('editDataSource') > -1;
+      this.conflictWarning = value.indexOf('dataSource') > -1 && this.settings.autobindProfileEditing; 
+    },
+    'settings.autobindProfileEditing': function(value) {
+      this.conflictWarning = this.settings.dataStore.indexOf('dataSource') > -1 && value;
     },
     'settings.onSubmit': function(array) {
       var $vm = this;
