@@ -162,9 +162,9 @@ Fliplet.FormBuilder = (function() {
       }
 
       if (!component.mounted) {
-        component.mounted = function () {
+        component.mounted = function() {
           if (this.$refs.tooltip) {
-            $(this.$refs.tooltip).tooltip()
+            $(this.$refs.tooltip).tooltip();
           }
         };
       }
@@ -183,12 +183,14 @@ Fliplet.FormBuilder = (function() {
         default: false
       };
 
-      component.computed._fieldNameError = function () {
+      component.computed._fieldNameError = function() {
         if (!this.name) {
           return 'Please provide a Field ID';
         }
 
-        var existing = _.findIndex(this._fields, { name: this.name });
+        var existing = _.findIndex(this._fields, {
+          name: this.name
+        });
 
         if (existing > -1 && existing !== this._idx) {
           return this.name + ' is taken. Please use another Field ID.';

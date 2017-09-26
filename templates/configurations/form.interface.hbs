@@ -3,7 +3,7 @@
     <div class="form-group cleafix" :class="{ 'has-error': _fieldNameError }">
       <div class="col-xs-12">
         <label class="control-label" for="field-name">
-          Field ID <i class="text-muted fa fa-question-circle" ref="tooltip" data-toggle="tooltip" data-placement="right" title="If you change this default ID, a new column will be created in the database that saves this form’s entries. Be careful to update any directories that reference this form with the new ID names."></i>
+          Field ID <i class="text-muted fa fa-question-circle" ref="tooltip" data-viewport=".modal-body" data-toggle="tooltip" data-placement="right" title="If you change this default ID, a new column will be created in the database that saves this form’s entries. Be careful to update any directories that reference this form with the new ID names."></i>
         </label>
       </div>
       <div class="col-xs-12" v-if="_isEditingName">

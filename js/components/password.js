@@ -26,6 +26,10 @@ Fliplet.FormBuilder.field('password', {
       type: Boolean,
       default: false
     },
+    populateOnUpdate: {
+      type: Boolean,
+      default: false
+    },
     submitWhenFalsy: {
       type: Boolean,
       default: false
