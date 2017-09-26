@@ -20,7 +20,7 @@ Fliplet.FormBuilder.field('checkbox', {
   created: function () {
     if (!Array.isArray(this.value)) {
       this.value = [];
-      this.updateValue(this.name, this.value)
+      this.updateValue(this.name, this.value);
     }
   }
 });
