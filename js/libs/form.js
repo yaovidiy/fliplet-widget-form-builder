@@ -100,7 +100,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
         });
 
-        if (data.saveProgress) {
+        if (typeof data.saveProgress === 'function') {
           this.saveProgress();
         }
       },
