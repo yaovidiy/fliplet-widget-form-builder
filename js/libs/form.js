@@ -202,7 +202,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             });
           }
 
-          if (data.onSubmit && data.onSubmit.indexOf('dataSource') > -1 && data.dataSourceId) {
+          if (data.dataStore && data.dataStore.indexOf('dataSource') > -1 && data.dataSourceId) {
             return connection.insert(formData, {
               offline: data.offline
             });
