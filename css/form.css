@@ -225,7 +225,7 @@ textarea.form-control {
 }
 
 .form-group .input-group {
-  padding: 0 15px;
+  padding: 0px;
   position: relative;
   width: 100%;
 }
@@ -236,7 +236,7 @@ textarea.form-control {
   height: 24px;
   top: 50%;
   margin-top: -12px;
-  left: 15px;
+  left: 0px;
   padding: 0;
   font-size: 14px;
   font-weight: 400;
@@ -552,14 +552,14 @@ textarea.form-control {
 
 /* START RATING */
 
-[type="starRating"] {
+[_type="flStarRating"] {
   overflow: hidden;
   display: inline-block;
   text-align: left;
   direction: rtl;
 }
 
-[type="starRating"] .rating-input {
+[_type="flStarRating"] .rating-input {
   display: inline-block;
   width: 30px;
   height: 30px;
@@ -568,7 +568,7 @@ textarea.form-control {
   opacity: 0;
 }
 
-[type="starRating"] .rating-star {
+[_type="flStarRating"] .rating-star {
   position: relative;
   display: inline-block;
   width: 30px;
@@ -577,24 +577,24 @@ textarea.form-control {
   cursor: pointer;
 }
 
-[type="starRating"] .rating-star .fa {
+[_type="flStarRating"] .rating-star .fa {
   font-size: 30px;
   color: #337ab7;
 }
 
-[type="starRating"] .rating-star .fa.fa-star-o {
+[_type="flStarRating"] .rating-star .fa.fa-star-o {
   display: block;
 }
 
-[type="starRating"] .rating-star .fa.fa-star {
+[_type="flStarRating"] .rating-star .fa.fa-star {
   display: none;
 }
 
-[type="starRating"] .rating-input:checked~.rating-star .fa.fa-star-o {
+[_type="flStarRating"] .rating-input:checked~.rating-star .fa.fa-star-o {
   display: none;
 }
 
-[type="starRating"] .rating-input:checked~.rating-star .fa.fa-star {
+[_type="flStarRating"] .rating-input:checked~.rating-star .fa.fa-star {
   display: block;
 }
 

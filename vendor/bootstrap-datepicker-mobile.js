@@ -1,4 +1,3 @@
-
 //     bootstrap-datepicker-mobile
 //     Copyright (c) 2014- Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)
 //     MIT Licensed
@@ -11,63 +10,65 @@
 // * Source: <https://github.com/niftylettuce/bootstrap-datepicker-mobile>
 
 // # bootstrap-datepicker-mobile
+Fliplet().then(function() {
 
-(function($, Modernizr, window) {
+  (function($, Modernizr, window) {
 
-  // Set the default datepicker format
-  $.fn.datepicker.defaults.format = "mm/dd/yy";
+    // Set the default datepicker format
+    $.fn.datepicker.defaults.format = "DD-MM-YYYY";
 
-  // Add support for datepickers globally to use input[type=date]
-  var nativeDateFormat = /^\d{4}-\d{2}-\d{2}$/;
-  var datepickerDateFormat = /^\d{2}\/\d{2}\/\d{2}$/;
+    // Add support for datepickers globally to use input[type=date]
+    var nativeDateFormat = /^\d{4}-\d{2}-\d{2}$/;
+    var datepickerDateFormat = /^\d{2}\/\d{2}\/\d{2}$/;
 
-  /*globals moment*/
-  function bootstrapDatepickerMobile(ev) {
+    /*globals moment*/
+    function bootstrapDatepickerMobile(ev) {
 
-    var $inputs = $('input.date-picker');
-    var isMobile = $(window).width() <= 480 || Modernizr.touch;
+      var $inputs = $('input.date-picker');
+      var isMobile = $(window).width() <= 480 && Modernizr.touchevents;
 
-    $inputs.each(function() {
+      $inputs.each(function() {
 
-      var $input = $(this);
-      var val = $input.val();
-      var valMoment;
+        var $input = $(this);
+        var val = $input.val();
+        var valMoment;
 
-      if (nativeDateFormat.test(val)) {
-        valMoment = moment(val, 'YYYY-MM-DD');
-      } else if (datepickerDateFormat.test(val)) {
-        valMoment = moment(val, 'MM/DD/YY');
-      }
-
-      var isMoment = moment.isMoment(valMoment);
-
-      if (isMobile && Modernizr.inputtypes.date) {
-        if (isMoment) val = valMoment.format('YYYY-MM-DD');
-        $input.datepicker('remove');
-        $input.val(val);
-        $input.attr('type', 'date');
-      } else {
-        if (isMoment) val = valMoment.format('MM/DD/YY');
-        $input.attr('type', 'text');
-        $input.val(val);
-        if (isMobile) {
-          $input.datepicker('remove');
-        } else {
-          if (isMoment)
-            $input.datepicker('update', valMoment.toDate());
-          else
-            $input.datepicker();
-          if ($input.is(':focus'))
-            $input.datepicker('show');
+        if (nativeDateFormat.test(val)) {
+          valMoment = moment(val, 'YYYY-MM-DD');
+        } else if (datepickerDateFormat.test(val)) {
+          valMoment = moment(val, 'DD-MM-YYYY');
         }
-      }
 
-    });
+        var isMoment = moment.isMoment(valMoment);
 
-  }
+        if (isMobile && Modernizr.inputtypes.date) {
+          if (isMoment) val = valMoment.format('YYYY-MM-DD');
+          $input.datepicker('remove');
+          $input.val(val);
+          $input.attr('type', 'date');
+        } else {
+          if (isMoment) val = valMoment.format('DD-MM-YYYY');
+          $input.attr('type', 'text');
+          $input.val(val);
+          if (isMobile) {
+            $input.datepicker('remove');
+          } else {
+            if (isMoment)
+              $input.datepicker('update', valMoment.toDate());
+            else
+              $input.datepicker();
+            if ($input.is(':focus'))
+              $input.datepicker('show');
+          }
+        }
 
-  $(window).on('resize.bootstrapDatepickerMobile', bootstrapDatepickerMobile);
+      });
 
-  bootstrapDatepickerMobile();
+    }
 
-}(jQuery, Modernizr, window));
+    $(window).on('resize.bootstrapDatepickerMobile', bootstrapDatepickerMobile);
+
+    bootstrapDatepickerMobile();
+
+  }(jQuery, Modernizr, window));
+});

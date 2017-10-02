@@ -8,6 +8,7 @@
   "html_tag": "div",
   "interface": {
     "dependencies": [
+      "fliplet-core",
       "handlebars",
       "lodash",
       "vue.js",
@@ -71,6 +72,7 @@
   },
   "build": {
     "dependencies": [
+      "fliplet-core",
       "handlebars",
       "bootstrap",
       "vue.js",

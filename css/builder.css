@@ -345,7 +345,7 @@ label.fileUpload {
 
 /* START RATING */
 
-.component [type="starRating"],
+.component [_type="flStarRating"],
 [data-field="flStarRating"] {
   overflow: hidden;
   display: inline-block;
@@ -353,7 +353,7 @@ label.fileUpload {
   direction: rtl;
 }
 
-.component [type="starRating"] .rating-input,
+.component [_type="flStarRating"] .rating-input,
 [data-field="flStarRating"] .rating-input {
   display: inline-block;
   width: 30px;
@@ -363,7 +363,7 @@ label.fileUpload {
   opacity: 0;
 }
 
-.component [type="starRating"] .rating-star,
+.component [_type="flStarRating"] .rating-star,
 [data-field="flStarRating"] .rating-star {
   position: relative;
   display: inline-block;
@@ -373,28 +373,28 @@ label.fileUpload {
   cursor: pointer;
 }
 
-.component [type="starRating"] .rating-star .fa,
+.component [_type="flStarRating"] .rating-star .fa,
 [data-field="flStarRating"] .rating-star .fa {
   font-size: 30px;
   color: #00abd1;
 }
 
-.component [type="starRating"] .rating-star .fa.fa-star-o,
+.component [_type="flStarRating"] .rating-star .fa.fa-star-o,
 [data-field="flStarRating"] .rating-star .fa.fa-star-o {
   display: block;
 }
 
-.component [type="starRating"] .rating-star .fa.fa-star,
+.component [_type="flStarRating"] .rating-star .fa.fa-star,
 [data-field="flStarRating"] .rating-star .fa.fa-star {
   display: none;
 }
 
-.component [type="starRating"] .rating-input:checked~.rating-star .fa.fa-star-o,
+.component [_type="flStarRating"] .rating-input:checked~.rating-star .fa.fa-star-o,
 [data-field="flStarRating"] .rating-input:checked~.rating-star .fa.fa-star-o {
   display: none;
 }
 
-.component [type="starRating"] .rating-input:checked~.rating-star .fa.fa-star,
+.component [_type="flStarRating"] .rating-input:checked~.rating-star .fa.fa-star,
 [data-field="flStarRating"] .rating-input:checked~.rating-star .fa.fa-star {
   display: block;
 }
@@ -402,6 +402,38 @@ label.fileUpload {
 .checkbox.disabled,
 .radio.disabled {
   opacity: 0.4;
+}
+
+.form-group .input-group {
+  padding: 0px;
+  position: relative;
+  width: 100%;
+}
+
+.input-group-addon {
+  position: absolute;
+  width: 44px;
+  height: 24px;
+  top: 50%;
+  margin-top: -12px;
+  left: 0px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  height: 24px;
+  color: #555;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  border-right: 1px solid #555 !important;
+  z-index: 4;
+}
+
+.form-group .input-group .form-control {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  padding-left: 57px;
 }
 
 
