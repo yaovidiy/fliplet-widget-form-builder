@@ -3,6 +3,14 @@ Fliplet.Widget.instance('form-builder', function(data) {
   var selector = '[data-form-builder-id="' + data.id + '"]';
   var progressKey = 'form-builder-progress-' + (data.uuid || data.id);
 
+  var entryId = data.dataSourceId && Fliplet.Navigate.query.dataSourceEntryId;
+  var formMode = Fliplet.Navigate.query.mode;
+  var entry;
+
+  if (entryId) {
+    entryId = parseInt(entryId, 10) || undefined;
+  }
+
   function getProgress() {
     var progress = localStorage.getItem(progressKey);
 
@@ -33,12 +41,18 @@ Fliplet.Widget.instance('form-builder', function(data) {
     var fields = JSON.parse(JSON.stringify(data.fields || []));
     var progress = getProgress();
 
-    if (fields.length && data.saveProgress && typeof progress === 'object') {
+    if (fields.length && (data.saveProgress && typeof progress === 'object') || entry) {
       fields.forEach(function(field) {
-        var savedValue = progress[field.name];
+        if (entry && typeof entry.data[field.name] !== 'undefined' && field.populateOnUpdate !== false) {
+          return field.value = entry.data[field.name];
+        }
 
-        if (typeof savedValue !== 'undefined') {
-          field.value = savedValue;
+        if (progress) {
+          var savedValue = progress[field.name];
+
+          if (typeof savedValue !== 'undefined') {
+            field.value = savedValue;
+          }
         }
       });
     }
@@ -56,11 +70,17 @@ Fliplet.Widget.instance('form-builder', function(data) {
       return {
         isSent: false,
         isSending: false,
+        isSendingMessage: 'Saving data...',
+        isLoading: !!entryId,
+        isLoadingMessage: 'Retrieving data...',
         isConfigured: !!data.templateId,
         fields: getFields(),
         error: null,
         errors: {},
-        isOffline: false
+        isOffline: false,
+        isOfflineMessage: '',
+        isEditMode: data.dataStore && data.dataStore.indexOf('editDataSource') > -1,
+        blockScreen: false
       };
     },
     computed: {
@@ -100,7 +120,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
         });
 
-        if (data.saveProgress) {
+        if (typeof data.saveProgress === 'function') {
           this.saveProgress();
         }
       },
@@ -176,7 +196,13 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
           });
 
-          if (data.onSubmit && data.onSubmit.indexOf('dataSource') > -1 && data.dataSourceId) {
+          if (entry && data.dataSourceId) {
+            return connection.update(entryId, formData, {
+              offline: data.offline
+            });
+          }
+
+          if (data.dataStore && data.dataStore.indexOf('dataSource') > -1 && data.dataSourceId) {
             return connection.insert(formData, {
               offline: data.offline
             });
@@ -203,6 +229,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
           $vm.isSent = true;
           $vm.isSending = false;
           $vm.reset();
+
+          $vm.loadEntryForUpdate();
         }, function(err) {
           console.error(err);
           $vm.error = err.message || err.description || err;
@@ -215,6 +243,42 @@ Fliplet.Widget.instance('form-builder', function(data) {
         //     return { name: field.name, value: field.value };
         //   }));
         // });
+      },
+      loadEntryForUpdate() {
+        var $vm = this;
+
+        if (entryId) {
+          return Fliplet.DataSources.connect(data.dataSourceId).then(function (ds) {
+            return ds.findById(entryId);
+          }).then(function (record) {
+            if (!record) {
+              $vm.error = 'This entry has not been found';
+            }
+
+            entry = record;
+
+            $vm.fields = getFields();
+            $vm.isLoading = false;
+          }).catch(function (err) {
+            $vm.error = err.message || err.description || err;
+          });
+        }
+
+        if (formMode === 'add') {
+          return;
+        }
+
+        if (data.autobindProfileEditing) {
+          return Fliplet.Session.get().then(function (session) {
+            if (session.entries && session.entries.dataSource) {
+              entryId = 'session'; // this works because you can use it as an ID on the backend
+              entry = session.entries.dataSource;
+            }
+
+            $vm.fields = getFields();
+            $vm.isLoading = false;
+          });
+        }
       }
     },
     mounted: function() {
@@ -241,12 +305,22 @@ Fliplet.Widget.instance('form-builder', function(data) {
       if (!data.offline) {
         Fliplet.Navigator.onOnline(function() {
           $vm.isOffline = false;
+          $vm.blockScreen = false;
         });
 
         Fliplet.Navigator.onOffline(function() {
           $vm.isOffline = true;
+          $vm.isOfflineMessage = data.dataStore && data.dataStore.indexOf('editDataSource') > -1 ?
+            'The data can only be updated when connected to the internet.' :
+            'This form can only be submitted when connected to the internet.';
+
+          if ($vm.isEditMode && $vm.isLoading && $vm.isOffline) {
+            $vm.blockScreen = true;
+          }
         });
       }
+
+      this.loadEntryForUpdate();
     }
   });
 });

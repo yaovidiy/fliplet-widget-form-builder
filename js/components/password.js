@@ -4,10 +4,6 @@ Fliplet.FormBuilder.field('password', {
   name: 'Password input',
   category: 'Text inputs',
   props: {
-    fieldType: {
-      type: String,
-      default: 'password'
-    },
     placeholder: {
       type: String
     },
@@ -30,20 +26,24 @@ Fliplet.FormBuilder.field('password', {
       type: Boolean,
       default: false
     },
+    populateOnUpdate: {
+      type: Boolean,
+      default: false
+    },
     submitWhenFalsy: {
       type: Boolean,
       default: false
     }
   },
-  created: function () {
+  created: function() {
     this.checkPasswordConfirmation();
   },
   methods: {
-    updateValue: function () {
+    updateValue: function() {
       this.$emit('_input', this.name, this.value);
       this.checkPasswordConfirmation();
     },
-    checkPasswordConfirmation: function () {
+    checkPasswordConfirmation: function() {
       this.hasConfirmationError = this.confirm && (this.value || this.valueConfirmation) && this.valueConfirmation !== this.value;
 
       this.$emit('_error', this.name, this.hasConfirmationError ? confirmationErrorMessage : null);

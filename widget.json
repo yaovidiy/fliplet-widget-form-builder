@@ -77,7 +77,8 @@
       "fliplet-communicate",
       "fliplet-datasources",
       "font-awesome",
-      "moment"
+      "moment",
+      "fliplet-session"
     ],
     "assets": [
       "vendor/load-image.all.min.js",

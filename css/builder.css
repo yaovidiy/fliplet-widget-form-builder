@@ -343,7 +343,6 @@ label.fileUpload {
   display: none;
 }
 
-
 /* START RATING */
 
 .component [type="starRating"],
@@ -400,6 +399,11 @@ label.fileUpload {
   display: block;
 }
 
+.checkbox.disabled,
+.radio.disabled {
+  opacity: 0.4;
+}
+
 
 /* temporary code for the modal */
 
@@ -430,16 +434,14 @@ label.fileUpload {
 }
 
 .modal-body {
-  height: calc(100% - 56px);
-  position: static;
-  padding: 0 15px;
-  overflow: auto;
+  height: calc(100% - 50px);
+  padding: 0 15px 77px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .modal-body form {
-  height: 100%;
-  overflow: auto;
-  padding: 15px 0 91px;
+  padding: 15px 0;
 }
 
 .modal-body .footer {

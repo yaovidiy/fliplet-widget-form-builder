@@ -6,10 +6,6 @@ Fliplet.FormBuilder.field('checkbox', {
       type: Array,
       default: []
     },
-    fieldType: {
-      type: String,
-      default: 'checkbox'
-    },
     options: {
       type: Array,
       default: [{
@@ -19,6 +15,12 @@ Fliplet.FormBuilder.field('checkbox', {
           id: 'Option 2'
         }
       ]
+    }
+  },
+  created: function () {
+    if (!Array.isArray(this.value)) {
+      this.value = [];
+      this.updateValue(this.name, this.value);
     }
   }
 });
