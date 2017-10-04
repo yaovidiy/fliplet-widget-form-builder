@@ -5,6 +5,15 @@ var data = Fliplet.Widget.getData(widgetId) || {};
 if (data.fields) {
   data.fields = _.compact(data.fields);
 }
+if (Array.isArray(data.onSubmit) && data.onSubmit.length) {
+  data.onSubmit.forEach(function(el, i) {
+    if(el === 'templatedEmail'){
+      data.onSubmit.splice(i, 1);
+    }
+  });
+
+  data.onSubmit = data.onSubmit;
+}
 
 function changeSelectText() {
   setTimeout(function() {

@@ -214,8 +214,12 @@ Fliplet.Widget.instance('form-builder', function(data) {
             localStorage.removeItem(progressKey);
           }
 
-          if (data.emailTemplate && data.onSubmit && data.onSubmit.indexOf('templatedEmail') > -1) {
-            Fliplet.Communicate.sendEmail(data.emailTemplate, formData);
+          if (data.emailTemplateAdd && data.onSubmit && data.onSubmit.indexOf('templatedEmailAdd') > -1) {
+            Fliplet.Communicate.sendEmail(data.emailTemplateAdd, formData);
+          }
+
+          if (data.emailTemplateEdit && data.onSubmit && data.onSubmit.indexOf('templatedEmailEdit') > -1) {
+            Fliplet.Communicate.sendEmail(data.emailTemplateEdit, formData);
           }
 
           if (data.generateEmailTemplate && data.onSubmit && data.onSubmit.indexOf('generateEmail') > -1) {
