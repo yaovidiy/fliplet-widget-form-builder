@@ -5,9 +5,9 @@ var data = Fliplet.Widget.getData(widgetId) || {};
 if (data.fields) {
   data.fields = _.compact(data.fields);
 }
-if (data.onSubmit && data.onSubmit.length) {
+if (Array.isArray(data.onSubmit) && data.onSubmit.length) {
   data.onSubmit.forEach(function(el, i) {
-    if(data.onSubmit[i] === 'templatedEmail'){
+    if(el === 'templatedEmail'){
       data.onSubmit.splice(i, 1);
     }
   });
