@@ -7,7 +7,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.buttons"] = Han
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.date"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"form-group\">\n  <label>Default value</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"value\" placeholder=\"Default value\" />\n</div>\n<div class=\"form-group\">\n  <label>Placeholder</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"placeholder\" placeholder=\"Placeholder text\" />\n</div>\n";
+    return "<div class=\"form-group\">\n  <label>Default value</label>\n  <input class=\"form-control\" type=\"date\" v-model=\"value\" placeholder=\"Default value\" />\n</div>\n<div class=\"form-group\">\n  <label>Placeholder</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"placeholder\" placeholder=\"Placeholder text\" />\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.email"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -64,7 +64,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.select"] = Hand
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.starRating"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"form-group\">\n  <label for=\"default-value\">Default value</label>\n  <select v-model.trim=\"value\" id=\"default-value\" class=\"form-control\">\n    <option value=\"0\">0</option>\n    <option value=\"1\">1</option>\n    <option value=\"2\">2</option>\n    <option value=\"3\">3</option>\n    <option value=\"4\">4</option>\n    <option value=\"5\">5</option>\n  </select>\n</div>\n";
+    return "<div class=\"form-group\">\n  <label for=\"default-value\">Default value</label>\n  <select v-model.trim=\"value\" id=\"default-value\" class=\"form-control\">\n    <option value=\"\">Select one</option>\n    <option value=\"1\">1</option>\n    <option value=\"2\">2</option>\n    <option value=\"3\">3</option>\n    <option value=\"4\">4</option>\n    <option value=\"5\">5</option>\n  </select>\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.telephone"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

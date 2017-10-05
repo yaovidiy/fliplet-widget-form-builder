@@ -11,7 +11,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.checkbox"] = Handle
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.date"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"input-group\">\n  <div class=\"input-group-addon\">\n    <i class=\"fa fa-calendar\"></i>\n  </div>\n\n  <input :type=\"fieldType\" v-model.trim=\"value\" v-on:input=\"updateValue()\" :name=\"name\"\n  :id=\"name\" :placeholder=\"placeholder\" :required=\"required\" class=\"date-picker form-control\" />\n</div>\n";
+    return "<div v-if=\"isWeb\" class=\"input-group custom-date\">\n  <div class=\"input-group-addon\">\n    <i class=\"fa fa-calendar\"></i>\n  </div>\n\n  <input \n  	type=\"text\"\n  	v-model=\"value\"\n  	v-on:change=\"updateValue()\"\n  	:name=\"name\"\n  	:id=\"name\"\n  	:placeholder=\"placeholder\"\n  	:required=\"required\"\n  	class=\"date-picker form-control\"\n  />\n</div>\n<div v-else class=\"input-group native-date\">\n  <div class=\"input-group-addon\">\n    <i class=\"fa fa-calendar\"></i>\n  </div>\n\n  <input \n    type=\"date\"\n    v-model=\"value\"\n    v-on:input=\"updateValue()\"\n    :name=\"name\"\n    :id=\"name\"\n    :placeholder=\"placeholder\"\n    :required=\"required\"\n    class=\"form-control\"\n  />\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.email"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -21,7 +21,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.email"] = Handlebar
 this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
 
-  return "<div class=\"form-group row clearfix\">\n  <div class=\"col-xs-12\">\n    <label v-if=\"_isFormField\" :for=\"name\">{{ label }} <template v-if=\"required\"><span class=\"required-info\">*</span></template></label>\n  </div>\n  <div class=\"col-xs-12\">\n    "
+  return "<div class=\"form-group row clearfix\">\n  <div class=\"col-xs-12\">\n    <label v-if=\"_isFormField\" :for=\"name\">\n    	{{ label }} <template v-if=\"required\"><span class=\"required-info\">*</span></template>\n    </label>\n  </div>\n  <div class=\"col-xs-12\">\n    "
     + ((stack1 = ((helper = (helper = helpers.template || (depth0 != null ? depth0.template : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"template","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\n  </div>\n</div>\n";
 },"useData":true});
@@ -63,7 +63,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handleba
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.starRating"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-5'\" v-model=\"value\" value=\"5\">\n<label class=\"rating-star\" :for=\"name + '-5'\">\n  <i class=\"fa fa-star-o\"></i>\n  <i class=\"fa fa-star\"></i>\n</label>\n\n<input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-4'\" v-model=\"value\" value=\"4\">\n<label class=\"rating-star\" :for=\"name + '-4'\">\n  <i class=\"fa fa-star-o\"></i>\n  <i class=\"fa fa-star\"></i>\n</label>\n\n<input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-3'\" v-model=\"value\" value=\"3\">\n<label class=\"rating-star\" :for=\"name + '-3'\">\n  <i class=\"fa fa-star-o\"></i>\n  <i class=\"fa fa-star\"></i>\n</label>\n\n<input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-2'\" v-model=\"value\" value=\"2\">\n<label class=\"rating-star\" :for=\"name + '-2'\">\n  <i class=\"fa fa-star-o\"></i>\n  <i class=\"fa fa-star\"></i>\n</label>\n\n<input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-1'\" v-model=\"value\" value=\"1\">\n<label class=\"rating-star\" :for=\"name + '-1'\">\n  <i class=\"fa fa-star-o\"></i>\n  <i class=\"fa fa-star\"></i>\n</label>\n";
+    return "<template v-for=\"(option, index) in values\">\n  <input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-' + index\" v-model=\"value\" :value=\"option.id\" v-on:change=\"updateValue()\">\n  <label class=\"rating-star\" :for=\"name + '-' + index\">\n    <i class=\"fa fa-star-o\"></i>\n    <i class=\"fa fa-star\"></i>\n  </label>\n</template>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.telephone"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

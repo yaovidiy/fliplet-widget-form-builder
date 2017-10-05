@@ -26,7 +26,6 @@
       "js/libs/templates.js",
       "vendor/bootstrap-datepicker3.css",
       "vendor/bootstrap-datepicker.js",
-      "vendor/bootstrap-datepicker-mobile.js",
 
       "js/components/input.js",
       "js/components/email.js",
@@ -88,7 +87,6 @@
       "js/libs/core.js",
       "vendor/bootstrap-datepicker3.css",
       "vendor/bootstrap-datepicker.js",
-      "vendor/bootstrap-datepicker-mobile.js",
 
       "js/components/input.js",
       "js/components/email.js",
