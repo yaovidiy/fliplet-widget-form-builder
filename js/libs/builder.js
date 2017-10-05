@@ -729,9 +729,16 @@ var app = new Vue({
     }, savedLinkData);
 
     if (!window.linkProvider) {
+      var action = $vm.settings && $vm.settings.linkAction || {
+        action: 'screen',
+        options: {
+          hideAction: true
+        }
+      };
+
       window.linkProvider = Fliplet.Widget.open('com.fliplet.link', {
         selector: '#linkAction',
-        data: $vm.settings && $vm.settings.linkAction
+        data: action
       });
 
       window.linkProvider.then(function onLinkAction(result) {
@@ -786,9 +793,16 @@ var app = new Vue({
     var $vm = this;
 
     if (!window.linkProvider) {
+      var action = $vm.settings && $vm.settings.linkAction || {
+        action: 'screen',
+        options: {
+          hideAction: true
+        }
+      };
+
       window.linkProvider = Fliplet.Widget.open('com.fliplet.link', {
         selector: '#linkAction',
-        data: $vm.settings && $vm.settings.linkAction
+        data: action
       });
 
       window.linkProvider.then(function onLinkAction(result) {
