@@ -185,7 +185,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
               value = value.replace(/-|\s/g, '');
             }
             if (type === 'flDate') {
-              value = moment(value).format('MMMM DD YYYY');
+              value = moment(value).format();
             }
             // Other inputs
             appendField(field.name, value);
