@@ -290,6 +290,8 @@ var app = new Vue({
         window.emailTemplateAddProvider = null;
         $vm.emailTemplateAdd = result.data;
 
+        var operation = Promise.resolve();
+
         if ($vm.settings.dataStore.indexOf('dataSource') > -1 || $vm.settings.dataSourceId) {
           var newHook = {
             widgetInstanceId: $vm.settings.id,
@@ -298,7 +300,7 @@ var app = new Vue({
             payload: $vm.emailTemplateAdd
           };
 
-          Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
+          operation = Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
             var currentHook;
 
             if (dataSource.hooks.length) {
@@ -316,23 +318,27 @@ var app = new Vue({
               });
               dataSource.hooks.splice(index, 1, currentHook);
 
-              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+              return Fliplet.DataSources.update($vm.settings.dataSourceId, {
                 hooks: dataSource.hooks
               });
             } else {
               // Add new hook
               dataSource.hooks.push(newHook);
-              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+              return Fliplet.DataSources.update($vm.settings.dataSourceId, {
                 hooks: dataSource.hooks
               });
             }
           });
+        } else {
+          operation = Promise.resolve();
         }
 
-        $vm.save().then(function() {
-          Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+        operation.then(function () {
+          $vm.save().then(function() {
+            Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+          });
+          Fliplet.Widget.autosize();
         });
-        Fliplet.Widget.autosize();
       });
     },
     configureEmailTemplateEdit: function() {
@@ -355,6 +361,8 @@ var app = new Vue({
         window.emailTemplateEditProvider = null;
         $vm.emailTemplateEdit = result.data;
 
+        var operation;
+
         if ($vm.settings.dataStore.indexOf('editDataSource') > -1 || $vm.settings.dataSourceId) {
           var newHook = {
             widgetInstanceId: $vm.settings.id,
@@ -363,7 +371,7 @@ var app = new Vue({
             payload: $vm.settings.emailTemplateEdit
           };
 
-          Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
+          operation = Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
             if (dataSource.hooks.length) {
               // Update existing hook
               var currentHook = _.find(dataSource.hooks, function(o) {
@@ -377,23 +385,27 @@ var app = new Vue({
               });
               dataSource.hooks.splice(index, 1, currentHook);
 
-              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+              return Fliplet.DataSources.update($vm.settings.dataSourceId, {
                 hooks: dataSource.hooks
               });
             } else {
               // Add new hook
               dataSource.hooks.push(newHook);
-              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+              return Fliplet.DataSources.update($vm.settings.dataSourceId, {
                 hooks: dataSource.hooks
               });
             }
           });
+        } else {
+          operation = Promise.resolve();
         }
 
-        $vm.save().then(function() {
-          Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+        operation.then(function () {
+          $vm.save().then(function() {
+            Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+          });
+          Fliplet.Widget.autosize();
         });
-        Fliplet.Widget.autosize();
       });
     },
     configureEmailTemplateForCompose: function() {
