@@ -44,7 +44,17 @@ Fliplet.Widget.instance('form-builder', function(data) {
     if (fields.length && (data.saveProgress && typeof progress === 'object') || entry) {
       fields.forEach(function(field) {
         if (entry && typeof entry.data[field.name] !== 'undefined' && field.populateOnUpdate !== false) {
-          return field.value = entry.data[field.name];
+          if (field._type === "flDate") {
+            if (Fliplet.Env.get('platform') === 'web') {
+              field.value = moment(entry.data[field.name]).format('DD MMMM YYYY');
+            } else {
+              field.value = moment(entry.data[field.name]).format('DD/MM/YYYY');
+            }
+          } else {
+            field.value = entry.data[field.name];
+          }
+
+          return field.value;
         }
 
         if (progress) {
@@ -154,7 +164,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
         this.fields.forEach(function(field) {
           var value = field.value;
-          var type = field.type;
+          var type = field._type;
 
           if (field._submit === false) {
             return;
@@ -171,8 +181,11 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
           } else {
             // Remove spaces and dashes from value
-            if (type === 'number' || type === 'tel') {
+            if (type === 'flNumber' || type === '"flTelephone"') {
               value = value.replace(/-|\s/g, '');
+            }
+            if (type === 'flDate') {
+              value = moment(value).format('MMMM DD YYYY');
             }
             // Other inputs
             appendField(field.name, value);

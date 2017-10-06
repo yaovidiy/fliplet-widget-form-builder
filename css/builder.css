@@ -238,7 +238,7 @@ nav>.btn {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 2;
+  z-index: 5;
   opacity: 0;
   visibility: hidden;
   border: 3px dashed #00abd1;
@@ -267,7 +267,7 @@ nav>.btn {
   background: #d9534f;
   color: #fff;
   cursor: pointer;
-  z-index: 3;
+  z-index: 6;
   opacity: 0;
   visibility: hidden;
 }
@@ -343,9 +343,97 @@ label.fileUpload {
   display: none;
 }
 
+/* START RATING */
+
+.component [_type="flStarRating"],
+[data-field="flStarRating"] {
+  overflow: hidden;
+  display: inline-block;
+  text-align: left;
+  direction: rtl;
+}
+
+.component [_type="flStarRating"] .rating-input,
+[data-field="flStarRating"] .rating-input {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0 0 0 -30px;
+  opacity: 0;
+}
+
+.component [_type="flStarRating"] .rating-star,
+[data-field="flStarRating"] .rating-star {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.component [_type="flStarRating"] .rating-star .fa,
+[data-field="flStarRating"] .rating-star .fa {
+  font-size: 30px;
+  color: #00abd1;
+}
+
+.component [_type="flStarRating"] .rating-star .fa.fa-star-o,
+[data-field="flStarRating"] .rating-star .fa.fa-star-o {
+  display: block;
+}
+
+.component [_type="flStarRating"] .rating-star .fa.fa-star,
+[data-field="flStarRating"] .rating-star .fa.fa-star {
+  display: none;
+}
+
+.component [_type="flStarRating"] .rating-input:checked~.rating-star .fa.fa-star-o,
+[data-field="flStarRating"] .rating-input:checked~.rating-star .fa.fa-star-o {
+  display: none;
+}
+
+.component [_type="flStarRating"] .rating-input:checked~.rating-star .fa.fa-star,
+[data-field="flStarRating"] .rating-input:checked~.rating-star .fa.fa-star {
+  display: block;
+}
+
 .checkbox.disabled,
 .radio.disabled {
   opacity: 0.4;
+}
+
+.form-group .input-group {
+  padding: 0px;
+  position: relative;
+  width: 100%;
+}
+
+.input-group-addon {
+  position: absolute;
+  width: 44px;
+  height: 24px;
+  top: 50%;
+  margin-top: -12px;
+  left: 0px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  height: 24px;
+  color: #555;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  border-right: 1px solid #555 !important;
+  z-index: 4;
+}
+
+.form-group .input-group .form-control {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  padding-left: 57px;
 }
 
 
@@ -611,4 +699,7 @@ form hr {
 #linkAction>iframe {
   width: 100%;
   border: 0;
+}
+
+
 }

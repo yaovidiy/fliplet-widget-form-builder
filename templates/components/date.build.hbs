@@ -1,0 +1,32 @@
+<div v-if="isWeb" class="input-group custom-date">
+  <div class="input-group-addon">
+    <i class="fa fa-calendar"></i>
+  </div>
+
+  <input 
+  	type="text"
+  	v-model="value"
+  	v-on:change="updateValue()"
+  	:name="name"
+  	:id="name"
+  	:placeholder="placeholder"
+  	:required="required"
+  	class="date-picker form-control"
+  />
+</div>
+<div v-else class="input-group native-date">
+  <div class="input-group-addon">
+    <i class="fa fa-calendar"></i>
+  </div>
+
+  <input 
+    type="date"
+    v-model="value"
+    v-on:input="updateValue()"
+    :name="name"
+    :id="name"
+    :placeholder="placeholder"
+    :required="required"
+    class="form-control"
+  />
+</div>

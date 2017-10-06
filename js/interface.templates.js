@@ -6,6 +6,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.buttons"] = Han
     return "<div class=\"form-group clearfix\">\n  <div class=\"checkbox checkbox-icon\">\n    <input type=\"checkbox\" id=\"show_submit\" v-model=\"showSubmit\">\n    <label for=\"show_submit\">\n      <span class=\"check\"><i class=\"fa fa-check\"></i></span> Show submit button\n    </label>\n  </div>\n</div>\n\n<div class=\"form-group\">\n  <label>Submit button label</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"submitValue\" placeholder=\"Submit button label\" />\n</div>\n\n<div class=\"form-group clearfix\">\n  <div class=\"checkbox checkbox-icon\">\n    <input type=\"checkbox\" id=\"show_clear\" v-model=\"showClear\">\n    <label for=\"show_clear\">\n      <span class=\"check\"><i class=\"fa fa-check\"></i></span> Show clear button\n    </label>\n    <p class=\"help-block\">The clear button will reset all fields to their defaults.</p>\n  </div>\n</div>\n\n<div class=\"form-group\">\n  <label>Clear button label</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"clearValue\" placeholder=\"Clear button label\" />\n</div>\n";
 },"useData":true});
 
+this["Fliplet"]["Widget"]["Templates"]["templates.configurations.date"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"form-group\">\n  <label>Default value</label>\n  <input class=\"form-control\" type=\"date\" v-model=\"value\" placeholder=\"Default value\" />\n</div>\n<div class=\"form-group\">\n  <label>Placeholder</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"placeholder\" placeholder=\"Placeholder text\" />\n</div>\n";
+},"useData":true});
+
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.email"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"form-group\">\n  <label>Default value</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"value\" placeholder=\"Default value\" />\n</div>\n<div class=\"form-group\">\n  <label>Placeholder</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"placeholder\" placeholder=\"Placeholder text\" />\n</div>\n";
 },"useData":true});
@@ -57,6 +61,10 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.password"] = Ha
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.select"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"form-group\">\n  <label>Default value <small>(Enter one of the options you entered above)</small></label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"value\" placeholder=\"Default value\" />\n</div>\n<div class=\"form-group\">\n  <label>Option placeholder</label>\n  <input class=\"form-control\" type=\"text\" v-model.trim=\"placeholder\" placeholder=\"Option placeholder\" />\n</div>\n";
+},"useData":true});
+
+this["Fliplet"]["Widget"]["Templates"]["templates.configurations.starRating"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"form-group\">\n  <label for=\"default-value\">Default value</label>\n  <select v-model.trim=\"value\" id=\"default-value\" class=\"form-control\">\n    <option value=\"\">Select one</option>\n    <option value=\"1\">1</option>\n    <option value=\"2\">2</option>\n    <option value=\"3\">3</option>\n    <option value=\"4\">4</option>\n    <option value=\"5\">5</option>\n  </select>\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.telephone"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

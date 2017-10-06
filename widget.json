@@ -8,6 +8,7 @@
   "html_tag": "div",
   "interface": {
     "dependencies": [
+      "fliplet-core",
       "handlebars",
       "lodash",
       "vue.js",
@@ -23,6 +24,8 @@
       "js/interface.templates.js",
       "js/libs/core.js",
       "js/libs/templates.js",
+      "vendor/bootstrap-datepicker3.css",
+      "vendor/bootstrap-datepicker.js",
 
       "js/components/input.js",
       "js/components/email.js",
@@ -40,6 +43,8 @@
       "js/components/paragraph.js",
       "js/components/buttons.js",
       "js/components/horizontalRule.js",
+      "js/components/starRating.js",
+      "js/components/date.js",
 
       "js/configurations/input.js",
       "js/configurations/email.js",
@@ -57,6 +62,8 @@
       "js/configurations/paragraph.js",
       "js/configurations/buttons.js",
       "js/configurations/horizontalRule.js",
+      "js/configurations/starRating.js",
+      "js/configurations/date.js",
 
       "js/libs/builder.js",
       "css/builder.css"
@@ -64,18 +71,22 @@
   },
   "build": {
     "dependencies": [
+      "fliplet-core",
       "handlebars",
-      "vue.js",
       "bootstrap",
-      "font-awesome",
+      "vue.js",
       "fliplet-communicate",
       "fliplet-datasources",
+      "font-awesome",
+      "moment",
       "fliplet-session"
     ],
     "assets": [
       "vendor/load-image.all.min.js",
       "js/build.templates.js",
       "js/libs/core.js",
+      "vendor/bootstrap-datepicker3.css",
+      "vendor/bootstrap-datepicker.js",
 
       "js/components/input.js",
       "js/components/email.js",
@@ -93,6 +104,8 @@
       "js/components/paragraph.js",
       "js/components/buttons.js",
       "js/components/horizontalRule.js",
+      "js/components/starRating.js",
+      "js/components/date.js",
 
       "js/libs/form.js",
       "css/form.css"
