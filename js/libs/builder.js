@@ -290,7 +290,7 @@ var app = new Vue({
         window.emailTemplateAddProvider = null;
         $vm.emailTemplateAdd = result.data;
 
-        var operation = Promise.resolve();
+        var operation;
 
         if ($vm.settings.dataStore.indexOf('dataSource') > -1 || $vm.settings.dataSourceId) {
           var newHook = {
