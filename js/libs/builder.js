@@ -299,12 +299,16 @@ var app = new Vue({
           };
 
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
-            if (dataSource.hooks.length) {
-              // Update existing hook
-              var currentHook = _.find(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id;
-              });
+            var currentHook;
 
+            if (dataSource.hooks.length) {
+              currentHook = _.find(dataSource.hooks, function(o) {
+                return o.widgetInstanceId == newHook.widgetInstanceId;
+              });
+            }
+
+            if (currentHook) {
+              // Update existing hook
               currentHook.payload = $vm.settings.emailTemplateAdd;
 
               var index = _.findIndex(dataSource.hooks, function(o) {
@@ -606,7 +610,7 @@ var app = new Vue({
     'settings.dataStore': function(value) {
       this.showExtraAdd = value.indexOf('dataSource') > -1;
       this.showExtraEdit = value.indexOf('editDataSource') > -1;
-      this.conflictWarning = value.indexOf('dataSource') > -1 && this.settings.autobindProfileEditing; 
+      this.conflictWarning = value.indexOf('dataSource') > -1 && this.settings.autobindProfileEditing;
     },
     'settings.autobindProfileEditing': function(value) {
       this.conflictWarning = this.settings.dataStore.indexOf('dataSource') > -1 && value;
@@ -750,7 +754,7 @@ var app = new Vue({
         $vm.triggerSave();
       });
     }
-    
+
 
     Fliplet.Widget.onSaveRequest(function() {
       if (window.emailTemplateAddProvider) {
