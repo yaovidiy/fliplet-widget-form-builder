@@ -295,7 +295,7 @@ var app = new Vue({
             widgetInstanceId: $vm.settings.id,
             runOn: ['insert'],
             type: 'email',
-            payload: $vm.settings.emailTemplateAdd
+            payload: $vm.emailTemplateAdd
           };
 
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
@@ -635,7 +635,7 @@ var app = new Vue({
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
             if (dataSource.hooks.length) {
               var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id;
+                return o.widgetInstanceId == widgetId;
               });
               dataSource.hooks.splice(index, 1);
 
@@ -657,7 +657,7 @@ var app = new Vue({
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
             if (dataSource.hooks.length) {
               var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id;
+                return o.widgetInstanceId == widgetId;
               });
               dataSource.hooks.splice(index, 1);
 
