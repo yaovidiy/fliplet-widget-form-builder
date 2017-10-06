@@ -17,6 +17,11 @@ Fliplet.FormBuilder.field('checkbox', {
       ]
     }
   },
+  computed: {
+    isRequired: function () {
+      return this.required && !this.value.length;
+    }
+  },
   created: function () {
     if (!Array.isArray(this.value)) {
       this.value = [];

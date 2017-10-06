@@ -7,7 +7,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.buttons"] = Handleb
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.checkbox"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<template v-for=\"(option, index) in options\">\n  <div class=\"checkbox checkbox-icon\">\n    <input type=\"checkbox\" :id=\"name + '-' + index\" :name=\"name\" v-model=\"value\" :value=\"option.id\" :required=\"required\" v-on:change=\"updateValue()\">\n    <label :for=\"name + '-' + index\">\n      <span class=\"check\"><i class=\"fa fa-check\"></i></span> {{ option.id }}&nbsp;&nbsp;&nbsp;\n    </label>\n  </div>\n</template>\n";
+    return "<template v-for=\"(option, index) in options\">\n  <div class=\"checkbox checkbox-icon\">\n    <input type=\"checkbox\" :id=\"name + '-' + index\" :name=\"name\" v-model=\"value\" :value=\"option.id\" :required=\"isRequired\" v-on:change=\"updateValue()\">\n    <label :for=\"name + '-' + index\">\n      <span class=\"check\"><i class=\"fa fa-check\"></i></span> {{ option.id }}&nbsp;&nbsp;&nbsp;\n    </label>\n  </div>\n</template>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.date"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
