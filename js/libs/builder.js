@@ -299,29 +299,37 @@ var app = new Vue({
           };
 
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
-            if (dataSource.hooks.length) {
-              // Update existing hook
-              var currentHook = _.find(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id;
-              });
-
-              currentHook.payload = $vm.settings.emailTemplateAdd;
-
-              var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id;
-              });
-              dataSource.hooks.splice(index, 1, currentHook);
-
-              Fliplet.DataSources.update($vm.settings.dataSourceId, {
-                hooks: dataSource.hooks
-              });
-            } else {
-              // Add new hook
+            if (!dataSource.hooks.length) {
+              // No hooks found at all. Add new hook.
               dataSource.hooks.push(newHook);
-              Fliplet.DataSources.update($vm.settings.dataSourceId, {
+              return Fliplet.DataSources.update($vm.settings.dataSourceId, {
                 hooks: dataSource.hooks
               });
             }
+
+            // Update existing hook
+            var currentHook = _.find(dataSource.hooks, function(o) {
+              return o.widgetInstanceId == $vm.settings.id;
+            });
+            
+            if (!currentHook) {
+              // Current hook not found. Add new hook.
+              dataSource.hooks.push(newHook);
+              return Fliplet.DataSources.update($vm.settings.dataSourceId, {
+                hooks: dataSource.hooks
+              });
+            }
+
+            currentHook.payload = $vm.settings.emailTemplateAdd;
+
+            var index = _.findIndex(dataSource.hooks, function(o) {
+              return o.widgetInstanceId == $vm.settings.id;
+            });
+            dataSource.hooks.splice(index, 1, currentHook);
+
+            return Fliplet.DataSources.update($vm.settings.dataSourceId, {
+              hooks: dataSource.hooks
+            });
           });
         }
 
