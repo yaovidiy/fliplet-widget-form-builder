@@ -354,7 +354,7 @@ var app = new Vue({
             widgetInstanceId: widgetId,
             runOn: ['update'],
             type: 'email',
-            payload: $vm.emailTemplateEdit
+            payload: JSON.parse(JSON.stringify($vm.emailTemplateEdit))
           };
 
           operation = Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
