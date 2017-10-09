@@ -290,49 +290,41 @@ var app = new Vue({
         window.emailTemplateAddProvider = null;
         $vm.emailTemplateAdd = result.data;
 
-        if ($vm.settings.dataStore.indexOf('dataSource') > -1 || $vm.settings.dataSourceId) {
+        var operation;
+
+        if ($vm.settings.dataStore.indexOf('dataSource') > -1 && $vm.settings.dataSourceId) {
           var newHook = {
-            widgetInstanceId: $vm.settings.id,
+            widgetInstanceId: widgetId,
             runOn: ['insert'],
             type: 'email',
-            payload: $vm.emailTemplateAdd
+            payload: JSON.parse(JSON.stringify($vm.emailTemplateAdd))
           };
 
-          Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
-            var currentHook;
+          operation = Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
+            // Remove old hook
+            dataSource.hooks = _.reject(dataSource.hooks, {
+              type: 'email',
+              runOn: ['insert'],
+              widgetInstanceId: widgetId
+            });
 
-            if (dataSource.hooks.length) {
-              currentHook = _.find(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == newHook.widgetInstanceId;
-              });
-            }
+            // Add new hook
+            dataSource.hooks.push(newHook);
 
-            if (currentHook) {
-              // Update existing hook
-              currentHook.payload = $vm.settings.emailTemplateAdd;
-
-              var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id;
-              });
-              dataSource.hooks.splice(index, 1, currentHook);
-
-              Fliplet.DataSources.update($vm.settings.dataSourceId, {
-                hooks: dataSource.hooks
-              });
-            } else {
-              // Add new hook
-              dataSource.hooks.push(newHook);
-              Fliplet.DataSources.update($vm.settings.dataSourceId, {
-                hooks: dataSource.hooks
-              });
-            }
+            return Fliplet.DataSources.update($vm.settings.dataSourceId, {
+              hooks: dataSource.hooks
+            });
           });
+        } else {
+          operation = Promise.resolve();
         }
 
-        $vm.save().then(function() {
-          Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+        operation.then(function () {
+          $vm.save().then(function() {
+            Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+          });
+          Fliplet.Widget.autosize();
         });
-        Fliplet.Widget.autosize();
       });
     },
     configureEmailTemplateEdit: function() {
@@ -355,45 +347,41 @@ var app = new Vue({
         window.emailTemplateEditProvider = null;
         $vm.emailTemplateEdit = result.data;
 
-        if ($vm.settings.dataStore.indexOf('editDataSource') > -1 || $vm.settings.dataSourceId) {
+        var operation;
+
+        if ($vm.settings.dataStore.indexOf('editDataSource') > -1 && $vm.settings.dataSourceId) {
           var newHook = {
-            widgetInstanceId: $vm.settings.id,
+            widgetInstanceId: widgetId,
             runOn: ['update'],
             type: 'email',
-            payload: $vm.settings.emailTemplateEdit
+            payload: JSON.parse(JSON.stringify($vm.emailTemplateEdit))
           };
 
-          Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
-            if (dataSource.hooks.length) {
-              // Update existing hook
-              var currentHook = _.find(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id;
-              });
+          operation = Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
+            // Remove old hook
+            dataSource.hooks = _.reject(dataSource.hooks, {
+              type: 'email',
+              runOn: ['update'],
+              widgetInstanceId: widgetId
+            });
 
-              currentHook.payload = $vm.settings.emailTemplateEdit;
+            // Add new hook
+            dataSource.hooks.push(newHook);
 
-              var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id;
-              });
-              dataSource.hooks.splice(index, 1, currentHook);
-
-              Fliplet.DataSources.update($vm.settings.dataSourceId, {
-                hooks: dataSource.hooks
-              });
-            } else {
-              // Add new hook
-              dataSource.hooks.push(newHook);
-              Fliplet.DataSources.update($vm.settings.dataSourceId, {
-                hooks: dataSource.hooks
-              });
-            }
+            return Fliplet.DataSources.update($vm.settings.dataSourceId, {
+              hooks: dataSource.hooks
+            });
           });
+        } else {
+          operation = Promise.resolve();
         }
 
-        $vm.save().then(function() {
-          Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+        operation.then(function () {
+          $vm.save().then(function() {
+            Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+          });
+          Fliplet.Widget.autosize();
         });
-        Fliplet.Widget.autosize();
       });
     },
     configureEmailTemplateForCompose: function() {
@@ -458,7 +446,7 @@ var app = new Vue({
 
         // remove existing hooks for the operations
         ds.hooks = _.reject(ds.hooks || [], function (hook) {
-          var result = hook.widgetInstanceId && hook.widgetInstanceId == widgetId;
+          var result = hook.widgetInstanceId == widgetId && hook.type == 'operations';
           if (result) {
             hooksDeleted = true;
           }
@@ -635,7 +623,7 @@ var app = new Vue({
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
             if (dataSource.hooks.length) {
               var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == widgetId;
+                return o.widgetInstanceId == widgetId && o.runOn.indexOf('insert') > -1;
               });
               dataSource.hooks.splice(index, 1);
 
@@ -657,7 +645,7 @@ var app = new Vue({
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
             if (dataSource.hooks.length) {
               var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == widgetId;
+                return o.widgetInstanceId == widgetId && o.runOn.indexOf('update') > -1;
               });
               dataSource.hooks.splice(index, 1);
 
