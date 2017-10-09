@@ -446,7 +446,7 @@ var app = new Vue({
 
         // remove existing hooks for the operations
         ds.hooks = _.reject(ds.hooks || [], function (hook) {
-          var result = hook.widgetInstanceId == widgetId && hook.type = 'operations';
+          var result = hook.widgetInstanceId == widgetId && hook.type == 'operations';
           if (result) {
             hooksDeleted = true;
           }
