@@ -302,7 +302,11 @@ var app = new Vue({
 
           operation = Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
             // Remove old hook
-            dataSource.hooks = _.reject(dataSource.hooks, { type: 'email', widgetInstanceId: widgetId });
+            dataSource.hooks = _.reject(dataSource.hooks, {
+              type: 'email',
+              runOn: ['insert'],
+              widgetInstanceId: widgetId
+            });
 
             // Add new hook
             dataSource.hooks.push(newHook);
@@ -355,7 +359,11 @@ var app = new Vue({
 
           operation = Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
             // Remove old hook
-            dataSource.hooks = _.reject(dataSource.hooks, { type: 'email', widgetInstanceId: widgetId });
+            dataSource.hooks = _.reject(dataSource.hooks, {
+              type: 'email',
+              runOn: ['update'],
+              widgetInstanceId: widgetId
+            });
 
             // Add new hook
             dataSource.hooks.push(newHook);
