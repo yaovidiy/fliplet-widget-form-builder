@@ -118,8 +118,8 @@ var app = new Vue({
         html: '',
         to: []
       },
-      emailTemplateAdd: undefined,
-      emailTemplateEdit: undefined,
+      emailTemplateAdd: formSettings.emailTemplateAdd || undefined,
+      emailTemplateEdit: formSettings.emailTemplateEdit || undefined,
       generateEmailTemplate: undefined,
       conflictWarning: formSettings.dataStore.indexOf('dataSource') > -1 && formSettings.autobindProfileEditing ? true : false
     };
