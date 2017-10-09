@@ -292,49 +292,35 @@ var app = new Vue({
 
         var operation;
 
-        if ($vm.settings.dataStore.indexOf('dataSource') > -1 || $vm.settings.dataSourceId) {
+        if ($vm.settings.dataStore.indexOf('dataSource') > -1 && $vm.settings.dataSourceId) {
           var newHook = {
-            widgetInstanceId: $vm.settings.id,
+            widgetInstanceId: widgetId,
             runOn: ['insert'],
             type: 'email',
-            payload: $vm.emailTemplateAdd
+            payload: JSON.parse(JSON.stringify($vm.emailTemplateAdd))
           };
 
           operation = Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
-            var currentHook;
+            // Remove old hook
+            dataSource.hooks = _.reject(dataSource.hooks, { type: 'email', widgetInstanceId: widgetId });
 
-            if (dataSource.hooks.length) {
-              currentHook = _.find(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == newHook.widgetInstanceId;
-              });
-            }
+            // Add new hook
+            dataSource.hooks.push(newHook);
 
-            if (currentHook) {
-              // Update existing hook
-              currentHook.payload = $vm.settings.emailTemplateAdd;
+            debugger;
 
-              var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id;
-              });
-              dataSource.hooks.splice(index, 1, currentHook);
-
-              return Fliplet.DataSources.update($vm.settings.dataSourceId, {
-                hooks: dataSource.hooks
-              });
-            } else {
-              // Add new hook
-              dataSource.hooks.push(newHook);
-              return Fliplet.DataSources.update($vm.settings.dataSourceId, {
-                hooks: dataSource.hooks
-              });
-            }
+            return Fliplet.DataSources.update($vm.settings.dataSourceId, {
+              hooks: dataSource.hooks
+            });
           });
         } else {
           operation = Promise.resolve();
         }
 
         operation.then(function () {
+          debugger;
           $vm.save().then(function() {
+            debugger;
             Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
           });
           Fliplet.Widget.autosize();
@@ -363,38 +349,26 @@ var app = new Vue({
 
         var operation;
 
-        if ($vm.settings.dataStore.indexOf('editDataSource') > -1 || $vm.settings.dataSourceId) {
+        if ($vm.settings.dataStore.indexOf('editDataSource') > -1 && $vm.settings.dataSourceId) {
           var newHook = {
-            widgetInstanceId: $vm.settings.id,
+            widgetInstanceId: widgetId,
             runOn: ['update'],
             type: 'email',
             payload: $vm.settings.emailTemplateEdit
           };
 
           operation = Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
-            if (dataSource.hooks.length) {
-              // Update existing hook
-              var currentHook = _.find(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id;
-              });
+            // Remove old hook
+            dataSource.hooks = _.reject(dataSource.hooks, { type: 'email', widgetInstanceId: widgetId });
 
-              currentHook.payload = $vm.settings.emailTemplateEdit;
+            // Add new hook
+            dataSource.hooks.push(newHook);
 
-              var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == $vm.settings.id;
-              });
-              dataSource.hooks.splice(index, 1, currentHook);
+            debugger;
 
-              return Fliplet.DataSources.update($vm.settings.dataSourceId, {
-                hooks: dataSource.hooks
-              });
-            } else {
-              // Add new hook
-              dataSource.hooks.push(newHook);
-              return Fliplet.DataSources.update($vm.settings.dataSourceId, {
-                hooks: dataSource.hooks
-              });
-            }
+            return Fliplet.DataSources.update($vm.settings.dataSourceId, {
+              hooks: dataSource.hooks
+            });
           });
         } else {
           operation = Promise.resolve();
