@@ -307,8 +307,6 @@ var app = new Vue({
             // Add new hook
             dataSource.hooks.push(newHook);
 
-            debugger;
-
             return Fliplet.DataSources.update($vm.settings.dataSourceId, {
               hooks: dataSource.hooks
             });
@@ -318,9 +316,7 @@ var app = new Vue({
         }
 
         operation.then(function () {
-          debugger;
           $vm.save().then(function() {
-            debugger;
             Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
           });
           Fliplet.Widget.autosize();
@@ -354,7 +350,7 @@ var app = new Vue({
             widgetInstanceId: widgetId,
             runOn: ['update'],
             type: 'email',
-            payload: $vm.settings.emailTemplateEdit
+            payload: $vm.emailTemplateEdit
           };
 
           operation = Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
@@ -363,8 +359,6 @@ var app = new Vue({
 
             // Add new hook
             dataSource.hooks.push(newHook);
-
-            debugger;
 
             return Fliplet.DataSources.update($vm.settings.dataSourceId, {
               hooks: dataSource.hooks
@@ -621,7 +615,7 @@ var app = new Vue({
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
             if (dataSource.hooks.length) {
               var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == widgetId;
+                return o.widgetInstanceId == widgetId && o.runOn.indexOf('insert') > -1;
               });
               dataSource.hooks.splice(index, 1);
 
@@ -643,7 +637,7 @@ var app = new Vue({
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
             if (dataSource.hooks.length) {
               var index = _.findIndex(dataSource.hooks, function(o) {
-                return o.widgetInstanceId == widgetId;
+                return o.widgetInstanceId == widgetId && o.runOn.indexOf('update') > -1;
               });
               dataSource.hooks.splice(index, 1);
 
