@@ -263,7 +263,7 @@ var app = new Vue({
 
       fields.forEach(function(field) {
         if (typeof field._submit === 'undefined' || field._submit) {
-          defaultEmailTemplate += '<li style="line-height: 24px;">' + field.label + ': {{' + field.name + '}}</li>';
+          defaultEmailTemplate += '<li style="line-height: 24px;">' + field.label + ': {{[' + field.name + ']}}</li>';
         }
       });
       defaultEmailTemplate += '</ul>';
