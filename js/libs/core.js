@@ -19,10 +19,10 @@ Fliplet.FormBuilder = (function() {
     emit: function(eventName, data) {
       eventHub.$emit(eventName, data);
     },
-    components() {
+    components: function() {
       return components;
     },
-    categories() {
+    categories: function() {
       var categories = [];
 
       _.forIn(components, function(component, componentName) {
