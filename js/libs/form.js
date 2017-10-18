@@ -261,7 +261,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         //   }));
         // });
       },
-      loadEntryForUpdate() {
+      loadEntryForUpdate: function() {
         var $vm = this;
 
         if (entryId) {
