@@ -22,7 +22,7 @@ Fliplet.FormBuilder = (function() {
     components: function() {
       return components;
     },
-    categories() {
+    categories: function() {
       var categories = [];
 
       _.forIn(components, function(component, componentName) {
