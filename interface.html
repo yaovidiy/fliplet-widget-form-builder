@@ -249,8 +249,7 @@
         <div v-show="section === 'form'" class="section-holder clearfix">
           <section class="form-preview" v-bind:class="{ 'col-sm-6': isAddingFields, 'col-sm-12': !isAddingFields }">
             <a href="#" v-if="!isAddingFields" v-on:click.prevent="isAddingFields = true" class="btn btn-primary btn-xs add-field pull-right">Add fields <i class="fa fa-plus"></i></a>
-            <h2><small>Your form</small></h2>
-            <div class="required-info-label" v-bind:class="{'isRequired': hasRequiredFields}">* Required fields</div>
+            <h2><small>Your form</small> <span class="required-info-label" v-bind:class="{'isRequired': hasRequiredFields}">* Required fields</span></h2>
             <form class="form-html" v-sortable="{ group: { name: 'fields', pull: false }, scrollSensitivity: 116, scrollSpeed: 10, onAdd: onAdd, onUpdate: onSort }">
               <template v-if="fields.length">
                 <div class="component" :key="field.name" v-for="(field, index) in fields" v-on:click="onFieldClick(field)" v-bind:class="{ editing: activeField && field.name === activeField.name }">
@@ -272,7 +271,7 @@
 
           <transition name="fade">
             <section v-if="isAddingFields" class="components-list col-sm-6">
-              <a href="#" v-on:click.prevent="isAddingFields = false" class="btn btn-default btn-xs hide-fields">Hide</a>
+              <a href="#" v-on:click.prevent="isAddingFields = false" class="btn btn-secondary btn-xs hide-fields">Hide</a>
               <h2><small>Drag and drop to add a field</small></h2>
               <form class="form-html">
                 <div class="panel-group" id="componentsAccordion" role="tablist" aria-multiselectable="true">
@@ -312,7 +311,7 @@
                   <h2 class="modal-title"><small>\{{ activeFieldName }}</small></h2>
                 </div>
                 <div class="modal-body">
-                  <a href="#" class="btn btn-secondary close-btn" data-dismiss="modal" aria-label="Close" v-on:click.prevent="closeEdit">Cancel</a>
+                  <a href="#" class="btn btn-default close-btn" data-dismiss="modal" aria-label="Close" v-on:click.prevent="closeEdit">Cancel</a>
                   <component :is="activeFieldConfigType" v-bind="activeField" :_fields="fields" :_idx="activeFieldIdx"></component>
                 </div>
               </div>
