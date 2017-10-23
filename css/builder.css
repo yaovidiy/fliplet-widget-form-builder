@@ -37,7 +37,7 @@ main {
 
 .builder {
   position: relative;
-  padding-top: 116px;
+  padding-top: 106px;
   height: 100%;
 }
 
@@ -53,7 +53,7 @@ nav {
   right: 15px;
   left: 15px;
   background: #f2f6f7;
-  padding-top: 15px;
+  padding-top: 0;
 }
 
 nav a {
@@ -66,24 +66,15 @@ nav>.btn {
   top: calc(50% - 16px);
 }
 
-.btn-secondary {
-  color: #00abd1;
-  background-color: transparent;
-  border-bottom-color: #00abd1;
-  border: 1px solid #00abd1;
-}
-
-.btn-secondary:hover {
-  color: #00abd1;
-  background-color: transparent;
-  border-bottom-color: #007994;
-}
-
 .btn.btn-xs {
   text-decoration: none;
   font-size: 12px;
   padding: 3px 10px;
   line-height: 24px;
+}
+
+.add-field {
+  margin-top: -13px;
 }
 
 .form-control-static {
@@ -99,7 +90,7 @@ nav>.btn {
 
 .hide-fields {
   position: absolute;
-  top: 16px;
+  top: 4px;
   right: 15px;
 }
 
@@ -127,15 +118,15 @@ nav>.btn {
 
 .component {
   position: relative;
-  border: 1px dotted #d0d0d0;
+  border: none;
   cursor: move;
-  padding: 15px;
-  margin-bottom: 5px;
+  padding: 10px 15px;
+  border-bottom: 1px solid #d2d2d2;
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-.component:hover {
-  border: 1px dotted transparent;
+.component:last-child {
+  border-bottom: none;
 }
 
 .form-preview .component {
@@ -189,9 +180,13 @@ nav>.btn {
   padding-bottom: 15px;
 }
 
+.components-list > h2 {
+  margin-top: 0;
+}
+
 .components-list .form-html {
-  height: calc(100% - 93px);
-  margin-top: 40px;
+  height: calc(100% - 44px);
+  margin-top: 10px;
   overflow: auto;
 }
 
@@ -234,10 +229,10 @@ nav>.btn {
 .component .overlay-screen {
   background: rgba(255, 255, 255, 0.8);
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
   z-index: 5;
   opacity: 0;
   visibility: hidden;
@@ -285,7 +280,7 @@ nav>.btn {
 .form-preview .form-html {
   min-height: 100px;
   padding-bottom: 30px;
-  height: calc(100% - 93px);
+  height: calc(100% - 44px);
   overflow: auto;
 }
 
@@ -405,7 +400,7 @@ label.fileUpload {
 }
 
 .form-group .input-group {
-  padding: 0px;
+  padding: 0;
   position: relative;
   width: 100%;
 }
@@ -549,6 +544,10 @@ label.fileUpload {
   border-radius: 0;
 }
 
+.panel-group .panel:last-child {
+  border-radius: 0;
+}
+
 .panel-default>.panel-heading {
   padding: 0;
   border-radius: 0;
@@ -584,16 +583,12 @@ label.fileUpload {
   padding: 0;
 }
 
-.panel-body .component:last-child {
-  margin-bottom: 0;
-}
-
 .panel-heading .chevron-icon {
   position: absolute;
   top: 0;
   right: 0;
-  width: 37px;
-  height: 37px;
+  width: 35px;
+  height: 35px;
   font-size: 1.8em;
   text-align: center;
   pointer-events: none;
@@ -605,7 +600,7 @@ label.fileUpload {
   bottom: 0;
   left: 0;
   right: 0;
-  line-height: 37px;
+  line-height: 35px;
   -webkit-transition: -webkit-transform 0.25s ease;
   transition: transform 0.25s ease;
 }
@@ -615,7 +610,8 @@ label.fileUpload {
 }
 
 .panel .panel-heading[role="tab"] .panel-title {
-  padding: 10px 37px 10px 15px;
+  font-size: 14px;
+  padding: 10px 35px 10px 10px;
 }
 
 .panel .panel-heading .panel-title {
@@ -623,7 +619,11 @@ label.fileUpload {
 }
 
 .panel .panel-body {
-  padding: 15px;
+  padding: 0;
+}
+
+.form-preview > h2 {
+  margin-top: 0;
 }
 
 .required-info,
@@ -633,6 +633,7 @@ label.fileUpload {
 
 .required-info-label {
   margin-bottom: 10px;
+  font-size: 12px;
   opacity: 0;
 }
 
