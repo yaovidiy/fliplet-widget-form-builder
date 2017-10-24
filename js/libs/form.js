@@ -52,6 +52,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
           } else if (field._type === "flCheckbox" && !entry.data[field.name]) {
             field.value = [];
+          } else if (!field._submit) {
+            field.value = field.value;
           } else {
             field.value = entry.data[field.name];
           }
