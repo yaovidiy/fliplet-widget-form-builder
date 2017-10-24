@@ -50,12 +50,16 @@ Fliplet.Widget.instance('form-builder', function(data) {
             } else {
               field.value = moment(entry.data[field.name]).format('DD/MM/YYYY');
             }
+          } else if (field._type === "flCheckbox" && !entry.data[field.name]) {
+            field.value = [];
           } else {
             field.value = entry.data[field.name];
           }
 
           return field.value;
         }
+
+
 
         if (progress) {
           var savedValue = progress[field.name];
