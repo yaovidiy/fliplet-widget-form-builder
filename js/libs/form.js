@@ -61,8 +61,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
           return field.value;
         }
 
-
-
         if (progress) {
           var savedValue = progress[field.name];
 
