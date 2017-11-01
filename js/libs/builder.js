@@ -15,6 +15,15 @@ if (Array.isArray(data.onSubmit) && data.onSubmit.length) {
   data.onSubmit = data.onSubmit;
 }
 
+// Quick migration: "emailTemplate" has been renamed to "emailTemplateAdd"
+if (data.settings && data.settings.emailTemplate) {
+  if (!data.settings.emailTemplateAdd) {
+    data.settings.emailTemplateAdd = data.settings.emailTemplate;
+  }
+
+  data.settings.emailTemplate;
+}
+
 function changeSelectText() {
   setTimeout(function() {
     $('.hidden-select:not(.component .hidden-select)').each(function() {
@@ -773,15 +782,6 @@ var app = new Vue({
 
       $vm.triggerSave();
     });
-
-    function migrateData() {
-      if ($vm.settings && $vm.settings.emailTemplate) {
-        $vm.settings.emailTemplateAdd = $vm.settings.emailTemplate;
-        delete $vm.settings.emailTemplate;
-      }
-    }
-
-    migrateData();
 
     Fliplet.User.fetch().then(function(user) {
       $vm.userData = user;
