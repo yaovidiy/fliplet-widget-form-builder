@@ -158,11 +158,14 @@
                       <label>Send an email notification whenever a form is submitted</label>
                     </div>
                     <div>
-                      <div class="checkbox checkbox-icon">
-                        <input type="checkbox" id="templated_email_add" name="whenSubimitted" v-model="settings.onSubmit" value="templatedEmailAdd">
+                      <div v-if="settings.dataSourceId" class="checkbox checkbox-icon">
+                        <input type="checkbox" id="templated_email_add" name="whenSubmitted" v-model="settings.onSubmit" value="templatedEmailAdd">
                         <label for="templated_email_add">
                           <span class="check"><i class="fa fa-check"></i></span> Yes, please <span v-show="toggleTemplatedEmailAdd">[<a href="#" v-on:click="configureEmailTemplateAdd">Configure email template]</a></span>
                         </label>
+                      </div>
+                      <div v-else>
+                        <p>To configure the email template, please select a data source first.</p>
                       </div>
                     </div>
                   </div>
@@ -191,7 +194,7 @@
                     </div>
                     <div>
                       <div class="checkbox checkbox-icon">
-                        <input type="checkbox" id="templated_email_edit" name="whenSubimitted" v-model="settings.onSubmit" value="templatedEmailEdit">
+                        <input type="checkbox" id="templated_email_edit" name="whenSubmitted" v-model="settings.onSubmit" value="templatedEmailEdit">
                         <label for="templated_email_edit">
                           <span class="check"><i class="fa fa-check"></i></span> Yes, please <span v-show="toggleTemplatedEmailEdit">[<a href="#" v-on:click="configureEmailTemplateEdit">Configure email template]</a></span>
                         </label>
@@ -207,7 +210,7 @@
               </div>
               <div>
                 <div class="checkbox checkbox-icon">
-                  <input type="checkbox" id="generate_email" name="whenSubimitted" v-model="settings.onSubmit" value="generateEmail">
+                  <input type="checkbox" id="generate_email" name="whenSubmitted" v-model="settings.onSubmit" value="generateEmail">
                   <label for="generate_email">
                     <span class="check"><i class="fa fa-check"></i></span> Yes, please! <span v-show="toggleGenerateEmail">[<a href="#" v-on:click="configureEmailTemplateForCompose">Configure email template]</a></span>
                   </label>
