@@ -239,8 +239,6 @@ var app = new Vue({
     save: function() {
       var $vm = this;
 
-      debugger;
-
       if (this.settings.onSubmit.indexOf('templatedEmailAdd') > -1) {
         this.settings.emailTemplateAdd = this.emailTemplateAdd || this.defaultEmailSettings;
       }
