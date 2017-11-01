@@ -239,6 +239,8 @@ var app = new Vue({
     save: function() {
       var $vm = this;
 
+      debugger;
+
       if (this.settings.onSubmit.indexOf('templatedEmailAdd') > -1) {
         this.settings.emailTemplateAdd = this.emailTemplateAdd || this.defaultEmailSettings;
       }
@@ -289,6 +291,7 @@ var app = new Vue({
       window.emailTemplateAddProvider.then(function onForwardEmailProvider(result) {
         window.emailTemplateAddProvider = null;
         $vm.emailTemplateAdd = result.data;
+        $vm.settings.emailTemplateAdd = JSON.parse(JSON.stringify($vm.emailTemplateAdd));
 
         var operation;
 
@@ -346,6 +349,7 @@ var app = new Vue({
       window.emailTemplateEditProvider.then(function onForwardEmailProvider(result) {
         window.emailTemplateEditProvider = null;
         $vm.emailTemplateEdit = result.data;
+        $vm.settings.emailTemplateEdit = JSON.parse(JSON.stringify($vm.emailTemplateEdit));
 
         var operation;
 
