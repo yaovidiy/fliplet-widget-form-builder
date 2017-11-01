@@ -623,6 +623,8 @@ var app = new Vue({
         // Remove hook
         if ($vm.settings.dataSourceId && $vm.settings.dataSourceId !== '') {
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
+            dataSource.hooks = dataSource.hooks || [];
+
             if (dataSource.hooks.length) {
               var index = _.findIndex(dataSource.hooks, function(o) {
                 return o.widgetInstanceId == widgetId && o.runOn.indexOf('insert') > -1;
@@ -645,6 +647,8 @@ var app = new Vue({
         // Remove hook
         if ($vm.settings.dataSourceId && $vm.settings.dataSourceId !== '') {
           Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(dataSource) {
+            dataSource.hooks = dataSource.hooks || [];
+
             if (dataSource.hooks.length) {
               var index = _.findIndex(dataSource.hooks, function(o) {
                 return o.widgetInstanceId == widgetId && o.runOn.indexOf('update') > -1;
