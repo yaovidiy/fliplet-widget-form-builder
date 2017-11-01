@@ -193,12 +193,15 @@
                       <label>Send an email notification whenever the data is updated</label>
                     </div>
                     <div>
-                      <div class="checkbox checkbox-icon">
+                      <div v-if="settings.dataSourceId" class="checkbox checkbox-icon">
                         <input type="checkbox" id="templated_email_edit" name="whenSubmitted" v-model="settings.onSubmit" value="templatedEmailEdit">
                         <label for="templated_email_edit">
                           <span class="check"><i class="fa fa-check"></i></span> Yes, please <span v-show="toggleTemplatedEmailEdit">[<a href="#" v-on:click="configureEmailTemplateEdit">Configure email template]</a></span>
                         </label>
                       </div>
+                      <div v-else>
++                        <p>To configure the email template, please select a data source first.</p>
++                      </div>
                     </div>
                   </div>
                 </div>
