@@ -231,7 +231,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             localStorage.removeItem(progressKey);
           }
 
-          if (data.emailTemplateAdd && data.onSubmit && data.onSubmit.indexOf('templatedEmailAdd') > -1) {
+          if (!data.dataSourceId && data.emailTemplateAdd && data.onSubmit && data.onSubmit.indexOf('templatedEmailAdd') > -1) {
             Fliplet.Communicate.sendEmail(data.emailTemplateAdd, formData);
           }
 
