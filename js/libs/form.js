@@ -231,12 +231,15 @@ Fliplet.Widget.instance('form-builder', function(data) {
             localStorage.removeItem(progressKey);
           }
 
-          if (!data.dataSourceId && data.emailTemplateAdd && data.onSubmit && data.onSubmit.indexOf('templatedEmailAdd') > -1) {
-            Fliplet.Communicate.sendEmail(data.emailTemplateAdd, formData);
-          }
+          // Emails are only sent by the client when data source hooks aren't set
+          if (!data.dataSourceId) {
+            if (data.emailTemplateAdd && data.onSubmit && data.onSubmit.indexOf('templatedEmailAdd') > -1) {
+              Fliplet.Communicate.sendEmail(data.emailTemplateAdd, formData);
+            }
 
-          if (data.emailTemplateEdit && data.onSubmit && data.onSubmit.indexOf('templatedEmailEdit') > -1) {
-            Fliplet.Communicate.sendEmail(data.emailTemplateEdit, formData);
+            if (data.emailTemplateEdit && data.onSubmit && data.onSubmit.indexOf('templatedEmailEdit') > -1) {
+              Fliplet.Communicate.sendEmail(data.emailTemplateEdit, formData);
+            }
           }
 
           if (data.generateEmailTemplate && data.onSubmit && data.onSubmit.indexOf('generateEmail') > -1) {
