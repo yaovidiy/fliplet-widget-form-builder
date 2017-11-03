@@ -552,7 +552,7 @@ textarea.form-control {
 
 /* START RATING */
 
-[_type="flStarRating"] {
+[_type="flStarRating"] .inverse-direction {
   overflow: hidden;
   display: inline-block;
   text-align: left;

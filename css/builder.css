@@ -339,9 +339,7 @@ label.fileUpload {
 }
 
 /* START RATING */
-
-.component [_type="flStarRating"],
-[data-field="flStarRating"] {
+.component [_type="flStarRating"] .inverse-direction {
   overflow: hidden;
   display: inline-block;
   text-align: left;
