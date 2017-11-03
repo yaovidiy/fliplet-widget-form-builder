@@ -551,7 +551,6 @@ textarea.form-control {
 
 
 /* START RATING */
-
 [_type="flStarRating"] .inverse-direction {
   overflow: hidden;
   display: inline-block;

@@ -63,7 +63,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handleba
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.starRating"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"inverse-direction\">\n	<template v-for=\"(option, index) in values\">\n	  <input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-' + index\" v-model=\"value\" :value=\"option.id\" v-on:change=\"updateValue()\">\n	  <label class=\"rating-star\" :for=\"name + '-' + index\">\n	    <i class=\"fa fa-star-o\"></i>\n	    <i class=\"fa fa-star\"></i>\n	  </label>\n	</template>\n</div>\n";
+    return "<div class=\"inverse-direction\">\n	<template v-for=\"(option, index) in values\">\n		<input class=\"rating-input\" :name=\"name\" type=\"radio\" :id=\"name + '-' + index\" v-model=\"value\" :value=\"option.id\" v-on:change=\"updateValue()\">\n		<label class=\"rating-star\" :for=\"name + '-' + index\">\n			<i class=\"fa fa-star-o\"></i>\n			<i class=\"fa fa-star\"></i>\n		</label>\n	</template>\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.telephone"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
