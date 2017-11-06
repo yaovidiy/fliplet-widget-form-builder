@@ -460,13 +460,20 @@ label.fileUpload {
 
 .modal-body {
   height: calc(100% - 50px);
-  padding: 0 15px 77px;
+  padding: 0 0 77px;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 .modal-body form {
-  padding: 15px 0;
+  padding: 0;
+  height: 100%;
+}
+
+.modal-body .form-fields-holder {
+  height: 100%;
+  overflow: auto;
+  padding: 0 15px;
 }
 
 .modal-body .footer {

@@ -1,63 +1,66 @@
 <form v-on:submit.prevent="onSubmit" class="form-horizontal">
-  <div v-if="_isFormField">
-    <div class="form-group cleafix" :class="{ 'has-error': _fieldNameError }">
-      <div class="col-xs-12">
-        <label class="control-label" for="field-name">
-          Field ID <i class="text-muted fa fa-question-circle" ref="tooltip" data-viewport=".modal-body" data-toggle="tooltip" data-placement="right" title="If you change this default ID, a new column will be created in the database that saves this form’s entries. Be careful to update any directories that reference this form with the new ID names."></i>
-        </label>
-      </div>
-      <div class="col-xs-12" v-if="_isEditingName">
-        <input id="field-name" class="form-control" type="text" v-model.trim="name" placeholder="Field ID" />
-        <p class="help-block" v-if="_fieldNameError" v-html="_fieldNameError"></p>
-      </div>
-      <div class="col-xs-12 form-control-static" v-else>
-        <span v-html="name"></span> - <a href="#" @click="_isEditingName = true">Change</a>
-      </div>
-    </div>
-
-    <div class="form-group cleafix">
-      <div class="col-xs-12">
-        <label class="control-label" for="field-label">Field label</label>
-      </div>
-      <div class="col-xs-12">
-        <input class="form-control" id="field-label" type="text" v-model.trim="label" placeholder="Field description" />
-      </div>
-    </div>
-
-    <div class="form-group cleafix">
-      <div class="col-xs-12">
-        <label class="control-label">Is this field required?</label>
-      </div>
-      <div class="col-xs-12">
-        <div class="radio radio-icon">
-          <input type="radio" id="required-yes" name="required-option" v-bind:value="true" v-model="required">
-          <label for="required-yes">
-            <span class="check"><i class="fa fa-circle"></i></span> <strong>Yes</strong> - Users will have to fill in the field
+  <div class="form-fields-holder">
+    <div v-if="_isFormField">
+      <div class="form-group cleafix" :class="{ 'has-error': _fieldNameError }">
+        <div class="col-xs-12">
+          <label class="control-label" for="field-name">
+            Field ID <i class="text-muted fa fa-question-circle" ref="tooltip" data-viewport=".modal-body" data-toggle="tooltip" data-placement="right" title="If you change this default ID, a new column will be created in the database that saves this form’s entries. Be careful to update any directories that reference this form with the new ID names."></i>
           </label>
         </div>
-        <div class="radio radio-icon">
-          <input type="radio" id="required-no" name="required-option" v-bind:value="false" v-model="required">
-          <label for="required-no">
-            <span class="check"><i class="fa fa-circle"></i></span> <strong>No</strong> - The field is optional
-          </label>
+        <div class="col-xs-12" v-if="_isEditingName">
+          <input id="field-name" class="form-control" type="text" v-model.trim="name" placeholder="Field ID" />
+          <p class="help-block" v-if="_fieldNameError" v-html="_fieldNameError"></p>
+        </div>
+        <div class="col-xs-12 form-control-static" v-else>
+          <span v-html="name"></span> - <a href="#" @click="_isEditingName = true">Change</a>
+        </div>
+      </div>
+
+      <div class="form-group cleafix">
+        <div class="col-xs-12">
+          <label class="control-label" for="field-label">Field label</label>
+        </div>
+        <div class="col-xs-12">
+          <input class="form-control" id="field-label" type="text" v-model.trim="label" placeholder="Field description" />
+        </div>
+      </div>
+
+      <div class="form-group cleafix">
+        <div class="col-xs-12">
+          <label class="control-label">Is this field required?</label>
+        </div>
+        <div class="col-xs-12">
+          <div class="radio radio-icon">
+            <input type="radio" id="required-yes" name="required-option" v-bind:value="true" v-model="required">
+            <label for="required-yes">
+              <span class="check"><i class="fa fa-circle"></i></span> <strong>Yes</strong> - Users will have to fill in the field
+            </label>
+          </div>
+          <div class="radio radio-icon">
+            <input type="radio" id="required-no" name="required-option" v-bind:value="false" v-model="required">
+            <label for="required-no">
+              <span class="check"><i class="fa fa-circle"></i></span> <strong>No</strong> - The field is optional
+            </label>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  {{#hasOptions}}
-    <div class="form-group cleafix">
-      <div class="col-xs-12">
-        <label class="control-label">Options <small>(One per line)</small></label>
+    {{#hasOptions}}
+      <div class="form-group cleafix">
+        <div class="col-xs-12">
+          <label class="control-label">Options <small>(One per line)</small></label>
+        </div>
+        <div class="col-xs-12">
+          <textarea v-on:input="_setOptions($event.target.value)" class="form-control">\{{ _options }}</textarea>
+        </div>
       </div>
-      <div class="col-xs-12">
-        <textarea v-on:input="_setOptions($event.target.value)" class="form-control">\{{ _options }}</textarea>
-      </div>
+    {{/hasOptions}}
+
+    <div class="col-xs-12">
+      {{{ template }}}
     </div>
-  {{/hasOptions}}
 
-  <div class="col-xs-12">
-    {{{ template }}}
   </div>
 
   <div class="footer">
