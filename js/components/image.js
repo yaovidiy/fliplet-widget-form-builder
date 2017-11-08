@@ -129,19 +129,19 @@ Fliplet.FormBuilder.field('image', {
       });
     },
     onFileClick: function(event) {
+      // Native
+      var $vm = this;
+      this.value = [];
+
       // Web
       if (Fliplet.Env.is('web') || !navigator.camera) {
         return;
       }
       if (this.forcedClick) {
         this.forcedClick = false;
-        return;
+        return $vm.getPicture();
       }
       event.preventDefault();
-
-      // Native
-      var $vm = this;
-      this.value = [];
 
       this.requestPicture(this.$refs.imageInput).then(function onRequestedPicture() {
         if ($vm.cameraSource === Camera.PictureSourceType.PHOTOLIBRARY) {
