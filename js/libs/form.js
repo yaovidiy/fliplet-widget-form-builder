@@ -272,7 +272,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         var $vm = this;
 
         if (entryId) {
-          return Fliplet.DataSources.connect(data.dataSourceId).then(function (ds) {
+          return Fliplet.DataSources.connect(data.dataSourceId, { offline: data.offline }).then(function (ds) {
             return ds.findById(entryId);
           }).then(function (record) {
             if (!record) {
