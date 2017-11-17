@@ -78,7 +78,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
     return value && typeof value.item === 'function';
   }
 
-  new Vue({
+  var $form = new Vue({
     el: $(selector)[0],
     data: function() {
       return {
@@ -137,6 +137,16 @@ Fliplet.Widget.instance('form-builder', function(data) {
         if (typeof data.saveProgress === 'function') {
           this.saveProgress();
         }
+      },
+      setField: function(fieldName, value) {
+        this.fields.some(function(field) {
+          if (field.name === fieldName) {
+            field.value = value;
+            return true;
+          }
+        });
+
+        this.$forceUpdate();
       },
       onSubmit: function() {
         var $vm = this;
@@ -347,4 +357,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
       this.loadEntryForUpdate();
     }
   });
+
+  Fliplet.FormBuilder.setField = $form.setField;
 });
