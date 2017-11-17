@@ -78,7 +78,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
     return value && typeof value.item === 'function';
   }
 
-  new Vue({
+  var $form = new Vue({
     el: $(selector)[0],
     data: function() {
       return {
@@ -133,6 +133,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
             return true;
           }
         });
+
+        this.$forceUpdate();
 
         if (typeof data.saveProgress === 'function') {
           this.saveProgress();
@@ -347,4 +349,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
       this.loadEntryForUpdate();
     }
   });
+
+  Fliplet.FormBuilder.setField = $form.onInput;
 });
