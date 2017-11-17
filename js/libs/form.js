@@ -134,11 +134,19 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
         });
 
-        this.$forceUpdate();
-
         if (typeof data.saveProgress === 'function') {
           this.saveProgress();
         }
+      },
+      setField: function(fieldName, value) {
+        this.fields.some(function(field) {
+          if (field.name === fieldName) {
+            field.value = value;
+            return true;
+          }
+        });
+
+        this.$forceUpdate();
       },
       onSubmit: function() {
         var $vm = this;
@@ -350,5 +358,5 @@ Fliplet.Widget.instance('form-builder', function(data) {
     }
   });
 
-  Fliplet.FormBuilder.setField = $form.onInput;
+  Fliplet.FormBuilder.setField = $form.setField;
 });
