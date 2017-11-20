@@ -108,12 +108,12 @@ Fliplet.FormBuilder.field('image', {
     },
     processImage: function(file, addThumbnail) {
       var $vm = this;
-
+      var mimeType = file.type;
       loadImage.parseMetaData(file, function(data) {
         loadImage(
           file,
           function(img) {
-            var imgBase64Url = img.toDataURL('image/jpeg', $vm.jpegQuality);
+            var imgBase64Url = img.toDataURL(mimeType, $vm.jpegQuality);
             if (addThumbnail) {
               $vm.addThumbnailToCanvas(imgBase64Url);
             }
