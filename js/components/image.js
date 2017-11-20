@@ -108,7 +108,7 @@ Fliplet.FormBuilder.field('image', {
     },
     processImage: function(file, addThumbnail) {
       var $vm = this;
-      var mimeType = file.type;
+      var mimeType = file.type || 'image/png';
       loadImage.parseMetaData(file, function(data) {
         loadImage(
           file,
