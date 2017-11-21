@@ -10,7 +10,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
   var entry;
 
   var formReady;
-  var formPromise = new Promise(function (resolve, reject) {
+  var formPromise = new Promise(function (resolve) {
     formReady = resolve;
   });
 
