@@ -141,7 +141,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
         });
 
-        if (typeof data.saveProgress === 'function') {
+        if (data.saveProgress && typeof this.saveProgress === 'function') {
           this.saveProgress();
         }
       },
