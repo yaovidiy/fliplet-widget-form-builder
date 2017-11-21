@@ -1,3 +1,5 @@
+var formBuilderInstances = [];
+
 Fliplet.Widget.instance('form-builder', function(data) {
   var saveDelay = 1000; // save progress after 1s from last input
   var selector = '[data-form-builder-id="' + data.id + '"]';
@@ -6,6 +8,11 @@ Fliplet.Widget.instance('form-builder', function(data) {
   var entryId = data.dataSourceId && Fliplet.Navigate.query.dataSourceEntryId;
   var formMode = Fliplet.Navigate.query.mode;
   var entry;
+
+  var formReady;
+  var formPromise = new Promise(function (resolve) {
+    formReady = resolve;
+  });
 
   if (entryId) {
     entryId = parseInt(entryId, 10) || undefined;
@@ -138,15 +145,17 @@ Fliplet.Widget.instance('form-builder', function(data) {
           this.saveProgress();
         }
       },
-      setField: function(fieldName, value) {
+      getField: function (fieldName) {
+        var found;
+
         this.fields.some(function(field) {
           if (field.name === fieldName) {
-            field.value = value;
+            found = field;
             return true;
           }
         });
 
-        this.$forceUpdate();
+        return found;
       },
       onSubmit: function() {
         var $vm = this;
@@ -299,7 +308,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         }
 
         if (formMode === 'add') {
-          return;
+          return Promise.resolve();
         }
 
         if (data.autobindProfileEditing) {
@@ -313,6 +322,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
             $vm.isLoading = false;
           });
         }
+
+        return Promise.resolve();
       }
     },
     mounted: function() {
@@ -354,9 +365,52 @@ Fliplet.Widget.instance('form-builder', function(data) {
         });
       }
 
-      this.loadEntryForUpdate();
+      this.loadEntryForUpdate().then(function () {
+        // This data is available through "Fliplet.FormBuilder.get()"
+        formReady({
+          name: data.name,
+          instance: $form,
+          field: function (key) {
+            var field = $form.getField(key);
+
+            if (!field) {
+              throw new Error('The field ' + key + ' has not been found.');
+            }
+
+            return {
+              val: function (value) {
+                if (typeof value === 'undefined') {
+                  return field.value;
+                }
+
+                field.value = value;
+                $form.$forceUpdate();
+              }
+            };
+          }
+        });
+      });
     }
   });
 
-  Fliplet.FormBuilder.setField = $form.setField;
+  formBuilderInstances.push(formPromise);
 });
+
+Fliplet.FormBuilder.get = function (name) {
+  return Promise.all(formBuilderInstances).then(function (forms) {
+    var form;
+
+    if (typeof name === 'undefined') {
+      form = forms.length ? forms[0] : undefined;
+    } else {
+      forms.some(function (vueForm) {
+        if (vueForm.name === name) {
+          form = vueForm;
+          return true;
+        }
+      });
+    }
+
+    return form;
+  });
+};
