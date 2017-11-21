@@ -121,6 +121,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         });
 
         Fliplet.FormBuilder.emit('reset');
+        this.$emit('reset');
       },
       onError: function (fieldName, error) {
         if (!error) {
@@ -370,6 +371,9 @@ Fliplet.Widget.instance('form-builder', function(data) {
         formReady({
           name: data.name,
           instance: $form,
+          on: function (event, fn) {
+            return $form.$on(event, fn);
+          },
           field: function (key) {
             var field = $form.getField(key);
 
@@ -384,7 +388,11 @@ Fliplet.Widget.instance('form-builder', function(data) {
                 }
 
                 field.value = value;
-                $form.$forceUpdate();
+
+                // Wait for DOM to update, then force a refresh
+                setTimeout(function () {
+                  $form.$forceUpdate();
+                }, 0);
               }
             };
           }
