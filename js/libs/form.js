@@ -50,7 +50,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
     if (fields.length && (data.saveProgress && typeof progress === 'object') || entry) {
       fields.forEach(function(field) {
-        if (entry && typeof entry.data[field.name] !== 'undefined' && field.populateOnUpdate !== false) {
+        if (entry && entry.data && typeof entry.data[field.name] !== 'undefined' && field.populateOnUpdate !== false) {
           if (field._type === "flDate") {
             if (Fliplet.Env.get('platform') === 'web') {
               field.value = moment(entry.data[field.name]).format('DD MMMM YYYY');
@@ -235,7 +235,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
           if (entry && data.dataSourceId) {
             return connection.update(entryId, formData, {
-              offline: data.offline
+              offline: false
             });
           }
 
@@ -292,7 +292,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         var $vm = this;
 
         if (entryId) {
-          return Fliplet.DataSources.connect(data.dataSourceId, { offline: data.offline }).then(function (ds) {
+          return Fliplet.DataSources.connect(data.dataSourceId, { offline: false }).then(function (ds) {
             return ds.findById(entryId);
           }).then(function (record) {
             if (!record) {
