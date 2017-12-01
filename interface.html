@@ -17,12 +17,12 @@
       <p>Select a template to load a new form.</p>
 
       <label for="select-template" class="select-proxy-display">
-        <span class="icon fa fa-chevron-down"></span>
-        <span class="select-value-proxy">-- Select a template</span>
         <select class="form-control hidden-select" id="select-template" v-model="settings.templateId">
           <option value="" disabled>-- Select a template</option>
           <option v-for="template in templates" :value="template.id">\{{ template.settings.displayName }}</option>
         </select>
+        <span class="icon fa fa-chevron-down"></span>
+        <span class="select-value-proxy">-- Select a template</span>
       </label>
 
       <hr />
@@ -38,12 +38,12 @@
       <p>Select another template to load a new form.</p>
 
       <label for="select-new-template" class="select-proxy-display">
-        <span class="icon fa fa-chevron-down"></span>
-        <span class="select-value-proxy">-- Select a template</span>
         <select class="form-control hidden-select" id="select-new-template" v-model="newTemplate">
           <option value="" disabled>-- Select a template</option>
           <option v-for="template in templates" :value="template.id">\{{ template.settings.displayName }}</option>
         </select>
+        <span class="icon fa fa-chevron-down"></span>
+        <span class="select-value-proxy">-- Select a template</span>
       </label>
 
       <div class="panel panel-warning">
@@ -87,14 +87,14 @@
             <div class="form-group">
               <label class="control-label">Select a data source to store the form submissions</label>
               <label for="select-datasource" class="select-proxy-display">
-                <span class="icon fa fa-chevron-down"></span>
-                <span class="select-value-proxy">Select a data source</span>
                 <select class="form-control hidden-select" id="select-datasource" v-model="settings.dataSourceId">
                   <option value="" disabled="disabled">Select a data source</option>
                   <option v-for="dataSource in dataSources" v-bind:value="dataSource.id">
                     \{{ dataSource.name }}
                   </option>
                 </select>
+                <span class="icon fa fa-chevron-down"></span>
+                <span class="select-value-proxy">Select a data source</span>
               </label>
               <small>or just <a href="#" v-on:click.prevent="createDataSource">create a new data source</a></small>
             </div>
