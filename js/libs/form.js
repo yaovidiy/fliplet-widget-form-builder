@@ -146,6 +146,9 @@ Fliplet.Widget.instance('form-builder', function(data) {
           this.saveProgress();
         }
       },
+      getWidgetInstanceData: function (data) {
+        return data;
+      },
       getField: function (fieldName) {
         var found;
 
