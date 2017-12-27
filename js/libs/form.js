@@ -254,23 +254,30 @@ Fliplet.Widget.instance('form-builder', function(data) {
             localStorage.removeItem(progressKey);
           }
 
+          var operation = Promise.resolve();
+
           // Emails are only sent by the client when data source hooks aren't set
           if (!data.dataSourceId) {
             if (data.emailTemplateAdd && data.onSubmit && data.onSubmit.indexOf('templatedEmailAdd') > -1) {
-              Fliplet.Communicate.sendEmail(data.emailTemplateAdd, formData);
+              operation = Fliplet.Communicate.sendEmail(data.emailTemplateAdd, formData);
             }
 
             if (data.emailTemplateEdit && data.onSubmit && data.onSubmit.indexOf('templatedEmailEdit') > -1) {
-              Fliplet.Communicate.sendEmail(data.emailTemplateEdit, formData);
+              operation = Fliplet.Communicate.sendEmail(data.emailTemplateEdit, formData);
             }
           }
 
           if (data.generateEmailTemplate && data.onSubmit && data.onSubmit.indexOf('generateEmail') > -1) {
-            Fliplet.Communicate.composeEmail(data.generateEmailTemplate, formData);
+            operation = Fliplet.Communicate.composeEmail(data.generateEmailTemplate, formData);
           }
 
           if (data.linkAction && data.redirect) {
-            return Fliplet.Navigate.to(data.linkAction);
+            return operation.then(function () {
+              Fliplet.Navigate.to(data.linkAction);
+            }).catch(function (err) {
+              alert(err.description || err.message || err.description || err.reason || err);
+              Fliplet.Navigate.to(data.linkAction);
+            })
           }
 
           $vm.isSent = true;
