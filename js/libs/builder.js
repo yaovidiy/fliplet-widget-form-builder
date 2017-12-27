@@ -130,7 +130,8 @@ var app = new Vue({
       emailTemplateAdd: formSettings.emailTemplateAdd || undefined,
       emailTemplateEdit: formSettings.emailTemplateEdit || undefined,
       generateEmailTemplate: undefined,
-      conflictWarning: formSettings.dataStore.indexOf('dataSource') > -1 && formSettings.autobindProfileEditing ? true : false
+      conflictWarning: formSettings.dataStore.indexOf('dataSource') > -1 && formSettings.autobindProfileEditing ? true : false,
+      manageDataBtn: false
     };
   },
   methods: {
@@ -244,6 +245,12 @@ var app = new Vue({
         $vm.dataSources.push(ds);
         $vm.settings.dataSourceId = ds.id;
       });
+    },
+    manageDataSource: function(dataSourceId) {
+      console.log(dataSourceId);
+      // @TODO:
+      // Get data source ID
+      // Open overlay to data sources provider with ID
     },
     save: function() {
       var $vm = this;
@@ -531,8 +538,11 @@ var app = new Vue({
     }
   },
   watch: {
-    'dataSources': function(newVal) {
+    'dataSources': function() {
       changeSelectText();
+    },
+    'settings.dataSourceId': function(value) {
+      this.manageDataBtn = value && value !== '';
     },
     'permissionToChange': function(newVal) {
       Fliplet.Widget.toggleSaveButton(newVal);
