@@ -130,7 +130,8 @@ var app = new Vue({
       emailTemplateAdd: formSettings.emailTemplateAdd || undefined,
       emailTemplateEdit: formSettings.emailTemplateEdit || undefined,
       generateEmailTemplate: undefined,
-      conflictWarning: formSettings.dataStore.indexOf('dataSource') > -1 && formSettings.autobindProfileEditing ? true : false
+      conflictWarning: formSettings.dataStore.indexOf('dataSource') > -1 && formSettings.autobindProfileEditing ? true : false,
+      manageDataBtn: false
     };
   },
   methods: {
@@ -243,6 +244,17 @@ var app = new Vue({
       }).then(function(ds) {
         $vm.dataSources.push(ds);
         $vm.settings.dataSourceId = ds.id;
+      });
+    },
+    manageDataSource: function(dataSourceId) {
+      Fliplet.Studio.emit('overlay', {
+        name: 'widget',
+        options: {
+          size: 'large',
+          package: 'com.fliplet.data-sources',
+          title: 'Edit Data Sources',
+          data: { dataSourceId: dataSourceId }
+        }
       });
     },
     save: function() {
@@ -528,11 +540,24 @@ var app = new Vue({
         Fliplet.Widget.complete();
         Fliplet.Studio.emit('reload-page-preview');
       });
+    },
+    loadDataSources: function () {
+      var $vm = this;
+      return Fliplet.DataSources.get({
+        type: null
+      }, {
+        cache: false
+      }).then(function(results) {
+        $vm.dataSources = results;
+      });
     }
   },
   watch: {
-    'dataSources': function(newVal) {
+    'dataSources': function() {
       changeSelectText();
+    },
+    'settings.dataSourceId': function(value) {
+      this.manageDataBtn = value && value !== '';
     },
     'permissionToChange': function(newVal) {
       Fliplet.Widget.toggleSaveButton(newVal);
@@ -691,11 +716,14 @@ var app = new Vue({
 
     Fliplet.FormBuilder.on('field-settings-changed', this.onFieldSettingChanged);
 
-    Fliplet.DataSources.get({
-      type: null
-    }).then(function(results) {
-      $vm.dataSources = results;
+    $vm.loadDataSources().then(function () {
       $(selector).removeClass('is-loading');
+    });
+
+    Fliplet.Studio.onMessage(function(event) {
+      if (event.data && event.data.event === 'overlay-close') {
+        $vm.loadDataSources();
+      }
     });
 
     Fliplet.FormBuilder.templates().then(function(templates) {
