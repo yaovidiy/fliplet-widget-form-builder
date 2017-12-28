@@ -545,6 +545,8 @@ var app = new Vue({
       var $vm = this;
       return Fliplet.DataSources.get({
         type: null
+      }, {
+        cache: false
       }).then(function(results) {
         $vm.dataSources = results;
       });
