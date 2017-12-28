@@ -247,10 +247,15 @@ var app = new Vue({
       });
     },
     manageDataSource: function(dataSourceId) {
-      console.log(dataSourceId);
-      // @TODO:
-      // Get data source ID
-      // Open overlay to data sources provider with ID
+      Fliplet.Studio.emit('overlay', {
+        name: 'widget',
+        options: {
+          size: 'large',
+          package: 'com.fliplet.data-sources',
+          title: 'Edit Data Sources',
+          data: { dataSourceId: dataSourceId }
+        }
+      });
     },
     save: function() {
       var $vm = this;
@@ -535,6 +540,14 @@ var app = new Vue({
         Fliplet.Widget.complete();
         Fliplet.Studio.emit('reload-page-preview');
       });
+    },
+    loadDataSources: function () {
+      var $vm = this;
+      return Fliplet.DataSources.get({
+        type: null
+      }).then(function(results) {
+        $vm.dataSources = results;
+      });
     }
   },
   watch: {
@@ -701,11 +714,14 @@ var app = new Vue({
 
     Fliplet.FormBuilder.on('field-settings-changed', this.onFieldSettingChanged);
 
-    Fliplet.DataSources.get({
-      type: null
-    }).then(function(results) {
-      $vm.dataSources = results;
+    $vm.loadDataSources().then(function () {
       $(selector).removeClass('is-loading');
+    });
+
+    Fliplet.Studio.onMessage(function(event) {
+      if (event.data && event.data.event === 'overlay-close') {
+        $vm.loadDataSources();
+      }
     });
 
     Fliplet.FormBuilder.templates().then(function(templates) {
