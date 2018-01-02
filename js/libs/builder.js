@@ -106,6 +106,8 @@ var app = new Vue({
       section: 'form', // form or settings
       settings: formSettings,
       templates: [],
+      systemTemplates: [],
+      organizationTemplates: [],
       chooseTemplate: !formSettings.templateId,
       toChangeTemplate: false,
       permissionToChange: false,
@@ -727,7 +729,9 @@ var app = new Vue({
     });
 
     Fliplet.FormBuilder.templates().then(function(templates) {
-      $vm.templates = templates;
+      $vm.templates = templates.system.concat(templates.organization);
+      $vm.systemTemplates = templates.system;
+      $vm.organizationTemplates = templates.organization;
     });
   },
   beforeDestroy: function() {

@@ -83,6 +83,9 @@ Fliplet.FormBuilder.templates = function() {
     });
 
   return operation.then(function(organizationTemplates) {
-    return Promise.resolve(systemTemplates.concat(organizationTemplates));
+    return Promise.resolve({
+      system: systemTemplates,
+      organization: organizationTemplates
+    });
   })
 };

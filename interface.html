@@ -21,7 +21,16 @@
         <span class="select-value-proxy">-- Select a template</span>
         <select class="form-control hidden-select" id="select-template" v-model="settings.templateId">
           <option value="" disabled>-- Select a template</option>
-          <option v-for="template in templates" :value="template.id">\{{ template.settings.displayName }}</option>
+          <optgroup label="Organization templates">
+            <template v-if="organizationTemplates.length">
+              <option v-for="template in organizationTemplates" :value="template.id">\{{ template.settings.displayName }}</option>
+            </template>
+            <option v-else disabled>You didn't create any organisation template yet.</option>
+          </optgroup>
+          <option disabled>------------------------------------------</option>
+          <optgroup label="Fliplet templates">
+            <option v-for="template in systemTemplates" :value="template.id">\{{ template.settings.displayName }}</option>
+          </optgroup>
         </select>
       </label>
 
