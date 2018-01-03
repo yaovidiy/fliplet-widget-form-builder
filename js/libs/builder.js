@@ -133,7 +133,8 @@ var app = new Vue({
       emailTemplateEdit: formSettings.emailTemplateEdit || undefined,
       generateEmailTemplate: undefined,
       conflictWarning: formSettings.dataStore.indexOf('dataSource') > -1 && formSettings.autobindProfileEditing ? true : false,
-      manageDataBtn: false
+      manageDataBtn: false,
+      organizationName: ''
     };
   },
   methods: {
@@ -790,6 +791,9 @@ var app = new Vue({
       });
     }
 
+    Fliplet.Organizations.get().then(function (organizations) {
+      $vm.organizationName = organizations.length && organizations[0].name;
+    });
 
     Fliplet.Widget.onSaveRequest(function() {
       if (window.emailTemplateAddProvider) {

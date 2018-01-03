@@ -81,6 +81,9 @@
           <li v-bind:class="{ active: section === 'settings' }">
             <a href="#" v-on:click.prevent="section = 'settings'">Settings</a>
           </li>
+          <li v-bind:class="{ active: section === 'org-template' }">
+            <a href="#" v-on:click.prevent="section = 'org-template'">Form template</a>
+          </li>
         </ul>
         <a href="#" class="btn btn-xs btn-primary hidden" v-on:click.prevent="changeTemplate()">Change template</a>
       </nav>
@@ -317,6 +320,28 @@
               </form>
             </section>
           </transition>
+        </div>
+
+        <div v-show="section === 'org-template'" class="section-holder clearfix">
+          <section class="col-sm-12">
+            <div class="form-group">
+              <label for="templateCheckbox">
+                <input id="templateCheckbox" type="checkbox" v-model="settings.template"> Set this form as a template for \{{ organizationName }}
+              </label>
+            </div>
+            <p>Your colleagues can use this form as a template when they create new forms.</p>
+            <p>Note: Changes to your form will be applied to the template right away.</p>
+
+            <div class="form-group">
+              <label class="control-label">Form name</label>
+              <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" />
+            </div>
+
+            <div class="form-group">
+              <label class="control-label">Template description</label>
+              <textarea v-model="settings.description" class="form-control" rows="4"></textarea>
+            </div>
+          </section>
         </div>
 
         <div class="modal" tabindex="-1" role="dialog" v-bind:class="{ active: !!activeFieldConfigType }">
