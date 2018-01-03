@@ -8,36 +8,64 @@
   </div>
   <main>
     <header>
-      <p>Configure your form</p>
+      <p v-if="chooseTemplate">Template gallery</p>
+      <p v-else>Configure your form</p>
       <a id="help_tip" href="#">Need help?</a>
     </header>
     <section v-if="chooseTemplate" class="col-sm-12 choose-template">
-      <br />
-      <label class="control-label">Step 1. Choose your form template</label>
-      <p>Select a template to load a new form.</p>
+      <template v-if="organizationTemplates.length">
+        <div class="gallery-heading">Created by \{{ organizationName }}</div>
+        <div class="templates-holder">
+        </div>
+      </template>
+      <div class="gallery-heading">Fliplet templates</div>
+      <div class="templates-holder">
+        <div class="template-wrapper" v-for="template in systemTemplates">
+          <div class="template-icon-wrapper">
+            <div class="template-icon"></div>
+            <div type="button" class="template-created-info" data-toggle="tooltip" data-placement="right" title="Tooltip on right"><i class="fa fa-info" aria-hidden="true"></i></div>
+          </div>
+          <div class="template-info">
+            <h4 class="template-title">\{{ template.settings.displayName }}</h4>
+            <p class="template-desc">Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <div class="template-controls">
+              <div class="btn btn-secondary">Preview</div>
+              <div class="btn btn-primary">Use</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <label for="select-template" class="select-proxy-display">
-        <span class="icon fa fa-chevron-down"></span>
-        <span class="select-value-proxy">-- Select a template</span>
-        <select class="form-control hidden-select" id="select-template" v-model="settings.templateId">
-          <option value="" disabled>-- Select a template</option>
-          <optgroup label="Organization templates">
-            <template v-if="organizationTemplates.length">
-              <option v-for="template in organizationTemplates" :value="template.id">\{{ template.settings.displayName }}</option>
-            </template>
-            <option v-else disabled>You didn't create any organisation template yet.</option>
-          </optgroup>
-          <option disabled>------------------------------------------</option>
-          <optgroup label="Fliplet templates">
-            <option v-for="template in systemTemplates" :value="template.id">\{{ template.settings.displayName }}</option>
-          </optgroup>
-        </select>
-      </label>
 
-      <hr />
 
-      <label class="control-label">Step 2. Give your form a name</label>
-      <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" />
+      <!--
+        <label class="control-label">Step 1. Choose your form template</label>
+        <p>Select a template to load a new form.</p>
+
+        <label for="select-template" class="select-proxy-display">
+          <span class="icon fa fa-chevron-down"></span>
+          <span class="select-value-proxy">-- Select a template</span>
+          <select class="form-control hidden-select" id="select-template" v-model="settings.templateId">
+            <option value="" disabled>-- Select a template</option>
+            <optgroup label="Organization templates">
+              <template v-if="organizationTemplates.length">
+                <option v-for="template in organizationTemplates" :value="template.id">\{{ template.settings.displayName }}</option>
+              </template>
+              <option v-else disabled>You didn't create any organisation template yet.</option>
+            </optgroup>
+            <option disabled>------------------------------------------</option>
+            <optgroup label="Fliplet templates">
+              <option v-for="template in systemTemplates" :value="template.id">\{{ template.settings.displayName }}</option>
+            </optgroup>
+          </select>
+        </label>
+
+        <hr />
+
+        <label class="control-label">Step 2. Give your form a name</label>
+        <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" />
+      -->
+
     </section>
     <section v-if="toChangeTemplate" class="col-sm-12 change-template">
       <div class="back-btn">

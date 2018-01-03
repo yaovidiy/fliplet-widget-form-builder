@@ -21,6 +21,24 @@ html {
   text-align: center;
 }
 
+.btn-secondary {
+  color: #00abd1;
+  background-color: transparent;
+  border-bottom-color: #00abd1;
+  border-color: #00abd1;
+  border: 1px solid #00abd1;
+}
+
+.btn-secondary:hover,
+.btn-secondary:active,
+.btn-secondary:focus,
+.btn-secondary:active:hover,
+.btn-secondary:active:focus {
+  color: #00abd1;
+  background-color: transparent;
+  border-bottom-color: #007994;
+}
+
 header {
   background: #f2f6f7;
   position: fixed;
@@ -120,6 +138,55 @@ nav>.btn {
 .choose-template label {
   color: #14505E;
 }
+
+/* TEMPLATES GALLERY */
+
+.gallery-heading {
+  background-color: #e3e9eb;
+  padding: 10px 15px;
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 15px;
+}
+
+.template-wrapper {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.template-wrapper .template-icon-wrapper {
+  position: relative;
+  margin-right: 10px;
+  height: 65px;
+}
+
+.template-wrapper .template-icon-wrapper .template-icon {
+  width: 65px;
+  height: 65px;
+  border: 1px solid #ccc;
+  background-color: #e3e9eb;
+  border-radius: 21%;
+}
+
+.template-wrapper .template-icon-wrapper .template-created-info {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  width: 16px;
+  height: 16px;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  border-radius: 32px;
+}
+
+.template-wrapper .template-title {
+  color: #14505E;
+}
+
+/* END OF TEMPLATES GALLERY */
 
 .component {
   position: relative;
