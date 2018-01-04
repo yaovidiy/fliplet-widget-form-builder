@@ -36,8 +36,6 @@
         </div>
       </div>
 
-
-
       <!--
         <label class="control-label">Step 1. Choose your form template</label>
         <p>Select a template to load a new form.</p>
@@ -75,12 +73,12 @@
       <p>Select another template to load a new form.</p>
 
       <label for="select-new-template" class="select-proxy-display">
-        <span class="icon fa fa-chevron-down"></span>
-        <span class="select-value-proxy">-- Select a template</span>
         <select class="form-control hidden-select" id="select-new-template" v-model="newTemplate">
           <option value="" disabled>-- Select a template</option>
           <option v-for="template in templates" :value="template.id">\{{ template.settings.displayName }}</option>
         </select>
+        <span class="icon fa fa-chevron-down"></span>
+        <span class="select-value-proxy">-- Select a template</span>
       </label>
 
       <div class="panel panel-warning">
@@ -137,7 +135,7 @@
                 <span class="select-value-proxy">Select a data source</span>
               </label>
               <small>or just <a href="#" v-on:click.prevent="createDataSource">create a new data source</a></small>
-              <div v-if="manageDataBtn" class="btn btn-default" id="manage-data" v-on:click.prevent="manageDataSource(settings.dataSourceId)">Edit data</div>
+              <!--<div v-if="manageDataBtn" class="btn btn-default" id="manage-data" v-on:click.prevent="manageDataSource(settings.dataSourceId)">Edit data</div>-->
             </div>
 
             <h3>Submission</h3>
