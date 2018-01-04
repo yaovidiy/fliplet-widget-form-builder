@@ -12,58 +12,68 @@
       <p v-else>Configure your form</p>
       <a id="help_tip" href="#">Need help?</a>
     </header>
-    <section v-if="chooseTemplate" class="col-sm-12 choose-template">
+    <section v-if="chooseTemplate" class="col-sm-12 choose-template" ref="templateGallery">
+      <p class="templates-sub-title">Choose a form template to get started.</p>
       <template v-if="organizationTemplates.length">
         <div class="gallery-heading">Created by \{{ organizationName }}</div>
         <div class="templates-holder">
+          <div class="template-wrapper" v-for="template in organizationTemplates">
+            <div class="template-icon-wrapper">
+              <div class="template-icon">
+                <img src="https://d2fx5g1ro9ok5z.cloudfront.net/apps/4/icon-1500462407549.jpg?_=1500462407">
+              </div>
+              <div type="button" class="template-created-info" data-toggle="tooltip" data-placement="right" title="Created by [fullName] in [appName]"><i class="fa fa-info" aria-hidden="true"></i></div>
+            </div>
+            <div class="template-info">
+              <h4 class="template-title">\{{ template.settings.displayName }}</h4>
+              <div v-if="readMore.indexOf(template.id) > -1" class="template-desc">
+                \{{ template.settings.description }}
+                <a href="#" class="readless" v-on:click.prevent="toggleReadMore(false, template.id)">Close</a>
+              </div>
+              <div v-else class="template-desc">
+                \{{ template.settings.description | truncate(70, template.id) }}
+                <a v-if="template.settings.description.length > 70" href="#" class="readmore" v-on:click.prevent="toggleReadMore(true, template.id)">Read more <i class="fa fa-angle-down"></i></a>
+              </div>
+              <div class="template-controls">
+                <div class="btn btn-secondary" v-on:click.prevent="previewTemplate(template.id)">
+                  <template v-if="settings.previewingTemplate === template.id">Previewing</template>
+                  <template v-else>Preview</template>
+                </div>
+                <div class="btn btn-primary" v-on:click.prevent="useTemplate(template.id)">Use</div>
+              </div>
+            </div>
+          </div>
         </div>
       </template>
       <div class="gallery-heading">Fliplet templates</div>
       <div class="templates-holder">
         <div class="template-wrapper" v-for="template in systemTemplates">
           <div class="template-icon-wrapper">
-            <div class="template-icon"></div>
-            <div type="button" class="template-created-info" data-toggle="tooltip" data-placement="right" title="Tooltip on right"><i class="fa fa-info" aria-hidden="true"></i></div>
+            <div class="template-icon">
+              <img src="https://d2fx5g1ro9ok5z.cloudfront.net/apps/4/icon-1500462407549.jpg?_=1500462407">
+            </div>
+            <div type="button" class="template-created-info" data-toggle="tooltip" data-placement="right" title="Created by [fullName] in [appName]"><i class="fa fa-info" aria-hidden="true"></i></div>
           </div>
           <div class="template-info">
             <h4 class="template-title">\{{ template.settings.displayName }}</h4>
-            <p class="template-desc">Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <div v-if="readMore.indexOf(template.id) > -1" class="template-desc">
+              \{{ template.settings.description }}
+              <a href="#" class="readless" v-on:click.prevent="toggleReadMore(false, template.id)">Close</a>
+            </div>
+            <div v-else class="template-desc">
+              \{{ template.settings.description | truncate(70, template.id) }}
+              <a v-if="template.settings.description.length > 70" href="#" class="readmore" v-on:click.prevent="toggleReadMore(true, template.id)">Read more <i class="fa fa-angle-down"></i></a>
+            </div>
             <div class="template-controls">
-              <div class="btn btn-secondary">Preview</div>
-              <div class="btn btn-primary">Use</div>
+              <div class="btn btn-secondary" v-on:click.prevent="previewTemplate(template.id)">
+                <template v-if="settings.previewingTemplate === template.id">Previewing</template>
+                <template v-else>Preview</template>
+              </div>
+              <div class="btn btn-primary" v-on:click.prevent="useTemplate(template.id)">Use</div>
             </div>
           </div>
         </div>
       </div>
-
-      <!--
-        <label class="control-label">Step 1. Choose your form template</label>
-        <p>Select a template to load a new form.</p>
-
-        <label for="select-template" class="select-proxy-display">
-          <span class="icon fa fa-chevron-down"></span>
-          <span class="select-value-proxy">-- Select a template</span>
-          <select class="form-control hidden-select" id="select-template" v-model="settings.templateId">
-            <option value="" disabled>-- Select a template</option>
-            <optgroup label="Organization templates">
-              <template v-if="organizationTemplates.length">
-                <option v-for="template in organizationTemplates" :value="template.id">\{{ template.settings.displayName }}</option>
-              </template>
-              <option v-else disabled>You didn't create any organisation template yet.</option>
-            </optgroup>
-            <option disabled>------------------------------------------</option>
-            <optgroup label="Fliplet templates">
-              <option v-for="template in systemTemplates" :value="template.id">\{{ template.settings.displayName }}</option>
-            </optgroup>
-          </select>
-        </label>
-
-        <hr />
-
-        <label class="control-label">Step 2. Give your form a name</label>
-        <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" />
-      -->
-
     </section>
     <section v-if="toChangeTemplate" class="col-sm-12 change-template">
       <div class="back-btn">
@@ -135,7 +145,7 @@
                 <span class="select-value-proxy">Select a data source</span>
               </label>
               <small>or just <a href="#" v-on:click.prevent="createDataSource">create a new data source</a></small>
-              <!--<div v-if="manageDataBtn" class="btn btn-default" id="manage-data" v-on:click.prevent="manageDataSource(settings.dataSourceId)">Edit data</div>-->
+              <div v-if="manageDataBtn" class="btn btn-default" id="manage-data" v-on:click.prevent="manageDataSource(settings.dataSourceId)">Edit data</div>
             </div>
 
             <h3>Submission</h3>
@@ -351,21 +361,27 @@
         <div v-show="section === 'org-template'" class="section-holder clearfix">
           <section class="col-sm-12">
             <div class="form-group">
-              <label for="templateCheckbox">
-                <input id="templateCheckbox" type="checkbox" v-model="settings.template"> Set this form as a template for \{{ organizationName }}
-              </label>
-            </div>
-            <p>Your colleagues can use this form as a template when they create new forms.</p>
-            <p>Note: Changes to your form will be applied to the template right away.</p>
-
-            <div class="form-group">
-              <label class="control-label">Form name</label>
-              <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" />
+              <div class="checkbox checkbox-icon">
+                <input id="templateCheckbox" type="checkbox" name="organizationTemplate" v-model="settings.template" value="isOrganizationTemplate">
+                <label for="templateCheckbox">
+                  <span class="check"><i class="fa fa-check"></i></span> Set this form as a template for \{{ organizationName }}
+                </label>
+              </div>
             </div>
 
-            <div class="form-group">
-              <label class="control-label">Template description</label>
-              <textarea v-model="settings.description" class="form-control" rows="4"></textarea>
+            <p class="help-block">Your colleagues can use this form as a template when they create new forms.</p>
+            <p class="help-block"><strong>Note:</strong> Changes to your form will be applied to the template right away.</p>
+
+            <div v-show="toggleOrganizationTemplate">
+              <div class="form-group">
+                <label class="control-label">Form name</label>
+                <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" />
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Template description</label>
+                <textarea ref="templateDescription" v-model="settings.description" class="form-control" rows="4"></textarea>
+              </div>
             </div>
           </section>
         </div>

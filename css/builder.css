@@ -141,9 +141,14 @@ nav>.btn {
 
 /* TEMPLATES GALLERY */
 
+.templates-sub-title {
+  margin-top: 10px;
+}
+
 .gallery-heading {
-  background-color: #e3e9eb;
-  padding: 10px 15px;
+  background-color: #e4e9eb;
+  border-bottom: 1px solid #d0d2d2;
+  padding: 5px 15px;
   margin-left: -15px;
   margin-right: -15px;
   margin-bottom: 15px;
@@ -166,6 +171,7 @@ nav>.btn {
   border: 1px solid #ccc;
   background-color: #e3e9eb;
   border-radius: 21%;
+  overflow: hidden;
 }
 
 .template-wrapper .template-icon-wrapper .template-created-info {
@@ -184,6 +190,16 @@ nav>.btn {
 
 .template-wrapper .template-title {
   color: #14505E;
+  margin-top: 0;
+}
+
+.template-wrapper .template-desc {
+  margin-bottom: 10px;
+}
+
+.readmore,
+.readless {
+  display: block;
 }
 
 /* END OF TEMPLATES GALLERY */

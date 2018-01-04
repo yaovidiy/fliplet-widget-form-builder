@@ -2,6 +2,7 @@ var systemTemplates = [{
     id: 1,
     settings: {
       displayName: 'Blank',
+      description: 'Donec id elit non mi porta gravida at eget metus.',
       fields: [{
           _type: 'flInput',
           name: 'Question 1',
@@ -19,6 +20,7 @@ var systemTemplates = [{
     id: 2,
     settings: {
       displayName: 'Enquiry',
+      description: 'Cras mattis consectetur purus sit amet fermentum. Aenean eu leo quam pellentesque ornare sem lacinia quam venenatis vestibulum.',
       fields: [{
           _type: 'flInput',
           name: 'Name',
