@@ -31,7 +31,7 @@
                 <a href="#" class="readless" v-on:click.prevent="toggleReadMore(false, template.id)">Close</a>
               </div>
               <div v-else class="template-desc">
-                \{{ template.settings.description | truncate(70, template.id) }}
+                \{{ template.settings.description | truncate(70) }}
                 <a v-if="template.settings.description.length > 70" href="#" class="readmore" v-on:click.prevent="toggleReadMore(true, template.id)">Read more <i class="fa fa-angle-down"></i></a>
               </div>
               <div class="template-controls">
@@ -61,7 +61,7 @@
               <a href="#" class="readless" v-on:click.prevent="toggleReadMore(false, template.id)">Close</a>
             </div>
             <div v-else class="template-desc">
-              \{{ template.settings.description | truncate(70, template.id) }}
+              \{{ template.settings.description | truncate(70) }}
               <a v-if="template.settings.description.length > 70" href="#" class="readmore" v-on:click.prevent="toggleReadMore(true, template.id)">Read more <i class="fa fa-angle-down"></i></a>
             </div>
             <div class="template-controls">

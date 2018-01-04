@@ -748,7 +748,7 @@ var app = new Vue({
     }
   },
   filters: {
-    truncate: function(string, maxChars, templateId) {
+    truncate: function(string, maxChars) {
       if (string.length > maxChars) {
         return string.substring(0, maxChars) + '...';
       }
@@ -794,7 +794,7 @@ var app = new Vue({
           ].join(' '),
           setup: function (ed) {
             $vm.editor = ed
-            $vm.editor.on('keyup paste', function(e) {
+            $vm.editor.on('keyup paste', function() {
               $vm.settings.description = $vm.editor.getContent();
             });
           }
