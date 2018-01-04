@@ -129,9 +129,9 @@ var app = new Vue({
       },
       emailTemplateAdd: formSettings.emailTemplateAdd || undefined,
       emailTemplateEdit: formSettings.emailTemplateEdit || undefined,
-      generateEmailTemplate: undefined,
+      generateEmailTemplate: formSettings.generateEmailTemplate || undefined,
       conflictWarning: formSettings.dataStore.indexOf('dataSource') > -1 && formSettings.autobindProfileEditing ? true : false,
-      manageDataBtn: false
+      manageDataBtn: formSettings.dataSourceId && formSettings.dataSourceId !== '' ? true : false
     };
   },
   methods: {
@@ -244,6 +244,7 @@ var app = new Vue({
       }).then(function(ds) {
         $vm.dataSources.push(ds);
         $vm.settings.dataSourceId = ds.id;
+        $vm.manageDataBtn = true;
       });
     },
     manageDataSource: function(dataSourceId) {
