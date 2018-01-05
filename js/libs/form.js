@@ -5,7 +5,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
   var selector = '[data-form-builder-id="' + data.id + '"]';
   var progressKey = 'form-builder-progress-' + (data.uuid || data.id);
 
-  var entryId = Fliplet.Env.get('mode') !== 'interact' && data.dataSourceId && Fliplet.Navigate.query.dataSourceEntryId;
+  var entryId = !Fliplet.Env.get('interact') && data.dataSourceId && Fliplet.Navigate.query.dataSourceEntryId;
   var formMode = Fliplet.Navigate.query.mode;
   var entry;
 
