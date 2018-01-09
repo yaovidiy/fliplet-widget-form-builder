@@ -85,7 +85,11 @@ function generateFormDefaults(data) {
     onSubmit: [],
     template: false,
     saveProgress: true,
-    resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
+    resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result'](),
+    createdBy: {
+      id: Fliplet.User.get('id'),
+      fullName: Fliplet.User.get('fullName')
+    }
   }, data);
 }
 
