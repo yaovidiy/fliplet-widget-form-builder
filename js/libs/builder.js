@@ -83,7 +83,7 @@ function generateFormDefaults(data) {
     redirect: false,
     dataStore: ['dataSource'],
     onSubmit: [],
-    template: [],
+    template: false,
     saveProgress: true,
     resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
   }, data);
@@ -119,7 +119,6 @@ var app = new Vue({
       toggleTemplatedEmailAdd: formSettings.onSubmit.indexOf('templatedEmailAdd') > -1,
       toggleTemplatedEmailEdit: formSettings.onSubmit.indexOf('templatedEmailEdit') > -1,
       toggleGenerateEmail: formSettings.onSubmit.indexOf('generateEmail') > -1,
-      toggleOrganizationTemplate: formSettings.template.indexOf('isOrganizationTemplate') > -1,
       showExtraAdd: formSettings.dataStore.indexOf('dataSource') > -1,
       showExtraEdit: formSettings.dataStore.indexOf('editDataSource') > -1,
       userData: {},
@@ -738,13 +737,6 @@ var app = new Vue({
         email: data.email,
         type: 'to'
       });
-    },
-    'settings.template': function(array) {
-      if (array.indexOf('isOrganizationTemplate') > -1) {
-        this.toggleOrganizationTemplate = true;
-      } else {
-        this.toggleOrganizationTemplate = false;
-      }
     }
   },
   filters: {
@@ -806,7 +798,7 @@ var app = new Vue({
               container: 'body'
             });
           }, 500);
-        }        
+        }
       });
     });
 

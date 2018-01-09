@@ -362,7 +362,7 @@
           <section class="col-sm-12">
             <div class="form-group">
               <div class="checkbox checkbox-icon">
-                <input id="templateCheckbox" type="checkbox" name="organizationTemplate" v-model="settings.template" value="isOrganizationTemplate">
+                <input id="templateCheckbox" type="checkbox" v-model="settings.template" />
                 <label for="templateCheckbox">
                   <span class="check"><i class="fa fa-check"></i></span> Set this form as a template for \{{ organizationName }}
                 </label>
@@ -372,7 +372,7 @@
             <p class="help-block">Your colleagues can use this form as a template when they create new forms.</p>
             <p class="help-block"><strong>Note:</strong> Changes to your form will be applied to the template right away.</p>
 
-            <div v-show="toggleOrganizationTemplate">
+            <div v-show="settings.template">
               <div class="form-group">
                 <label class="control-label">Form name</label>
                 <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" />
