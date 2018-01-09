@@ -85,6 +85,11 @@ Fliplet.FormBuilder.templates = function() {
     });
 
   return operation.then(function(organizationTemplates) {
+    organizationTemplates.forEach(function (tpl) {
+      tpl.app = tpl.pages.length && tpl.pages[0].app || {};
+      tpl.createdDescription = (tpl.settings.createdBy && tpl.settings.createdBy.fullName) + ' in ' + tpl.app.name;
+    });
+
     return Promise.resolve({
       system: systemTemplates,
       organization: organizationTemplates

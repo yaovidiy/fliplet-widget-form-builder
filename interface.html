@@ -20,9 +20,9 @@
           <div class="template-wrapper" v-for="template in organizationTemplates">
             <div class="template-icon-wrapper">
               <div class="template-icon">
-                <img src="https://d2fx5g1ro9ok5z.cloudfront.net/apps/4/icon-1500462407549.jpg?_=1500462407">
+                <img :src="template.app.icon">
               </div>
-              <div type="button" class="template-created-info" data-toggle="tooltip" data-placement="right" title="Created by [fullName] in [appName]"><i class="fa fa-info" aria-hidden="true"></i></div>
+              <div type="button" class="template-created-info" data-toggle="tooltip" data-placement="right" :title="template.createdDescription"><i class="fa fa-info" aria-hidden="true"></i></div>
             </div>
             <div class="template-info">
               <h4 class="template-title">\{{ template.settings.displayName }}</h4>
@@ -52,7 +52,7 @@
             <div class="template-icon">
               <img src="https://d2fx5g1ro9ok5z.cloudfront.net/apps/4/icon-1500462407549.jpg?_=1500462407">
             </div>
-            <div type="button" class="template-created-info" data-toggle="tooltip" data-placement="right" title="Created by [fullName] in [appName]"><i class="fa fa-info" aria-hidden="true"></i></div>
+            <div type="button" class="template-created-info" data-toggle="tooltip" data-placement="right" title="Created by Fliplet"><i class="fa fa-info" aria-hidden="true"></i></div>
           </div>
           <div class="template-info">
             <h4 class="template-title">\{{ template.settings.displayName }}</h4>
