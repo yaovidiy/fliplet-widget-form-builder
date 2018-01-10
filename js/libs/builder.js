@@ -270,8 +270,13 @@ var app = new Vue({
         }
       });
     },
-    save: function() {
+    save: function(initial) {
       var $vm = this;
+
+      if (initial) {
+        // Untick "Set template" checkbox when creating a form from Template
+        $vm.settings.template = false;
+      }
 
       if (this.settings.onSubmit.indexOf('templatedEmailAdd') > -1) {
         this.settings.emailTemplateAdd = this.emailTemplateAdd || this.defaultEmailSettings;
@@ -283,7 +288,11 @@ var app = new Vue({
         this.settings.generateEmailTemplate = this.generateEmailTemplate || this.defaultEmailSettingsForCompose;
       }
 
-      $vm.settings.description = $vm.editor.getContent();
+      if (!initial) {
+        $vm.settings.description = $vm.editor.getContent();
+      }
+
+      $vm.settings.name = $vm.settings.displayName;
 
       // Cleanup
       this.settings.fields = _.compact(this.fields);
@@ -557,7 +566,7 @@ var app = new Vue({
     previewTemplate: function(templateId) {
       this.updateFormSettings(templateId, true);
 
-      this.save().then(function onSettingsSaved() {
+      this.save(true).then(function onSettingsSaved() {
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
       });
     },
@@ -568,7 +577,7 @@ var app = new Vue({
 
       this.updateFormSettings(templateId, false);
 
-      $vm.save().then(function onSettingsSaved() {
+      $vm.save(true).then(function onSettingsSaved() {
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
         $vm.triggerSave();
       });
@@ -617,6 +626,13 @@ var app = new Vue({
       if (index > -1) {
         $vm.readMore.splice(index, 1);
       }
+    },
+    truncate: function(string, maxChars) {
+      if (string.length > maxChars) {
+        return string.substring(0, maxChars) + '...';
+      }
+
+      return string;
     }
   },
   watch: {
@@ -741,15 +757,9 @@ var app = new Vue({
         email: data.email,
         type: 'to'
       });
-    }
-  },
-  filters: {
-    truncate: function(string, maxChars) {
-      if (string.length > maxChars) {
-        return string.substring(0, maxChars) + '...';
-      }
-
-      return string;
+    },
+    'settings.template': function() {
+      this.editor.setContent(this.settings.description);
     }
   },
   computed: {
