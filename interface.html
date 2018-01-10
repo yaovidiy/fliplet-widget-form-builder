@@ -20,18 +20,18 @@
           <div class="template-wrapper" v-for="template in organizationTemplates">
             <div class="template-icon-wrapper">
               <div class="template-icon">
-                <img :src="template.app.icon">
+                <img src="{{ asset 'img/form_organization.png' }}">
               </div>
               <div type="button" class="template-created-info" data-toggle="tooltip" data-placement="right" :title="template.createdDescription"><i class="fa fa-info" aria-hidden="true"></i></div>
             </div>
             <div class="template-info">
               <h4 class="template-title">\{{ template.settings.displayName }}</h4>
               <div v-if="readMore.indexOf(template.id) > -1" class="template-desc">
-                \{{ template.settings.description }}
+                <span v-html="template.settings.description"></span>
                 <a href="#" class="readless" v-on:click.prevent="toggleReadMore(false, template.id)">Close</a>
               </div>
               <div v-else class="template-desc">
-                \{{ template.settings.description | truncate(70) }}
+                <span v-html="truncate(template.settings.description, 70)"></span>
                 <a v-if="template.settings.description.length > 70" href="#" class="readmore" v-on:click.prevent="toggleReadMore(true, template.id)">Read more <i class="fa fa-angle-down"></i></a>
               </div>
               <div class="template-controls">
@@ -50,18 +50,18 @@
         <div class="template-wrapper" v-for="template in systemTemplates">
           <div class="template-icon-wrapper">
             <div class="template-icon">
-              <img src="https://d2fx5g1ro9ok5z.cloudfront.net/apps/4/icon-1500462407549.jpg?_=1500462407">
+              <img src="{{ asset 'img/form_fliplet.png' }}">
             </div>
             <div type="button" class="template-created-info" data-toggle="tooltip" data-placement="right" title="Created by Fliplet"><i class="fa fa-info" aria-hidden="true"></i></div>
           </div>
           <div class="template-info">
             <h4 class="template-title">\{{ template.settings.displayName }}</h4>
             <div v-if="readMore.indexOf(template.id) > -1" class="template-desc">
-              \{{ template.settings.description }}
+              <span v-html="template.settings.description"></span>
               <a href="#" class="readless" v-on:click.prevent="toggleReadMore(false, template.id)">Close</a>
             </div>
             <div v-else class="template-desc">
-              \{{ template.settings.description | truncate(70) }}
+              <span v-html="truncate(template.settings.description, 70)"></span>
               <a v-if="template.settings.description.length > 70" href="#" class="readmore" v-on:click.prevent="toggleReadMore(true, template.id)">Read more <i class="fa fa-angle-down"></i></a>
             </div>
             <div class="template-controls">
@@ -130,7 +130,7 @@
             <h3>General</h3>
             <div class="form-group">
               <label for="formName" class="control-label">Form name</label>
-              <input id="formName" type="text" v-model="settings.name" class="form-control" />
+              <input id="formName" type="text" v-model="settings.displayName" class="form-control" />
             </div>
             <div class="form-group">
               <label class="control-label">Select a data source to store the form submissions</label>
@@ -145,7 +145,7 @@
                 <span class="select-value-proxy">Select a data source</span>
               </label>
               <small>or just <a href="#" v-on:click.prevent="createDataSource">create a new data source</a></small>
-              <div v-if="manageDataBtn" class="btn btn-default" id="manage-data" v-on:click.prevent="manageDataSource(settings.dataSourceId)">Edit data</div>
+              <!--<div v-if="manageDataBtn" class="btn btn-default" id="manage-data" v-on:click.prevent="manageDataSource(settings.dataSourceId)">Edit data</div>-->
             </div>
 
             <h3>Submission</h3>
@@ -375,7 +375,7 @@
             <div v-show="settings.template">
               <div class="form-group">
                 <label class="control-label">Form name</label>
-                <input placeholder="Form name" class="form-control" type="text" v-model="settings.name" />
+                <input placeholder="Form name" class="form-control" type="text" v-model="settings.displayName" />
               </div>
 
               <div class="form-group">
@@ -401,7 +401,6 @@
             </div>
           </transition>
         </div>
-
       </div>
     </div>
   </main>
