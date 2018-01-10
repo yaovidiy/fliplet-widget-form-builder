@@ -758,8 +758,10 @@ var app = new Vue({
         type: 'to'
       });
     },
-    'settings.template': function() {
-      this.editor.setContent(this.settings.description);
+    'settings.template': function(value) {
+      if (value) {
+        this.editor.setContent(this.settings.description);
+      }
     }
   },
   computed: {
