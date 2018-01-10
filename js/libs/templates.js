@@ -79,7 +79,7 @@ Fliplet.FormBuilder.templates = function() {
       ].join('')
     }).then(function(response) {
       response.widgetInstances.forEach(function(instance) {
-        instance.settings.displayName = instance.settings.name + ' (Organization template)'
+        instance.settings.displayName = instance.settings.name
       });
       return Promise.resolve(response.widgetInstances);
     });
