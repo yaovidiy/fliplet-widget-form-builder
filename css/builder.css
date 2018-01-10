@@ -21,24 +21,6 @@ html {
   text-align: center;
 }
 
-.btn-secondary {
-  color: #00abd1;
-  background-color: transparent;
-  border-bottom-color: #00abd1;
-  border-color: #00abd1;
-  border: 1px solid #00abd1;
-}
-
-.btn-secondary:hover,
-.btn-secondary:active,
-.btn-secondary:focus,
-.btn-secondary:active:hover,
-.btn-secondary:active:focus {
-  color: #00abd1;
-  background-color: transparent;
-  border-bottom-color: #007994;
-}
-
 header {
   background: #f2f6f7;
   position: fixed;
