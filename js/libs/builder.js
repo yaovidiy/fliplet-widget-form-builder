@@ -633,6 +633,30 @@ var app = new Vue({
       }
 
       return string;
+    },
+    initLinkProvider: function() {
+      var action = $.extend(true, {
+        action: 'screen',
+        page: '',
+        transition: 'slide.left',
+        options: {
+          hideAction: true
+        }
+      }, $vm.settings.linkAction);
+
+      window.linkProvider = Fliplet.Widget.open('com.fliplet.link', {
+        selector: '#linkAction',
+        data: action
+      });
+
+      window.linkProvider.then(function onLinkAction(result) {
+        if (result && result.data && result.data.action) {
+          $vm.settings.linkAction = result.data;
+        }
+
+        window.linkProvider = null;
+        $vm.triggerSave();
+      });
     }
   },
   watch: {
@@ -862,28 +886,7 @@ var app = new Vue({
     }, savedLinkData);
 
     if (!window.linkProvider) {
-      var action = $.extend(true, {
-        action: 'screen',
-        page: '',
-        transition: 'slide.left',
-        options: {
-          hideAction: true
-        }
-      }, $vm.settings.linkAction);
-
-      window.linkProvider = Fliplet.Widget.open('com.fliplet.link', {
-        selector: '#linkAction',
-        data: action
-      });
-
-      window.linkProvider.then(function onLinkAction(result) {
-        if (result && result.data && result.data.action) {
-          $vm.settings.linkAction = result.data;
-        }
-
-        window.linkProvider = null;
-        $vm.triggerSave();
-      });
+      $vm.initLinkProvider();
     }
 
     Fliplet.Organizations.get().then(function (organizations) {
@@ -922,28 +925,7 @@ var app = new Vue({
     var $vm = this;
 
     if (!window.linkProvider) {
-      var action = $.extend(true, {
-        action: 'screen',
-        page: '',
-        transition: 'slide.left',
-        options: {
-          hideAction: true
-        }
-      }, $vm.settings.linkAction);
-
-      window.linkProvider = Fliplet.Widget.open('com.fliplet.link', {
-        selector: '#linkAction',
-        data: action
-      });
-
-      window.linkProvider.then(function onLinkAction(result) {
-        if (result && result.data && result.data.action) {
-          $vm.settings.linkAction = result.data;
-        }
-
-        window.linkProvider = null;
-        $vm.triggerSave();
-      });
+      $vm.initLinkProvider();
     }
   }
 });
