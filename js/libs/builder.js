@@ -635,6 +635,7 @@ var app = new Vue({
       return string;
     },
     initLinkProvider: function() {
+      var $vm = this;
       var action = $.extend(true, {
         action: 'screen',
         page: '',
