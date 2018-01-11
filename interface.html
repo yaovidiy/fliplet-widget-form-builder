@@ -15,24 +15,18 @@
     <section v-if="chooseTemplate" class="col-sm-12 choose-template" ref="templateGallery">
       <p class="templates-sub-title">Choose a form template to get started.</p>
       <template v-if="organizationTemplates.length">
-        <div class="gallery-heading">Created by \{{ organizationName }}</div>
+        <div class="gallery-heading">Templates by \{{ organizationName }}</div>
         <div class="templates-holder">
           <div class="template-wrapper" v-for="template in organizationTemplates">
-            <div class="template-icon-wrapper">
-              <div class="template-icon">
-                <img src="{{ asset 'img/form_organization.png' }}">
-              </div>
-              <div type="button" class="template-created-info" data-toggle="tooltip" data-placement="right" :title="template.createdDescription"><i class="fa fa-info" aria-hidden="true"></i></div>
-            </div>
             <div class="template-info">
-              <h4 class="template-title">\{{ template.settings.displayName }}</h4>
+              <h4 class="template-title">\{{ template.settings.displayName }} <span type="button" class="template-created-info" data-toggle="tooltip" data-placement="left" :title="template.createdDescription"><i class="fa fa-info" aria-hidden="true"></i></span></h4>
               <div v-if="readMore.indexOf(template.id) > -1" class="template-desc">
                 <span v-html="template.settings.description"></span>
                 <a href="#" class="readless" v-on:click.prevent="toggleReadMore(false, template.id)">Close</a>
               </div>
               <div v-else class="template-desc">
-                <span v-html="truncate(template.settings.description, 70)"></span>
-                <a v-if="template.settings.description.length > 70" href="#" class="readmore" v-on:click.prevent="toggleReadMore(true, template.id)">Read more <i class="fa fa-angle-down"></i></a>
+                <span v-html="truncate(template.settings.description, 100)"></span>
+                <a v-if="template.settings.description.length > 100" href="#" class="readmore" v-on:click.prevent="toggleReadMore(true, template.id)">Read more <i class="fa fa-angle-down"></i></a>
               </div>
               <div class="template-controls">
                 <div class="btn btn-secondary" v-on:click.prevent="previewTemplate(template.id)">
@@ -48,21 +42,15 @@
       <div class="gallery-heading">Fliplet templates</div>
       <div class="templates-holder">
         <div class="template-wrapper" v-for="template in systemTemplates">
-          <div class="template-icon-wrapper">
-            <div class="template-icon">
-              <img src="{{ asset 'img/form_fliplet.png' }}">
-            </div>
-            <div type="button" class="template-created-info" data-toggle="tooltip" data-placement="right" title="Created by Fliplet"><i class="fa fa-info" aria-hidden="true"></i></div>
-          </div>
           <div class="template-info">
-            <h4 class="template-title">\{{ template.settings.displayName }}</h4>
+            <h4 class="template-title">\{{ template.settings.displayName }} <span type="button" class="template-created-info" data-toggle="tooltip" data-placement="left" title="Created by Fliplet"><i class="fa fa-info" aria-hidden="true"></i></span></h4>
             <div v-if="readMore.indexOf(template.id) > -1" class="template-desc">
               <span v-html="template.settings.description"></span>
               <a href="#" class="readless" v-on:click.prevent="toggleReadMore(false, template.id)">Close</a>
             </div>
             <div v-else class="template-desc">
-              <span v-html="truncate(template.settings.description, 70)"></span>
-              <a v-if="template.settings.description.length > 70" href="#" class="readmore" v-on:click.prevent="toggleReadMore(true, template.id)">Read more <i class="fa fa-angle-down"></i></a>
+              <span v-html="truncate(template.settings.description, 100)"></span>
+              <a v-if="template.settings.description.length > 100" href="#" class="readmore" v-on:click.prevent="toggleReadMore(true, template.id)">Read more <i class="fa fa-angle-down"></i></a>
             </div>
             <div class="template-controls">
               <div class="btn btn-secondary" v-on:click.prevent="previewTemplate(template.id)">
@@ -370,7 +358,7 @@
             </div>
 
             <p class="help-block">Your colleagues can use this form as a template when they create new forms.</p>
-            <p class="help-block"><strong>Note:</strong> Changes to your form will be applied to the template right away.</p>
+            <p class="help-block"><strong>Note:</strong> Changes to your form will be applied to the template right away, but won't affect forms already using the template.</p>
 
             <div v-show="settings.template">
               <div class="form-group">

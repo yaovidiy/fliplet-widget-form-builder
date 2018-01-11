@@ -137,8 +137,14 @@ nav>.btn {
 }
 
 .template-wrapper {
-  display: flex;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e4e9eb;
+}
+
+.template-wrapper:last-child {
+  padding-bottom: 0px;
+  border-bottom: none;
 }
 
 .template-wrapper .template-icon-wrapper {
@@ -156,10 +162,11 @@ nav>.btn {
   overflow: hidden;
 }
 
-.template-wrapper .template-icon-wrapper .template-created-info {
+.template-wrapper .template-created-info {
   position: absolute;
-  right: -5px;
-  bottom: -5px;
+  top: 50%;
+  right: 0;
+  margin-top: -8px;
   width: 16px;
   height: 16px;
   font-size: 12px;
@@ -171,8 +178,10 @@ nav>.btn {
 }
 
 .template-wrapper .template-title {
+  position: relative;
   color: #14505E;
   margin-top: 0;
+  padding-right: 20px;
 }
 
 .template-wrapper .template-desc {
