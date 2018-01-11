@@ -121,6 +121,80 @@ nav>.btn {
   color: #14505E;
 }
 
+/* TEMPLATES GALLERY */
+
+.templates-sub-title {
+  margin-top: 10px;
+}
+
+.gallery-heading {
+  background-color: #e4e9eb;
+  border-bottom: 1px solid #d0d2d2;
+  padding: 5px 15px;
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 15px;
+}
+
+.template-wrapper {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e4e9eb;
+}
+
+.template-wrapper:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.template-wrapper .template-icon-wrapper {
+  position: relative;
+  margin-right: 10px;
+  height: 65px;
+}
+
+.template-wrapper .template-icon-wrapper .template-icon {
+  width: 65px;
+  height: 65px;
+  border: 1px solid #ccc;
+  background-color: #e3e9eb;
+  border-radius: 21%;
+  overflow: hidden;
+}
+
+.template-wrapper .template-created-info {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -8px;
+  width: 16px;
+  height: 16px;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  border-radius: 32px;
+}
+
+.template-wrapper .template-title {
+  position: relative;
+  color: #14505E;
+  margin-top: 0;
+  padding-right: 20px;
+}
+
+.template-wrapper .template-desc {
+  margin-bottom: 10px;
+}
+
+.readmore,
+.readless {
+  display: block;
+}
+
+/* END OF TEMPLATES GALLERY */
+
 .component {
   position: relative;
   border: none;
@@ -414,7 +488,7 @@ label.fileUpload {
   height: 24px;
   top: 50%;
   margin-top: -12px;
-  left: 0px;
+  left: 0;
   padding: 0;
   font-size: 14px;
   font-weight: 400;

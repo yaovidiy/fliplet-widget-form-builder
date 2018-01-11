@@ -15,7 +15,8 @@
       "fliplet-studio-ui",
       "fliplet-datasources",
       "codemirror",
-      "bootstrap"
+      "bootstrap",
+      "tinymce"
     ],
     "assets": [
       "vendor/sortable.js",

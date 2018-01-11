@@ -77,13 +77,19 @@ function generateFormDefaults(data) {
     name: '',
     dataSourceId: '',
     templateId: '',
+    previewingTemplate: '',
     fields: [],
     offline: true,
     redirect: false,
     dataStore: ['dataSource'],
     onSubmit: [],
+    template: false,
     saveProgress: true,
-    resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result']()
+    resultHtml: Fliplet.Widget.Templates['templates.configurations.form-result'](),
+    createdBy: {
+      id: Fliplet.User.get('id'),
+      fullName: Fliplet.User.get('fullName')
+    }
   }, data);
 }
 
@@ -106,7 +112,10 @@ var app = new Vue({
       section: 'form', // form or settings
       settings: formSettings,
       templates: [],
-      chooseTemplate: !formSettings.templateId,
+      readMore: [],
+      systemTemplates: [],
+      organizationTemplates: [],
+      chooseTemplate: (!formSettings.templateId || formSettings.previewingTemplate !== ''),
       toChangeTemplate: false,
       permissionToChange: false,
       newTemplate: '',
@@ -131,7 +140,10 @@ var app = new Vue({
       emailTemplateEdit: formSettings.emailTemplateEdit || undefined,
       generateEmailTemplate: formSettings.generateEmailTemplate || undefined,
       conflictWarning: formSettings.dataStore.indexOf('dataSource') > -1 && formSettings.autobindProfileEditing ? true : false,
-      manageDataBtn: formSettings.dataSourceId && formSettings.dataSourceId !== '' ? true : false
+      manageDataBtn: formSettings.dataSourceId && formSettings.dataSourceId !== '' ? true : false,
+      organizationName: '',
+      isPreviewing: formSettings.previewingTemplate !== '',
+      editor: undefined
     };
   },
   methods: {
@@ -258,8 +270,13 @@ var app = new Vue({
         }
       });
     },
-    save: function() {
+    save: function(initial) {
       var $vm = this;
+
+      if (initial) {
+        // Untick "Set template" checkbox when creating a form from Template
+        $vm.settings.template = false;
+      }
 
       if (this.settings.onSubmit.indexOf('templatedEmailAdd') > -1) {
         this.settings.emailTemplateAdd = this.emailTemplateAdd || this.defaultEmailSettings;
@@ -270,6 +287,12 @@ var app = new Vue({
       if (this.settings.onSubmit.indexOf('generateEmail') > -1) {
         this.settings.generateEmailTemplate = this.generateEmailTemplate || this.defaultEmailSettingsForCompose;
       }
+
+      if (!initial) {
+        $vm.settings.description = $vm.editor.getContent();
+      }
+
+      $vm.settings.name = $vm.settings.displayName;
 
       // Cleanup
       this.settings.fields = _.compact(this.fields);
@@ -510,7 +533,6 @@ var app = new Vue({
           $vm.chooseTemplate = false;
           Fliplet.Widget.toggleSaveButton(true);
           Fliplet.Studio.emit('widget-save-label-reset');
-          Fliplet.Studio.emit('widget-info-label-update');
         }
 
         return;
@@ -523,7 +545,6 @@ var app = new Vue({
           $vm.permissionToChange = false;
           $vm.settings.templateId = $vm.newTemplate;
           Fliplet.Studio.emit('widget-save-label-reset');
-          Fliplet.Studio.emit('widget-info-label-update');
           setTimeout(function() {
             $vm.setupCodeEditor();
           }, 1);
@@ -542,6 +563,25 @@ var app = new Vue({
         Fliplet.Studio.emit('reload-page-preview');
       });
     },
+    previewTemplate: function(templateId) {
+      this.updateFormSettings(templateId, true);
+
+      this.save(true).then(function onSettingsSaved() {
+        Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+      });
+    },
+    useTemplate: function(templateId) {
+      Fliplet.Studio.emit('widget-save-label-reset');
+      Fliplet.Widget.toggleSaveButton(true);
+      var $vm = this;
+
+      this.updateFormSettings(templateId, false);
+
+      $vm.save(true).then(function onSettingsSaved() {
+        Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+        $vm.triggerSave();
+      });
+    },
     loadDataSources: function () {
       var $vm = this;
       return Fliplet.DataSources.get({
@@ -550,6 +590,73 @@ var app = new Vue({
         cache: false
       }).then(function(results) {
         $vm.dataSources = results;
+      });
+    },
+    updateFormSettings: function(templateId, preview) {
+      var formTemplate = _.find(this.templates, function(template) {
+        return template.id === templateId;
+      });
+
+      var settings = formTemplate.settings;
+      settings.templateId = formTemplate.id;
+      settings.name = this.settings.name;
+
+      this.settings = generateFormDefaults(settings);
+      this.fields = this.settings.fields;
+
+      if (this.chooseTemplate && preview) {
+        this.settings.previewingTemplate = templateId;
+        return;
+      }
+
+      if (this.isPreviewing) {
+        this.settings.previewingTemplate = '';
+        return;
+      }
+    },
+    toggleReadMore: function(more, templateId) {
+      var $vm = this;
+      var index = $vm.readMore.indexOf(templateId);
+
+      if (more) {
+        $vm.readMore.push(templateId);
+        return;
+      }
+
+      if (index > -1) {
+        $vm.readMore.splice(index, 1);
+      }
+    },
+    truncate: function(string, maxChars) {
+      if (string.length > maxChars) {
+        return string.substring(0, maxChars) + '...';
+      }
+
+      return string;
+    },
+    initLinkProvider: function() {
+      var $vm = this;
+      var action = $.extend(true, {
+        action: 'screen',
+        page: '',
+        transition: 'slide.left',
+        options: {
+          hideAction: true
+        }
+      }, $vm.settings.linkAction);
+
+      window.linkProvider = Fliplet.Widget.open('com.fliplet.link', {
+        selector: '#linkAction',
+        data: action
+      });
+
+      window.linkProvider.then(function onLinkAction(result) {
+        if (result && result.data && result.data.action) {
+          $vm.settings.linkAction = result.data;
+        }
+
+        window.linkProvider = null;
+        $vm.triggerSave();
       });
     }
   },
@@ -572,34 +679,6 @@ var app = new Vue({
       } else {
         Fliplet.Studio.emit('widget-mode', 'normal');
       }
-    },
-    'settings.templateId': function(newId) {
-      Fliplet.Widget.toggleSaveButton(!!newId);
-
-      if (!newId) {
-        return;
-      }
-
-      var formTemplate = _.find(this.templates, function(template) {
-        return template.id === newId;
-      });
-
-      var settings = formTemplate.settings;
-      settings.templateId = formTemplate.id;
-      settings.name = this.settings.name;
-
-      if (this.chooseTemplate) {
-        Fliplet.Studio.emit('widget-info-label-update', {
-          text: 'Previewing ' + settings.displayName
-        });
-      }
-
-      this.settings = generateFormDefaults(settings);
-      this.fields = this.settings.fields;
-
-      this.save().then(function onSettingsSaved() {
-        Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
-      });
     },
     'section': function(value) {
       var $vm = this;
@@ -703,6 +782,11 @@ var app = new Vue({
         email: data.email,
         type: 'to'
       });
+    },
+    'settings.template': function(value) {
+      if (value) {
+        this.editor.setContent(this.settings.description);
+      }
     }
   },
   computed: {
@@ -718,17 +802,51 @@ var app = new Vue({
     Fliplet.FormBuilder.on('field-settings-changed', this.onFieldSettingChanged);
 
     $vm.loadDataSources().then(function () {
-      $(selector).removeClass('is-loading');
+      Fliplet.FormBuilder.templates().then(function(templates) {
+        $vm.templates = templates.system.concat(templates.organization);
+        $vm.systemTemplates = templates.system;
+        $vm.organizationTemplates = templates.organization;
+
+        $(selector).removeClass('is-loading');
+
+        $($vm.$refs.templateDescription).tinymce({
+          theme: 'modern',
+          plugins: [
+            'link image charmap hr',
+            'searchreplace insertdatetime table textcolor colorpicker code'
+          ],
+          menubar: false,
+          statusbar: true,
+          inline: false,
+          resize: true,
+          min_height: 300,
+          toolbar: [
+            'formatselect | fontselect fontsizeselect | bold italic underline strikethrough |',
+            'alignleft aligncenter alignright alignjustify | link | bullist numlist outdent indent |',
+            'blockquote subscript superscript | table hr | removeformat | code'
+          ].join(' '),
+          setup: function (ed) {
+            $vm.editor = ed
+            $vm.editor.on('keyup paste', function() {
+              $vm.settings.description = $vm.editor.getContent();
+            });
+          }
+        });
+
+        if ($vm.chooseTemplate && $vm.$refs.templateGallery) {
+          setTimeout(function() {
+            $($vm.$refs.templateGallery).find('[data-toggle="tooltip"]').tooltip({
+              container: 'body'
+            });
+          }, 500);
+        }
+      });
     });
 
     Fliplet.Studio.onMessage(function(event) {
       if (event.data && event.data.event === 'overlay-close') {
         $vm.loadDataSources();
       }
-    });
-
-    Fliplet.FormBuilder.templates().then(function(templates) {
-      $vm.templates = templates;
     });
   },
   beforeDestroy: function() {
@@ -744,9 +862,12 @@ var app = new Vue({
 
     if (this.chooseTemplate) {
       Fliplet.Studio.emit('widget-save-label-update', {
-        text: 'Next'
+        text: ''
       });
-      Fliplet.Widget.toggleSaveButton(false);
+      // Init tooltip
+      if ($vm.$refs.templateGallery) {
+        $($vm.$refs.templateGallery).find('[data-toggle="tooltip"]').tooltip();
+      }
     }
 
     // Init tooltip
@@ -765,30 +886,12 @@ var app = new Vue({
     }, savedLinkData);
 
     if (!window.linkProvider) {
-      var action = $.extend(true, {
-        action: 'screen',
-        page: '',
-        transition: 'slide.left',
-        options: {
-          hideAction: true
-        }
-      }, $vm.settings.linkAction);
-
-      window.linkProvider = Fliplet.Widget.open('com.fliplet.link', {
-        selector: '#linkAction',
-        data: action
-      });
-
-      window.linkProvider.then(function onLinkAction(result) {
-        if (result && result.data && result.data.action) {
-          $vm.settings.linkAction = result.data;
-        }
-
-        window.linkProvider = null;
-        $vm.triggerSave();
-      });
+      $vm.initLinkProvider();
     }
 
+    Fliplet.Organizations.get().then(function (organizations) {
+      $vm.organizationName = organizations.length && organizations[0].name;
+    });
 
     Fliplet.Widget.onSaveRequest(function() {
       if (window.emailTemplateAddProvider) {
@@ -822,28 +925,7 @@ var app = new Vue({
     var $vm = this;
 
     if (!window.linkProvider) {
-      var action = $.extend(true, {
-        action: 'screen',
-        page: '',
-        transition: 'slide.left',
-        options: {
-          hideAction: true
-        }
-      }, $vm.settings.linkAction);
-
-      window.linkProvider = Fliplet.Widget.open('com.fliplet.link', {
-        selector: '#linkAction',
-        data: action
-      });
-
-      window.linkProvider.then(function onLinkAction(result) {
-        if (result && result.data && result.data.action) {
-          $vm.settings.linkAction = result.data;
-        }
-
-        window.linkProvider = null;
-        $vm.triggerSave();
-      });
+      $vm.initLinkProvider();
     }
   }
 });

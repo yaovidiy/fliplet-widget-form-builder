@@ -2,6 +2,7 @@ var systemTemplates = [{
     id: 1,
     settings: {
       displayName: 'Blank',
+      description: 'Create your own form from scratch.',
       fields: [{
           _type: 'flInput',
           name: 'Question 1',
@@ -19,6 +20,7 @@ var systemTemplates = [{
     id: 2,
     settings: {
       displayName: 'Enquiry',
+      description: 'An easy way to track enquiries from your customers.',
       fields: [{
           _type: 'flInput',
           name: 'Name',
@@ -77,12 +79,20 @@ Fliplet.FormBuilder.templates = function() {
       ].join('')
     }).then(function(response) {
       response.widgetInstances.forEach(function(instance) {
-        instance.settings.displayName = instance.settings.name + ' (Organization template)'
+        instance.settings.displayName = instance.settings.name
       });
       return Promise.resolve(response.widgetInstances);
     });
 
   return operation.then(function(organizationTemplates) {
-    return Promise.resolve(systemTemplates.concat(organizationTemplates));
+    organizationTemplates.forEach(function (tpl) {
+      tpl.app = tpl.pages.length && tpl.pages[0].app || {};
+      tpl.createdDescription = (tpl.settings.createdBy && tpl.settings.createdBy.fullName) + ' in ' + tpl.app.name;
+    });
+
+    return Promise.resolve({
+      system: systemTemplates,
+      organization: organizationTemplates
+    });
   })
 };
