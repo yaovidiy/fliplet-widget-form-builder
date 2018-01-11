@@ -266,6 +266,7 @@ var app = new Vue({
           size: 'large',
           package: 'com.fliplet.data-sources',
           title: 'Edit Data Sources',
+          classes: 'data-source-overlay',
           data: { dataSourceId: dataSourceId }
         }
       });
