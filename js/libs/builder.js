@@ -864,7 +864,6 @@ var app = new Vue({
       Fliplet.Studio.emit('widget-save-label-update', {
         text: ''
       });
-      Fliplet.Widget.toggleSaveButton(false);
       // Init tooltip
       if ($vm.$refs.templateGallery) {
         $($vm.$refs.templateGallery).find('[data-toggle="tooltip"]').tooltip();
