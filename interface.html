@@ -124,16 +124,18 @@
               <label class="control-label">Select a data source to store the form submissions</label>
               <label for="select-datasource" class="select-proxy-display">
                 <select class="form-control hidden-select" id="select-datasource" v-model="settings.dataSourceId">
-                  <option value="" disabled="disabled">Select a data source</option>
+                  <option value="">-- Select a data source</option>
+                  <option disabled>------</option>
+                  <option value="new">Create a new data source</option>
+                  <option disabled>------</option>
                   <option v-for="dataSource in dataSources" v-bind:value="dataSource.id">
                     \{{ dataSource.name }}
                   </option>
                 </select>
                 <span class="icon fa fa-chevron-down"></span>
-                <span class="select-value-proxy">Select a data source</span>
+                <span class="select-value-proxy">-- Select a data source</span>
               </label>
-              <small>or just <a href="#" v-on:click.prevent="createDataSource">create a new data source</a></small>
-              <!--<div v-if="manageDataBtn" class="btn btn-default" id="manage-data" v-on:click.prevent="manageDataSource(settings.dataSourceId)">Edit data</div>-->
+              <small v-if="manageDataBtn"><a href="#" v-on:click.prevent="manageDataSource(settings.dataSourceId)">Edit data source</a></small>
             </div>
 
             <h3>Submission</h3>
