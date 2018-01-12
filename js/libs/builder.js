@@ -246,7 +246,14 @@ var app = new Vue({
       var $vm = this;
       var name = prompt('Please type a name for your data source:');
 
-      if (!name) {
+      if (name === null) {
+        this.settings.dataSourceId = '';
+        return;
+      }
+
+      if (name === '') {
+        this.settings.dataSourceId = '';
+        alert('You must enter a data source name');
         return;
       }
 
@@ -669,7 +676,11 @@ var app = new Vue({
       changeSelectText();
     },
     'settings.dataSourceId': function(value) {
-      this.manageDataBtn = value && value !== '';
+      this.manageDataBtn = value && value !== '' && value !== 'new';
+
+      if (value === 'new') {
+        this.createDataSource();
+      }
     },
     'permissionToChange': function(newVal) {
       Fliplet.Widget.toggleSaveButton(newVal);
