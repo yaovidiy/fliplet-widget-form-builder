@@ -825,21 +825,21 @@ var app = new Vue({
         $(selector).removeClass('is-loading');
 
         $($vm.$refs.templateDescription).tinymce({
-          theme: 'modern',
           plugins: [
-            'link image charmap hr',
-            'searchreplace insertdatetime table textcolor colorpicker code'
+            'lists advlist image charmap hr code',
+            'searchreplace wordcount insertdatetime table textcolor colorpicker'
           ],
-          menubar: false,
-          statusbar: true,
-          inline: false,
-          resize: true,
-          min_height: 300,
           toolbar: [
-            'formatselect | fontselect fontsizeselect | bold italic underline strikethrough |',
-            'alignleft aligncenter alignright alignjustify | link | bullist numlist outdent indent |',
-            'blockquote subscript superscript | table hr | removeformat | code'
+            'formatselect |',
+            'bold italic underline strikethrough |',
+            'forecolor backcolor |',
+            'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |',
+            'blockquote subscript superscript | table insertdatetime charmap hr |',
+            'removeformat | code'
           ].join(' '),
+          menubar: false,
+          statusbar: false,
+          min_height: 300,
           setup: function (ed) {
             $vm.editor = ed
             $vm.editor.on('keyup paste', function() {
