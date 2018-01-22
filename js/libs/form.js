@@ -249,7 +249,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
           var value = field.value;
           var type = field._type;
 
-          if (field._submit === false) {
+          if (field._submit === false || !field.enabled) {
             return;
           }
 
@@ -400,7 +400,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         var progress = {};
 
         $vm.fields.forEach(function(field) {
-          if (field.saveProgress !== false) {
+          if (field.saveProgress !== false && field.enabled) {
             progress[field.name] = field.value;
           }
         });
@@ -409,10 +409,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
       }, saveDelay);
 
       $(selector).removeClass('is-loading');
-
-      Fliplet.Hooks.on('beforeFormSubmit', function(data) {
-        console.log('[Hook] beforeFormSubmit', data);
-      });
 
       if (!data.offline) {
         Fliplet.Navigator.onOnline(function() {
