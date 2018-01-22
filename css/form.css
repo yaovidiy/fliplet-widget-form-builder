@@ -333,7 +333,7 @@ textarea.form-control {
   top: 0;
   bottom: 0;
   line-height: 26px;
-  font-size: 1.5em;
+  font-size: 1.1em;
   color: #337ab7;
   -webkit-transform: scale(0);
   transform: scale(0);
@@ -395,7 +395,7 @@ textarea.form-control {
   top: 0;
   bottom: 0;
   line-height: 26px;
-  font-size: 1.2em;
+  font-size: 0.9em;
   color: #337ab7;
   -webkit-transform: scale(0);
   transform: scale(0);
