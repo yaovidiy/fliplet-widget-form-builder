@@ -433,6 +433,9 @@ Fliplet.Widget.instance('form-builder', function(data) {
         formReady({
           name: data.name,
           instance: $form,
+          data: function () {
+            return data; 
+          },
           on: function (event, fn) {
             return $form.$on(event, fn);
           },
