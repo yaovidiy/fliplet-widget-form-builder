@@ -48,6 +48,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
     var fields = JSON.parse(JSON.stringify(data.fields || []));
     var progress = getProgress();
 
+    fields.forEach(function (field) {
+      field.enabled = true;
+    });
+
     if (fields.length && (data.saveProgress && typeof progress === 'object') || entry) {
       fields.forEach(function(field) {
         if (entry && entry.data && typeof entry.data[field.name] !== 'undefined' && field.populateOnUpdate !== false) {
@@ -85,6 +89,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
     return value && typeof value.item === 'function';
   }
 
+  var changeListeners = {};
+
   var $form = new Vue({
     el: $(selector)[0],
     data: function() {
@@ -116,8 +122,11 @@ Fliplet.Widget.instance('form-builder', function(data) {
         this.isSent = false;
       },
       reset: function() {
+        var $vm = this;
+
         this.fields.forEach(function(field, index) {
           field.value = data.fields[index].value;
+          $vm.triggerChange(field.name, field.value);
         });
 
         Fliplet.FormBuilder.emit('reset');
@@ -134,10 +143,20 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
         this.errors[fieldName] = error;
       },
+      triggerChange: function (fieldName, value) {
+        if (changeListeners[fieldName]) {
+          changeListeners[fieldName].forEach(function (fn) {
+            fn.call(this, value);
+          });
+        }
+      },
       onInput: function(fieldName, value) {
+        var $vm = this;
+
         this.fields.some(function(field) {
           if (field.name === fieldName) {
             field.value = value;
+            $vm.triggerChange(fieldName, value);
             return true;
           }
         });
@@ -145,6 +164,43 @@ Fliplet.Widget.instance('form-builder', function(data) {
         if (data.saveProgress && typeof this.saveProgress === 'function') {
           this.saveProgress();
         }
+      },
+      onChange(fieldName, fn, runOnBind) {
+        var field;
+        
+        this.fields.some(function (f) {
+          if (f.name === fieldName) {
+            field = f;
+            return true;
+          }
+        });
+
+        if (!field) {
+          throw new Error('A field with the name ' + fieldName + ' has not been found in this form.');
+        }
+        
+        if (typeof fn !== 'function') {
+          throw new Error('Second argument must be a function');
+        }
+
+        if (!changeListeners[fieldName]) {
+          changeListeners[fieldName] = [];
+        }
+
+        changeListeners[fieldName].push(fn);
+
+        // also run it once for initialisation
+        if (runOnBind !== false) {
+          fn.call(this, field.value);
+        }
+      },
+      toggleField: function (fieldName, isEnabled) {
+        this.fields.some(function (field) {
+          if (field.name === fieldName) {
+            field.enabled = !!isEnabled;
+            return true;
+          }
+        });
       },
       getWidgetInstanceData: function () {
         return data;
@@ -193,7 +249,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
           var value = field.value;
           var type = field._type;
 
-          if (field._submit === false) {
+          if (field._submit === false || !field.enabled) {
             return;
           }
 
@@ -344,7 +400,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         var progress = {};
 
         $vm.fields.forEach(function(field) {
-          if (field.saveProgress !== false) {
+          if (field.saveProgress !== false && field.enabled) {
             progress[field.name] = field.value;
           }
         });
@@ -353,10 +409,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
       }, saveDelay);
 
       $(selector).removeClass('is-loading');
-
-      Fliplet.Hooks.on('beforeFormSubmit', function(data) {
-        console.log('[Hook] beforeFormSubmit', data);
-      });
 
       if (!data.offline) {
         Fliplet.Navigator.onOnline(function() {
@@ -403,6 +455,21 @@ Fliplet.Widget.instance('form-builder', function(data) {
                 setTimeout(function () {
                   $form.$forceUpdate();
                 }, 0);
+              },
+              change: function (fn, runOnBind) {
+                return $form.onChange(field.name, fn, runOnBind);
+              },
+              toggle: function (isEnabled) {
+                field.enabled = !!isEnabled;
+
+                if (!field.enabled) {
+                  JSON.parse(JSON.stringify(data.fields || [])).some(function (f) {
+                    if (field.name === f.name) {
+                      field.value = f.value;
+                      return true;
+                    }
+                  });
+                }
               }
             };
           }
