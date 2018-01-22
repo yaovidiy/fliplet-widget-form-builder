@@ -126,7 +126,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
         this.fields.forEach(function(field, index) {
           field.value = data.fields[index].value;
-          this.triggerChange(field.name, field.value);
+          $vm.triggerChange(field.name, field.value);
         });
 
         Fliplet.FormBuilder.emit('reset');
