@@ -238,6 +238,10 @@ nav>.btn {
   background-color: #ffffff;
 }
 
+.component .btn + .btn {
+  margin-top: 0;
+}
+
 .form-preview {
   overflow: auto;
   height: 100%;
