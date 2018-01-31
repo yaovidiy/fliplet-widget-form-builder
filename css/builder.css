@@ -238,6 +238,7 @@ nav>.btn {
   background-color: #ffffff;
 }
 
+.template-controls .btn + .btn,
 .component .btn + .btn {
   margin-top: 0;
 }
