@@ -251,8 +251,7 @@ Fliplet.FormBuilder = (function() {
             classes: 'data-source-overlay',
             data: {
               context: 'overlay',
-              appId: Fliplet.Env.get('appId'),
-              folderId: $vm.mediaFolderId
+              appId: Fliplet.Env.get('appId')
             }
           }
         });
