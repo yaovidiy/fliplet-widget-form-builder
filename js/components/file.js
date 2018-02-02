@@ -17,6 +17,10 @@ Fliplet.FormBuilder.field('file', {
     mediaFolderId: {
       type: Number,
       default: null
+    },
+    mediaFolderData: {
+      type: Object,
+      default: {}
     }
   },
   computed: {
