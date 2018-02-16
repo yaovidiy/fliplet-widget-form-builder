@@ -59,6 +59,11 @@ Fliplet.FormBuilder.field('image', {
       return new Promise(function(resolve, reject) {
         $vm.boundingRect = fileInput.getBoundingClientRect();
 
+        var buttonLabels = ["Take Photo", "Choose Existing Photo", "Cancel"];
+        if (Modernizr.windows) {
+          buttonLabels = ["Take Photo", "Choose Existing Photo"];
+        }
+
         navigator.notification.confirm(
           'How do you want to choose your image?',
           function onSelectedImageMethod(button) {
@@ -75,7 +80,7 @@ Fliplet.FormBuilder.field('image', {
                 return;
             }
           },
-          'Choose Image', ['Take Photo', 'Choose Existing Photo', 'Cancel']
+          'Choose Image', buttonLabels
         );
       });
     },
