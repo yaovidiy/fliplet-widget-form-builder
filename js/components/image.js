@@ -60,7 +60,7 @@ Fliplet.FormBuilder.field('image', {
         $vm.boundingRect = fileInput.getBoundingClientRect();
 
         var buttonLabels = ["Take Photo", "Choose Existing Photo", "Cancel"];
-		    if (Modernizr.windows) {
+        if (Modernizr.windows) {
           var buttonLabels = ["Take Photo", "Choose Existing Photo"];
         }
 
