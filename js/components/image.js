@@ -61,7 +61,7 @@ Fliplet.FormBuilder.field('image', {
 
         var buttonLabels = ["Take Photo", "Choose Existing Photo", "Cancel"];
         if (Modernizr.windows) {
-          var buttonLabels = ["Take Photo", "Choose Existing Photo"];
+          buttonLabels = ["Take Photo", "Choose Existing Photo"];
         }
 
         navigator.notification.confirm(
