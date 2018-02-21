@@ -305,6 +305,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
 
           return;
+        }).then(function(result) {
+          return Fliplet.Hooks.run('afterFormSubmit', { formData: formData, result: result });
         }).then(function() {
           if (data.saveProgress) {
             localStorage.removeItem(progressKey);
@@ -345,6 +347,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
           console.error(err);
           $vm.error = err.message || err.description || err;
           $vm.isSending = false;
+          Fliplet.Hooks.run('onFormSubmitError', { formData: formData, error: err });
         });
 
         // We might use this code to save the form data locally when going away from the page
