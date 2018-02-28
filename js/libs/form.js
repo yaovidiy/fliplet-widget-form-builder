@@ -122,6 +122,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
         this.isSent = false;
       },
       reset: function() {
+        Fliplet.Analytics.trackEvent({
+          category: 'form',
+          action: 'reset'
+        });
         var $vm = this;
 
         this.fields.forEach(function(field, index) {
@@ -167,7 +171,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
       },
       onChange(fieldName, fn, runOnBind) {
         var field;
-        
+
         this.fields.some(function (f) {
           if (f.name === fieldName) {
             field = f;
@@ -178,7 +182,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         if (!field) {
           throw new Error('A field with the name ' + fieldName + ' has not been found in this form.');
         }
-        
+
         if (typeof fn !== 'function') {
           throw new Error('Second argument must be a function');
         }
@@ -218,6 +222,11 @@ Fliplet.Widget.instance('form-builder', function(data) {
         return found;
       },
       onSubmit: function() {
+        Fliplet.Analytics.trackEvent({
+          category: 'form',
+          action: 'submit'
+        });
+
         var $vm = this;
         var formData = {};
 
