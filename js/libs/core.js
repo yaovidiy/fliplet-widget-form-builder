@@ -240,8 +240,6 @@ Fliplet.FormBuilder = (function() {
       }
 
       component.methods._openFileManager = function() {
-        var $vm = this;
-
         Fliplet.Studio.emit('overlay', {
           name: 'widget',
           options: {
