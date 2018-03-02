@@ -15,7 +15,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.email"] = Handl
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.file"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"form-group row\">\n  <div class=\"col-xs-12\">\n    <label>Select the folder where the images are stored.</label>\n  </div>\n  <div class=\"col-xs-12\">\n    <div class=\"btn btn-primary\" id=\"select_folder\" v-model=\"mediaFolderId\" v-on:click=\"openFilePicker\">Select a folder</div>\n  </div>\n</div>\n";
+    return "<div class=\"form-group\">\n  <label>Select the folder where the images are stored.</label>\n  <div class=\"btn btn-primary\" id=\"select_folder\" v-model=\"mediaFolderId\" v-on:click=\"openFilePicker\">\n    <template v-if=\"mediaFolderId\">Replace folder</template>\n    <template v-else>Select a folder</template>\n  </div>\n  <div v-if=\"mediaFolderId\" class=\"selected-folder-holder\">\n    <i class=\"fa fa-folder\"></i> Selected folder: <strong>{{ mediaFolderData.name }}</strong> - <a href=\"#\" v-on:click.prevent=\"openFileManager\">See files</a>\n  </div>\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form-result"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -40,7 +40,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.horizontalRule"
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.image"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"form-group\">\n  <label>Set a maximum width for uploaded images</label>\n  <input class=\"form-control\" type=\"number\" v-model.trim=\"customWidth\" />\n</div>\n<div class=\"form-group\">\n  <label>Set a maximum height for uploaded images</label>\n  <input class=\"form-control\" type=\"number\" v-model.trim=\"customHeight\" />\n</div>\n<div class=\"form-group row\">\n  <div class=\"col-xs-12\">\n    <label>Select the folder where the images are stored.</label>\n  </div>\n  <div class=\"col-xs-12\">\n    <div class=\"btn btn-primary\" id=\"select_folder\" v-model=\"mediaFolderId\" v-on:click=\"openFilePicker\">Select a folder</div>\n  </div>\n</div>\n";
+    return "<div class=\"form-group\">\n  <label>Set a maximum width for uploaded images</label>\n  <input class=\"form-control\" type=\"number\" v-model.trim=\"customWidth\" />\n</div>\n<div class=\"form-group\">\n  <label>Set a maximum height for uploaded images</label>\n  <input class=\"form-control\" type=\"number\" v-model.trim=\"customHeight\" />\n</div>\n<div class=\"form-group\">\n  <label>Select the folder where the images are stored.</label>\n  <div class=\"btn btn-primary\" id=\"select_folder\" v-model=\"mediaFolderId\" v-on:click=\"openFilePicker\">\n    <template v-if=\"mediaFolderId\">Replace folder</template>\n    <template v-else>Select a folder</template>\n  </div>\n    <div v-if=\"mediaFolderId\" class=\"selected-folder-holder\">\n      <i class=\"fa fa-folder\"></i> Selected folder: <strong>{{ mediaFolderData.name }}</strong> - <a href=\"#\" v-on:click.prevent=\"openFileManager\">See files</a>\n    </div>\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.input"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

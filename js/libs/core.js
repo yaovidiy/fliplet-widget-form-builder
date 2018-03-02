@@ -228,13 +228,39 @@ Fliplet.FormBuilder = (function() {
         window.currentProvider.then(function(result) {
           Fliplet.Widget.info('');
           Fliplet.Studio.emit('widget-save-label-update');
+          $vm.mediaFolderData = result.data[0];
           $vm.mediaFolderId = result.data[0].id;
+          $vm.mediaFolderNavStack = result.data[1]
           window.currentProvider = null;
         });
       }
 
       if (!component.methods.openFilePicker) {
         component.methods.openFilePicker = component.methods._openFilePicker;
+      }
+
+      component.methods._openFileManager = function() {
+        var $vm = this;
+
+        Fliplet.Studio.emit('overlay', {
+          name: 'widget',
+          options: {
+            size: 'large',
+            package: 'com.fliplet.file-manager',
+            title: 'File Manager',
+            classes: 'data-source-overlay',
+            data: {
+              context: 'overlay',
+              appId: Fliplet.Env.get('appId'),
+              folder: $vm.mediaFolderData,
+              navStack: $vm.mediaFolderNavStack
+            }
+          }
+        });
+      }
+
+      if (!component.methods.openFileManager) {
+        component.methods.openFileManager = component.methods._openFileManager;
       }
 
       var hasOptions = component.props.options && Array.isArray(component.props.options.type());

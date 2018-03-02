@@ -791,5 +791,6 @@ form hr {
   border: 0;
 }
 
-
+.selected-folder-holder {
+  margin-top: 5px;
 }
