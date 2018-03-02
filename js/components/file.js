@@ -21,6 +21,10 @@ Fliplet.FormBuilder.field('file', {
     mediaFolderData: {
       type: Object,
       default: {}
+    },
+    mediaFolderNavStack: {
+      type: Array,
+      default: []
     }
   },
   computed: {

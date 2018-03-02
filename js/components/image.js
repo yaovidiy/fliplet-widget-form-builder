@@ -29,6 +29,10 @@ Fliplet.FormBuilder.field('image', {
     mediaFolderData: {
       type: Object,
       default: {}
+    },
+    mediaFolderNavStack: {
+      type: Array,
+      default: []
     }
   },
   data: {

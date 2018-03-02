@@ -228,9 +228,9 @@ Fliplet.FormBuilder = (function() {
         window.currentProvider.then(function(result) {
           Fliplet.Widget.info('');
           Fliplet.Studio.emit('widget-save-label-update');
-          console.log(result.data[0]);
           $vm.mediaFolderData = result.data[0];
           $vm.mediaFolderId = result.data[0].id;
+          $vm.mediaFolderNavStack = result.data[1]
           window.currentProvider = null;
         });
       }
@@ -240,6 +240,8 @@ Fliplet.FormBuilder = (function() {
       }
 
       component.methods._openFileManager = function() {
+        var $vm = this;
+
         Fliplet.Studio.emit('overlay', {
           name: 'widget',
           options: {
@@ -249,7 +251,9 @@ Fliplet.FormBuilder = (function() {
             classes: 'data-source-overlay',
             data: {
               context: 'overlay',
-              appId: Fliplet.Env.get('appId')
+              appId: Fliplet.Env.get('appId'),
+              folder: $vm.mediaFolderData,
+              navStack: $vm.mediaFolderNavStack
             }
           }
         });
