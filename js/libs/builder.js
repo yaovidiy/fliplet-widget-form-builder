@@ -859,7 +859,7 @@ var app = new Vue({
     });
 
     Fliplet.Studio.onMessage(function(event) {
-      if (event.data && event.data.event === 'overlay-close') {
+      if (event.data && event.data.event === 'overlay-close' && event.data.data && event.data.data.dataSourceId) {
         $vm.loadDataSources();
       }
     });
