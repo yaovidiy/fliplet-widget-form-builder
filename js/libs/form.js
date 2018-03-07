@@ -1,3 +1,4 @@
+/* eslint-disable */
 var formBuilderInstances = [];
 
 Fliplet.Widget.instance('form-builder', function(data) {
@@ -150,7 +151,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
           });
         }
       },
-      onInput: function(fieldName, value) {
+      onInput: function (fieldName, value) {
         var $vm = this;
 
         this.fields.some(function(field) {
@@ -165,9 +166,9 @@ Fliplet.Widget.instance('form-builder', function(data) {
           this.saveProgress();
         }
       },
-      onChange(fieldName, fn, runOnBind) {
+      onChange: function (fieldName, fn, runOnBind) {
         var field;
-        
+
         this.fields.some(function (f) {
           if (f.name === fieldName) {
             field = f;
@@ -178,7 +179,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         if (!field) {
           throw new Error('A field with the name ' + fieldName + ' has not been found in this form.');
         }
-        
+
         if (typeof fn !== 'function') {
           throw new Error('Second argument must be a function');
         }
@@ -434,7 +435,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
           name: data.name,
           instance: $form,
           data: function () {
-            return data; 
+            return data;
           },
           on: function (event, fn) {
             return $form.$on(event, fn);
