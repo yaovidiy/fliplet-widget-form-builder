@@ -230,7 +230,7 @@ Fliplet.FormBuilder = (function() {
           Fliplet.Studio.emit('widget-save-label-update');
           $vm.mediaFolderData = result.data[0];
           $vm.mediaFolderId = result.data[0].id;
-          $vm.mediaFolderNavStack = result.data[1]
+          $vm.mediaFolderNavStack = result.data[0].navStackRef || {};
           window.currentProvider = null;
         });
       }
