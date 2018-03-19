@@ -466,6 +466,7 @@ textarea.form-control {
   border-bottom-right-radius: 6px;
   border-left: 1px solid #e4e9eb;
   z-index: 2;
+  pointer-events: none;
 }
 
 .select-proxy-display>.hidden-select[disabled]~.icon {
