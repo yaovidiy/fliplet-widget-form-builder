@@ -320,6 +320,8 @@ textarea.form-control {
   background-color: transparent;
   -webkit-transition: background-color 0.15s ease;
   transition: background-color 0.15s ease;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .checkbox.checkbox-icon input[type="checkbox"]:checked+label>span.check {
@@ -382,6 +384,8 @@ textarea.form-control {
   background-color: transparent;
   -webkit-transition: background-color 0.15s ease;
   transition: background-color 0.15s ease;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .radio.radio-icon input[type="radio"]:checked+label>span.check {
