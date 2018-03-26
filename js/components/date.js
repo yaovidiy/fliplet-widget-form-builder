@@ -1,3 +1,5 @@
+var DATE_FORMAT = 'DD MMMM YYYY';
+
 Fliplet.FormBuilder.field('date', {
   name: 'Date picker',
   category: 'Text inputs',
@@ -23,15 +25,20 @@ Fliplet.FormBuilder.field('date', {
     var $vm = this;
 
     if (Fliplet.Env.get('platform') === 'web') {
-      $(this.$el).find('input.date-picker').datepicker({
+      var $el = $(this.$el).find('input.date-picker').datepicker({
         format: "MM dd yyyy",
         todayHighlight: true,
         autoclose: true
-      })
-      .on('changeDate', function(e) {
-        var value = moment(e.date).format('DD MMMM YYYY');
+      }).on('changeDate', function(e) {
+        var value = moment(e.date).format(DATE_FORMAT);
         $vm.updateValue(value);
       });
+
+      $el.datepicker('setDate', this.value || new Date());
+    }
+
+    if (!this.value) {
+      $vm.updateValue(moment().format(DATE_FORMAT));
     }
   }
 });

@@ -46,6 +46,7 @@
       "js/components/horizontalRule.js",
       "js/components/starRating.js",
       "js/components/date.js",
+      "js/components/time.js",
 
       "js/configurations/input.js",
       "js/configurations/email.js",
@@ -65,6 +66,7 @@
       "js/configurations/horizontalRule.js",
       "js/configurations/starRating.js",
       "js/configurations/date.js",
+      "js/configurations/time.js",
 
       "js/libs/builder.js",
       "css/builder.css"
@@ -107,6 +109,7 @@
       "js/components/horizontalRule.js",
       "js/components/starRating.js",
       "js/components/date.js",
+      "js/components/time.js",
 
       "js/libs/form.js",
       "css/form.css"
