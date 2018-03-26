@@ -75,7 +75,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.textarea"] = Handle
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.time"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"input-group custom-time\">\n  <div class=\"input-group-addon\">\n    <i class=\"fa fa-calendar\"></i>\n  </div>\n\n  <input \n    type=\"time\"\n    v-model=\"value\"\n    v-on:change=\"updateValue()\"\n    :name=\"name\"\n    :id=\"name\"\n    :placeholder=\"placeholder\"\n    :required=\"required\"\n    class=\"form-control\"\n  />\n</div>\n";
+    return "<div class=\"input-group custom-time\">\n  <div class=\"input-group-addon\">\n    <i class=\"fa fa-clock-o\"></i>\n  </div>\n\n  <input \n    type=\"time\"\n    v-model=\"value\"\n    v-on:change=\"updateValue()\"\n    :name=\"name\"\n    :id=\"name\"\n    :placeholder=\"placeholder\"\n    :required=\"required\"\n    class=\"form-control\"\n  />\n</div>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.title"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
