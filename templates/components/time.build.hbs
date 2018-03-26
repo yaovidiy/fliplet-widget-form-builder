@@ -1,0 +1,16 @@
+<div class="input-group custom-time">
+  <div class="input-group-addon">
+    <i class="fa fa-clock-o"></i>
+  </div>
+
+  <input 
+    type="time"
+    v-model="value"
+    v-on:change="updateValue()"
+    :name="name"
+    :id="name"
+    :placeholder="placeholder"
+    :required="required"
+    class="form-control"
+  />
+</div>
