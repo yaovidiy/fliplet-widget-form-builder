@@ -274,7 +274,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
           } else {
             // Remove spaces and dashes from value (when it's a string)
-            if (typeof value === 'string' &&  ['flNumber', 'flTelephone'].indexOf(type) !== -1)
+            if (typeof value === 'string' && ['flNumber', 'flTelephone'].indexOf(type) !== -1) {
               value = value.replace(/-|\s/g, '');
             }
             if (type === 'flDate') {
