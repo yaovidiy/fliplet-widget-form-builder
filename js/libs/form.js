@@ -373,7 +373,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         if (entryId || fn) {
           var loadEntry = typeof fn === 'function'
             ? fn(entryId)
-            : return Fliplet.DataSources.connect(data.dataSourceId, { offline: false }).then(function (ds) {
+            : Fliplet.DataSources.connect(data.dataSourceId, { offline: false }).then(function (ds) {
               return ds.findById(entryId);
             });
 
