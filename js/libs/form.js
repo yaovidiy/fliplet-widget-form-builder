@@ -386,6 +386,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
               $vm.error = 'This entry has not been found';
             }
 
+            if (typeof record === 'object' && typeof record.data === 'undefined') {
+              record = { data: record };
+            }
+
             entry = record;
 
             $vm.fields = getFields();
