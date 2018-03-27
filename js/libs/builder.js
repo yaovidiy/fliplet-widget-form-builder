@@ -176,10 +176,17 @@ var app = new Vue({
 
         event.item.remove();
 
+        var i = (_.max(_.compact(_.map(this.fields, function (field) {
+          var idx = field.name.match(/^field-([0-9]+)/);
+          if (idx && idx.length) {
+            return parseInt(idx[1], 10);
+          }
+        }))) || 0) + 1;
+
         this.fields.splice(event.newIndex, 0, {
           _type: componentName,
           _submit: typeof component.submit !== 'undefined' ? component.submit : true,
-          name: 'field-' + (this.fields.length + 1),
+          name: 'field-' + i,
           label: component.name,
           value: value.default || value.type()
         });
