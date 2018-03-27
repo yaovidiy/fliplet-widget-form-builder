@@ -367,15 +367,27 @@ Fliplet.Widget.instance('form-builder', function(data) {
         //   }));
         // });
       },
-      loadEntryForUpdate: function() {
+      loadEntryForUpdate: function(fn) {
         var $vm = this;
 
-        if (entryId) {
-          return Fliplet.DataSources.connect(data.dataSourceId, { offline: false }).then(function (ds) {
-            return ds.findById(entryId);
-          }).then(function (record) {
+        if (entryId || fn) {
+          var loadEntry = typeof fn === 'function'
+            ? fn(entryId)
+            : Fliplet.DataSources.connect(data.dataSourceId, { offline: false }).then(function (ds) {
+              return ds.findById(entryId);
+            });
+
+          if (loadEntry instanceof Promise === false) {
+            loadEntry = Promise.resolve(loadEntry);
+          }
+
+          return loadEntry.then(function (record) {
             if (!record) {
               $vm.error = 'This entry has not been found';
+            }
+
+            if (typeof record === 'object' && typeof record.data === 'undefined') {
+              record = { data: record };
             }
 
             entry = record;
@@ -448,6 +460,9 @@ Fliplet.Widget.instance('form-builder', function(data) {
           instance: $form,
           data: function () {
             return data;
+          },
+          load: function (fn) {
+            return $form.loadEntryForUpdate(fn);
           },
           on: function (event, fn) {
             return $form.$on(event, fn);
