@@ -4,6 +4,17 @@ Fliplet.FormBuilder.field('number', {
   props: {
     placeholder: {
       type: String
+    },
+    positiveOnly: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    pattern: function () {
+      if (this.positiveOnly) {
+        return '\\d*';
+      }
     }
   }
 });
