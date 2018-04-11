@@ -54,7 +54,7 @@ Fliplet.FormBuilder.field('signature', {
 
       if (this.required && this.pad.isEmpty()) {
         Fliplet.Navigate.popup({
-          popupTitle: 'Field required',
+          popupTitle: 'Signature is required',
           popupMessage: 'You must provide a signature'
         });
 
