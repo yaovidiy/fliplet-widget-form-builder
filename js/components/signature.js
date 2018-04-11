@@ -58,7 +58,7 @@ Fliplet.FormBuilder.field('signature', {
           popupMessage: 'You must provide a signature'
         });
 
-        return Promise.reject('Field required');
+        return Promise.reject('Signature is required');
       }
 
       // Get signature as base 64 string
