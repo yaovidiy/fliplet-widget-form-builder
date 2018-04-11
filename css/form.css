@@ -562,7 +562,7 @@ textarea.form-control {
 }
 
 
-/* START RATING */
+/* STAR RATING */
 [_type="flStarRating"] .inverse-direction {
   overflow: hidden;
   display: inline-block;
@@ -609,6 +609,19 @@ textarea.form-control {
   display: block;
 }
 
+/* SIGNATURE FIELD */
+
+.field-signature {
+  position: relative;
+}
+
+.field-signature a {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  text-decoration: none;
+  color: #AAA;
+}
 
 /* LINE BREAK */
 

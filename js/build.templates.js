@@ -63,7 +63,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handleba
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.signature"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<canvas :id=\"name\" ref=\"canvas\"></canvas>";
+    return "<div class=\"field-signature\">\n  <canvas :id=\"name\" ref=\"canvas\"></canvas>\n  <a href=\"#\" v-on:click.prevent=\"onReset()\"><i class=\"fa fa-times\"></i> Clear</a>\n</div>";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.starRating"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
