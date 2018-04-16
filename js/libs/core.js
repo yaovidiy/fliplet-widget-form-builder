@@ -185,7 +185,7 @@ Fliplet.FormBuilder = (function() {
 
       component.computed._fieldNameError = function() {
         if (!this.name) {
-          return 'Please provide a Field ID';
+          return 'Please provide a Field Name';
         }
 
         var existing = _.findIndex(this._fields, {
@@ -193,7 +193,7 @@ Fliplet.FormBuilder = (function() {
         });
 
         if (existing > -1 && existing !== this._idx) {
-          return this.name + ' is taken. Please use another Field ID.';
+          return this.name + ' is taken. Please use another Field Name.';
         }
 
         return '';
