@@ -28,6 +28,7 @@
       "js/libs/templates.js",
       "vendor/bootstrap-datepicker3.css",
       "vendor/bootstrap-datepicker.js",
+      "vendor/signature-pad.js",
 
       "js/components/input.js",
       "js/components/email.js",
@@ -48,6 +49,7 @@
       "js/components/starRating.js",
       "js/components/date.js",
       "js/components/time.js",
+      "js/components/signature.js",
 
       "js/configurations/input.js",
       "js/configurations/email.js",
@@ -68,6 +70,7 @@
       "js/configurations/starRating.js",
       "js/configurations/date.js",
       "js/configurations/time.js",
+      "js/configurations/signature.js",
 
       "js/libs/builder.js",
       "css/builder.css"
@@ -91,6 +94,7 @@
       "js/libs/core.js",
       "vendor/bootstrap-datepicker3.css",
       "vendor/bootstrap-datepicker.js",
+      "vendor/signature-pad.js",
 
       "js/components/input.js",
       "js/components/email.js",
@@ -111,6 +115,7 @@
       "js/components/starRating.js",
       "js/components/date.js",
       "js/components/time.js",
+      "js/components/signature.js",
 
       "js/libs/form.js",
       "css/form.css"

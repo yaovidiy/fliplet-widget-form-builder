@@ -422,7 +422,7 @@ label.fileUpload {
   display: none;
 }
 
-/* START RATING */
+/* STAR RATING */
 .component [_type="flStarRating"] .inverse-direction {
   overflow: hidden;
   display: inline-block;
@@ -513,6 +513,24 @@ label.fileUpload {
   padding-left: 57px;
 }
 
+/* SIGNATURE FIELD */
+
+.field-signature {
+  position: relative;
+}
+
+.field-signature a {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  text-decoration: none;
+  color: #AAA;
+}
+
+.field-signature canvas {
+  background-color: #EEE;
+  border-radius: 5px;
+}
 
 /* temporary code for the modal */
 
