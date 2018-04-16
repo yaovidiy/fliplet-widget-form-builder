@@ -46,7 +46,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
   }
 
   function getFields() {
-    var fields = JSON.parse(JSON.stringify(data.fields || []));
+    var fields = _.compact(JSON.parse(JSON.stringify(data.fields || [])));
     var progress = getProgress();
 
     fields.forEach(function (field) {
