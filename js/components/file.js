@@ -14,6 +14,10 @@ Fliplet.FormBuilder.field('file', {
       type: Array,
       default: []
     },
+    saveProgress: {
+      type: Boolean,
+      default: false
+    },
     mediaFolderId: {
       type: Number,
       default: null
