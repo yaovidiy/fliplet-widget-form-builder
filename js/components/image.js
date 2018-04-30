@@ -22,6 +22,10 @@ Fliplet.FormBuilder.field('image', {
       type: Array,
       default: []
     },
+    saveProgress: {
+      type: Boolean,
+      default: false
+    },
     mediaFolderId: {
       type: Number,
       default: null
