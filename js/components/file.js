@@ -29,29 +29,28 @@ Fliplet.FormBuilder.field('file', {
     mediaFolderNavStack: {
       type: Array,
       default: []
+    },
+    value: {
+      type: Array,
+      default: []
     }
   },
   computed: {
     selectedFileName: function() {
-      var names = [];
-
-      for (var i = 0; i < this.selectedFiles.length; i++) {
-        var file = this.selectedFiles.item(i);
-        names.push(file.name);
-      }
-
-      return names.join(', ');
+      return _.map(this.selectedFiles, 'name').join(', ');
     }
   },
   methods: {
     updateValue: function() {
       var $vm = this;
-      this.selectedFiles = this.$refs.fileInput.files;
+
+      this.selectedFiles.splice(0, this.selectedFiles.length);
 
       var operations = [];
 
-      for (var i = 0; i < this.selectedFiles.length; i++) {
-        var file = this.selectedFiles.item(i);
+      for (var i = 0; i < this.$refs.fileInput.files.length; i++) {
+        var file = this.$refs.fileInput.files.item(i);
+        this.selectedFiles.push(file);
 
         operations.push(new Promise(function (resolve, reject) {
           var reader = new FileReader();
