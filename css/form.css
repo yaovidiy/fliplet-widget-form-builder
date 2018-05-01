@@ -529,7 +529,10 @@ textarea.form-control {
 }
 
 .fileUpload input[type="file"] {
-  display: none;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
 }
 
 .file-thumbnail-helper {
