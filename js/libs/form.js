@@ -501,6 +501,11 @@ Fliplet.Widget.instance('form-builder', function(data) {
                     }
                   });
                 }
+              },
+              options: function (values) {
+                field.options = values.map(function (value) {
+                  return typeof value === 'object' ? value : { id: value };
+                });
               }
             };
           }
