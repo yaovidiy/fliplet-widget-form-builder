@@ -503,8 +503,20 @@ Fliplet.Widget.instance('form-builder', function(data) {
                 }
               },
               options: function (values) {
-                field.options = values.map(function (value) {
-                  return typeof value === 'object' ? value : { id: value };
+                if (!Array.isArray(values)) {
+                  throw new Error('Options must be an array');
+                }
+
+                field.options = values.map(function (option) {
+                  if (typeof option === 'object') {
+                    if (typeof option.value !== 'undefined') {
+                      option.id = option.value;
+                    }
+
+                    return option;
+                  }
+
+                  return { id: option };
                 });
               }
             };
