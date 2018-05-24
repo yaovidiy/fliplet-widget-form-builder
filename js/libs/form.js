@@ -507,7 +507,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
                   throw new Error('Options must be an array');
                 }
 
-                field.options = values.map(function (option) {
+                var options = values.map(function (option) {
                   if (typeof option === 'object') {
                     if (typeof option.value !== 'undefined') {
                       option.id = option.value;
@@ -518,6 +518,12 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
                   return { id: option };
                 });
+
+                // Update options in field definition so they are kept between renderings
+                _.find(data.fields, { name: field.name }).options = options;
+
+                // Update live field
+                field.options = options;
               }
             };
           }
