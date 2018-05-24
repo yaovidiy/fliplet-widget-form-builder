@@ -38,7 +38,8 @@ Fliplet.FormBuilder.field('date', {
     }
 
     if (!this.value) {
-      $vm.updateValue(moment().format(DATE_FORMAT));
+      // HTML5 date field wants YYYY-MM-DD format
+      $vm.updateValue(moment().format('YYYY-MM-DD'));
     }
   }
 });
