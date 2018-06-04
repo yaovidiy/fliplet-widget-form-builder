@@ -154,20 +154,26 @@ Fliplet.FormBuilder.field('image', {
       if (Fliplet.Env.is('web') || !navigator.camera) {
         return;
       }
-      if (this.forcedClick) {
-        this.forcedClick = false;
-        return $vm.getPicture();
-      }
+
+      var getPicture;
       event.preventDefault();
 
-      this.requestPicture(this.$refs.imageInput).then(function onRequestedPicture() {
-        if ($vm.cameraSource === Camera.PictureSourceType.PHOTOLIBRARY) {
-          $vm.forcedClick = true;
-          $($vm.$refs.imageInput).trigger('click');
-          return Promise.reject('Switch to HTML file input to select files');
-        }
-        return $vm.getPicture();
-      }).then(function onSelectedPicture(imgBase64Url) {
+      if (this.forcedClick) {
+        this.forcedClick = false;
+        getPicture = $vm.getPicture();
+      } else {
+        getPicture = this.requestPicture(this.$refs.imageInput).then(function onRequestedPicture() {
+          if ($vm.cameraSource === Camera.PictureSourceType.PHOTOLIBRARY) {
+            $vm.forcedClick = true;
+            $($vm.$refs.imageInput).trigger('click');
+            return Promise.reject('Switch to HTML file input to select files');
+          }
+
+          return $vm.getPicture();
+        });
+      }
+
+      getPicture.then(function onSelectedPicture(imgBase64Url) {
         imgBase64Url = (imgBase64Url.indexOf('base64') > -1) ?
           imgBase64Url :
           'data:image/jpeg;base64,' + imgBase64Url;
@@ -175,8 +181,6 @@ Fliplet.FormBuilder.field('image', {
         $vm.addThumbnailToCanvas(imgBase64Url);
         $vm.value.push(imgBase64Url);
         $vm.$emit('_input', $vm.name, $vm.value);
-      }, function(message) {
-        console.log(message);
       }).catch(function(error) {
         console.error(error);
       });
