@@ -38,9 +38,13 @@ Fliplet.FormBuilder.field('signature', {
   methods: {
     onResize: function() {
       var canvas = this.$refs.canvas;
+      var previousWidth = canvas.width;
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
-      this.onReset();
+
+      if (previousWidth !== canvas.width) {
+        this.onReset();
+      }
     },
     onReset: function() {
       if (this.pad) {
