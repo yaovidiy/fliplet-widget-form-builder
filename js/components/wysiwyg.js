@@ -49,8 +49,11 @@ Fliplet.FormBuilder.field('wysiwyg', {
             data.append('images', files);
 
             return Fliplet.Media.Files.upload({
-              data: FormData,
-              folderId: uploadsFolder.id
+              data: data,
+              folderId: uploadsFolder.id,
+              progress: function (percentage) {
+                console.log(percentage)
+              }
             }).then(function (files) {
               console.log(files);
               toast.dismiss();
