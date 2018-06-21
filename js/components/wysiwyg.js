@@ -33,7 +33,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
               return;
             }
 
-            return Fliplet.Media.Folders().then(function (folders) {
+            return Fliplet.Media.Folders.get().then(function (folders) {
               uploadsFolder = _.find(folders, { name: UPLOADS_FOLDER_NAME });
 
               if (uploadsFolder) {
