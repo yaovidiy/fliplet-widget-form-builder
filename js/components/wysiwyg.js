@@ -14,6 +14,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
   },
   mounted: function () {
     var uploadsFolder;
+    var toast;
 
     var $el = $(this.$refs.textarea).summernote({
       placeholder: this.placeholder,
@@ -26,8 +27,8 @@ Fliplet.FormBuilder.field('wysiwyg', {
           Fliplet.UI.Toast({
             message: 'Uploading file...',
             progress: true
-          }).then(function () {
-            toast = this;
+          }).then(function (result) {
+            toast = result;
 
             if (uploadsFolder) {
               return;
@@ -46,17 +47,24 @@ Fliplet.FormBuilder.field('wysiwyg', {
             });
           }).then(function () {
             var data = new FormData();
-            data.append('images', files);
+
+            Array.prototype.forEach.call(files, function(file) {
+              data.append('image', file);
+            });
 
             return Fliplet.Media.Files.upload({
               data: data,
               folderId: uploadsFolder.id,
               progress: function (percentage) {
-                console.log(percentage)
+                toast.setProgress(percentage/100);
               }
             }).then(function (files) {
-              console.log(files);
               toast.dismiss();
+              files.forEach(function (file) {
+                var image = document.createElement('img');
+                image.src = file.url;
+                $el.summernote('insertNode', image);
+              });
             });
           }).catch(function (err) {
             console.error(err);
