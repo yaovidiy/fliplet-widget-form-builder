@@ -1,5 +1,11 @@
 var UPLOADS_FOLDER_NAME = 'Uploaded from Form';
 
+var WEB_SAFE_FONTS = [
+  'Arial', 'Arial Black', 'Comic Sans MS', 'Impact', 'Lucida Sans Unicode',
+  'Tahoma', 'Trebuchet MS', 'Verdana', 'Helvetica', 'Courier New', 'Lucida Console',
+  'Georgia', 'Palatino Linotype', 'Times New Roman'
+];
+
 Fliplet.FormBuilder.field('wysiwyg', {
   name: 'WYSIWYG Editor',
   category: 'Advanced',
@@ -12,6 +18,14 @@ Fliplet.FormBuilder.field('wysiwyg', {
       default: 8
     }
   },
+  watch: {
+    value: function (val) {
+      // This happens when the value is updated programmatically via the FormBuilder field().val() method
+      if (val !== this.$refs.textarea.value) {
+        $(this.$refs.textarea).summernote('code', val);
+      }
+    }
+  },
   methods: {
     onReset: function() {
       $(this.$refs.textarea).summernote('reset');
@@ -22,10 +36,14 @@ Fliplet.FormBuilder.field('wysiwyg', {
     var uploadsFolder;
     var toast;
 
+    var appFonts = _.map(Fliplet.Env.get('appFonts') || [], 'name');
+
     var $el = $(this.$refs.textarea).summernote({
       placeholder: this.placeholder,
       tabsize: 2,
       height: this.rows * 25,
+      fontNames: _.uniq(appFonts.concat(WEB_SAFE_FONTS)).sort(),
+      fontNamesIgnoreCheck: appFonts,
       callbacks: {
         onChange: function(contents) {
           $vm.$emit('_input', $vm.name, contents);
