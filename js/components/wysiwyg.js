@@ -13,6 +13,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
     }
   },
   mounted: function () {
+    var $vm = this;
     var uploadsFolder;
     var toast;
 
@@ -21,6 +22,9 @@ Fliplet.FormBuilder.field('wysiwyg', {
       tabsize: 2,
       height: this.rows * 25,
       callbacks: {
+        onChange: function(contents) {
+          $vm.$emit('_input', $vm.name, contents);
+        },
         onImageUpload: function(files) {
           var toast;
 
