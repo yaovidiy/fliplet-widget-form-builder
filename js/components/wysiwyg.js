@@ -12,6 +12,11 @@ Fliplet.FormBuilder.field('wysiwyg', {
       default: 8
     }
   },
+  methods: {
+    onReset: function() {
+      $(this.$refs.textarea).summernote('reset');
+    }
+  },
   mounted: function () {
     var $vm = this;
     var uploadsFolder;
@@ -76,8 +81,11 @@ Fliplet.FormBuilder.field('wysiwyg', {
         }
       }
     });
+
+    Fliplet.FormBuilder.on('reset', this.onReset);
   },
   destroyed: function() {
     $(this.$refs.textarea).summernote('destroy');
+    Fliplet.FormBuilder.off('reset', this.onReset);
   }
 });
