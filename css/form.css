@@ -404,8 +404,8 @@ html[dir="rtl"] .radio.radio-icon input[type="radio"]+label {
 }
 
 html[dir="rtl"] .radio.radio-icon input[type="radio"]+label>span.check {
-  padding-left: 0;
-  padding-right: 38px;
+  right: 0;
+  left: auto;
 }
 
 .radio.radio-icon input[type="radio"]:checked+label>span.check {
