@@ -307,6 +307,11 @@ textarea.form-control {
   cursor: pointer;
 }
 
+html[dir="rtl"] .checkbox.checkbox-icon input[type="checkbox"]+label {
+  padding-left: 0;
+  padding-right: 38px;
+}
+
 .checkbox.checkbox-icon input[type="checkbox"]+label>span.check {
   position: absolute;
   left: 0;
@@ -322,6 +327,11 @@ textarea.form-control {
   transition: background-color 0.15s ease;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
+}
+
+html[dir="rtl"] .checkbox.checkbox-icon input[type="checkbox"]+label>span.check {
+  left: auto;
+  right: 0;
 }
 
 .checkbox.checkbox-icon input[type="checkbox"]:checked+label>span.check {
@@ -371,6 +381,11 @@ textarea.form-control {
   cursor: pointer;
 }
 
+html[dir="rtl"] .radio.radio-icon input[type="radio"]+label {
+  padding-left: 0;
+  padding-right: 38px;
+}
+
 .radio.radio-icon input[type="radio"]+label>span.check {
   position: absolute;
   left: 0;
@@ -386,6 +401,11 @@ textarea.form-control {
   transition: background-color 0.15s ease;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
+}
+
+html[dir="rtl"] .radio.radio-icon input[type="radio"]+label>span.check {
+  padding-left: 0;
+  padding-right: 38px;
 }
 
 .radio.radio-icon input[type="radio"]:checked+label>span.check {
@@ -412,7 +432,6 @@ textarea.form-control {
   -webkit-transform: scale(1);
   transform: scale(1);
 }
-
 
 /* SELECT */
 
@@ -450,6 +469,7 @@ textarea.form-control {
   right: 42px;
   bottom: 0;
   padding-left: 15px;
+  padding-right: 15px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
