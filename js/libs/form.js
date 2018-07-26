@@ -302,7 +302,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
           });
 
-          if (entry && data.dataSourceId) {
+          if (entryId && entry && data.dataSourceId) {
             return connection.update(entryId, formData, {
               offline: false
             });
