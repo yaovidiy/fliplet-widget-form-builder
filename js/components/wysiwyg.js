@@ -44,6 +44,23 @@ Fliplet.FormBuilder.field('wysiwyg', {
       height: this.rows * 25,
       fontNames: _.uniq(appFonts.concat(WEB_SAFE_FONTS)).sort(),
       fontNamesIgnoreCheck: appFonts,
+      toolbar: [
+        ['fontStyle', ['bold', 'italic', 'underline']],
+        ['paragraphStyle', ['ul', 'ol']],
+        ['insert', ['link']],
+        ['cleaner', ['cleaner']]
+      ],
+      cleaner:{
+        action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
+        keepHtml: false,
+        keepOnlyTags: ['<p>', '<br>', '<ul>', '<li>', '<b>', '<strong>','<i>', '<a>'], // If keepHtml is true, remove all tags except these
+        keepClasses: false, // Remove Classes
+        badTags: ['style', 'script', 'applet', 'embed', 'noframes', 'noscript', 'html'], // Remove full tags with contents
+        badAttributes: ['style', 'start'], // Remove attributes from remaining tags
+        limitChars: false, // 0/false|# 0/false disables option
+        limitDisplay: 'both', // text|html|both
+        limitStop: false // true/false
+      },
       callbacks: {
         onChange: function(contents) {
           $vm.$emit('_input', $vm.name, contents);

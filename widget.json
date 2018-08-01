@@ -30,6 +30,7 @@
       "vendor/bootstrap-datepicker.js",
       "vendor/signature-pad.js",
       "vendor/summernote.min.js",
+      "vendor/summernote-cleaner.js",
       "vendor/summernote.css",
 
       "js/components/input.js",
