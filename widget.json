@@ -50,6 +50,7 @@
       "js/components/date.js",
       "js/components/time.js",
       "js/components/signature.js",
+      "js/components/wysiwyg.js",
 
       "js/configurations/input.js",
       "js/configurations/email.js",
@@ -71,6 +72,7 @@
       "js/configurations/date.js",
       "js/configurations/time.js",
       "js/configurations/signature.js",
+      "js/configurations/wysiwyg.js",
 
       "js/libs/builder.js",
       "css/builder.css"
@@ -86,6 +88,7 @@
       "fliplet-datasources",
       "font-awesome",
       "moment",
+      "tinymce",
       "fliplet-session"
     ],
     "assets": [
@@ -116,6 +119,7 @@
       "js/components/date.js",
       "js/components/time.js",
       "js/components/signature.js",
+      "js/components/wysiwyg.js",
 
       "js/libs/form.js",
       "css/form.css"
