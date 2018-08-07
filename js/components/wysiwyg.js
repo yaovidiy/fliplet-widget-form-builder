@@ -46,19 +46,17 @@ Fliplet.FormBuilder.field('wysiwyg', {
       target: this.$refs.textarea,
       theme: 'modern',
       plugins: [
-        'advlist autolink lists link image charmap hr',
-        'searchreplace insertdatetime table textcolor colorpicker',
-        'autoresize fullscreen code emoticons paste textcolor colorpicker imagetools'
+        'advlist autolink lists link directionality',
+        'autoresize fullscreen code paste'
       ].join(' '),
       toolbar: [
-        'undo redo | formatselect | fontsizeselect | bold italic underline strikethrough',
+        'bold italic underline',
         'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
-        'link image | blockquote subscript superscript | table charmap hr | forecolor backcolor',
-        'removeformat code fullscreen'
+        'ltr rtl | link | removeformat code fullscreen'
       ].join(' | '),
       image_advtab: true,
       menubar: false,
-      statusbar: true,
+      statusbar: false,
       inline: false,
       resize: true,
       autoresize_bottom_margin: 50,
