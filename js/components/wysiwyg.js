@@ -47,10 +47,12 @@ Fliplet.FormBuilder.field('wysiwyg', {
       toolbar: [
         ['fontStyle', ['bold', 'italic', 'underline']],
         ['paragraphStyle', ['ul', 'ol']],
+        ['paragraphStyle', ['ltr', 'rtl']],
         ['insert', ['link']],
         ['cleaner', ['cleaner']]
       ],
-      cleaner:{
+      cleaner: {
+        icon: '<i class="fa fa-eraser"></i>',
         action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
         keepHtml: false,
         keepOnlyTags: ['<p>', '<br>', '<ul>', '<li>', '<b>', '<strong>','<i>', '<a>'], // If keepHtml is true, remove all tags except these
