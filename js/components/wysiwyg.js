@@ -45,6 +45,10 @@ Fliplet.FormBuilder.field('wysiwyg', {
     tinymce.init({
       target: this.$refs.textarea,
       theme: 'modern',
+      mobile: {
+        theme: 'mobile',
+        plugins: [ 'autosave', 'lists', 'autolink' ]
+      },
       plugins: [
         'advlist autolink lists link directionality',
         'autoresize fullscreen code paste'
