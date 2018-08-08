@@ -47,7 +47,8 @@ Fliplet.FormBuilder.field('wysiwyg', {
       theme: 'modern',
       mobile: {
         theme: 'mobile',
-        plugins: [ 'autosave', 'lists', 'autolink' ]
+        plugins: [ 'autosave', 'lists', 'autolink' ],
+        toolbar: [ 'bold', 'italic', 'underline', 'bullist', 'numlist', 'removeformat' ]
       },
       plugins: [
         'advlist autolink lists link directionality',
