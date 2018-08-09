@@ -646,6 +646,23 @@ html[dir="rtl"] .radio.radio-icon input[type="radio"]+label>span.check {
   color: #AAA;
 }
 
+/* WYSIWYG FIELD */
+
+.tinymce-mobile-outer-container .tinymce-mobile-disabled-mask {
+  opacity: 0;
+}
+
+.tinymce-mobile-outer-container .tinymce-mobile-disabled-mask .tinymce-mobile-content-container,
+.tinymce-mobile-outer-container .tinymce-mobile-disabled-mask .tinymce-mobile-content-container .tinymce-mobile-content-tap-section {
+  width: 100%;
+  height: 100%;
+}
+
+.tinymce-mobile-outer-container:not(.tinymce-mobile-fullscreen-maximized) .tinymce-mobile-editor-socket {
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+}
+
 /* LINE BREAK */
 
 form hr {
