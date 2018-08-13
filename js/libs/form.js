@@ -122,11 +122,14 @@ Fliplet.Widget.instance('form-builder', function(data) {
       start: function() {
         this.isSent = false;
       },
-      reset: function() {
-        Fliplet.Analytics.trackEvent({
-          category: 'form',
-          action: 'reset'
-        });
+      reset: function(trackEvents) {
+        if (trackEvents !== false) {
+          Fliplet.Analytics.trackEvent({
+            category: 'form',
+            action: 'reset'
+          });
+        }
+
         var $vm = this;
 
         this.fields.forEach(function(field, index) {
@@ -350,7 +353,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
           $vm.isSent = true;
           $vm.isSending = false;
-          $vm.reset();
+          $vm.reset(false);
 
           $vm.loadEntryForUpdate();
         }, function(err) {
