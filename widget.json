@@ -16,8 +16,7 @@
       "fliplet-datasources",
       "codemirror",
       "bootstrap",
-      "moment",
-      "tinymce"
+      "moment"
     ],
     "assets": [
       "vendor/sortable.js",
