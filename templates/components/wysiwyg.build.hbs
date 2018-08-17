@@ -7,3 +7,9 @@
   :id="name"
   :required="required"
 ></textarea>
+<div
+  class="ghost-tinymce"
+  ref="ghost"
+  v-html="value"
+  v-if="isInterface">
+</div>

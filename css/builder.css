@@ -812,3 +812,7 @@ form hr {
 .selected-folder-holder {
   margin-top: 5px;
 }
+
+.ghost-tinymce {
+  padding: 10px 8px 8px !important;
+}
