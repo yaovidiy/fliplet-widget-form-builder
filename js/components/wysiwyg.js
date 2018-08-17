@@ -10,6 +10,11 @@ Fliplet.FormBuilder.field('wysiwyg', {
       default: 8
     }
   },
+  computed: {
+    isInterface: function () {
+      return Fliplet.Env.get('interface');
+    }
+  },
   watch: {
     value: function (val) {
       // This happens when the value is updated programmatically via the FormBuilder field().val() method
@@ -74,6 +79,14 @@ Fliplet.FormBuilder.field('wysiwyg', {
 
           // Default font size
           editor.execCommand('fontSize', false, '10pt');
+
+          if ($vm.isInterface) {
+            // iFrames don't work with the form builder's Sortable feature
+            // Instead, the iFrame is swapped with a <div></div> of the same dimensions
+            var $el = $($vm.$refs.ghost);
+            $el.width(editor.iframeElement.style.width).height(editor.iframeElement.style.height);
+            $(editor.iframeElement).replaceWith($el);
+          }
         });
 
         editor.on('change', function(e) {
