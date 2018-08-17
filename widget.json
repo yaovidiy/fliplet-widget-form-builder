@@ -50,6 +50,7 @@
       "js/components/date.js",
       "js/components/time.js",
       "js/components/signature.js",
+      "js/components/wysiwyg.js",
 
       "js/configurations/input.js",
       "js/configurations/email.js",
