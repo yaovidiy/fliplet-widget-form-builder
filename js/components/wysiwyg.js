@@ -42,6 +42,16 @@ Fliplet.FormBuilder.field('wysiwyg', {
         this.editor.destroy();
         this.editor = null;
       }
+    },
+    onBeforeSubmit: function(data) {
+      if (this.required && !this.value.length) {
+        Fliplet.Navigate.popup({
+          popupTitle: 'The following field is required',
+          popupMessage: this.name
+        });
+
+        return Promise.reject('The following field is required: ' + this.name);
+      }
     }
   },
   mounted: function () {
@@ -95,6 +105,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
       }
     });
 
+    Fliplet.Hooks.on('beforeFormSubmit', this.onBeforeSubmit);
     Fliplet.Hooks.on('afterFormSubmit', this.onSubmit);
     Fliplet.FormBuilder.on('reset', this.onReset);
   },

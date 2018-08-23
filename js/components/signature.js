@@ -62,11 +62,11 @@ Fliplet.FormBuilder.field('signature', {
 
       if (this.required && this.pad.isEmpty()) {
         Fliplet.Navigate.popup({
-          popupTitle: 'Signature is required',
-          popupMessage: 'You must provide a signature'
+          popupTitle: 'The following field is required',
+          popupMessage: this.name
         });
 
-        return Promise.reject('Signature is required');
+        return Promise.reject('The following field is required: ' + this.name);
       }
 
       // Get signature as base 64 string
