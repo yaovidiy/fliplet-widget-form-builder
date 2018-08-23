@@ -815,4 +815,5 @@ form hr {
 
 .ghost-tinymce {
   padding: 10px 8px 8px !important;
+  width: 1px;
 }

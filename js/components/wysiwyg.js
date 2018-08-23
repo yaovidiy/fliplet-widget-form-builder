@@ -84,7 +84,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
             // iFrames don't work with the form builder's Sortable feature
             // Instead, the iFrame is swapped with a <div></div> of the same dimensions
             var $el = $($vm.$refs.ghost);
-            $el.width(editor.iframeElement.style.width).height(editor.iframeElement.style.height);
+            $el.height(editor.iframeElement.style.height);
             $(editor.iframeElement).replaceWith($el);
           }
         });
