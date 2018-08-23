@@ -70,7 +70,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
         'autoresize fullscreen code paste'
       ].join(' '),
       toolbar: [
-        'bold italic underline',
+        'formatselect | bold italic underline',
         'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
         'ltr rtl | link | removeformat code fullscreen'
       ].join(' | '),
