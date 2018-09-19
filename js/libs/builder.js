@@ -663,6 +663,10 @@ var app = new Vue({
         }
       }, $vm.settings.linkAction);
 
+      // Ensures action is set
+      // Otherwise, if action is 'none' the link provider will be hidden
+      action.action = 'screen';
+
       window.linkProvider = Fliplet.Widget.open('com.fliplet.link', {
         selector: '#linkAction',
         data: action
