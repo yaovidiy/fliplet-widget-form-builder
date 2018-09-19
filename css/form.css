@@ -693,6 +693,12 @@ form hr {
   float: none;
 }
 
+/* Date picker */
+
+.datepicker table tr td,
+.datepicker table tr th {
+  min-width: 44px;
+}
 
 /* TinyMCE source code area */
 
