@@ -1,6 +1,6 @@
 Fliplet.FormBuilder.field('wysiwyg', {
-  name: 'WYSIWYG Editor',
-  category: 'Advanced',
+  name: 'Rich text',
+  category: 'Text inputs',
   props: {
     placeholder: {
       type: String

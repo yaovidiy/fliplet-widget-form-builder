@@ -37,6 +37,7 @@
       "js/components/url.js",
       "js/components/password.js",
       "js/components/textarea.js",
+      "js/components/wysiwyg.js",
       "js/components/select.js",
       "js/components/radio.js",
       "js/components/checkbox.js",
@@ -50,7 +51,6 @@
       "js/components/date.js",
       "js/components/time.js",
       "js/components/signature.js",
-      "js/components/wysiwyg.js",
 
       "js/configurations/input.js",
       "js/configurations/email.js",
