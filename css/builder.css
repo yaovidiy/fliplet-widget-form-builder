@@ -816,3 +816,7 @@ form hr {
 .ghost-tinymce {
   padding: 10px 8px 8px !important;
 }
+
+.mce-container-body .mce-edit-area {
+  overflow: hidden;
+}
