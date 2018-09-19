@@ -695,6 +695,10 @@ form hr {
 
 /* Date picker */
 
+.datepicker table tr {
+  border-color: transparent;
+}
+
 .datepicker table tr td,
 .datepicker table tr th {
   min-width: 44px;
