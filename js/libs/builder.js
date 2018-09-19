@@ -174,7 +174,7 @@ var app = new Vue({
         component = Fliplet.FormBuilder.components()[componentName];
         value = component.props.value;
 
-        event.item.remove();
+        $(event.item).remove();
 
         var i = (_.max(_.compact(_.map(this.fields, function (field) {
           var idx = field.name.match(/^field-([0-9]+)/);
