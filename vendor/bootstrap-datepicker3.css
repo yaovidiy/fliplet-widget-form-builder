@@ -45,16 +45,16 @@
   position: absolute;
 }
 .datepicker-dropdown.datepicker-orient-left:before {
-  left: 6px;
+  left: 15px;
 }
 .datepicker-dropdown.datepicker-orient-left:after {
-  left: 7px;
+  left: 16px;
 }
 .datepicker-dropdown.datepicker-orient-right:before {
-  right: 6px;
+  right: 15px;
 }
 .datepicker-dropdown.datepicker-orient-right:after {
-  right: 7px;
+  right: 16px;
 }
 .datepicker-dropdown.datepicker-orient-bottom:before {
   top: -7px;
