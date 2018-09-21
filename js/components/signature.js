@@ -60,13 +60,11 @@ Fliplet.FormBuilder.field('signature', {
         return;
       }
 
+      $(this.$refs.canvas).parents('.form-group').removeClass('has-error');
       if (this.required && this.pad.isEmpty()) {
-        Fliplet.Navigate.popup({
-          popupTitle: 'Signature is required',
-          popupMessage: 'You must provide a signature'
-        });
+        $(this.$refs.canvas).parents('.form-group').addClass('has-error');
 
-        return Promise.reject('Signature is required');
+        return Promise.reject('Please fill in required fields.');
       }
 
       // Get signature as base 64 string
