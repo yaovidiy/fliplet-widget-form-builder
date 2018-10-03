@@ -698,6 +698,10 @@ html[dir="rtl"] .radio.radio-icon input[type="radio"]+label>span.check {
   border-color: #3c763d;
 }
 
+.form-group.has-success .tinymce-mobile-outer-container:not(.tinymce-mobile-fullscreen-maximized) .tinymce-mobile-editor-socket {
+  border-color: #3c763d;
+}
+
 .form-group.has-warning .mce-tinymce {
   border-color: #8a6d3b;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -708,10 +712,18 @@ html[dir="rtl"] .radio.radio-icon input[type="radio"]+label>span.check {
   border-color: #8a6d3b;
 }
 
+.form-group.has-warning .tinymce-mobile-outer-container:not(.tinymce-mobile-fullscreen-maximized) .tinymce-mobile-editor-socket {
+  border-color: #8a6d3b;
+}
+
 .form-group.has-error .mce-tinymce {
   border-color: #a94442;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.form-group.has-error .tinymce-mobile-outer-container:not(.tinymce-mobile-fullscreen-maximized) .tinymce-mobile-editor-socket {
+  border-color: #a94442;
 }
 
 .form-group.has-error .mce-top-part::before {

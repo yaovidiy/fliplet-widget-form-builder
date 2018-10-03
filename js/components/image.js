@@ -46,6 +46,7 @@ Fliplet.FormBuilder.field('image', {
   },
   created: function() {
     Fliplet.FormBuilder.on('reset', this.onReset);
+    Fliplet.Hooks.on('beforeFormSubmit', this.onBeforeSubmit);
   },
   destroyed: function() {
     Fliplet.FormBuilder.off('reset', this.onReset);
@@ -54,6 +55,19 @@ Fliplet.FormBuilder.field('image', {
     onReset: function() {
       var canvas = this.$refs.canvas;
       canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    },
+    onBeforeSubmit: function (data) {
+      $(this.$refs.imageInput).parents('.form-group').removeClass('has-error');
+
+      if (!this.required) {
+        return;
+      }
+
+      if (!this.value.length) {
+        $(this.$refs.imageInput).parents('.form-group').addClass('has-error');
+
+        return Promise.reject('Please fill in required fields.');
+      }
     },
     requestPicture: function(fileInput) {
       var $vm = this;
