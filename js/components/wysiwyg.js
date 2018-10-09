@@ -37,12 +37,6 @@ Fliplet.FormBuilder.field('wysiwyg', {
 
       this.value = '';
     },
-    onSubmit: function () {
-      if (this.editor) {
-        this.editor.destroy();
-        this.editor = null;
-      }
-    },
     onBeforeSubmit: function(data) {
       var value = data[this.name];
       $(this.$refs.textarea).parents('.form-group').removeClass('has-error');
@@ -101,10 +95,14 @@ Fliplet.FormBuilder.field('wysiwyg', {
     });
 
     Fliplet.Hooks.on('beforeFormSubmit', this.onBeforeSubmit);
-    Fliplet.Hooks.on('afterFormSubmit', this.onSubmit);
     Fliplet.FormBuilder.on('reset', this.onReset);
   },
   destroyed: function() {
+    if (this.editor) {
+      this.editor.destroy();
+      this.editor = null;
+    }
+
     Fliplet.FormBuilder.off('reset', this.onReset);
   }
 });
