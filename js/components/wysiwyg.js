@@ -7,7 +7,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
     },
     rows: {
       type: Number,
-      default: 8
+      default: 5
     }
   },
   computed: {
@@ -48,6 +48,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
   },
   mounted: function () {
     var $vm = this;
+    var lineHeight = 40;
 
     tinymce.init({
       target: this.$refs.textarea,
@@ -70,10 +71,10 @@ Fliplet.FormBuilder.field('wysiwyg', {
       menubar: false,
       statusbar: false,
       inline: false,
-      resize: true,
-      autoresize_bottom_margin: 50,
-      autoresize_max_height: 500,
-      autoresize_min_height: 20 * this.rows,
+      resize: false,
+      autoresize_bottom_margin: 0,
+      autoresize_max_height: lineHeight * this.rows,
+      autoresize_min_height: lineHeight * this.rows,
       autofocus: false,
       branding: false,
       setup: function (editor) {
