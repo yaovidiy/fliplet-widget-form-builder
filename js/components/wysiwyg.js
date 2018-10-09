@@ -84,10 +84,6 @@ Fliplet.FormBuilder.field('wysiwyg', {
       setup: function (editor) {
         editor.on('init', function () {
           $vm.editor = editor;
-
-          // Default font size
-          editor.execCommand('fontSize', false, '10pt');
-
           if ($vm.isInterface) {
             // iFrames don't work with the form builder's Sortable feature
             // Instead, the iFrame is swapped with a <div></div> of the same dimensions
