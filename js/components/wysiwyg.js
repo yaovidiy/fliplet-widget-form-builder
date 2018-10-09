@@ -7,7 +7,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
     },
     rows: {
       type: Number,
-      default: 8
+      default: 5
     }
   },
   computed: {
@@ -37,12 +37,6 @@ Fliplet.FormBuilder.field('wysiwyg', {
 
       this.value = '';
     },
-    onSubmit: function () {
-      if (this.editor) {
-        this.editor.destroy();
-        this.editor = null;
-      }
-    },
     onBeforeSubmit: function(data) {
       var value = data[this.name];
       $(this.$refs.textarea).parents('.form-group').removeClass('has-error');
@@ -54,6 +48,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
   },
   mounted: function () {
     var $vm = this;
+    var lineHeight = 40;
 
     tinymce.init({
       target: this.$refs.textarea,
@@ -76,18 +71,15 @@ Fliplet.FormBuilder.field('wysiwyg', {
       menubar: false,
       statusbar: false,
       inline: false,
-      resize: true,
-      autoresize_bottom_margin: 50,
-      autoresize_max_height: 500,
-      autoresize_min_height: 20 * this.rows,
+      resize: false,
+      autoresize_bottom_margin: 0,
+      autoresize_max_height: lineHeight * this.rows,
+      autoresize_min_height: lineHeight * this.rows,
+      autofocus: false,
       branding: false,
       setup: function (editor) {
         editor.on('init', function () {
           $vm.editor = editor;
-
-          // Default font size
-          editor.execCommand('fontSize', false, '10pt');
-
           if ($vm.isInterface) {
             // iFrames don't work with the form builder's Sortable feature
             // Instead, the iFrame is swapped with a <div></div> of the same dimensions
@@ -104,10 +96,14 @@ Fliplet.FormBuilder.field('wysiwyg', {
     });
 
     Fliplet.Hooks.on('beforeFormSubmit', this.onBeforeSubmit);
-    Fliplet.Hooks.on('afterFormSubmit', this.onSubmit);
     Fliplet.FormBuilder.on('reset', this.onReset);
   },
   destroyed: function() {
+    if (this.editor) {
+      this.editor.destroy();
+      this.editor = null;
+    }
+
     Fliplet.FormBuilder.off('reset', this.onReset);
   }
 });
