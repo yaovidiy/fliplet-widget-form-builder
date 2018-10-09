@@ -80,6 +80,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
       autoresize_bottom_margin: 50,
       autoresize_max_height: 500,
       autoresize_min_height: 20 * this.rows,
+      autofocus: false,
       branding: false,
       setup: function (editor) {
         editor.on('init', function () {
