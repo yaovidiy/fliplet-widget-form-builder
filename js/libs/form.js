@@ -330,16 +330,16 @@ Fliplet.Widget.instance('form-builder', function(data) {
           // Emails are only sent by the client when data source hooks aren't set
           if (!data.dataSourceId) {
             if (data.emailTemplateAdd && data.onSubmit && data.onSubmit.indexOf('templatedEmailAdd') > -1) {
-              operation = Fliplet.Communicate.sendEmail(data.emailTemplateAdd, formData);
+              operation = Fliplet.Communicate.sendEmail(_.extend({}, data.emailTemplateAdd), formData);
             }
 
             if (data.emailTemplateEdit && data.onSubmit && data.onSubmit.indexOf('templatedEmailEdit') > -1) {
-              operation = Fliplet.Communicate.sendEmail(data.emailTemplateEdit, formData);
+              operation = Fliplet.Communicate.sendEmail(_.extend({}, data.emailTemplateEdit), formData);
             }
           }
 
           if (data.generateEmailTemplate && data.onSubmit && data.onSubmit.indexOf('generateEmail') > -1) {
-            operation = Fliplet.Communicate.composeEmail(data.generateEmailTemplate, formData);
+            operation = Fliplet.Communicate.composeEmail(_.extend({}, data.generateEmailTemplate), formData);
           }
 
           if (data.linkAction && data.redirect) {
