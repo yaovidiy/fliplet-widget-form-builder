@@ -22,7 +22,6 @@ html {
 }
 
 header {
-  background: #f2f6f7;
   position: fixed;
   z-index: 5;
   top: 0;
@@ -52,7 +51,6 @@ nav {
   top: 57px;
   right: 15px;
   left: 15px;
-  background: #f2f6f7;
   padding-top: 0;
 }
 
@@ -128,8 +126,7 @@ nav>.btn {
 }
 
 .gallery-heading {
-  background-color: #e4e9eb;
-  border-bottom: 1px solid #d0d2d2;
+  background-color: #dcdae0;
   padding: 5px 15px;
   margin-left: -15px;
   margin-right: -15px;
@@ -796,7 +793,7 @@ form hr {
   padding: 10px;
   margin-left: 25px;
   margin-top: 5px;
-  background-color: #d9e5e8;
+  background-color: #f4f1f2;
   border-radius: 6px;
 }
 
