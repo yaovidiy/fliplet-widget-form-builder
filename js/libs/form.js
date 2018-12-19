@@ -60,7 +60,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             if (Fliplet.Env.get('platform') === 'web') {
               field.value = moment(entry.data[field.name]).format('DD MMMM YYYY');
             } else {
-              field.value = moment(entry.data[field.name]).format('DD/MM/YYYY');
+              field.value = moment(entry.data[field.name]).format('YYYY-MM-DD');
             }
           } else if (field._type === "flCheckbox" && !Array.isArray(entry.data[field.name])) {
             field.value = [];
