@@ -1,6 +1,7 @@
 #app,
 html {
   height: 100%;
+  overflow: hidden;
 }
 
 .loading-message {
@@ -31,13 +32,15 @@ header {
 }
 
 main {
-  height: 100%;
+  margin-top: 100px;
+  height: calc(100% - 100px);
+  overflow: auto;
 }
 
 .builder {
   position: relative;
-  margin-top: 116px;
-  height: calc(100% - 116px);
+  padding-top: 15px;
+  height: 100%;
 }
 
 .content,
@@ -618,8 +621,8 @@ label.fileUpload {
   }
 }
 
-.form-settings {
-  margin-top: 30px;
+.form-settings h3 {
+  margin-top: 0;
 }
 
 .CodeMirror {
