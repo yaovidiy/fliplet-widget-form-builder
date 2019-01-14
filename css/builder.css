@@ -37,6 +37,12 @@ main {
   overflow: auto;
 }
 
+main.select-template {
+  margin-top: 57px;
+  height: calc(100% - 57px);
+  padding-top: 20px;
+}
+
 .builder {
   position: relative;
   padding-top: 15px;
@@ -103,11 +109,6 @@ nav>.btn {
 .empty-state {
   padding: 40px 15px 0;
   text-align: center;
-}
-
-.change-template,
-.choose-template {
-  padding-top: 57px;
 }
 
 .change-template .panel {
