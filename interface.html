@@ -6,7 +6,7 @@
       <p>Loading the form builder... Please wait!</p>
     </div>
   </div>
-  <main>
+  <main v-bind:class="{ 'select-template': chooseTemplate }">
     <header>
       <p v-if="chooseTemplate">Template gallery</p>
       <p v-else>Configure your form</p>
