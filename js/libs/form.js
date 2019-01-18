@@ -307,13 +307,15 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
           if (entryId && entry && data.dataSourceId) {
             return connection.update(entryId, formData, {
-              offline: false
+              offline: false,
+              ack: data.linkAction && data.redirect
             });
           }
 
           if (data.dataStore && data.dataStore.indexOf('dataSource') > -1 && data.dataSourceId) {
             return connection.insert(formData, {
-              offline: data.offline
+              offline: data.offline,
+              ack: data.linkAction && data.redirect
             });
           }
 
