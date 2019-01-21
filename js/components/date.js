@@ -26,7 +26,7 @@ Fliplet.FormBuilder.field('date', {
 
     if (Fliplet.Env.get('platform') === 'web') {
       var $el = $(this.$el).find('input.date-picker').datepicker({
-        format: "MM dd yyyy",
+        format: "dd MM yyyy",
         todayHighlight: true,
         autoclose: true
       }).on('changeDate', function(e) {
