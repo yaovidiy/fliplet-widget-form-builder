@@ -1,6 +1,6 @@
 Fliplet.FormBuilder.field('select', {
-  name: 'Select box',
-  category: 'Multi-select',
+  name: 'Dropdown (single-select)',
+  category: 'Multiple options',
   props: {
     options: {
       type: Array,
