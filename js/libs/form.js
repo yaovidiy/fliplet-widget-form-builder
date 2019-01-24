@@ -558,3 +558,7 @@ Fliplet.FormBuilder.get = function (name) {
     return form;
   });
 };
+
+Fliplet.FormBuilder.getAll = function () {
+  return Promise.all(formBuilderInstances);
+};
