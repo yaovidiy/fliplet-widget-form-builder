@@ -769,11 +769,14 @@ var app = new Vue({
               var index = _.findIndex(dataSource.hooks, function(o) {
                 return o.widgetInstanceId == widgetId && o.runOn.indexOf('insert') > -1;
               });
-              dataSource.hooks.splice(index, 1);
 
-              Fliplet.DataSources.update($vm.settings.dataSourceId, {
-                hooks: dataSource.hooks
-              });
+              if (index > -1) {
+                dataSource.hooks.splice(index, 1);
+
+                Fliplet.DataSources.update($vm.settings.dataSourceId, {
+                  hooks: dataSource.hooks
+                });
+              }
             }
           });
         }
@@ -793,11 +796,14 @@ var app = new Vue({
               var index = _.findIndex(dataSource.hooks, function(o) {
                 return o.widgetInstanceId == widgetId && o.runOn.indexOf('update') > -1;
               });
-              dataSource.hooks.splice(index, 1);
 
-              Fliplet.DataSources.update($vm.settings.dataSourceId, {
-                hooks: dataSource.hooks
-              });
+              if (index > -1) {
+                dataSource.hooks.splice(index, 1);
+
+                Fliplet.DataSources.update($vm.settings.dataSourceId, {
+                  hooks: dataSource.hooks
+                });
+              }
             }
           });
         }
