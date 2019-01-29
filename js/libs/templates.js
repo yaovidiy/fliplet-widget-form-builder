@@ -68,6 +68,7 @@ Fliplet.FormBuilder.templates = function() {
         'v1/widget-instances',
         '?organizationId=' + organizationId,
         '&package=com.fliplet.form-builder',
+        '&publishedOnly=true',
         '&where=' + encodeURIComponent(JSON.stringify({
           $contains: {
             template: true
