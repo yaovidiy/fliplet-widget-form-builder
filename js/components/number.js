@@ -20,6 +20,9 @@ Fliplet.FormBuilder.field('number', {
         return '\\d*';
       }
     },
+    min: function () {
+      return this.positiveOnly ? '0' : '';
+    },
     step: function () {
       return !this.decimals
         ? 'any'
