@@ -43,7 +43,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.input"] = Handlebar
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.number"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<input\n  type=\"number\"\n  class=\"form-control\"\n  v-model.trim=\"value\"\n  v-on:input=\"updateValue()\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n  :required=\"required\"\n  :pattern=\"pattern\"\n  :step=\"step\"\n/>\n";
+    return "<input\n  type=\"number\"\n  class=\"form-control\"\n  v-model.trim=\"value\"\n  v-on:input=\"updateValue()\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n  :required=\"required\"\n  :pattern=\"pattern\"\n  :step=\"step\"\n  :min=\"min\"\n/>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.paragraph"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
