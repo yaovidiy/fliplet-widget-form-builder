@@ -4,7 +4,8 @@ Fliplet.FormBuilder.field('starRating', {
   props: {
     values: {
       type: Array,
-      default: [{
+      default: [
+        {
           id: '5'
         },
         {
