@@ -17,6 +17,20 @@ Fliplet.FormBuilder.field('checkbox', {
       ]
     }
   },
+  methods: {
+    updateValue: function () {
+      var $vm = this;
+
+      // Sort selected options by their index as a checkbox input option
+      var ordered = _.sortBy(this.value, function (val) {
+        return _.findIndex($vm.options, function (option) {
+          return option.id === val;
+        });
+      });
+
+      this.$emit('_input', this.name, ordered);
+    }
+  },
   computed: {
     isRequired: function () {
       return this.required && !this.value.length;
