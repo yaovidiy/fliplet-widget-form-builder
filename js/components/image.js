@@ -48,6 +48,13 @@ Fliplet.FormBuilder.field('image', {
     Fliplet.FormBuilder.on('reset', this.onReset);
     Fliplet.Hooks.on('beforeFormSubmit', this.onBeforeSubmit);
   },
+  mounted: function () {
+    var $vm = this;
+
+    this.value.forEach(function (image) {
+      $vm.addThumbnailToCanvas(image);
+    });
+  },
   destroyed: function() {
     Fliplet.FormBuilder.off('reset', this.onReset);
   },
@@ -241,9 +248,11 @@ Fliplet.FormBuilder.field('image', {
     addThumbnailToCanvas: function(imageURI) {
       var $vm = this;
 
-      imageURI = (imageURI.indexOf('base64') > -1) ?
-        imageURI :
-        'data:image/jpeg;base64,' + imageURI;
+      if (!imageURI.match(/^http/)) {
+        imageURI = (imageURI.indexOf('base64') > -1)
+          ? imageURI
+          :'data:image/jpeg;base64,' + imageURI;
+      }
 
       var canvas = this.$refs.canvas;
       var canvasWidth = canvas.clientWidth;

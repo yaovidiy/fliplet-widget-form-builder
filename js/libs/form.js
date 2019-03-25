@@ -64,6 +64,18 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
           } else if (field._type === "flCheckbox" && !Array.isArray(entry.data[field.name])) {
             field.value = [];
+          } else if (field._type === 'flImage') {
+            var img = entry.data[field.name];
+            field.value = [];
+            if (Array.isArray(img)) {
+              field.value = img;
+            } else if (typeof img === 'string') {
+              field.value.push(img);
+            }
+
+            field.value = field.value.map(function (url) {
+              return Fliplet.Media.authenticate(url);
+            });
           } else if (!field._submit && typeof field._submit !== 'undefined') {
             field.value = field.value;
           } else {
@@ -415,8 +427,12 @@ Fliplet.Widget.instance('form-builder', function(data) {
               entry = session.entries.dataSource;
             }
 
-            $vm.fields = getFields();
-            $vm.isLoading = false;
+            // Re-render fields
+            $vm.fields = [];
+            setTimeout(function () {
+              $vm.fields = getFields();
+              $vm.isLoading = false;
+            }, 50);
           });
         }
 
