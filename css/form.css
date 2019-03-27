@@ -273,7 +273,8 @@ textarea.form-control {
   margin: 0;
 }
 
-.form-control[disabled] {
+.form-control[disabled],
+.form-control[readonly] {
   background-color: #efefef;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -286,7 +287,6 @@ textarea.form-control {
 .form-html .btn:last-child {
   margin-bottom: 0;
 }
-
 
 /* CHECKBOXES */
 
