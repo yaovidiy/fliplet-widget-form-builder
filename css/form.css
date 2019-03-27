@@ -273,7 +273,8 @@ textarea.form-control {
   margin: 0;
 }
 
-.form-control[disabled] {
+.form-control[disabled],
+.form-control[readonly] {
   background-color: #efefef;
   -webkit-box-shadow: none;
   box-shadow: none;
