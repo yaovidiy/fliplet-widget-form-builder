@@ -43,6 +43,11 @@ Fliplet.FormBuilder.field('password', {
       default: false
     }
   },
+  computed: {
+    fieldPlaceholder: function () {
+      return this.autogenerate ? 'A password will be automatically generated' : this.placeholder
+    }
+  },
   created: function() {
     this.checkPasswordConfirmation();
   },
