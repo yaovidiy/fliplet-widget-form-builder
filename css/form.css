@@ -342,9 +342,9 @@ html[dir="rtl"] .checkbox.checkbox-icon input[type="checkbox"] + label > span.ch
 
 .checkbox.checkbox-icon input[type="checkbox"] + label > span.check > i.fa {
   position: absolute;
-  left: 1px;
+  left: 0;
   right: 0;
-  top: 1px;
+  top: 0;
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -418,9 +418,9 @@ html[dir="rtl"] .radio.radio-icon input[type="radio"] + label > span.check {
 
 .radio.radio-icon input[type="radio"] + label > span.check > i.fa {
   position: absolute;
-  left: 1px;
+  left: 0;
   right: 0;
-  top: 1px;
+  top: 0;
   bottom: 0;
   display: flex;
   justify-content: center;
