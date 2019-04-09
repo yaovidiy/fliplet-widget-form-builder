@@ -300,7 +300,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
         });
 
-        Fliplet.Hooks.run('beforeFormSubmit', formData).then(function() {
+        Fliplet.Hooks.run('beforeFormSubmit', formData, $form).then(function() {
           if (data.dataSourceId) {
             return Fliplet.DataSources.connect(data.dataSourceId);
           }
@@ -333,7 +333,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
           return;
         }).then(function(result) {
-          return Fliplet.Hooks.run('afterFormSubmit', { formData: formData, result: result });
+          return Fliplet.Hooks.run('afterFormSubmit', { formData: formData, result: result }, $form);
         }).then(function() {
           if (data.saveProgress) {
             localStorage.removeItem(progressKey);
