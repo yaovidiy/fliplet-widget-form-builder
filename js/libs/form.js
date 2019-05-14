@@ -533,6 +533,12 @@ Fliplet.Widget.instance('form-builder', function(data) {
                   });
                 }
               },
+              show: function () {
+                field.hidden = false;
+              },
+              hide: function () {
+                field.hidden = true;
+              },
               options: function (values) {
                 if (!Array.isArray(values)) {
                   throw new Error('Options must be an array');
