@@ -421,7 +421,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             $vm.isLoading = false;
 
             Fliplet.UI.Toast.error(error, {
-              message: 'The entry to edit could not be loaded.'
+              message: 'Unable to load entry'
             });
           });
         }
