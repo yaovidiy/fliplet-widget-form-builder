@@ -416,7 +416,13 @@ Fliplet.Widget.instance('form-builder', function(data) {
             $vm.fields = getFields();
             $vm.isLoading = false;
           }).catch(function (err) {
-            $vm.error = err.message || err.description || err;
+            var error = Fliplet.parseError(err);
+            $vm.error = error;
+            $vm.isLoading = false;
+
+            Fliplet.UI.Toast.error(error, {
+              message: 'Unable to load entry'
+            });
           });
         }
 
