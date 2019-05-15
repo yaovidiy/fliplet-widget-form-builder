@@ -415,10 +415,12 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
             $vm.fields = getFields();
             $vm.isLoading = false;
+            $vm.$forceUpdate();
           }).catch(function (err) {
             var error = Fliplet.parseError(err);
             $vm.error = error;
             $vm.isLoading = false;
+            $vm.$forceUpdate();
 
             Fliplet.UI.Toast.error(error, {
               message: 'Unable to load entry'
