@@ -531,8 +531,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
                   data = { source: 'literal', key: data };
                 }
 
-                data.source = data.source && data.source.toLowerCase();
-
                 switch (data.source) {
                   case 'profile':
                     if (!data.key) {
