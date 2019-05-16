@@ -590,3 +590,73 @@ Fliplet.FormBuilder.get = function (name) {
 Fliplet.FormBuilder.getAll = function () {
   return Promise.all(formBuilderInstances);
 };
+
+Fliplet.FormBuilder.set = function (fieldName, data) {
+  Fliplet.FormBuilder.get().then(function (form) {
+    if (!form) {
+      throw new Error('This screen does not contain a form');
+    }
+
+    var field = form.field(fieldName);
+
+    var result;
+
+    if (typeof data === 'function') {
+      data = { source: 'function', key: data };
+    }
+
+    if (typeof data !== 'object') {
+      data = { source: 'literal', key: data };
+    }
+
+    data.source = data.source.toLowerCase();
+
+    switch (data.source) {
+      case 'profile':
+        if (!data.key) {
+          throw new Error('A key is required to fetch data from the user\'s profile');
+        }
+
+        result = Fliplet.Profile.get(data.key);
+        break;
+      case 'query':
+        if (!data.key) {
+          throw new Error('A key is required to fetch data from the navigation query parameters');
+        }
+
+        result = Fliplet.Navigate.query[data.key];
+        break;
+      case 'storage':
+      case 'appstorage':
+        if (!data.key) {
+          throw new Error('A key is required to fetch data from the storage');
+        }
+
+        var storage = data.source === 'storage'
+          ? Fliplet.Storage
+          : Fliplet.App.Storage;
+        result = storage.get(data.key);
+        break;
+      case 'function':
+        result = data.key();
+        break;
+      case 'literal':
+        result = data.key;
+        break;
+      default:
+        throw new Error (data.source + ' is not a valid source');
+    }
+
+    if (!(result instanceof Promise)) {
+      result = Promise.resolve(result);
+    }
+
+    return result.then(function (value) {
+      if (typeof value === 'undefined') {
+        value = '';
+      }
+
+      field.val(value);
+    });
+  });
+};
