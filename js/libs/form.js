@@ -415,8 +415,16 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
             $vm.fields = getFields();
             $vm.isLoading = false;
+            $vm.$forceUpdate();
           }).catch(function (err) {
-            $vm.error = err.message || err.description || err;
+            var error = Fliplet.parseError(err);
+            $vm.error = error;
+            $vm.isLoading = false;
+            $vm.$forceUpdate();
+
+            Fliplet.UI.Toast.error(error, {
+              message: 'Unable to load entry'
+            });
           });
         }
 
@@ -479,6 +487,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
       }
 
       this.loadEntryForUpdate().then(function () {
+        var debouncedUpdate = _.debounce(function () {
+          $form.$forceUpdate();
+        }, 10);
+
         // This data is available through "Fliplet.FormBuilder.get()"
         formReady({
           name: data.name,
@@ -506,11 +518,70 @@ Fliplet.Widget.instance('form-builder', function(data) {
                 }
 
                 field.value = value;
+                debouncedUpdate();
+              },
+              set: function (data) {
+                var result;
 
-                // Wait for DOM to update, then force a refresh
-                setTimeout(function () {
-                  $form.$forceUpdate();
-                }, 0);
+                if (typeof data === 'function') {
+                  data = { source: 'function', key: data };
+                }
+
+                if (typeof data !== 'object') {
+                  data = { source: 'literal', key: data };
+                }
+
+                switch (data.source) {
+                  case 'profile':
+                    if (!data.key) {
+                      throw new Error('A key is required to fetch data from the user\'s profile');
+                    }
+
+                    result = Fliplet.Profile.get(data.key);
+                    break;
+                  case 'query':
+                    if (!data.key) {
+                      throw new Error('A key is required to fetch data from the navigation query parameters');
+                    }
+
+                    result = Fliplet.Navigate.query[data.key];
+                    break;
+                  case 'storage':
+                  case 'appstorage':
+                    if (!data.key) {
+                      throw new Error('A key is required to fetch data from the storage');
+                    }
+
+                    var storage = data.source === 'storage'
+                      ? Fliplet.Storage
+                      : Fliplet.App.Storage;
+                    result = storage.get(data.key);
+                    break;
+                  case 'function':
+                    result = data.key();
+                    break;
+                  case 'literal':
+                    result = data.key;
+                    break;
+                  default:
+                    result = data;
+                }
+
+                if (!(result instanceof Promise)) {
+                  result = Promise.resolve(result);
+                }
+
+                return result.then(function (value) {
+                  if (typeof value === 'undefined') {
+                    value = '';
+                  }
+
+                  field.value = value;
+                  debouncedUpdate();
+                });
+              },
+              get: function() {
+                return field.value;
               },
               change: function (fn, runOnBind) {
                 return $form.onChange(field.name, fn, runOnBind);

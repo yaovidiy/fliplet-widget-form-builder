@@ -66,7 +66,7 @@ Fliplet.FormBuilder.field('number', {
     },
     step: function () {
       return !this.decimals
-        ? 'any'
+        ? '0'
         : ('0.' + _.times(this.decimals - 1, _.constant(0)).join('') + '1');
     }
   }

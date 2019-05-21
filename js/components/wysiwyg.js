@@ -19,7 +19,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
     value: function (val) {
       // This happens when the value is updated programmatically via the FormBuilder field().val() method
       if (this.editor && val !== this.editor.getContent()) {
-        return this.editor.setContent(val);
+        return this.editor.setContent(val, { format : 'raw' });
       }
 
       if (val !== this.value) {
@@ -44,7 +44,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
         $(this.$refs.textarea).parents('.form-group').addClass('has-error');
         return Promise.reject('Please fill in required fields.');
       }
-    }    
+    }
   },
   mounted: function () {
     var $vm = this;
