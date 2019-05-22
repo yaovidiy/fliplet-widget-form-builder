@@ -17,7 +17,7 @@ Fliplet.FormBuilder.field('number', {
   methods: {
     updateValue: function () {
       var ensureNumberRx = new RegExp(
-        this.positiveOnly ? '[^0-9\.,]' : '[^0-9\.,-]'
+        this.positiveOnly ? '[^0-9\.]' : '[^0-9\.-]'
       , 'g');
 
       this.value = this.value.replace(ensureNumberRx, '');
