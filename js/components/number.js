@@ -16,13 +16,11 @@ Fliplet.FormBuilder.field('number', {
   },
   methods: {
     updateValue: function () {
-      var $vm = this;
-
-      var rx = new RegExp(
+      var ensureNumberRx = new RegExp(
         this.positiveOnly ? '[^0-9\.,]' : '[^0-9\.,-]'
-      , 'g')
+      , 'g');
 
-      this.value = this.value.replace(rx, '');
+      this.value = this.value.replace(ensureNumberRx, '');
       this.$emit('_input', this.name, this.value);
     }
   },
