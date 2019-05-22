@@ -14,7 +14,20 @@ Fliplet.FormBuilder.field('number', {
       default: 0
     }
   },
+  methods: {
+    updateValue: function () {
+      var ensureNumberRx = new RegExp(
+        this.positiveOnly ? '[^0-9\.]' : '[^0-9\.-]'
+      , 'g');
+
+      this.value = this.value.replace(ensureNumberRx, '');
+      this.$emit('_input', this.name, this.value);
+    }
+  },
   computed: {
+    inputType: function () {
+      return this.positiveOnly ? 'number' : 'text';
+    },
     pattern: function () {
       if (this.positiveOnly) {
         return '\\d*';
