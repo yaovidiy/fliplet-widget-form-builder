@@ -441,10 +441,13 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
             // Re-render fields
             $vm.fields = [];
-            setTimeout(function () {
-              $vm.fields = getFields();
-              $vm.isLoading = false;
-            }, 50);
+            return new Promise(function (resolve) {
+              setTimeout(function () {
+                $vm.fields = getFields();
+                $vm.isLoading = false;
+                resolve();
+              }, 50);
+            });
           });
         }
 
