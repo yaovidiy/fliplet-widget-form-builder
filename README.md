@@ -1,6 +1,10 @@
 # Fliplet Form Builder
 
-## Adding a new component
+Documentation is available at https://developers.fliplet.com/API/components/form-builder.html
+
+---
+
+## Adding a new field type
 
 1. Add a Vue component file under `js/components/`
 2. Add a Handlebars template under `templates/components/`
