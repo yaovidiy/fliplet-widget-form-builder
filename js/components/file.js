@@ -51,25 +51,9 @@ Fliplet.FormBuilder.field('file', {
       for (var i = 0; i < this.$refs.fileInput.files.length; i++) {
         var file = this.$refs.fileInput.files.item(i);
         this.selectedFiles.push(file);
-
-        operations.push(new Promise(function (resolve, reject) {
-          var reader = new FileReader();
-
-          reader.readAsDataURL(file);
-
-          reader.onload = function () {
-            resolve(reader.result);
-          };
-
-          reader.onerror = reject;
-        }));
       }
 
-      Promise.all(operations).then(function (results) {
-        $vm.$emit('_input', $vm.name, results);
-      }, function (err) {
-        console.error(err);
-      });
+      $vm.$emit('_input', $vm.name, this.selectedFiles);
     }
   }
 });
