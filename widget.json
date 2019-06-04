@@ -1,6 +1,6 @@
 {
   "name": "Form",
-  "package": "com.fliplet.form-builder",
+  "package": "com.fliplet.form-builder.softobiz",
   "version": "1.0.0",
   "icon": "img/icon.png",
   "tags": ["type:component", "category:general"],
