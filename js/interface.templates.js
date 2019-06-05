@@ -36,7 +36,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.configurations.form"] = Handle
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n    <div class=\"col-xs-12\">\n      "
     + ((stack1 = ((helper = (helper = helpers.template || (depth0 != null ? depth0.template : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"template","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\n    </div>\n\n  </div>\n\n  <div class=\"footer\">\n    <button type=\"submit\" class=\"btn btn-primary\" :class=\"{ disabled: _fieldNameError }\">Save</button>\n  </div>\n</form>";
+    + "\n    </div>\n\n  </div>\n\n  <div class=\"footer\">\n    <button type=\"submit\" class=\"btn btn-primary\" :class=\"{ disabled: _fieldNameError }\">Done</button>\n  </div>\n</form>";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.horizontalRule"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
