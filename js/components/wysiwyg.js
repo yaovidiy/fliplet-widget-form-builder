@@ -77,6 +77,7 @@ Fliplet.FormBuilder.field('wysiwyg', {
       autoresize_min_height: lineHeight * this.rows,
       autofocus: false,
       branding: false,
+      paste_as_text: true,
       setup: function (editor) {
         editor.on('init', function () {
           $vm.editor = editor;
