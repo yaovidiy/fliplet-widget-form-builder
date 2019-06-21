@@ -216,8 +216,10 @@ Fliplet.FormBuilder.field('image', {
       });
     },
     onFileChange: function() {
-      for (var i = 0; i < this.$refs.imageInput.files.length; i++) {
-        this.processImage(this.$refs.imageInput.files.item(i), true);
+      var files = this.$refs.imageInput.files;
+      
+      for (var i = 0; i < files.length; i++) {
+        this.processImage(files.item(i), true);
       }
     },
     drawImageOnCanvas: function(img, canvas) {
