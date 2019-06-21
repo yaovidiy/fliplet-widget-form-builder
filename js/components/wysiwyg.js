@@ -81,6 +81,12 @@ Fliplet.FormBuilder.field('wysiwyg', {
       setup: function (editor) {
         editor.on('init', function () {
           $vm.editor = editor;
+
+          // initialise value if it was set prior to initialisation
+          if ($vm.value) {
+            editor.setContent($vm.value, { format : 'raw' });
+          }
+
           if ($vm.isInterface) {
             // iFrames don't work with the form builder's Sortable feature
             // Instead, the iFrame is swapped with a <div></div> of the same dimensions
