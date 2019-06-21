@@ -50,8 +50,8 @@ Fliplet.FormBuilder.field('image', {
   },
   mounted: function () {
     var $vm = this;
-
-    this.value.forEach(function (image, index) {
+  
+    $vm.value.forEach(function (image, index) {
       $vm.addThumbnailToCanvas(image, index);
     });
   },
@@ -61,14 +61,14 @@ Fliplet.FormBuilder.field('image', {
   methods: {
     removeImage: function(index) {
       var $vm = this;
-      
-      this.value.splice(index, 1);
-      
-      this.value.forEach(function (image, index) {
+  
+      $vm.value.splice(index, 1);
+  
+      $vm.value.forEach(function (image, index) {
         $vm.addThumbnailToCanvas(image, index);
       });
-      
-      this.$emit('_input', this.name, this.value);
+  
+      $vm.$emit('_input', $vm.name, $vm.value);
     },
     onReset: function() {
       var canvas = this.$refs.canvas;
@@ -259,21 +259,21 @@ Fliplet.FormBuilder.field('image', {
           ? imageURI
           :'data:image/jpeg;base64,' + imageURI;
       }
-      
-      this.$nextTick(function () {
+  
+      $vm.$nextTick(function () {
         var canvas = this.$refs.canvas[indexCanvas];
-        var canvasWidth = canvas.clientWidth;
-        var canvasHeight = canvas.clientHeight;
-        canvas.width = canvasWidth;
-        canvas.height = canvasHeight;
-        var canvasRatio = canvasWidth / canvasHeight;
         var context = canvas.getContext('2d');
+        
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
         context.clearRect(0, 0, canvas.width, canvas.height);
   
         var img = new Image();
+        
         img.onload = function imageLoadedFromURI() {
           $vm.drawImageOnCanvas(this, canvas);
         };
+        
         img.src = imageURI;
       });
     }
