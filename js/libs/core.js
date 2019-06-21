@@ -268,16 +268,32 @@ Fliplet.FormBuilder = (function() {
       // If options is an array, automatically deal with options
       if (hasOptions) {
         component.computed._options = function generateOptions() {
-          return this.options.map(function(option) {
-            return option.id;
+          return this.options.map(function (option) {
+            if (option.id && option.id != option.label) {
+              return option.label + ' <' + option.id + '>';
+            }
+            return option.label;
           }).join('\r\n');
         };
 
         component.methods._setOptions = function setOptions(str) {
-          this.options = _.compact(str.split(/\r?\n/).map(function(s) {
-            return {
-              id: s.trim()
-            };
+          this.options = _.compact(str.split(/\r?\n/).map(function (rawOption) {
+            rawOption = rawOption.trim();
+
+            var regex = /<.*>$/g;
+            var match = rawOption.match(regex);
+            var option = {};
+
+            if (match) {
+              option.label = rawOption.replace(regex, '').trim();
+              var value = match[0].substring(1, match[0].length - 1).trim();
+              option.id = value || option.label;
+            } else {
+              option.label = rawOption;
+              option.id = rawOption;
+            }
+
+            return option;
           }));
         };
       }
