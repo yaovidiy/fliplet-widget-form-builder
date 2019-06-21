@@ -521,17 +521,23 @@ html[dir="rtl"] .radio.radio-icon input[type="radio"] + label > span.check {
 .fileUpload {
   position: relative;
   overflow: hidden;
-  padding-right: 40px;
-  padding-left: 40px;
+  padding-top: 10px;
 }
 
 .fileUpload .canvas-holder {
-  position: absolute;
-  width: 36px;
-  height: 36px;
-  top: 4px;
-  left: 4px;
-  border-radius: 5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+}
+
+.fileUpload .row {
+  margin: 0;
+}
+
+.fileUpload .row > div {
+  margin-bottom: 15px;
 }
 
 .fileUpload .canvas-holder .badge {
@@ -542,9 +548,45 @@ html[dir="rtl"] .radio.radio-icon input[type="radio"] + label > span.check {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.7);
 }
 
+.fileUpload .canvas-remove {
+  position: absolute;
+  padding: 0;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: #ffa7a7;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.fileUpload .canvas-remove:after,
+.fileUpload .canvas-remove:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: #fff;
+  transform: translate(-50%, -50%) rotate(45deg);
+  z-index: 1;
+}
+
+.fileUpload .canvas-remove:before {
+  transform: translate(-50%, -50%) rotate(135deg);
+}
+
 .fileUpload .canvas-holder canvas {
-  width: 36px;
-  height: 36px;
+  width: 100%;
+  height: 70px;
+}
+
+.fileUpload .btn {
+  position: relative;
 }
 
 .fileUpload .fa {
@@ -783,6 +825,11 @@ form hr {
   }
   .form-html .btn + .btn {
     margin-right: 15px;
+  }
+
+  .fileUpload .canvas-holder canvas {
+    width: 100%;
+    height: 130px;
   }
 }
 

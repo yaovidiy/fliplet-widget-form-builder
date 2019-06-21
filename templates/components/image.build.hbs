@@ -1,10 +1,15 @@
-<label :for="name" class="fileUpload btn btn-primary">
-  <div class="canvas-holder">
-    <span v-if="value.length > 1" class="badge">\{{value.length}}</span>
-    <canvas ref="canvas"></canvas>
+<div class="fileUpload">
+  <div class="row">
+    <div class="col-xs-4 col-sm-3" v-for="(image, index) in value">
+      <div class="canvas-holder">
+        <canvas ref="canvas"></canvas>
+        <button class="canvas-remove" type="button" v-on:click="removeImage(index)"></button>
+      </div>
+    </div>
   </div>
-  <i class="fa fa-plus" aria-hidden="true"></i>
-  <span v-if="value.length">Replace image</span>
-  <span v-else>Choose image</span>
-  <input multiple type="file" ref="imageInput" :id="name" :name="name" class="input-file selectfile" accept="image/gif, image/jpg, image/jpeg, image/tiff, image/png" :data-folder-id="mediaFolderId" v-on:click="onFileClick" v-on:change="onFileChange">
-</label>
+  <label :for="name" class="btn btn-primary">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    <span>Choose image</span>
+    <input multiple type="file" ref="imageInput" :id="name" :name="name" class="input-file selectfile" accept="image/gif, image/jpg, image/jpeg, image/tiff, image/png" :data-folder-id="mediaFolderId" v-on:click="onFileClick" v-on:change="onFileChange">
+  </label>
+</div>
