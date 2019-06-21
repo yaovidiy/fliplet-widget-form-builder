@@ -71,8 +71,8 @@ Fliplet.FormBuilder.field('image', {
       $vm.$emit('_input', $vm.name, $vm.value);
     },
     onReset: function() {
-      var canvas = this.$refs.canvas;
-      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+      this.value = [];
+      this.$emit('_input', this.name, this.value);
     },
     onBeforeSubmit: function (data) {
       $(this.$refs.imageInput).parents('.form-group').removeClass('has-error');
