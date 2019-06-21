@@ -81,7 +81,7 @@ function generateFormDefaults(data) {
     fields: [],
     offline: true,
     redirect: false,
-    dataStore: ['dataSource'],
+    dataStore: [],
     onSubmit: [],
     template: false,
     saveProgress: true,
@@ -123,8 +123,8 @@ var app = new Vue({
       toggleTemplatedEmailAdd: formSettings.onSubmit.indexOf('templatedEmailAdd') > -1,
       toggleTemplatedEmailEdit: formSettings.onSubmit.indexOf('templatedEmailEdit') > -1,
       toggleGenerateEmail: formSettings.onSubmit.indexOf('generateEmail') > -1,
-      showExtraAdd: formSettings.dataStore.indexOf('dataSource') > -1,
-      showExtraEdit: formSettings.dataStore.indexOf('editDataSource') > -1,
+      showExtraAdd: formSettings.dataSourceId && formSettings.dataStore.indexOf('dataSource') > -1,
+      showExtraEdit: formSettings.dataSourceId && formSettings.dataStore.indexOf('editDataSource') > -1,
       userData: {},
       defaultEmailSettings: {
         subject: '',
@@ -140,7 +140,7 @@ var app = new Vue({
       emailTemplateEdit: formSettings.emailTemplateEdit || undefined,
       generateEmailTemplate: formSettings.generateEmailTemplate || undefined,
       conflictWarning: formSettings.dataStore.indexOf('dataSource') > -1 && formSettings.autobindProfileEditing ? true : false,
-      manageDataBtn: formSettings.dataSourceId && formSettings.dataSourceId !== '' ? true : false,
+      showDataSourceSettings: !!formSettings.dataSourceId,
       organizationName: '',
       isPreviewing: formSettings.previewingTemplate !== '',
       editor: undefined
@@ -270,7 +270,7 @@ var app = new Vue({
       }).then(function(ds) {
         $vm.dataSources.push(ds);
         $vm.settings.dataSourceId = ds.id;
-        $vm.manageDataBtn = true;
+        $vm.showDataSourceSettings = true;
       });
     },
     manageDataSource: function(dataSourceId) {
@@ -687,7 +687,13 @@ var app = new Vue({
       changeSelectText();
     },
     'settings.dataSourceId': function(value) {
-      this.manageDataBtn = value && value !== '' && value !== 'new';
+      this.showDataSourceSettings = value && value !== 'new';
+
+      if (!this.showDataSourceSettings) {
+        this.showExtraAdd = false;
+        this.showExtraEdit = false;
+        this.settings.dataStore = [];
+      }
 
       if (value === 'new') {
         this.createDataSource();
@@ -885,6 +891,10 @@ var app = new Vue({
     window.linkProvider = null;
     var $vm = this;
     $vm.settings.name = $vm.settings.name || 'Untitled form';
+
+    if (!$vm.showDataSourceSettings) {
+      $vm.settings.dataStore = [];
+    }
 
     if (this.chooseTemplate) {
       Fliplet.Studio.emit('widget-save-label-update', {
