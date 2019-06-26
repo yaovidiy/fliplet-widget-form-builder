@@ -579,6 +579,10 @@ label.fileUpload {
   padding: 0 15px;
 }
 
+.modal-body .form-fields-customize .text-muted {
+  color: #00abd1;
+}
+
 .modal-body .footer {
   position: absolute;
   bottom: 0;
@@ -619,6 +623,11 @@ label.fileUpload {
     max-width: 50%;
     left: auto;
     margin: 10px;
+  }
+
+  .modal-body .form-fields-customize {
+    display: inline-block;
+    padding-top: 10px;
   }
 }
 
