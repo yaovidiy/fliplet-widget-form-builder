@@ -51,6 +51,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
     fields.forEach(function (field) {
       field.enabled = true;
+      field.formId = 'f' + data.id;
     });
 
     if (fields.length && (data.saveProgress && typeof progress === 'object') || entry) {

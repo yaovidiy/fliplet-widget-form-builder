@@ -102,6 +102,10 @@ Fliplet.FormBuilder = (function() {
           type: String,
           default: component.name || 'Label text'
         },
+        formId: {
+          type: String,
+          default: ''
+        },
         showLabel: {
           type: Boolean,
           default: true
@@ -180,20 +184,20 @@ Fliplet.FormBuilder = (function() {
         type: Boolean,
         default: false
       };
-  
+
       component.props._isCustomizeName = {
         type: Boolean,
         default: false
       };
 
       component.computed._fieldNameError = function() {
-        
+
         if (!this._isCustomizeName && !this.label) {
           this.name = '';
         } else if (!this._isCustomizeName && this.label) {
           this.name = this.label;
         }
-  
+
         if (!this.name) {
           return 'Please provide a Field Name';
         }
@@ -208,32 +212,32 @@ Fliplet.FormBuilder = (function() {
 
         return '';
       };
-  
+
       component.methods._addLabelName = function() {
         this._isCustomizeName = !this._isCustomizeName;
         this.initTooltip();
       };
-  
+
       if (!component.methods.addLabelName) {
         component.methods.addLabelName = component.methods._addLabelName;
       }
-  
+
       component.methods._initTooltip = function() {
         var $vm = this;
-        
+
         $vm.$nextTick(function () {
           var tooltip = $vm.$refs.tooltip;
-  
+
           if (tooltip) {
             $(tooltip).tooltip();
           }
         });
       };
-  
+
       if (!component.methods.initTooltip) {
         component.methods.initTooltip = component.methods._initTooltip;
       }
-      
+
       component.methods._openFilePicker = function() {
         var $vm = this;
 
