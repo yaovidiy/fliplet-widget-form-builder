@@ -155,7 +155,7 @@ Fliplet.FormBuilder = (function() {
         });
 
         eventHub.$emit('field-settings-changed', data);
-      }
+      };
 
       if (!component.methods.onSubmit) {
         component.methods.onSubmit = component.methods._onSubmit;
@@ -163,9 +163,7 @@ Fliplet.FormBuilder = (function() {
 
       if (!component.mounted) {
         component.mounted = function() {
-          if (this.$refs.tooltip) {
-            $(this.$refs.tooltip).tooltip();
-          }
+          this.initTooltip();
         };
       }
 
@@ -182,8 +180,20 @@ Fliplet.FormBuilder = (function() {
         type: Boolean,
         default: false
       };
+  
+      component.props._isCustomizeName = {
+        type: Boolean,
+        default: false
+      };
 
       component.computed._fieldNameError = function() {
+        
+        if (!this._isCustomizeName && !this.label) {
+          this.name = '';
+        } else if (!this._isCustomizeName && this.label) {
+          this.name = this.label;
+        }
+  
         if (!this.name) {
           return 'Please provide a Field Name';
         }
@@ -198,7 +208,32 @@ Fliplet.FormBuilder = (function() {
 
         return '';
       };
-
+  
+      component.methods._addLabelName = function() {
+        this._isCustomizeName = !this._isCustomizeName;
+        this.initTooltip();
+      };
+  
+      if (!component.methods.addLabelName) {
+        component.methods.addLabelName = component.methods._addLabelName;
+      }
+  
+      component.methods._initTooltip = function() {
+        var $vm = this;
+        
+        $vm.$nextTick(function () {
+          var tooltip = $vm.$refs.tooltip;
+  
+          if (tooltip) {
+            $(tooltip).tooltip();
+          }
+        });
+      };
+  
+      if (!component.methods.initTooltip) {
+        component.methods.initTooltip = component.methods._initTooltip;
+      }
+      
       component.methods._openFilePicker = function() {
         var $vm = this;
 
@@ -233,7 +268,7 @@ Fliplet.FormBuilder = (function() {
           $vm.mediaFolderNavStack = result.data[0].navStackRef || {};
           window.currentProvider = null;
         });
-      }
+      };
 
       if (!component.methods.openFilePicker) {
         component.methods.openFilePicker = component.methods._openFilePicker;
@@ -257,7 +292,7 @@ Fliplet.FormBuilder = (function() {
             }
           }
         });
-      }
+      };
 
       if (!component.methods.openFileManager) {
         component.methods.openFileManager = component.methods._openFileManager;
