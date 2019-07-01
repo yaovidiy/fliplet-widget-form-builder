@@ -623,6 +623,10 @@ nav>.btn {
   padding: 0 15px;
 }
 
+.modal-body .form-fields-customize {
+  cursor: default;
+}
+
 .modal-body .form-fields-customize .text-muted {
   color: #00abd1;
 }

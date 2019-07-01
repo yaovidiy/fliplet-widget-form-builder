@@ -141,6 +141,10 @@ Fliplet.FormBuilder = (function() {
 
       // On submit event
       component.methods._onSubmit = function() {
+        if (this.name === '') {
+          this.name = this.label;
+        }
+        
         if (this._fieldNameError) {
           return;
         }
@@ -163,6 +167,7 @@ Fliplet.FormBuilder = (function() {
 
       if (!component.mounted) {
         component.mounted = function() {
+          this._showNameField = this.name !== this.label;
           this.initTooltip();
         };
       }
@@ -181,19 +186,12 @@ Fliplet.FormBuilder = (function() {
         default: false
       };
   
-      component.props._isCustomizeName = {
+      component.props._showNameField = {
         type: Boolean,
         default: false
       };
 
       component.computed._fieldNameError = function() {
-        
-        if (!this._isCustomizeName && !this.label) {
-          this.name = '';
-        } else if (!this._isCustomizeName && this.label) {
-          this.name = this.label;
-        }
-  
         if (!this.name) {
           return 'Please provide a Field Name';
         }
@@ -209,13 +207,33 @@ Fliplet.FormBuilder = (function() {
         return '';
       };
   
-      component.methods._addLabelName = function() {
-        this._isCustomizeName = !this._isCustomizeName;
-        this.initTooltip();
+      component.computed._fieldLabelError = function() {
+        if (!this.label) {
+          return 'Please provide a Field name & label';
+        }
+    
+        var existing = _.findIndex(this._fields, {
+          name: this.name
+        });
+    
+        if (existing > -1 && existing !== this._idx) {
+          return this.name + ' is taken. Please use another Field Name.';
+        }
+    
+        return '';
       };
   
-      if (!component.methods.addLabelName) {
-        component.methods.addLabelName = component.methods._addLabelName;
+      component.methods._addCustomName = function(isEqualToLabel) {
+        this._showNameField = !this._showNameField;
+        this.initTooltip();
+        
+        if (isEqualToLabel) {
+          this.name = '';
+        }
+      };
+  
+      if (!component.methods.addCustomName) {
+        component.methods.addCustomName = component.methods._addCustomName;
       }
   
       component.methods._initTooltip = function() {
