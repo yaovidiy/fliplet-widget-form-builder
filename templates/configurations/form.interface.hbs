@@ -11,7 +11,7 @@
                 Field label</label>
             </div>
             <div class="col-xs-7 text-right" v-if="!_showNameField">
-              <span class="btn-link form-fields-customize" @click="addCustomName(false)">Customize field name <i class="text-muted fa fa-question-circle" ref="tooltip" data-viewport=".modal-body" data-toggle="tooltip" data-placement="left" title="Customize a different field name for the data source"></i>
+              <span class="btn-link form-fields-customize" @click="addCustomName">Customize field name <i class="text-muted fa fa-question-circle" ref="tooltip" data-viewport=".modal-body" data-toggle="tooltip" data-placement="left" title="Customize a different field name for the data source"></i>
               </span>
             </div>
             <div class="col-xs-12">
@@ -29,7 +29,7 @@
               <label class="control-label" for="field-name">Field name</label>
             </div>
             <div class="col-xs-6 col-xs-6 text-right">
-          <span class="btn-link form-fields-customize" @click="addCustomName(true)">
+          <span class="btn-link form-fields-customize" @click="addCustomName">
           Auto-match with field label
           </span>
             </div>

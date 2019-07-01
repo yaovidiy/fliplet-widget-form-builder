@@ -223,13 +223,10 @@ Fliplet.FormBuilder = (function() {
         return '';
       };
   
-      component.methods._addCustomName = function(isEqualToLabel) {
+      component.methods._addCustomName = function() {
         this._showNameField = !this._showNameField;
+        this.name = this.label;
         this.initTooltip();
-        
-        if (isEqualToLabel) {
-          this.name = '';
-        }
       };
   
       if (!component.methods.addCustomName) {
