@@ -365,7 +365,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
               Fliplet.Navigate.to(data.linkAction);
             }).catch(function (err) {
               Fliplet.Modal.alert({
-                message: err.description || err.message || err.description || err.reason || err
+                message: Fliplet.parseError(err)
               });
               Fliplet.Navigate.to(data.linkAction);
             })
