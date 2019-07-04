@@ -158,23 +158,27 @@ Fliplet.FormBuilder.field('image', {
     processImage: function(file, addThumbnail) {
       var $vm = this;
       var mimeType = file.type || 'image/png';
-      loadImage.parseMetaData(file, function(data) {
-        loadImage(
-          file,
-          function(img) {
-            var imgBase64Url = img.toDataURL(mimeType, $vm.jpegQuality);
-            $vm.value.push(imgBase64Url);
-            if (addThumbnail) {
-              $vm.addThumbnailToCanvas(imgBase64Url, $vm.value.length - 1);
-            }
-            $vm.$emit('_input', $vm.name, $vm.value);
-          }, {
-            canvas: true,
-            maxWidth: $vm.customWidth,
-            maxHeight: $vm.customHeight,
-            orientation: data.exif ?
-              data.exif.get('Orientation') : true
-          });
+
+      loadImage.parseMetaData(file, function (data) {
+        var options = {
+          canvas: true,
+          maxWidth: $vm.customWidth,
+          maxHeight: $vm.customHeight,
+          orientation: data.exif ? data.exif.get('Orientation') : true
+        };
+
+        loadImage(file, function (img) {
+          var scaledImage = loadImage.scale(img, options);
+          var imgBase64Url = scaledImage.toDataURL(mimeType, $vm.jpegQuality);
+
+          $vm.value.push(imgBase64Url);
+
+          if (addThumbnail) {
+            $vm.addThumbnailToCanvas(imgBase64Url, $vm.value.length - 1);
+          }
+
+          $vm.$emit('_input', $vm.name, $vm.value);
+        });
       });
     },
     onFileClick: function(event) {
