@@ -131,7 +131,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
       }
     },
     methods: {
-      start: function() {
+      start: function(event) {
+        if (event) {
+          event.preventDefault();
+        }
         this.isSent = false;
       },
       reset: function(trackEvents) {
