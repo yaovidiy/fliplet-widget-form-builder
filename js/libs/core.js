@@ -66,7 +66,23 @@ Fliplet.FormBuilder = (function() {
       // Define method to emit the new input value on change
       if (!component.methods.updateValue) {
         component.methods.updateValue = function() {
+          this.highlightError();
           this.$emit('_input', this.name, this.value);
+        }
+      }
+
+      // Define method to highlight Error on blur form field
+      component.methods.highlightError = function () {
+        var $vm = this;
+
+        if ($vm.$v && $vm.$v.value) {
+          $vm.$v.$touch();
+
+          if ($vm.$v.value.$error) {
+            $($vm.$el).addClass('has-error');
+          } else {
+            $($vm.$el).removeClass('has-error');
+          }
         }
       }
 

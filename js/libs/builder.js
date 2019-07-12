@@ -728,7 +728,6 @@ var app = new Vue({
             $vm.resultEditor.refresh();
           }, 1);
         }
-
       }
     },
     'settings.redirect': function(value) {
