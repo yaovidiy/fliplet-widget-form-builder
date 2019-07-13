@@ -7,5 +7,5 @@
   :id="name"
   :placeholder="placeholder"
 />
-<p class="text-danger" v-if="!$v.value.email">Email should be valid.</p>
+<p class="text-danger" v-if="$v.value.email === false && $v.value.$dirty">Email should be valid.</p>
 <p class="text-danger" v-if="$v.value.required === false && $v.value.$dirty">Field is required.</p>
