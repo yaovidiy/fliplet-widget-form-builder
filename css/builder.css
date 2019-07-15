@@ -883,3 +883,10 @@ form hr {
 .mce-container-body .mce-edit-area {
   overflow: hidden;
 }
+
+@media only screen and (max-width: 670px) {
+  .mce-window {
+    top: 150px !important;
+    bottom: unset !important;
+  }
+}

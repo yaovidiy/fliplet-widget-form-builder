@@ -45,7 +45,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
     };
   }
 
-  function getFields() {
+  function getFields(isEditMode) {
     var fields = _.compact(JSON.parse(JSON.stringify(data.fields || [])));
     var progress = getProgress();
 
@@ -85,7 +85,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
           return field.value;
         }
 
-        if (progress) {
+        if (progress && !isEditMode) {
           var savedValue = progress[field.name];
 
           if (typeof savedValue !== 'undefined') {
@@ -132,7 +132,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
       }
     },
     methods: {
-      start: function() {
+      start: function(event) {
+        if (event) {
+          event.preventDefault();
+        }
         this.isSent = false;
       },
       reset: function(trackEvents) {
@@ -436,7 +439,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
             entry = record;
 
-            $vm.fields = getFields();
+            $vm.fields = getFields(true);
             $vm.isLoading = false;
             $vm.$forceUpdate();
           }).catch(function (err) {
@@ -457,16 +460,19 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
         if (data.autobindProfileEditing) {
           return Fliplet.Session.get().then(function (session) {
+            var isEditMode = false;
+
             if (session.entries && session.entries.dataSource) {
               entryId = 'session'; // this works because you can use it as an ID on the backend
               entry = session.entries.dataSource;
+              isEditMode = true;
             }
 
             // Re-render fields
             $vm.fields = [];
             return new Promise(function (resolve) {
               setTimeout(function () {
-                $vm.fields = getFields();
+                $vm.fields = getFields(isEditMode);
                 $vm.isLoading = false;
                 resolve();
               }, 50);
