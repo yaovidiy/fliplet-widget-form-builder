@@ -337,10 +337,10 @@ Fliplet.FormBuilder = (function() {
       if (hasOptions) {
         component.computed._options = function generateOptions() {
           return this.options.map(function (option) {
-            if (option.id && option.id != option.label) {
+            if (option.id && option.label && option.id != option.label) {
               return option.label + ' <' + option.id + '>';
             }
-            return option.label;
+            return option.label || option.id;
           }).join('\r\n');
         };
 

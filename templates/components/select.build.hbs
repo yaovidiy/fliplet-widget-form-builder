@@ -6,7 +6,7 @@
           v-model="value"
           v-on:change="updateValue()">
     <option v-if="placeholder" value="">\{{ placeholder }}</option>
-    <option v-for="option in options" :value="option.id" :disabled="option.disabled">
+    <option v-for="option in options" :value="option.id || option.label" :disabled="option.disabled">
       \{{ option.label || option.id }}
     </option>
   </select>
