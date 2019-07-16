@@ -20,7 +20,7 @@ Fliplet.FormBuilder.field('radio', {
     };
 
     if (this.required) {
-      rules.value.required = window.validators.required
+      rules.value.required = window.validators.required;
     }
     return rules;
   }
