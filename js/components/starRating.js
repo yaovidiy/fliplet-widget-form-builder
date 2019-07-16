@@ -29,7 +29,7 @@ Fliplet.FormBuilder.field('starRating', {
     };
 
     if (this.required) {
-      rules.value.required = window.validators.required
+      rules.value.required = window.validators.required;
     }
     return rules;
   }

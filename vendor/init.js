@@ -1,1 +1,0 @@
-Vue.use(window.vuelidate.default);

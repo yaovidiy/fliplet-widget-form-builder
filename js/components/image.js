@@ -50,7 +50,7 @@ Fliplet.FormBuilder.field('image', {
   },
   mounted: function () {
     var $vm = this;
-  
+
     $vm.value.forEach(function (image, index) {
       $vm.addThumbnailToCanvas(image, index);
     });
@@ -217,7 +217,7 @@ Fliplet.FormBuilder.field('image', {
     },
     onFileChange: function() {
       var files = this.$refs.imageInput.files;
-      
+
       for (var i = 0; i < files.length; i++) {
         this.processImage(files.item(i), true);
       }
@@ -261,21 +261,21 @@ Fliplet.FormBuilder.field('image', {
           ? imageURI
           :'data:image/jpeg;base64,' + imageURI;
       }
-  
+
       $vm.$nextTick(function () {
         var canvas = this.$refs.canvas[indexCanvas];
         var context = canvas.getContext('2d');
-        
+
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
         context.clearRect(0, 0, canvas.width, canvas.height);
-  
+
         var img = new Image();
-        
+
         img.onload = function imageLoadedFromURI() {
           $vm.drawImageOnCanvas(this, canvas);
         };
-        
+
         img.src = imageURI;
       });
     }

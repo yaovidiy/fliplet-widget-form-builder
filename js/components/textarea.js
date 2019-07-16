@@ -16,7 +16,7 @@ Fliplet.FormBuilder.field('textarea', {
     };
 
     if (this.required) {
-      rules.value.required = window.validators.required
+      rules.value.required = window.validators.required;
     }
     return rules;
   }

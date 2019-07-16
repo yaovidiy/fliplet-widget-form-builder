@@ -37,11 +37,11 @@ Fliplet.FormBuilder.field('number', {
     return rules;
   },
   methods: {
-    decimalValidator: function (maxNumbersAfrerPoint) {
+    decimalValidator: function (maxNumbersAfterPoint) {
       return window.validators.helpers.withParams(
         {
           type: 'decimalValidator',
-          value: maxNumbersAfrerPoint
+          value: maxNumbersAfterPoint
         },
         function (value) {
           if (!value) {
@@ -61,7 +61,7 @@ Fliplet.FormBuilder.field('number', {
             currentNumbersAfterPoint = valueParts[1] ? valueParts[1].length : 0;
           }
 
-          return maxNumbersAfrerPoint >= currentNumbersAfterPoint;
+          return maxNumbersAfterPoint >= currentNumbersAfterPoint;
         }
       );
     }

@@ -3,6 +3,8 @@ Fliplet.FormBuilder = (function() {
   var components = {};
   var eventHub = new Vue();
 
+  Vue.use(window.vuelidate.default);
+
   var templates = Fliplet.Widget.Templates;
 
   function name(component) {

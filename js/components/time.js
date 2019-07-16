@@ -12,7 +12,7 @@ Fliplet.FormBuilder.field('time', {
     };
 
     if (this.required) {
-      rules.value.required = window.validators.required
+      rules.value.required = window.validators.required;
     }
     return rules;
   },

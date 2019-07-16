@@ -12,7 +12,7 @@ Fliplet.FormBuilder.field('input', {
     };
 
     if (this.required) {
-      rules.value.required = window.validators.required
+      rules.value.required = window.validators.required;
     }
     return rules;
   }

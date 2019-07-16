@@ -7,8 +7,7 @@
                     :name="name"
                     v-model="value"
                     :value="option.label || option.id"
-                    v-on:change="updateValue()"
-            >
+                    v-on:change="updateValue()">
             <label :for="name + '-' + index">
                 <span class="check"><i class="fa fa-check"></i></span> \{{ option.label || option.id }}
             </label>

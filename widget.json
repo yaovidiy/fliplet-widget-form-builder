@@ -22,7 +22,6 @@
     "assets": [
       "vendor/vuelidate.min.js",
       "vendor/validators.min.js",
-      "vendor/init.js",
       "vendor/sortable.js",
       "vendor/vue-sortable.js",
       "js/build.templates.js",
@@ -97,7 +96,6 @@
     "assets": [
       "vendor/vuelidate.min.js",
       "vendor/validators.min.js",
-      "vendor/init.js",
       "vendor/load-image.all.min.js",
       "js/build.templates.js",
       "js/libs/core.js",

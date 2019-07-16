@@ -252,7 +252,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
         $vm.$children.forEach(function (inputField) {
 
-          // check is not buttons
+          // checks if component have vuelidate validation object
           if (inputField.$v) {
             inputField.$v.$touch();
 
