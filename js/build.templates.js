@@ -7,7 +7,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.buttons"] = Handleb
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.checkbox"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<template>\n    <template v-for=\"(option, index) in options\">\n        <div class=\"checkbox checkbox-icon\">\n            <input\n                    type=\"checkbox\"\n                    :id=\"name + '-' + index\"\n                    :name=\"name\"\n                    v-model=\"value\"\n                    :value=\"option.label || option.id\"\n                    v-on:change=\"updateValue()\">\n            <label :for=\"name + '-' + index\">\n                <span class=\"check\"><i class=\"fa fa-check\"></i></span> {{ option.label || option.id }}\n            </label>\n        </div>\n    </template>\n    <p class=\"text-danger\" v-if=\"!$v.value.required && $v.value.$dirty\">Field is required.</p>\n</template>\n\n";
+    return "<template>\n    <template v-for=\"(option, index) in options\">\n        <div class=\"checkbox checkbox-icon\">\n            <input\n                    type=\"checkbox\"\n                    :id=\"name + '-' + index\"\n                    :name=\"name\"\n                    v-model=\"value\"\n                    :value=\"option.label || option.id\"\n                    v-on:change=\"updateValue()\"\n            >\n            <label :for=\"name + '-' + index\">\n                <span class=\"check\"><i class=\"fa fa-check\"></i></span> {{ option.label || option.id }}\n            </label>\n        </div>\n    </template>\n    <p class=\"text-danger\" v-if=\"!$v.value.required && $v.value.$dirty\">Field is required.</p>\n</template>\n\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.date"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -15,7 +15,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.date"] = Handlebars
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.email"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<input\n  type=\"text\"\n  class=\"form-control\"\n  v-model.trim.lazy=\"value\"\n  v-on:blur=\"updateValue()\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n/>\n<p class=\"text-danger\" v-if=\"$v.value.email === false && $v.value.$dirty\">The input is not a valid email address.</p>\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>";
+    return "<input\n  type=\"text\"\n  class=\"form-control\"\n  v-model.trim.lazy=\"value\"\n  v-on:blur=\"updateValue()\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n/>\n<p class=\"text-danger\" v-if=\"!$v.value.email\">Email should be valid.</p>\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -27,7 +27,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.field"] = Handlebar
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.file"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<label :for=\"name\" class=\"fileUpload btn btn-primary\">\n  <i class=\"fa fa-plus\" aria-hidden=\"true\"></i>\n  <span v-if=\"selectedFileName\">Replace file</span>\n  <span v-else>Choose file</span>\n  <input type=\"file\" ref=\"fileInput\" :id=\"name\" :name=\"name\" :data-folder-id=\"mediaFolderId\" class=\"input-file selectfile\" :required=\"required\" v-on:change=\"updateValue()\" multiple>\n</label>\n<template v-if=\"selectedFileName\">\n  <div class=\"file-name-helper\">Chosen file(s): <strong>{{ selectedFileName }}</strong></div>\n<template>";
+    return "<label :for=\"name\" class=\"fileUpload btn btn-primary\">\n  <i class=\"fa fa-plus\" aria-hidden=\"true\"></i>\n  <span v-if=\"selectedFileName\">Replace file</span>\n  <span v-else>Choose file</span>\n  <input type=\"file\" ref=\"fileInput\" :id=\"name\" :name=\"name\" :data-folder-id=\"mediaFolderId\" class=\"input-file selectfile\" :required=\"required\" v-on:change=\"updateValue()\" multiple>\n</label>\n<template v-if=\"selectedFileName\">\n  <div class=\"file-name-helper\">Chosen file(s): <strong>{{ selectedFileName }}</strong></div>\n<template>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.horizontalRule"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -55,11 +55,11 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.password"] = Handle
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.radio"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<template>\n    <template v-for=\"(option, index) in options\">\n      <div class=\"radio radio-icon\">\n        <input\n                type=\"radio\"\n                :id=\"name + '-' + index\"\n                :name=\"name\"\n                v-model=\"value\"\n                :value=\"option.label || option.id\"\n                v-on:change=\"updateValue()\">\n        <label :for=\"name + '-' + index\">\n          <span class=\"check\"><i class=\"fa fa-circle\"></i></span> {{ option.label || option.id }}\n        </label>\n      </div>\n    </template>\n    <p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>\n</template>";
+    return "<template>\n    <template v-for=\"(option, index) in options\">\n      <div class=\"radio radio-icon\">\n        <input\n                type=\"radio\"\n                :id=\"name + '-' + index\"\n                :name=\"name\"\n                v-model=\"value\"\n                :value=\"option.label || option.id\"\n                v-on:change=\"updateValue()\"\n        >\n        <label :for=\"name + '-' + index\">\n          <span class=\"check\"><i class=\"fa fa-circle\"></i></span> {{ option.label || option.id }}\n        </label>\n      </div>\n    </template>\n    <p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>\n</template>";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.select"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<label :for=\"name\" class=\"select-proxy-display\">\n  <select\n          class=\"form-control hidden-select\"\n          :name=\"name\"\n          :id=\"name\"\n          v-model=\"value\"\n          v-on:change=\"updateValue()\">\n    <option v-if=\"placeholder\" value=\"\">{{ placeholder }}</option>\n    <option v-for=\"option in options\" :value=\"option.id\" :disabled=\"option.disabled\">\n      {{ option.label || option.id }}\n    </option>\n  </select>\n  <span class=\"icon fa fa-chevron-down\"></span>\n  <span class=\"select-value-proxy\"><template v-if=\"value && value !== ''\">{{ value }}</template><template v-else>{{ placeholder }}</template></span>\n</label>\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>\n";
+    return "<label :for=\"name\" class=\"select-proxy-display\">\n  <select\n          class=\"form-control hidden-select\"\n          :name=\"name\"\n          :id=\"name\"\n          v-model=\"value\"\n          v-on:change=\"updateValue()\"\n  >\n    <option v-if=\"placeholder\" value=\"\">{{ placeholder }}</option>\n    <option v-for=\"option in options\" :value=\"option.id\" :disabled=\"option.disabled\">\n      {{ option.label || option.id }}\n    </option>\n  </select>\n  <span class=\"icon fa fa-chevron-down\"></span>\n  <span class=\"select-value-proxy\"><template v-if=\"value && value !== ''\">{{ value }}</template><template v-else>{{ placeholder }}</template></span>\n</label>\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.signature"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -71,7 +71,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.starRating"] = Hand
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.telephone"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<input\n  type=\"tel\"\n  class=\"form-control\"\n  v-model.trim.lazy=\"value\"\n  v-on:blur=\"updateValue()\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n/>\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>\n<p class=\"text-danger\" v-if=\"$v.value.phone === false && $v.value.$dirty\">Phone could contain <b>; , . ( ) - + SPACE * #</b> and numbers.</p>";
+    return "<input\n  type=\"tel\"\n  class=\"form-control\"\n  v-model.trim.lazy=\"value\"\n  v-on:blur=\"updateValue()\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n/>\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>\n<p class=\"text-danger\" v-if=\"!$v.value.phone\">Phone could contain <b>; , . ( ) - + SPACE * #</b> and numbers.</p>";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.textarea"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -79,7 +79,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.textarea"] = Handle
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.time"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"input-group custom-time\">\n  <div class=\"input-group-addon\">\n    <i class=\"fa fa-clock-o\"></i>\n  </div>\n\n  <input \n    type=\"time\"\n    v-model.lazy=\"value\"\n    v-on:change=\"updateValue()\"\n    :name=\"name\"\n    :id=\"name\"\n    :placeholder=\"placeholder\"\n    class=\"form-control\"\n  />\n</div>\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>";
+    return "<div class=\"input-group custom-time\">\n  <div class=\"input-group-addon\">\n    <i class=\"fa fa-clock-o\"></i>\n  </div>\n\n  <input \n    type=\"time\"\n    v-model.lazy=\"value\"\n    v-on:change=\"updateValue()\"\n    :name=\"name\"\n    :id=\"name\"\n    :placeholder=\"placeholder\"\n    class=\"form-control\"\n  />\n</div>\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.title"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -87,11 +87,11 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.title"] = Handlebar
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.url"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<input\n  type=\"url\"\n  class=\"form-control\"\n  v-model.trim.lazy=\"value\"\n  v-on:blur=\"updateValue()\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n/>\n<p class=\"text-danger\" v-if=\"$v.value.url === false && $v.value.$ditry\">The input is not a valid URL.</p>\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>";
+    return "<input\n  type=\"url\"\n  class=\"form-control\"\n  v-model.trim.lazy=\"value\"\n  v-on:blur=\"updateValue()\"\n  :name=\"name\"\n  :id=\"name\"\n  :placeholder=\"placeholder\"\n/>\n<p class=\"text-danger\" v-if=\"!$v.value.url\">URL should be valid.</p>\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.wysiwyg"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<textarea\n  class=\"form-control\"\n  v-model.trim.lazy=\"value\"\n  ref=\"textarea\"\n  :name=\"name\"\n  :id=\"name\"\n></textarea>\n<div\n  class=\"ghost-tinymce\"\n  ref=\"ghost\"\n  v-html=\"value\"\n  v-if=\"isInterface\">\n</div>\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>";
+    return "<textarea\n  class=\"form-control\"\n  v-model.trim.lazy=\"value\"\n  ref=\"textarea\"\n  :name=\"name\"\n  :id=\"name\"\n></textarea>\n<div\n  class=\"ghost-tinymce\"\n  ref=\"ghost\"\n  v-html=\"value\"\n  v-if=\"isInterface\">\n</div>\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">Field is required.</p>\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.configurations.radio"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

@@ -88,7 +88,7 @@ Fliplet.FormBuilder.field('signature', {
 
       // highlight Error if not valid field when required
       if ($vm.required && $vm.pad.isEmpty()) {
-        this.highlightError();
+        this.highlightError()
       }
 
       // Get signature as base 64 string
