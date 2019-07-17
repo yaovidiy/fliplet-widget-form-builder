@@ -108,6 +108,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
     el: $(selector)[0],
     data: function() {
       return {
+        isFormValid: false,
         isSent: false,
         isSending: false,
         isSendingMessage: 'Saving data...',
@@ -241,13 +242,33 @@ Fliplet.Widget.instance('form-builder', function(data) {
         return found;
       },
       onSubmit: function() {
+        var $vm = this;
+        var formData = {};
+
         Fliplet.Analytics.trackEvent({
           category: 'form',
           action: 'submit'
         });
 
-        var $vm = this;
-        var formData = {};
+        // form validation
+        $vm.isFormValid = true;
+
+        $vm.$children.forEach(function (inputField) {
+
+          // checks if component have vuelidate validation object
+          if (inputField.$v) {
+            inputField.$v.$touch();
+
+            if (inputField.$v.$invalid) {
+              $(inputField.$el).addClass('has-error');
+              $vm.isFormValid = false;
+            }
+          }
+        });
+
+       if(!$vm.isFormValid){
+         return;
+       }
 
         this.isSending = true;
 
