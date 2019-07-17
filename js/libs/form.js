@@ -536,6 +536,19 @@ Fliplet.Widget.instance('form-builder', function(data) {
           on: function (event, fn) {
             return $form.$on(event, fn);
           },
+          fields: {
+            get: function () {
+              return $form.fields;
+            },
+            set: function (fields) {
+              if (!Array.isArray(fields)) {
+                throw new Error('fields must be an array');
+              }
+
+              data.fields = fields;
+              $form.fields = getFields();
+            }
+          },
           field: function (key) {
             var field = $form.getField(key);
 
