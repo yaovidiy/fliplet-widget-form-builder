@@ -40,6 +40,9 @@ Fliplet.FormBuilder.field('file', {
       return _.map(this.selectedFiles, 'name').join(', ');
     }
   },
+  destroyed: function() {
+    this.selectedFiles.length = 0;
+  },
   methods: {
     updateValue: function() {
       var $vm = this;
