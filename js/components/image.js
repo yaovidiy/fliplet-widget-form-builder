@@ -217,7 +217,7 @@ Fliplet.FormBuilder.field('image', {
     },
     onFileChange: function() {
       var files = this.$refs.imageInput.files;
-      
+
       for (var i = 0; i < files.length; i++) {
         this.processImage(files.item(i), true);
       }
